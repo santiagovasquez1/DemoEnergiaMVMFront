@@ -102,32 +102,32 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\nimport \"../TokenErc20/SafeMath.sol\";\r\n\r\nabstract contract TipoEnergia {\r\n    string public nombre;\r\n    uint256 public precio;\r\n    uint256 public cantidadEnergia;\r\n    using SafeMath for uint256;\r\n\r\n    function calcularPrecio() external pure virtual returns (uint256);\r\n\r\n    function getCantidadEnergia() public view returns (uint256) {\r\n        return cantidadEnergia;\r\n    }\r\n\r\n    function addCantidadEnergia(uint256 _cantidadEnergia) public {\r\n        uint256 tempCantidad = cantidadEnergia.add(_cantidadEnergia);\r\n        cantidadEnergia = tempCantidad;\r\n    }\r\n\r\n    function restarCantidadEnergia(uint256 _cantidadEnergia) public {\r\n        uint256 tempCantidad = cantidadEnergia.sub(_cantidadEnergia);\r\n        cantidadEnergia = tempCantidad;\r\n    }\r\n}\r\n\r\ncontract EnergiaSolar is TipoEnergia {\r\n    constructor(string memory _nombre, uint256 _cantidadEnergia) {\r\n        nombre = _nombre;\r\n        cantidadEnergia = _cantidadEnergia;\r\n    }\r\n\r\n    function calcularPrecio() public pure override returns (uint256) {\r\n        return 3;\r\n    }\r\n}\r\n\r\ncontract EnergiaEolica is TipoEnergia {\r\n    constructor(string memory _nombre, uint256 _cantidadEnergia) {\r\n        nombre = _nombre;\r\n        cantidadEnergia = _cantidadEnergia;\r\n    }\r\n\r\n    function calcularPrecio() public pure override returns (uint256) {\r\n        return 2;\r\n    }\r\n}\r\n\r\ncontract EnergiaHidraulica is TipoEnergia {\r\n    constructor(string memory _nombre, uint256 _cantidadEnergia) {\r\n        nombre = _nombre;\r\n        cantidadEnergia = _cantidadEnergia;\r\n    }\r\n\r\n    function calcularPrecio() public pure override returns (uint256) {\r\n        return 1;\r\n    }\r\n}\r\n",
-  "sourcePath": "C:\\Users\\alejandro.perez\\Desktop\\DemoMvmTruffle\\contracts\\models\\TipoEnergia.sol",
+  "sourcePath": "D:\\Santiago\\BlockChain\\DemoMvmTruffle\\contracts\\models\\TipoEnergia.sol",
   "ast": {
     "absolutePath": "project:/contracts/models/TipoEnergia.sol",
     "exportedSymbols": {
       "EnergiaEolica": [
-        10177
+        10272
       ],
       "EnergiaHidraulica": [
-        10205
+        10300
       ],
       "EnergiaSolar": [
-        10149
+        10244
       ],
       "SafeMath": [
-        1707
+        1828
       ],
       "TipoEnergia": [
-        10121
+        10216
       ]
     },
-    "id": 10206,
+    "id": 10301,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 10063,
+        "id": 10158,
         "literals": [
           "solidity",
           "^",
@@ -140,10 +140,10 @@
       {
         "absolutePath": "project:/contracts/TokenErc20/SafeMath.sol",
         "file": "../TokenErc20/SafeMath.sol",
-        "id": 10064,
+        "id": 10159,
         "nodeType": "ImportDirective",
-        "scope": 10206,
-        "sourceUnit": 1708,
+        "scope": 10301,
+        "sourceUnit": 1829,
         "src": "58:36:16",
         "symbolAliases": [],
         "unitAlias": ""
@@ -154,9 +154,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": false,
-        "id": 10121,
+        "id": 10216,
         "linearizedBaseContracts": [
-          10121
+          10216
         ],
         "name": "TipoEnergia",
         "nodeType": "ContractDefinition",
@@ -164,11 +164,11 @@
           {
             "constant": false,
             "functionSelector": "bc7b35b2",
-            "id": 10066,
+            "id": 10161,
             "mutability": "mutable",
             "name": "nombre",
             "nodeType": "VariableDeclaration",
-            "scope": 10121,
+            "scope": 10216,
             "src": "135:20:16",
             "stateVariable": true,
             "storageLocation": "default",
@@ -177,7 +177,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 10065,
+              "id": 10160,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "135:6:16",
@@ -191,11 +191,11 @@
           {
             "constant": false,
             "functionSelector": "9e66e0f3",
-            "id": 10068,
+            "id": 10163,
             "mutability": "mutable",
             "name": "precio",
             "nodeType": "VariableDeclaration",
-            "scope": 10121,
+            "scope": 10216,
             "src": "162:21:16",
             "stateVariable": true,
             "storageLocation": "default",
@@ -204,7 +204,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 10067,
+              "id": 10162,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "162:7:16",
@@ -218,11 +218,11 @@
           {
             "constant": false,
             "functionSelector": "ae4f7a4c",
-            "id": 10070,
+            "id": 10165,
             "mutability": "mutable",
             "name": "cantidadEnergia",
             "nodeType": "VariableDeclaration",
-            "scope": 10121,
+            "scope": 10216,
             "src": "190:30:16",
             "stateVariable": true,
             "storageLocation": "default",
@@ -231,7 +231,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 10069,
+              "id": 10164,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "190:7:16",
@@ -243,18 +243,18 @@
             "visibility": "public"
           },
           {
-            "id": 10073,
+            "id": 10168,
             "libraryName": {
-              "id": 10071,
+              "id": 10166,
               "name": "SafeMath",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 1707,
+              "referencedDeclaration": 1828,
               "src": "233:8:16"
             },
             "nodeType": "UsingForDirective",
             "src": "227:27:16",
             "typeName": {
-              "id": 10072,
+              "id": 10167,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "246:7:16",
@@ -266,29 +266,29 @@
           },
           {
             "functionSelector": "f7ac4af4",
-            "id": 10078,
+            "id": 10173,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "calcularPrecio",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10074,
+              "id": 10169,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "285:2:16"
             },
             "returnParameters": {
-              "id": 10077,
+              "id": 10172,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10076,
+                  "id": 10171,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10078,
+                  "scope": 10173,
                   "src": "319:7:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -297,7 +297,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 10075,
+                    "id": 10170,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "319:7:16",
@@ -311,7 +311,7 @@
               ],
               "src": "318:9:16"
             },
-            "scope": 10121,
+            "scope": 10216,
             "src": "262:66:16",
             "stateMutability": "pure",
             "virtual": true,
@@ -319,54 +319,54 @@
           },
           {
             "body": {
-              "id": 10085,
+              "id": 10180,
               "nodeType": "Block",
               "src": "396:41:16",
               "statements": [
                 {
                   "expression": {
-                    "id": 10083,
+                    "id": 10178,
                     "name": "cantidadEnergia",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 10070,
+                    "referencedDeclaration": 10165,
                     "src": "414:15:16",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 10082,
-                  "id": 10084,
+                  "functionReturnParameters": 10177,
+                  "id": 10179,
                   "nodeType": "Return",
                   "src": "407:22:16"
                 }
               ]
             },
             "functionSelector": "9be0b800",
-            "id": 10086,
+            "id": 10181,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getCantidadEnergia",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10079,
+              "id": 10174,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "363:2:16"
             },
             "returnParameters": {
-              "id": 10082,
+              "id": 10177,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10081,
+                  "id": 10176,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10086,
+                  "scope": 10181,
                   "src": "387:7:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -375,7 +375,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 10080,
+                    "id": 10175,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "387:7:16",
@@ -389,7 +389,7 @@
               ],
               "src": "386:9:16"
             },
-            "scope": 10121,
+            "scope": 10216,
             "src": "336:101:16",
             "stateMutability": "view",
             "virtual": false,
@@ -397,22 +397,22 @@
           },
           {
             "body": {
-              "id": 10102,
+              "id": 10197,
               "nodeType": "Block",
               "src": "506:120:16",
               "statements": [
                 {
                   "assignments": [
-                    10092
+                    10187
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 10092,
+                      "id": 10187,
                       "mutability": "mutable",
                       "name": "tempCantidad",
                       "nodeType": "VariableDeclaration",
-                      "scope": 10102,
+                      "scope": 10197,
                       "src": "517:20:16",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -421,7 +421,7 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 10091,
+                        "id": 10186,
                         "name": "uint256",
                         "nodeType": "ElementaryTypeName",
                         "src": "517:7:16",
@@ -433,15 +433,15 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 10097,
+                  "id": 10192,
                   "initialValue": {
                     "arguments": [
                       {
-                        "id": 10095,
+                        "id": 10190,
                         "name": "_cantidadEnergia",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 10088,
+                        "referencedDeclaration": 10183,
                         "src": "560:16:16",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -457,32 +457,32 @@
                         }
                       ],
                       "expression": {
-                        "id": 10093,
+                        "id": 10188,
                         "name": "cantidadEnergia",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 10070,
+                        "referencedDeclaration": 10165,
                         "src": "540:15:16",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
                         }
                       },
-                      "id": 10094,
+                      "id": 10189,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "add",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1672,
+                      "referencedDeclaration": 1793,
                       "src": "540:19:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                         "typeString": "function (uint256,uint256) pure returns (uint256)"
                       }
                     },
-                    "id": 10096,
+                    "id": 10191,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -502,17 +502,17 @@
                 },
                 {
                   "expression": {
-                    "id": 10100,
+                    "id": 10195,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 10098,
+                      "id": 10193,
                       "name": "cantidadEnergia",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10070,
+                      "referencedDeclaration": 10165,
                       "src": "588:15:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -522,11 +522,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 10099,
+                      "id": 10194,
                       "name": "tempCantidad",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10092,
+                      "referencedDeclaration": 10187,
                       "src": "606:12:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -539,30 +539,30 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 10101,
+                  "id": 10196,
                   "nodeType": "ExpressionStatement",
                   "src": "588:30:16"
                 }
               ]
             },
             "functionSelector": "f5a50589",
-            "id": 10103,
+            "id": 10198,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "addCantidadEnergia",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10089,
+              "id": 10184,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10088,
+                  "id": 10183,
                   "mutability": "mutable",
                   "name": "_cantidadEnergia",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10103,
+                  "scope": 10198,
                   "src": "473:24:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -571,7 +571,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 10087,
+                    "id": 10182,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "473:7:16",
@@ -586,12 +586,12 @@
               "src": "472:26:16"
             },
             "returnParameters": {
-              "id": 10090,
+              "id": 10185,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "506:0:16"
             },
-            "scope": 10121,
+            "scope": 10216,
             "src": "445:181:16",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -599,22 +599,22 @@
           },
           {
             "body": {
-              "id": 10119,
+              "id": 10214,
               "nodeType": "Block",
               "src": "698:120:16",
               "statements": [
                 {
                   "assignments": [
-                    10109
+                    10204
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 10109,
+                      "id": 10204,
                       "mutability": "mutable",
                       "name": "tempCantidad",
                       "nodeType": "VariableDeclaration",
-                      "scope": 10119,
+                      "scope": 10214,
                       "src": "709:20:16",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -623,7 +623,7 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 10108,
+                        "id": 10203,
                         "name": "uint256",
                         "nodeType": "ElementaryTypeName",
                         "src": "709:7:16",
@@ -635,15 +635,15 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 10114,
+                  "id": 10209,
                   "initialValue": {
                     "arguments": [
                       {
-                        "id": 10112,
+                        "id": 10207,
                         "name": "_cantidadEnergia",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 10105,
+                        "referencedDeclaration": 10200,
                         "src": "752:16:16",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -659,32 +659,32 @@
                         }
                       ],
                       "expression": {
-                        "id": 10110,
+                        "id": 10205,
                         "name": "cantidadEnergia",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 10070,
+                        "referencedDeclaration": 10165,
                         "src": "732:15:16",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
                         }
                       },
-                      "id": 10111,
+                      "id": 10206,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "sub",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1648,
+                      "referencedDeclaration": 1769,
                       "src": "732:19:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                         "typeString": "function (uint256,uint256) pure returns (uint256)"
                       }
                     },
-                    "id": 10113,
+                    "id": 10208,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -704,17 +704,17 @@
                 },
                 {
                   "expression": {
-                    "id": 10117,
+                    "id": 10212,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 10115,
+                      "id": 10210,
                       "name": "cantidadEnergia",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10070,
+                      "referencedDeclaration": 10165,
                       "src": "780:15:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -724,11 +724,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 10116,
+                      "id": 10211,
                       "name": "tempCantidad",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10109,
+                      "referencedDeclaration": 10204,
                       "src": "798:12:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -741,30 +741,30 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 10118,
+                  "id": 10213,
                   "nodeType": "ExpressionStatement",
                   "src": "780:30:16"
                 }
               ]
             },
             "functionSelector": "b0b6d161",
-            "id": 10120,
+            "id": 10215,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "restarCantidadEnergia",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10106,
+              "id": 10201,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10105,
+                  "id": 10200,
                   "mutability": "mutable",
                   "name": "_cantidadEnergia",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10120,
+                  "scope": 10215,
                   "src": "665:24:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -773,7 +773,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 10104,
+                    "id": 10199,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "665:7:16",
@@ -788,19 +788,19 @@
               "src": "664:26:16"
             },
             "returnParameters": {
-              "id": 10107,
+              "id": 10202,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "698:0:16"
             },
-            "scope": 10121,
+            "scope": 10216,
             "src": "634:184:16",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 10206,
+        "scope": 10301,
         "src": "98:723:16"
       },
       {
@@ -808,49 +808,49 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 10122,
+              "id": 10217,
               "name": "TipoEnergia",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 10121,
+              "referencedDeclaration": 10216,
               "src": "850:11:16"
             },
-            "id": 10123,
+            "id": 10218,
             "nodeType": "InheritanceSpecifier",
             "src": "850:11:16"
           }
         ],
         "contractDependencies": [
-          10121
+          10216
         ],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 10149,
+        "id": 10244,
         "linearizedBaseContracts": [
-          10149,
-          10121
+          10244,
+          10216
         ],
         "name": "EnergiaSolar",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 10138,
+              "id": 10233,
               "nodeType": "Block",
               "src": "930:80:16",
               "statements": [
                 {
                   "expression": {
-                    "id": 10132,
+                    "id": 10227,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 10130,
+                      "id": 10225,
                       "name": "nombre",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10066,
+                      "referencedDeclaration": 10161,
                       "src": "941:6:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
@@ -860,11 +860,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 10131,
+                      "id": 10226,
                       "name": "_nombre",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10125,
+                      "referencedDeclaration": 10220,
                       "src": "950:7:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_memory_ptr",
@@ -877,23 +877,23 @@
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 10133,
+                  "id": 10228,
                   "nodeType": "ExpressionStatement",
                   "src": "941:16:16"
                 },
                 {
                   "expression": {
-                    "id": 10136,
+                    "id": 10231,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 10134,
+                      "id": 10229,
                       "name": "cantidadEnergia",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10070,
+                      "referencedDeclaration": 10165,
                       "src": "968:15:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -903,11 +903,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 10135,
+                      "id": 10230,
                       "name": "_cantidadEnergia",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10127,
+                      "referencedDeclaration": 10222,
                       "src": "986:16:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -920,29 +920,29 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 10137,
+                  "id": 10232,
                   "nodeType": "ExpressionStatement",
                   "src": "968:34:16"
                 }
               ]
             },
-            "id": 10139,
+            "id": 10234,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10128,
+              "id": 10223,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10125,
+                  "id": 10220,
                   "mutability": "mutable",
                   "name": "_nombre",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10139,
+                  "scope": 10234,
                   "src": "881:21:16",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -951,7 +951,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 10124,
+                    "id": 10219,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "881:6:16",
@@ -964,11 +964,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 10127,
+                  "id": 10222,
                   "mutability": "mutable",
                   "name": "_cantidadEnergia",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10139,
+                  "scope": 10234,
                   "src": "904:24:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -977,7 +977,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 10126,
+                    "id": 10221,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "904:7:16",
@@ -992,12 +992,12 @@
               "src": "880:49:16"
             },
             "returnParameters": {
-              "id": 10129,
+              "id": 10224,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "930:0:16"
             },
-            "scope": 10149,
+            "scope": 10244,
             "src": "869:141:16",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -1005,17 +1005,17 @@
           },
           {
             "baseFunctions": [
-              10078
+              10173
             ],
             "body": {
-              "id": 10147,
+              "id": 10242,
               "nodeType": "Block",
               "src": "1083:27:16",
               "statements": [
                 {
                   "expression": {
                     "hexValue": "33",
-                    "id": 10145,
+                    "id": 10240,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
@@ -1029,43 +1029,43 @@
                     },
                     "value": "3"
                   },
-                  "functionReturnParameters": 10144,
-                  "id": 10146,
+                  "functionReturnParameters": 10239,
+                  "id": 10241,
                   "nodeType": "Return",
                   "src": "1094:8:16"
                 }
               ]
             },
             "functionSelector": "f7ac4af4",
-            "id": 10148,
+            "id": 10243,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "calcularPrecio",
             "nodeType": "FunctionDefinition",
             "overrides": {
-              "id": 10141,
+              "id": 10236,
               "nodeType": "OverrideSpecifier",
               "overrides": [],
               "src": "1056:8:16"
             },
             "parameters": {
-              "id": 10140,
+              "id": 10235,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1041:2:16"
             },
             "returnParameters": {
-              "id": 10144,
+              "id": 10239,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10143,
+                  "id": 10238,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10148,
+                  "scope": 10243,
                   "src": "1074:7:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1074,7 +1074,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 10142,
+                    "id": 10237,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1074:7:16",
@@ -1088,14 +1088,14 @@
               ],
               "src": "1073:9:16"
             },
-            "scope": 10149,
+            "scope": 10244,
             "src": "1018:92:16",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 10206,
+        "scope": 10301,
         "src": "825:288:16"
       },
       {
@@ -1103,49 +1103,49 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 10150,
+              "id": 10245,
               "name": "TipoEnergia",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 10121,
+              "referencedDeclaration": 10216,
               "src": "1143:11:16"
             },
-            "id": 10151,
+            "id": 10246,
             "nodeType": "InheritanceSpecifier",
             "src": "1143:11:16"
           }
         ],
         "contractDependencies": [
-          10121
+          10216
         ],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 10177,
+        "id": 10272,
         "linearizedBaseContracts": [
-          10177,
-          10121
+          10272,
+          10216
         ],
         "name": "EnergiaEolica",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 10166,
+              "id": 10261,
               "nodeType": "Block",
               "src": "1223:80:16",
               "statements": [
                 {
                   "expression": {
-                    "id": 10160,
+                    "id": 10255,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 10158,
+                      "id": 10253,
                       "name": "nombre",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10066,
+                      "referencedDeclaration": 10161,
                       "src": "1234:6:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
@@ -1155,11 +1155,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 10159,
+                      "id": 10254,
                       "name": "_nombre",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10153,
+                      "referencedDeclaration": 10248,
                       "src": "1243:7:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_memory_ptr",
@@ -1172,23 +1172,23 @@
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 10161,
+                  "id": 10256,
                   "nodeType": "ExpressionStatement",
                   "src": "1234:16:16"
                 },
                 {
                   "expression": {
-                    "id": 10164,
+                    "id": 10259,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 10162,
+                      "id": 10257,
                       "name": "cantidadEnergia",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10070,
+                      "referencedDeclaration": 10165,
                       "src": "1261:15:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -1198,11 +1198,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 10163,
+                      "id": 10258,
                       "name": "_cantidadEnergia",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10155,
+                      "referencedDeclaration": 10250,
                       "src": "1279:16:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -1215,29 +1215,29 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 10165,
+                  "id": 10260,
                   "nodeType": "ExpressionStatement",
                   "src": "1261:34:16"
                 }
               ]
             },
-            "id": 10167,
+            "id": 10262,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10156,
+              "id": 10251,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10153,
+                  "id": 10248,
                   "mutability": "mutable",
                   "name": "_nombre",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10167,
+                  "scope": 10262,
                   "src": "1174:21:16",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -1246,7 +1246,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 10152,
+                    "id": 10247,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "1174:6:16",
@@ -1259,11 +1259,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 10155,
+                  "id": 10250,
                   "mutability": "mutable",
                   "name": "_cantidadEnergia",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10167,
+                  "scope": 10262,
                   "src": "1197:24:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1272,7 +1272,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 10154,
+                    "id": 10249,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1197:7:16",
@@ -1287,12 +1287,12 @@
               "src": "1173:49:16"
             },
             "returnParameters": {
-              "id": 10157,
+              "id": 10252,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1223:0:16"
             },
-            "scope": 10177,
+            "scope": 10272,
             "src": "1162:141:16",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -1300,17 +1300,17 @@
           },
           {
             "baseFunctions": [
-              10078
+              10173
             ],
             "body": {
-              "id": 10175,
+              "id": 10270,
               "nodeType": "Block",
               "src": "1376:27:16",
               "statements": [
                 {
                   "expression": {
                     "hexValue": "32",
-                    "id": 10173,
+                    "id": 10268,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
@@ -1324,43 +1324,43 @@
                     },
                     "value": "2"
                   },
-                  "functionReturnParameters": 10172,
-                  "id": 10174,
+                  "functionReturnParameters": 10267,
+                  "id": 10269,
                   "nodeType": "Return",
                   "src": "1387:8:16"
                 }
               ]
             },
             "functionSelector": "f7ac4af4",
-            "id": 10176,
+            "id": 10271,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "calcularPrecio",
             "nodeType": "FunctionDefinition",
             "overrides": {
-              "id": 10169,
+              "id": 10264,
               "nodeType": "OverrideSpecifier",
               "overrides": [],
               "src": "1349:8:16"
             },
             "parameters": {
-              "id": 10168,
+              "id": 10263,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1334:2:16"
             },
             "returnParameters": {
-              "id": 10172,
+              "id": 10267,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10171,
+                  "id": 10266,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10176,
+                  "scope": 10271,
                   "src": "1367:7:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1369,7 +1369,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 10170,
+                    "id": 10265,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1367:7:16",
@@ -1383,14 +1383,14 @@
               ],
               "src": "1366:9:16"
             },
-            "scope": 10177,
+            "scope": 10272,
             "src": "1311:92:16",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 10206,
+        "scope": 10301,
         "src": "1117:289:16"
       },
       {
@@ -1398,49 +1398,49 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 10178,
+              "id": 10273,
               "name": "TipoEnergia",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 10121,
+              "referencedDeclaration": 10216,
               "src": "1440:11:16"
             },
-            "id": 10179,
+            "id": 10274,
             "nodeType": "InheritanceSpecifier",
             "src": "1440:11:16"
           }
         ],
         "contractDependencies": [
-          10121
+          10216
         ],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 10205,
+        "id": 10300,
         "linearizedBaseContracts": [
-          10205,
-          10121
+          10300,
+          10216
         ],
         "name": "EnergiaHidraulica",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 10194,
+              "id": 10289,
               "nodeType": "Block",
               "src": "1520:80:16",
               "statements": [
                 {
                   "expression": {
-                    "id": 10188,
+                    "id": 10283,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 10186,
+                      "id": 10281,
                       "name": "nombre",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10066,
+                      "referencedDeclaration": 10161,
                       "src": "1531:6:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
@@ -1450,11 +1450,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 10187,
+                      "id": 10282,
                       "name": "_nombre",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10181,
+                      "referencedDeclaration": 10276,
                       "src": "1540:7:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_memory_ptr",
@@ -1467,23 +1467,23 @@
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 10189,
+                  "id": 10284,
                   "nodeType": "ExpressionStatement",
                   "src": "1531:16:16"
                 },
                 {
                   "expression": {
-                    "id": 10192,
+                    "id": 10287,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 10190,
+                      "id": 10285,
                       "name": "cantidadEnergia",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10070,
+                      "referencedDeclaration": 10165,
                       "src": "1558:15:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -1493,11 +1493,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 10191,
+                      "id": 10286,
                       "name": "_cantidadEnergia",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10183,
+                      "referencedDeclaration": 10278,
                       "src": "1576:16:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -1510,29 +1510,29 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 10193,
+                  "id": 10288,
                   "nodeType": "ExpressionStatement",
                   "src": "1558:34:16"
                 }
               ]
             },
-            "id": 10195,
+            "id": 10290,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 10184,
+              "id": 10279,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10181,
+                  "id": 10276,
                   "mutability": "mutable",
                   "name": "_nombre",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10195,
+                  "scope": 10290,
                   "src": "1471:21:16",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -1541,7 +1541,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 10180,
+                    "id": 10275,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "1471:6:16",
@@ -1554,11 +1554,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 10183,
+                  "id": 10278,
                   "mutability": "mutable",
                   "name": "_cantidadEnergia",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10195,
+                  "scope": 10290,
                   "src": "1494:24:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1567,7 +1567,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 10182,
+                    "id": 10277,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1494:7:16",
@@ -1582,12 +1582,12 @@
               "src": "1470:49:16"
             },
             "returnParameters": {
-              "id": 10185,
+              "id": 10280,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1520:0:16"
             },
-            "scope": 10205,
+            "scope": 10300,
             "src": "1459:141:16",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -1595,17 +1595,17 @@
           },
           {
             "baseFunctions": [
-              10078
+              10173
             ],
             "body": {
-              "id": 10203,
+              "id": 10298,
               "nodeType": "Block",
               "src": "1673:27:16",
               "statements": [
                 {
                   "expression": {
                     "hexValue": "31",
-                    "id": 10201,
+                    "id": 10296,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
@@ -1619,43 +1619,43 @@
                     },
                     "value": "1"
                   },
-                  "functionReturnParameters": 10200,
-                  "id": 10202,
+                  "functionReturnParameters": 10295,
+                  "id": 10297,
                   "nodeType": "Return",
                   "src": "1684:8:16"
                 }
               ]
             },
             "functionSelector": "f7ac4af4",
-            "id": 10204,
+            "id": 10299,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "calcularPrecio",
             "nodeType": "FunctionDefinition",
             "overrides": {
-              "id": 10197,
+              "id": 10292,
               "nodeType": "OverrideSpecifier",
               "overrides": [],
               "src": "1646:8:16"
             },
             "parameters": {
-              "id": 10196,
+              "id": 10291,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1631:2:16"
             },
             "returnParameters": {
-              "id": 10200,
+              "id": 10295,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 10199,
+                  "id": 10294,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 10204,
+                  "scope": 10299,
                   "src": "1664:7:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1664,7 +1664,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 10198,
+                    "id": 10293,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1664:7:16",
@@ -1678,14 +1678,1602 @@
               ],
               "src": "1663:9:16"
             },
-            "scope": 10205,
+            "scope": 10300,
             "src": "1608:92:16",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 10206,
+        "scope": 10301,
+        "src": "1410:293:16"
+      }
+    ],
+    "src": "33:1672:16"
+  },
+  "legacyAST": {
+    "absolutePath": "project:/contracts/models/TipoEnergia.sol",
+    "exportedSymbols": {
+      "EnergiaEolica": [
+        10272
+      ],
+      "EnergiaHidraulica": [
+        10300
+      ],
+      "EnergiaSolar": [
+        10244
+      ],
+      "SafeMath": [
+        1828
+      ],
+      "TipoEnergia": [
+        10216
+      ]
+    },
+    "id": 10301,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 10158,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:23:16"
+      },
+      {
+        "absolutePath": "project:/contracts/TokenErc20/SafeMath.sol",
+        "file": "../TokenErc20/SafeMath.sol",
+        "id": 10159,
+        "nodeType": "ImportDirective",
+        "scope": 10301,
+        "sourceUnit": 1829,
+        "src": "58:36:16",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": true,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": false,
+        "id": 10216,
+        "linearizedBaseContracts": [
+          10216
+        ],
+        "name": "TipoEnergia",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "functionSelector": "bc7b35b2",
+            "id": 10161,
+            "mutability": "mutable",
+            "name": "nombre",
+            "nodeType": "VariableDeclaration",
+            "scope": 10216,
+            "src": "135:20:16",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_storage",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 10160,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "135:6:16",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "9e66e0f3",
+            "id": 10163,
+            "mutability": "mutable",
+            "name": "precio",
+            "nodeType": "VariableDeclaration",
+            "scope": 10216,
+            "src": "162:21:16",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 10162,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "162:7:16",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "ae4f7a4c",
+            "id": 10165,
+            "mutability": "mutable",
+            "name": "cantidadEnergia",
+            "nodeType": "VariableDeclaration",
+            "scope": 10216,
+            "src": "190:30:16",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 10164,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "190:7:16",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 10168,
+            "libraryName": {
+              "id": 10166,
+              "name": "SafeMath",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 1828,
+              "src": "233:8:16"
+            },
+            "nodeType": "UsingForDirective",
+            "src": "227:27:16",
+            "typeName": {
+              "id": 10167,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "246:7:16",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            }
+          },
+          {
+            "functionSelector": "f7ac4af4",
+            "id": 10173,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "calcularPrecio",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10169,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "285:2:16"
+            },
+            "returnParameters": {
+              "id": 10172,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10171,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10173,
+                  "src": "319:7:16",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 10170,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "319:7:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "318:9:16"
+            },
+            "scope": 10216,
+            "src": "262:66:16",
+            "stateMutability": "pure",
+            "virtual": true,
+            "visibility": "external"
+          },
+          {
+            "body": {
+              "id": 10180,
+              "nodeType": "Block",
+              "src": "396:41:16",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 10178,
+                    "name": "cantidadEnergia",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 10165,
+                    "src": "414:15:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 10177,
+                  "id": 10179,
+                  "nodeType": "Return",
+                  "src": "407:22:16"
+                }
+              ]
+            },
+            "functionSelector": "9be0b800",
+            "id": 10181,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getCantidadEnergia",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10174,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "363:2:16"
+            },
+            "returnParameters": {
+              "id": 10177,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10176,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10181,
+                  "src": "387:7:16",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 10175,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "387:7:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "386:9:16"
+            },
+            "scope": 10216,
+            "src": "336:101:16",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 10197,
+              "nodeType": "Block",
+              "src": "506:120:16",
+              "statements": [
+                {
+                  "assignments": [
+                    10187
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 10187,
+                      "mutability": "mutable",
+                      "name": "tempCantidad",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 10197,
+                      "src": "517:20:16",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 10186,
+                        "name": "uint256",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "517:7:16",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 10192,
+                  "initialValue": {
+                    "arguments": [
+                      {
+                        "id": 10190,
+                        "name": "_cantidadEnergia",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 10183,
+                        "src": "560:16:16",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "id": 10188,
+                        "name": "cantidadEnergia",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 10165,
+                        "src": "540:15:16",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "id": 10189,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "add",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1793,
+                      "src": "540:19:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
+                        "typeString": "function (uint256,uint256) pure returns (uint256)"
+                      }
+                    },
+                    "id": 10191,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "540:37:16",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "517:60:16"
+                },
+                {
+                  "expression": {
+                    "id": 10195,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 10193,
+                      "name": "cantidadEnergia",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10165,
+                      "src": "588:15:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 10194,
+                      "name": "tempCantidad",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10187,
+                      "src": "606:12:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "588:30:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 10196,
+                  "nodeType": "ExpressionStatement",
+                  "src": "588:30:16"
+                }
+              ]
+            },
+            "functionSelector": "f5a50589",
+            "id": 10198,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "addCantidadEnergia",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10184,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10183,
+                  "mutability": "mutable",
+                  "name": "_cantidadEnergia",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10198,
+                  "src": "473:24:16",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 10182,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "473:7:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "472:26:16"
+            },
+            "returnParameters": {
+              "id": 10185,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "506:0:16"
+            },
+            "scope": 10216,
+            "src": "445:181:16",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 10214,
+              "nodeType": "Block",
+              "src": "698:120:16",
+              "statements": [
+                {
+                  "assignments": [
+                    10204
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 10204,
+                      "mutability": "mutable",
+                      "name": "tempCantidad",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 10214,
+                      "src": "709:20:16",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 10203,
+                        "name": "uint256",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "709:7:16",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 10209,
+                  "initialValue": {
+                    "arguments": [
+                      {
+                        "id": 10207,
+                        "name": "_cantidadEnergia",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 10200,
+                        "src": "752:16:16",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "id": 10205,
+                        "name": "cantidadEnergia",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 10165,
+                        "src": "732:15:16",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "id": 10206,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "sub",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1769,
+                      "src": "732:19:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
+                        "typeString": "function (uint256,uint256) pure returns (uint256)"
+                      }
+                    },
+                    "id": 10208,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "732:37:16",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "709:60:16"
+                },
+                {
+                  "expression": {
+                    "id": 10212,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 10210,
+                      "name": "cantidadEnergia",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10165,
+                      "src": "780:15:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 10211,
+                      "name": "tempCantidad",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10204,
+                      "src": "798:12:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "780:30:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 10213,
+                  "nodeType": "ExpressionStatement",
+                  "src": "780:30:16"
+                }
+              ]
+            },
+            "functionSelector": "b0b6d161",
+            "id": 10215,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "restarCantidadEnergia",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10201,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10200,
+                  "mutability": "mutable",
+                  "name": "_cantidadEnergia",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10215,
+                  "src": "665:24:16",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 10199,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "665:7:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "664:26:16"
+            },
+            "returnParameters": {
+              "id": 10202,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "698:0:16"
+            },
+            "scope": 10216,
+            "src": "634:184:16",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 10301,
+        "src": "98:723:16"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 10217,
+              "name": "TipoEnergia",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 10216,
+              "src": "850:11:16"
+            },
+            "id": 10218,
+            "nodeType": "InheritanceSpecifier",
+            "src": "850:11:16"
+          }
+        ],
+        "contractDependencies": [
+          10216
+        ],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 10244,
+        "linearizedBaseContracts": [
+          10244,
+          10216
+        ],
+        "name": "EnergiaSolar",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 10233,
+              "nodeType": "Block",
+              "src": "930:80:16",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 10227,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 10225,
+                      "name": "nombre",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10161,
+                      "src": "941:6:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_storage",
+                        "typeString": "string storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 10226,
+                      "name": "_nombre",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10220,
+                      "src": "950:7:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "src": "941:16:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "id": 10228,
+                  "nodeType": "ExpressionStatement",
+                  "src": "941:16:16"
+                },
+                {
+                  "expression": {
+                    "id": 10231,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 10229,
+                      "name": "cantidadEnergia",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10165,
+                      "src": "968:15:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 10230,
+                      "name": "_cantidadEnergia",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10222,
+                      "src": "986:16:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "968:34:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 10232,
+                  "nodeType": "ExpressionStatement",
+                  "src": "968:34:16"
+                }
+              ]
+            },
+            "id": 10234,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10223,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10220,
+                  "mutability": "mutable",
+                  "name": "_nombre",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10234,
+                  "src": "881:21:16",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10219,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "881:6:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10222,
+                  "mutability": "mutable",
+                  "name": "_cantidadEnergia",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10234,
+                  "src": "904:24:16",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 10221,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "904:7:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "880:49:16"
+            },
+            "returnParameters": {
+              "id": 10224,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "930:0:16"
+            },
+            "scope": 10244,
+            "src": "869:141:16",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "baseFunctions": [
+              10173
+            ],
+            "body": {
+              "id": 10242,
+              "nodeType": "Block",
+              "src": "1083:27:16",
+              "statements": [
+                {
+                  "expression": {
+                    "hexValue": "33",
+                    "id": 10240,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "number",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "1101:1:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_rational_3_by_1",
+                      "typeString": "int_const 3"
+                    },
+                    "value": "3"
+                  },
+                  "functionReturnParameters": 10239,
+                  "id": 10241,
+                  "nodeType": "Return",
+                  "src": "1094:8:16"
+                }
+              ]
+            },
+            "functionSelector": "f7ac4af4",
+            "id": 10243,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "calcularPrecio",
+            "nodeType": "FunctionDefinition",
+            "overrides": {
+              "id": 10236,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "1056:8:16"
+            },
+            "parameters": {
+              "id": 10235,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1041:2:16"
+            },
+            "returnParameters": {
+              "id": 10239,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10238,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10243,
+                  "src": "1074:7:16",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 10237,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1074:7:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1073:9:16"
+            },
+            "scope": 10244,
+            "src": "1018:92:16",
+            "stateMutability": "pure",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 10301,
+        "src": "825:288:16"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 10245,
+              "name": "TipoEnergia",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 10216,
+              "src": "1143:11:16"
+            },
+            "id": 10246,
+            "nodeType": "InheritanceSpecifier",
+            "src": "1143:11:16"
+          }
+        ],
+        "contractDependencies": [
+          10216
+        ],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 10272,
+        "linearizedBaseContracts": [
+          10272,
+          10216
+        ],
+        "name": "EnergiaEolica",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 10261,
+              "nodeType": "Block",
+              "src": "1223:80:16",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 10255,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 10253,
+                      "name": "nombre",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10161,
+                      "src": "1234:6:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_storage",
+                        "typeString": "string storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 10254,
+                      "name": "_nombre",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10248,
+                      "src": "1243:7:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "src": "1234:16:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "id": 10256,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1234:16:16"
+                },
+                {
+                  "expression": {
+                    "id": 10259,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 10257,
+                      "name": "cantidadEnergia",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10165,
+                      "src": "1261:15:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 10258,
+                      "name": "_cantidadEnergia",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10250,
+                      "src": "1279:16:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "1261:34:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 10260,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1261:34:16"
+                }
+              ]
+            },
+            "id": 10262,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10251,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10248,
+                  "mutability": "mutable",
+                  "name": "_nombre",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10262,
+                  "src": "1174:21:16",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10247,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1174:6:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10250,
+                  "mutability": "mutable",
+                  "name": "_cantidadEnergia",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10262,
+                  "src": "1197:24:16",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 10249,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1197:7:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1173:49:16"
+            },
+            "returnParameters": {
+              "id": 10252,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1223:0:16"
+            },
+            "scope": 10272,
+            "src": "1162:141:16",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "baseFunctions": [
+              10173
+            ],
+            "body": {
+              "id": 10270,
+              "nodeType": "Block",
+              "src": "1376:27:16",
+              "statements": [
+                {
+                  "expression": {
+                    "hexValue": "32",
+                    "id": 10268,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "number",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "1394:1:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_rational_2_by_1",
+                      "typeString": "int_const 2"
+                    },
+                    "value": "2"
+                  },
+                  "functionReturnParameters": 10267,
+                  "id": 10269,
+                  "nodeType": "Return",
+                  "src": "1387:8:16"
+                }
+              ]
+            },
+            "functionSelector": "f7ac4af4",
+            "id": 10271,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "calcularPrecio",
+            "nodeType": "FunctionDefinition",
+            "overrides": {
+              "id": 10264,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "1349:8:16"
+            },
+            "parameters": {
+              "id": 10263,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1334:2:16"
+            },
+            "returnParameters": {
+              "id": 10267,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10266,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10271,
+                  "src": "1367:7:16",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 10265,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1367:7:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1366:9:16"
+            },
+            "scope": 10272,
+            "src": "1311:92:16",
+            "stateMutability": "pure",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 10301,
+        "src": "1117:289:16"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 10273,
+              "name": "TipoEnergia",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 10216,
+              "src": "1440:11:16"
+            },
+            "id": 10274,
+            "nodeType": "InheritanceSpecifier",
+            "src": "1440:11:16"
+          }
+        ],
+        "contractDependencies": [
+          10216
+        ],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 10300,
+        "linearizedBaseContracts": [
+          10300,
+          10216
+        ],
+        "name": "EnergiaHidraulica",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 10289,
+              "nodeType": "Block",
+              "src": "1520:80:16",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 10283,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 10281,
+                      "name": "nombre",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10161,
+                      "src": "1531:6:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_storage",
+                        "typeString": "string storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 10282,
+                      "name": "_nombre",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10276,
+                      "src": "1540:7:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "src": "1531:16:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "id": 10284,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1531:16:16"
+                },
+                {
+                  "expression": {
+                    "id": 10287,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 10285,
+                      "name": "cantidadEnergia",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10165,
+                      "src": "1558:15:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 10286,
+                      "name": "_cantidadEnergia",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 10278,
+                      "src": "1576:16:16",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "1558:34:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 10288,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1558:34:16"
+                }
+              ]
+            },
+            "id": 10290,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 10279,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10276,
+                  "mutability": "mutable",
+                  "name": "_nombre",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10290,
+                  "src": "1471:21:16",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 10275,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1471:6:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10278,
+                  "mutability": "mutable",
+                  "name": "_cantidadEnergia",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10290,
+                  "src": "1494:24:16",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 10277,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1494:7:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1470:49:16"
+            },
+            "returnParameters": {
+              "id": 10280,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1520:0:16"
+            },
+            "scope": 10300,
+            "src": "1459:141:16",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "baseFunctions": [
+              10173
+            ],
+            "body": {
+              "id": 10298,
+              "nodeType": "Block",
+              "src": "1673:27:16",
+              "statements": [
+                {
+                  "expression": {
+                    "hexValue": "31",
+                    "id": 10296,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "number",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "1691:1:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_rational_1_by_1",
+                      "typeString": "int_const 1"
+                    },
+                    "value": "1"
+                  },
+                  "functionReturnParameters": 10295,
+                  "id": 10297,
+                  "nodeType": "Return",
+                  "src": "1684:8:16"
+                }
+              ]
+            },
+            "functionSelector": "f7ac4af4",
+            "id": 10299,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "calcularPrecio",
+            "nodeType": "FunctionDefinition",
+            "overrides": {
+              "id": 10292,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "1646:8:16"
+            },
+            "parameters": {
+              "id": 10291,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1631:2:16"
+            },
+            "returnParameters": {
+              "id": 10295,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 10294,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 10299,
+                  "src": "1664:7:16",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 10293,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1664:7:16",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1663:9:16"
+            },
+            "scope": 10300,
+            "src": "1608:92:16",
+            "stateMutability": "pure",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 10301,
         "src": "1410:293:16"
       }
     ],
@@ -1696,8 +3284,8 @@
     "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.4.7",
-  "updatedAt": "2022-06-30T14:15:01.919Z",
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-06-30T19:25:59.292Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

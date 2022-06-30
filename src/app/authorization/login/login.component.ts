@@ -19,7 +19,9 @@ export class LoginComponent implements OnInit {
   }
 
   async onLogin() {
+    this.spinnerService.show();
     await this.web3Service.loadWeb3();
+    this.spinnerService.hide();
     this.router.navigate(['/dashboard']);
   }
 
