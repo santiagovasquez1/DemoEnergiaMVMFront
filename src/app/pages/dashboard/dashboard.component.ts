@@ -11,7 +11,7 @@ export class DashboardComponent implements OnInit {
   constructor(private web3Service: Web3Service) { }
 
   ngOnInit(): void {
-    this.web3Service.initContract();
+    //this.web3Service.initContract();
   }
 
 }

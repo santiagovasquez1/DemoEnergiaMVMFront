@@ -17,6 +17,7 @@ export class Web3Service {
   web3js: Web3;
   provider?: provider;
   accounts: string[] = [];
+  escribirContract: any;
 
   constructor() {
     const providerOptions = {
@@ -64,9 +65,36 @@ export class Web3Service {
         if (this.provider) {
           this.web3js = new Web3(this.provider);
         }
+        this.connectWithEscribir();
+        console.log("esta es su billetera: ",from(this.web3js.eth.getAccounts()))
         return from(this.web3js.eth.getAccounts());
       })
     );
+  }
+
+  async connectWithEscribir() {
+    let contractInterface = {
+      contractName: "EscribirEnLaBlockchain",
+      abi: [{
+        "inputs": [{ "internalType": "string", "name": "_texto", "type": "string" }], "name": "Escribir", "outputs": [], "stateMutability": "nonpayable", "type": "function"
+      },
+      { "inputs": [], "name": "Leer", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "stateMutability": "view", "type": "function" }],
+
+    }
+
+    let networks = {
+      3: {
+        address: "0x854ca9a9ef8830ebaee50cb721eA1D65dAa68D25",
+        transactionHash: "0x019b85deba8261fc27cfd236cbcf409503e6c7e77576ebcf305b5e65e0dbb99c"
+      }
+    };
+
+    const networkId = await this.web3js.eth.net.getId();
+    console.log(networkId);
+    const networkData = networks[3];
+    let p = networkData && networkData.address;
+    let contract = new this.web3js.eth.Contract(contractInterface.abi as unknown as AbiItem, p);
+    this.escribirContract = contract;
   }
 
   logout(): Observable<any> {
@@ -74,6 +102,7 @@ export class Web3Service {
     // this.provider = null;
     this.web3js = new Web3(null);
     return EMPTY;
+
   }
 
   initContract() {
@@ -81,10 +110,16 @@ export class Web3Service {
     let contract = new this.web3js.eth.Contract(abiItems, '', {
       data: generador.data.bytecode.object
     });
-    console.log(contract);
+    console.log("1",contract);
+    /*
     contract.deploy({
       data: `0x${generador.data.bytecode.object}`,
     });
-    console.log(contract);
+    console.log("2",contract);
+    */
+  }
+
+  agregaraGenerador(planta: string, cantidad: number): Observable<any>{
+    return from(this.escribirContract.methods.Escribir(planta).send({ from: '0x4eE3FA1d6b5B277277A15131260Ed67A2162bdF6' }));
   }
 }

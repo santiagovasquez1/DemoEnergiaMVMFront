@@ -1,0 +1,23 @@
+<div class="container">
+    
+    <form [formGroup]="login" (submit)="guardarGenerador()">
+        
+        <div class="login" fxLayout="column" fxLayoutAlign="center center" >
+            <h1>Agregar generadores de energía</h1>
+            <mat-progress-spinner mode="indeterminate" [diameter]="50" class="spinner" *ngIf="loading"></mat-progress-spinner>
+            <mat-form-field class="input" appearance="fill">
+                <mat-label>Nombre de la planta</mat-label>
+                <input matInput formControlName="nombrePlanta" autocomplete="off">
+            </mat-form-field>
+            <!--
+            <mat-form-field class="input" appearance="fill">
+                <mat-label>Tokens</mat-label>
+                <input matInput type="number" formControlName="cantidad" autocomplete="off">
+            </mat-form-field>
+            -->
+            <button mat-raised-button type="submit" color="primary">Agregar</button>
+        </div>
+    </form>
+</div>
+
+<button mat-raised-button color="primary" (click)="conectar()">connect</button>

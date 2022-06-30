@@ -6,9 +6,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FlexModule } from '@angular/flex-layout';
+
+import { ToastrModule } from 'ngx-toastr';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NgxSpinnerModule,
     BrowserAnimationsModule,
     SharedModule,
-    PagesModule
+    PagesModule,
+    FlexModule,
+    ToastrModule.forRoot(),
+    MatDialogModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

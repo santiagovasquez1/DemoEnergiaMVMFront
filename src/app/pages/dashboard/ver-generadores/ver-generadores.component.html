@@ -1,0 +1,17 @@
+<h1>GENERADORES DISPONIBLES</h1>
+
+<div class="container">
+    <mat-card class="example-card" *ngFor="let generador of generadores">
+        <mat-card-title>{{generador}}</mat-card-title>
+        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        <mat-card-content>
+          <p>This card indeterminates progress bar.</p>
+          <p>Texto de prueba</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-stroked-button color="primary" (click)="openDialog()">Generar nueva energía</button>
+          <button mat-stroked-button color="primary">Inyectar energía</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+

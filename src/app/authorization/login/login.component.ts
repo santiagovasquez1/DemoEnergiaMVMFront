@@ -20,9 +20,10 @@ export class LoginComponent implements OnInit {
   onLogin() {
 
     this.web3Service.connectAccount().subscribe({
-      next: (account) => {
-        localStorage.setItem('account', account[account.length - 1]);
-        this.router.navigate(['/']);
+      next: data => {
+        //localStorage.setItem('account', account[account.length - 1]);
+        this.router.navigate(['/dashboard']);
+        console.log(data);
       },
       error: (err) => {
         console.log(err);
@@ -31,3 +32,4 @@ export class LoginComponent implements OnInit {
   }
 
 }
+

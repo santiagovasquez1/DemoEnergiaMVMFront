@@ -21,7 +21,7 @@ body {
     float: right;
     width: 30%;
     height: inherit;
-    background-color: black;
+    background-color: #3F51B5;
     box-shadow: 0px 0px 10px #000;
     display: flex;
     align-items: center;
