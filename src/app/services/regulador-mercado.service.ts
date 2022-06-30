@@ -21,8 +21,7 @@ export class ReguladorMercadoService {
     const networkId = await web3.eth.net.getId();
     console.log(networkId);
     const networkData = reguladorMercado.networks[networkId];
-    //const networkData = reguladorMercado.networks.
-    console.log(networkData);
+    console.log("networkdata regulador: ",networkData);
     if (networkData) {
       const abi = reguladorMercado.abi;
       this.adressContract = networkData.address;

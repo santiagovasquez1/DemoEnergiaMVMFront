@@ -18,7 +18,6 @@ export class GeneradorFactoryService {
   constructor(private winRef: WinRefService) { }
 
   async loadBlockChainContractData() {
-    debugger
     console.log("load generador");
     const web3 = this.winRef.window.web3 as Web3;
     //const accounts = await web3.eth.getAccounts();

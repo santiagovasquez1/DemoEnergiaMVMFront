@@ -16,6 +16,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { MatDialogModule } from '@angular/material/dialog';
 import { WinRefService } from './services/win-ref.service';
 import { ReguladorMercadoService } from './services/regulador-mercado.service';
+import { GeneradorFactoryService } from './services/generador-factory.service';
+import { Web3ConnectService } from './services/web3-connect.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,7 @@ import { ReguladorMercadoService } from './services/regulador-mercado.service';
     MatDialogModule
     
   ],
-  providers: [WinRefService, ReguladorMercadoService],
+  providers: [WinRefService, ReguladorMercadoService,GeneradorFactoryService,Web3ConnectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

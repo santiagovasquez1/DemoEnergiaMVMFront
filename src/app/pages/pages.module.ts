@@ -15,6 +15,8 @@ import { VerGeneradoresComponent } from './dashboard/ver-generadores/ver-generad
 import { GenerarEnergiaComponent } from '../shared/generar-energia/generar-energia.component';
 import { WinRefService } from '../services/win-ref.service';
 import { ReguladorMercadoService } from '../services/regulador-mercado.service';
+import { GeneradorFactoryService } from '../services/generador-factory.service';
+import { Web3ConnectService } from '../services/web3-connect.service';
 
 
 
@@ -39,7 +41,7 @@ import { ReguladorMercadoService } from '../services/regulador-mercado.service';
 
   ],
   entryComponents: [GenerarEnergiaComponent],
-  providers: [WinRefService, ReguladorMercadoService],
+  providers: [WinRefService, ReguladorMercadoService,GeneradorFactoryService,Web3ConnectService],
   exports:[
     DashboardComponent
   ]
