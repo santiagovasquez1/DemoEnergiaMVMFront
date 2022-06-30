@@ -13,6 +13,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VerGeneradoresComponent } from './dashboard/ver-generadores/ver-generadores.component';
 import { GenerarEnergiaComponent } from '../shared/generar-energia/generar-energia.component';
+import { WinRefService } from '../services/win-ref.service';
+import { ReguladorMercadoService } from '../services/regulador-mercado.service';
 
 
 
@@ -37,6 +39,7 @@ import { GenerarEnergiaComponent } from '../shared/generar-energia/generar-energ
 
   ],
   entryComponents: [GenerarEnergiaComponent],
+  providers: [WinRefService, ReguladorMercadoService],
   exports:[
     DashboardComponent
   ]

@@ -1,7 +1,7 @@
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Web3Service } from './../../services/web3.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Web3ConnectService } from 'src/app/services/web3-connect.service';
 
 @Component({
   selector: 'app-login',
@@ -10,25 +10,17 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private web3Service: Web3Service,
+  constructor(private web3Service: Web3ConnectService,
     private spinnerService: NgxSpinnerService,
-    private router: Router) { }
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
   }
 
-  onLogin() {
-
-    this.web3Service.connectAccount().subscribe({
-      next: data => {
-        //localStorage.setItem('account', account[account.length - 1]);
-        this.router.navigate(['/dashboard']);
-        console.log(data);
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    })
+  async onLogin() {
+    await this.web3Service.loadWeb3();
+    this.router.navigate(['/dashboard']);
   }
 
 }

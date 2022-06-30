@@ -14,6 +14,8 @@ import { FlexModule } from '@angular/flex-layout';
 
 import { ToastrModule } from 'ngx-toastr';
 import { MatDialogModule } from '@angular/material/dialog';
+import { WinRefService } from './services/win-ref.service';
+import { ReguladorMercadoService } from './services/regulador-mercado.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule
     
   ],
-  providers: [],
+  providers: [WinRefService, ReguladorMercadoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
