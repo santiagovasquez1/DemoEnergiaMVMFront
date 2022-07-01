@@ -4249,7 +4249,7 @@
                 }
               ]
             },
-            "name": "abi_decode_tuple_t_contract$_TipoEnergia_$10230_fromMemory",
+            "name": "abi_decode_tuple_t_contract$_TipoEnergia_$10231_fromMemory",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -8006,7 +8006,7 @@
                 }
               ]
             },
-            "name": "abi_encode_tuple_t_struct$_infoContrato_$10170_memory_ptr__to_t_struct$_infoContrato_$10170_memory_ptr__fromStack_reversed",
+            "name": "abi_encode_tuple_t_struct$_infoContrato_$10171_memory_ptr__to_t_struct$_infoContrato_$10171_memory_ptr__fromStack_reversed",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -9226,7 +9226,7 @@
           }
         ]
       },
-      "contents": "{\n    { }\n    function abi_decode_t_string(offset, end) -> array\n    {\n        if iszero(slt(add(offset, 0x1f), end)) { revert(array, array) }\n        let _1 := calldataload(offset)\n        let _2 := 0xffffffffffffffff\n        if gt(_1, _2) { panic_error_0x41() }\n        let memPtr := mload(64)\n        let newFreePtr := add(add(memPtr, and(add(_1, 0x1f), not(31))), 0x20)\n        if or(gt(newFreePtr, _2), lt(newFreePtr, memPtr)) { panic_error_0x41() }\n        mstore(64, newFreePtr)\n        mstore(memPtr, _1)\n        if gt(add(add(offset, _1), 0x20), end) { revert(array, array) }\n        calldatacopy(add(memPtr, 0x20), add(offset, 0x20), _1)\n        mstore(add(add(memPtr, _1), 0x20), array)\n        array := memPtr\n    }\n    function abi_decode_tuple_t_address(headStart, dataEnd) -> value0\n    {\n        if slt(sub(dataEnd, headStart), 32) { revert(value0, value0) }\n        let value := calldataload(headStart)\n        validator_revert_t_address(value)\n        value0 := value\n    }\n    function abi_decode_tuple_t_addresst_addresst_uint256t_string_memory_ptr(headStart, dataEnd) -> value0, value1, value2, value3\n    {\n        if slt(sub(dataEnd, headStart), 128) { revert(value1, value1) }\n        let value := calldataload(headStart)\n        validator_revert_t_address(value)\n        value0 := value\n        let value_1 := calldataload(add(headStart, 32))\n        validator_revert_t_address(value_1)\n        value1 := value_1\n        value2 := calldataload(add(headStart, 64))\n        let offset := calldataload(add(headStart, 96))\n        if gt(offset, 0xffffffffffffffff) { revert(value3, value3) }\n        value3 := abi_decode_t_string(add(headStart, offset), dataEnd)\n    }\n    function abi_decode_tuple_t_addresst_uint256t_string_memory_ptr(headStart, dataEnd) -> value0, value1, value2\n    {\n        if slt(sub(dataEnd, headStart), 96) { revert(value0, value0) }\n        let value := calldataload(headStart)\n        validator_revert_t_address(value)\n        value0 := value\n        value1 := calldataload(add(headStart, 32))\n        let offset := calldataload(add(headStart, 64))\n        if gt(offset, 0xffffffffffffffff) { revert(value2, value2) }\n        value2 := abi_decode_t_string(add(headStart, offset), dataEnd)\n    }\n    function abi_decode_tuple_t_bool_fromMemory(headStart, dataEnd) -> value0\n    {\n        if slt(sub(dataEnd, headStart), 32) { revert(value0, value0) }\n        let value := mload(headStart)\n        if iszero(eq(value, iszero(iszero(value)))) { revert(value0, value0) }\n        value0 := value\n    }\n    function abi_decode_tuple_t_contract$_TipoEnergia_$10230_fromMemory(headStart, dataEnd) -> value0\n    {\n        if slt(sub(dataEnd, headStart), 32) { revert(value0, value0) }\n        let value := mload(headStart)\n        validator_revert_t_address(value)\n        value0 := value\n    }\n    function abi_decode_tuple_t_string_memory_ptrt_address(headStart, dataEnd) -> value0, value1\n    {\n        if slt(sub(dataEnd, headStart), 64) { revert(value0, value0) }\n        let offset := calldataload(headStart)\n        if gt(offset, 0xffffffffffffffff) { revert(value0, value0) }\n        value0 := abi_decode_t_string(add(headStart, offset), dataEnd)\n        let value := calldataload(add(headStart, 32))\n        validator_revert_t_address(value)\n        value1 := value\n    }\n    function abi_decode_tuple_t_uint256_fromMemory(headStart, dataEnd) -> value0\n    {\n        if slt(sub(dataEnd, headStart), 32) { revert(value0, value0) }\n        value0 := mload(headStart)\n    }\n    function abi_encode_t_string(value, pos) -> end\n    {\n        let length := mload(value)\n        mstore(pos, length)\n        copy_memory_to_memory(add(value, 0x20), add(pos, 0x20), length)\n        end := add(add(pos, and(add(length, 31), not(31))), 0x20)\n    }\n    function abi_encode_tuple_packed_t_string_memory_ptr__to_t_string_memory_ptr__nonPadded_inplace_fromStack_reversed(pos, value0) -> end\n    {\n        let length := mload(value0)\n        copy_memory_to_memory(add(value0, 0x20), pos, length)\n        end := add(pos, length)\n    }\n    function abi_encode_tuple_t_address__to_t_address__fromStack_reversed(headStart, value0) -> tail\n    {\n        tail := add(headStart, 32)\n        mstore(headStart, and(value0, sub(shl(160, 1), 1)))\n    }\n    function abi_encode_tuple_t_address_t_array$_t_address_$dyn_storage__to_t_address_t_array$_t_address_$dyn_memory_ptr__fromStack_library_reversed(headStart, value1, value0) -> tail\n    {\n        let tail_1 := add(headStart, 64)\n        let _1 := sub(shl(160, 1), 1)\n        mstore(headStart, and(value0, _1))\n        let _2 := 32\n        mstore(add(headStart, _2), 64)\n        let pos := tail_1\n        let length := sload(value1)\n        mstore(tail_1, length)\n        pos := add(headStart, 96)\n        mstore(tail, value1)\n        let srcPtr := keccak256(tail, _2)\n        let i := tail\n        for { } lt(i, length) { i := add(i, 1) }\n        {\n            mstore(pos, and(sload(srcPtr), _1))\n            pos := add(pos, _2)\n            srcPtr := add(srcPtr, 1)\n        }\n        tail := pos\n    }\n    function abi_encode_tuple_t_array$_t_address_$dyn_memory_ptr__to_t_array$_t_address_$dyn_memory_ptr__fromStack_reversed(headStart, value0) -> tail\n    {\n        let _1 := 32\n        let tail_1 := add(headStart, _1)\n        mstore(headStart, _1)\n        let pos := tail_1\n        let length := mload(value0)\n        mstore(tail_1, length)\n        pos := add(headStart, 64)\n        let srcPtr := add(value0, _1)\n        let i := tail\n        for { } lt(i, length) { i := add(i, 1) }\n        {\n            mstore(pos, and(mload(srcPtr), sub(shl(160, 1), 1)))\n            pos := add(pos, _1)\n            srcPtr := add(srcPtr, _1)\n        }\n        tail := pos\n    }\n    function abi_encode_tuple_t_enum$_TipoComercio_$227__to_t_uint8__fromStack_reversed(headStart, value0) -> tail\n    {\n        tail := add(headStart, 32)\n        if iszero(lt(value0, 2))\n        {\n            mstore(0, shl(224, 0x4e487b71))\n            mstore(4, 0x21)\n            revert(0, 0x24)\n        }\n        mstore(headStart, value0)\n    }\n    function abi_encode_tuple_t_string_memory_ptr__to_t_string_memory_ptr__fromStack_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 32)\n        tail := abi_encode_t_string(value0, add(headStart, 32))\n    }\n    function abi_encode_tuple_t_string_memory_ptr_t_uint256__to_t_string_memory_ptr_t_uint256__fromStack_reversed(headStart, value1, value0) -> tail\n    {\n        mstore(headStart, 64)\n        tail := abi_encode_t_string(value0, add(headStart, 64))\n        mstore(add(headStart, 32), value1)\n    }\n    function abi_encode_tuple_t_stringliteral_532b7934c23fbe4737976bef6b7ead29a74ecdf1318a4535ed63cd29ef1e5819__to_t_string_memory_ptr__fromStack_reversed(headStart) -> tail\n    {\n        mstore(headStart, 32)\n        mstore(add(headStart, 32), 44)\n        mstore(add(headStart, 64), \"El cliente no es un cliente de e\")\n        mstore(add(headStart, 96), \"ste contrato\")\n        tail := add(headStart, 128)\n    }\n    function abi_encode_tuple_t_stringliteral_665aa9adc1a19bf49b68afad7eb458a34340edf1f109de6cc4eff1dc248073cf__to_t_string_memory_ptr__fromStack_reversed(headStart) -> tail\n    {\n        mstore(headStart, 32)\n        mstore(add(headStart, 32), 58)\n        mstore(add(headStart, 64), \"Solo los contratos de cliente pu\")\n        mstore(add(headStart, 96), \"eden ejecutar esta funcion\")\n        tail := add(headStart, 128)\n    }\n    function abi_encode_tuple_t_stringliteral_87af15d09b8193655dccb44ef0e91bf14b34c40523afa78d165173c3595d1197__to_t_string_memory_ptr__fromStack_reversed(headStart) -> tail\n    {\n        mstore(headStart, 32)\n        mstore(add(headStart, 32), 46)\n        mstore(add(headStart, 64), \"No tiene permisos para ejecutar \")\n        mstore(add(headStart, 96), \"la transaccion\")\n        tail := add(headStart, 128)\n    }\n    function abi_encode_tuple_t_struct$_infoContrato_$10170_memory_ptr__to_t_struct$_infoContrato_$10170_memory_ptr__fromStack_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 32)\n        let memberValue0 := mload(value0)\n        mstore(add(headStart, 32), 0x60)\n        let tail_1 := abi_encode_t_string(memberValue0, add(headStart, 128))\n        let memberValue0_1 := mload(add(value0, 32))\n        let _1 := sub(shl(160, 1), 1)\n        mstore(add(headStart, 64), and(memberValue0_1, _1))\n        mstore(add(headStart, 0x60), and(mload(add(value0, 64)), _1))\n        tail := tail_1\n    }\n    function abi_encode_tuple_t_uint256__to_t_uint256__fromStack_reversed(headStart, value0) -> tail\n    {\n        tail := add(headStart, 32)\n        mstore(headStart, value0)\n    }\n    function abi_encode_tuple_t_uint256_t_string_memory_ptr_t_address__to_t_uint256_t_string_memory_ptr_t_address__fromStack_reversed(headStart, value2, value1, value0) -> tail\n    {\n        mstore(headStart, value0)\n        mstore(add(headStart, 32), 96)\n        tail := abi_encode_t_string(value1, add(headStart, 96))\n        mstore(add(headStart, 64), and(value2, sub(shl(160, 1), 1)))\n    }\n    function copy_memory_to_memory(src, dst, length)\n    {\n        let i := 0\n        for { } lt(i, length) { i := add(i, 32) }\n        {\n            mstore(add(dst, i), mload(add(src, i)))\n        }\n        if gt(i, length) { mstore(add(dst, length), 0) }\n    }\n    function extract_byte_array_length(data) -> length\n    {\n        length := div(data, 2)\n        let outOfPlaceEncoding := and(data, 1)\n        if iszero(outOfPlaceEncoding) { length := and(length, 0x7f) }\n        if eq(outOfPlaceEncoding, lt(length, 32))\n        {\n            mstore(0, shl(224, 0x4e487b71))\n            mstore(4, 0x22)\n            revert(0, 0x24)\n        }\n    }\n    function panic_error_0x41()\n    {\n        mstore(0, shl(224, 0x4e487b71))\n        mstore(4, 0x41)\n        revert(0, 0x24)\n    }\n    function validator_revert_t_address(value)\n    {\n        if iszero(eq(value, and(value, sub(shl(160, 1), 1)))) { revert(0, 0) }\n    }\n}",
+      "contents": "{\n    { }\n    function abi_decode_t_string(offset, end) -> array\n    {\n        if iszero(slt(add(offset, 0x1f), end)) { revert(array, array) }\n        let _1 := calldataload(offset)\n        let _2 := 0xffffffffffffffff\n        if gt(_1, _2) { panic_error_0x41() }\n        let memPtr := mload(64)\n        let newFreePtr := add(add(memPtr, and(add(_1, 0x1f), not(31))), 0x20)\n        if or(gt(newFreePtr, _2), lt(newFreePtr, memPtr)) { panic_error_0x41() }\n        mstore(64, newFreePtr)\n        mstore(memPtr, _1)\n        if gt(add(add(offset, _1), 0x20), end) { revert(array, array) }\n        calldatacopy(add(memPtr, 0x20), add(offset, 0x20), _1)\n        mstore(add(add(memPtr, _1), 0x20), array)\n        array := memPtr\n    }\n    function abi_decode_tuple_t_address(headStart, dataEnd) -> value0\n    {\n        if slt(sub(dataEnd, headStart), 32) { revert(value0, value0) }\n        let value := calldataload(headStart)\n        validator_revert_t_address(value)\n        value0 := value\n    }\n    function abi_decode_tuple_t_addresst_addresst_uint256t_string_memory_ptr(headStart, dataEnd) -> value0, value1, value2, value3\n    {\n        if slt(sub(dataEnd, headStart), 128) { revert(value1, value1) }\n        let value := calldataload(headStart)\n        validator_revert_t_address(value)\n        value0 := value\n        let value_1 := calldataload(add(headStart, 32))\n        validator_revert_t_address(value_1)\n        value1 := value_1\n        value2 := calldataload(add(headStart, 64))\n        let offset := calldataload(add(headStart, 96))\n        if gt(offset, 0xffffffffffffffff) { revert(value3, value3) }\n        value3 := abi_decode_t_string(add(headStart, offset), dataEnd)\n    }\n    function abi_decode_tuple_t_addresst_uint256t_string_memory_ptr(headStart, dataEnd) -> value0, value1, value2\n    {\n        if slt(sub(dataEnd, headStart), 96) { revert(value0, value0) }\n        let value := calldataload(headStart)\n        validator_revert_t_address(value)\n        value0 := value\n        value1 := calldataload(add(headStart, 32))\n        let offset := calldataload(add(headStart, 64))\n        if gt(offset, 0xffffffffffffffff) { revert(value2, value2) }\n        value2 := abi_decode_t_string(add(headStart, offset), dataEnd)\n    }\n    function abi_decode_tuple_t_bool_fromMemory(headStart, dataEnd) -> value0\n    {\n        if slt(sub(dataEnd, headStart), 32) { revert(value0, value0) }\n        let value := mload(headStart)\n        if iszero(eq(value, iszero(iszero(value)))) { revert(value0, value0) }\n        value0 := value\n    }\n    function abi_decode_tuple_t_contract$_TipoEnergia_$10231_fromMemory(headStart, dataEnd) -> value0\n    {\n        if slt(sub(dataEnd, headStart), 32) { revert(value0, value0) }\n        let value := mload(headStart)\n        validator_revert_t_address(value)\n        value0 := value\n    }\n    function abi_decode_tuple_t_string_memory_ptrt_address(headStart, dataEnd) -> value0, value1\n    {\n        if slt(sub(dataEnd, headStart), 64) { revert(value0, value0) }\n        let offset := calldataload(headStart)\n        if gt(offset, 0xffffffffffffffff) { revert(value0, value0) }\n        value0 := abi_decode_t_string(add(headStart, offset), dataEnd)\n        let value := calldataload(add(headStart, 32))\n        validator_revert_t_address(value)\n        value1 := value\n    }\n    function abi_decode_tuple_t_uint256_fromMemory(headStart, dataEnd) -> value0\n    {\n        if slt(sub(dataEnd, headStart), 32) { revert(value0, value0) }\n        value0 := mload(headStart)\n    }\n    function abi_encode_t_string(value, pos) -> end\n    {\n        let length := mload(value)\n        mstore(pos, length)\n        copy_memory_to_memory(add(value, 0x20), add(pos, 0x20), length)\n        end := add(add(pos, and(add(length, 31), not(31))), 0x20)\n    }\n    function abi_encode_tuple_packed_t_string_memory_ptr__to_t_string_memory_ptr__nonPadded_inplace_fromStack_reversed(pos, value0) -> end\n    {\n        let length := mload(value0)\n        copy_memory_to_memory(add(value0, 0x20), pos, length)\n        end := add(pos, length)\n    }\n    function abi_encode_tuple_t_address__to_t_address__fromStack_reversed(headStart, value0) -> tail\n    {\n        tail := add(headStart, 32)\n        mstore(headStart, and(value0, sub(shl(160, 1), 1)))\n    }\n    function abi_encode_tuple_t_address_t_array$_t_address_$dyn_storage__to_t_address_t_array$_t_address_$dyn_memory_ptr__fromStack_library_reversed(headStart, value1, value0) -> tail\n    {\n        let tail_1 := add(headStart, 64)\n        let _1 := sub(shl(160, 1), 1)\n        mstore(headStart, and(value0, _1))\n        let _2 := 32\n        mstore(add(headStart, _2), 64)\n        let pos := tail_1\n        let length := sload(value1)\n        mstore(tail_1, length)\n        pos := add(headStart, 96)\n        mstore(tail, value1)\n        let srcPtr := keccak256(tail, _2)\n        let i := tail\n        for { } lt(i, length) { i := add(i, 1) }\n        {\n            mstore(pos, and(sload(srcPtr), _1))\n            pos := add(pos, _2)\n            srcPtr := add(srcPtr, 1)\n        }\n        tail := pos\n    }\n    function abi_encode_tuple_t_array$_t_address_$dyn_memory_ptr__to_t_array$_t_address_$dyn_memory_ptr__fromStack_reversed(headStart, value0) -> tail\n    {\n        let _1 := 32\n        let tail_1 := add(headStart, _1)\n        mstore(headStart, _1)\n        let pos := tail_1\n        let length := mload(value0)\n        mstore(tail_1, length)\n        pos := add(headStart, 64)\n        let srcPtr := add(value0, _1)\n        let i := tail\n        for { } lt(i, length) { i := add(i, 1) }\n        {\n            mstore(pos, and(mload(srcPtr), sub(shl(160, 1), 1)))\n            pos := add(pos, _1)\n            srcPtr := add(srcPtr, _1)\n        }\n        tail := pos\n    }\n    function abi_encode_tuple_t_enum$_TipoComercio_$227__to_t_uint8__fromStack_reversed(headStart, value0) -> tail\n    {\n        tail := add(headStart, 32)\n        if iszero(lt(value0, 2))\n        {\n            mstore(0, shl(224, 0x4e487b71))\n            mstore(4, 0x21)\n            revert(0, 0x24)\n        }\n        mstore(headStart, value0)\n    }\n    function abi_encode_tuple_t_string_memory_ptr__to_t_string_memory_ptr__fromStack_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 32)\n        tail := abi_encode_t_string(value0, add(headStart, 32))\n    }\n    function abi_encode_tuple_t_string_memory_ptr_t_uint256__to_t_string_memory_ptr_t_uint256__fromStack_reversed(headStart, value1, value0) -> tail\n    {\n        mstore(headStart, 64)\n        tail := abi_encode_t_string(value0, add(headStart, 64))\n        mstore(add(headStart, 32), value1)\n    }\n    function abi_encode_tuple_t_stringliteral_532b7934c23fbe4737976bef6b7ead29a74ecdf1318a4535ed63cd29ef1e5819__to_t_string_memory_ptr__fromStack_reversed(headStart) -> tail\n    {\n        mstore(headStart, 32)\n        mstore(add(headStart, 32), 44)\n        mstore(add(headStart, 64), \"El cliente no es un cliente de e\")\n        mstore(add(headStart, 96), \"ste contrato\")\n        tail := add(headStart, 128)\n    }\n    function abi_encode_tuple_t_stringliteral_665aa9adc1a19bf49b68afad7eb458a34340edf1f109de6cc4eff1dc248073cf__to_t_string_memory_ptr__fromStack_reversed(headStart) -> tail\n    {\n        mstore(headStart, 32)\n        mstore(add(headStart, 32), 58)\n        mstore(add(headStart, 64), \"Solo los contratos de cliente pu\")\n        mstore(add(headStart, 96), \"eden ejecutar esta funcion\")\n        tail := add(headStart, 128)\n    }\n    function abi_encode_tuple_t_stringliteral_87af15d09b8193655dccb44ef0e91bf14b34c40523afa78d165173c3595d1197__to_t_string_memory_ptr__fromStack_reversed(headStart) -> tail\n    {\n        mstore(headStart, 32)\n        mstore(add(headStart, 32), 46)\n        mstore(add(headStart, 64), \"No tiene permisos para ejecutar \")\n        mstore(add(headStart, 96), \"la transaccion\")\n        tail := add(headStart, 128)\n    }\n    function abi_encode_tuple_t_struct$_infoContrato_$10171_memory_ptr__to_t_struct$_infoContrato_$10171_memory_ptr__fromStack_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 32)\n        let memberValue0 := mload(value0)\n        mstore(add(headStart, 32), 0x60)\n        let tail_1 := abi_encode_t_string(memberValue0, add(headStart, 128))\n        let memberValue0_1 := mload(add(value0, 32))\n        let _1 := sub(shl(160, 1), 1)\n        mstore(add(headStart, 64), and(memberValue0_1, _1))\n        mstore(add(headStart, 0x60), and(mload(add(value0, 64)), _1))\n        tail := tail_1\n    }\n    function abi_encode_tuple_t_uint256__to_t_uint256__fromStack_reversed(headStart, value0) -> tail\n    {\n        tail := add(headStart, 32)\n        mstore(headStart, value0)\n    }\n    function abi_encode_tuple_t_uint256_t_string_memory_ptr_t_address__to_t_uint256_t_string_memory_ptr_t_address__fromStack_reversed(headStart, value2, value1, value0) -> tail\n    {\n        mstore(headStart, value0)\n        mstore(add(headStart, 32), 96)\n        tail := abi_encode_t_string(value1, add(headStart, 96))\n        mstore(add(headStart, 64), and(value2, sub(shl(160, 1), 1)))\n    }\n    function copy_memory_to_memory(src, dst, length)\n    {\n        let i := 0\n        for { } lt(i, length) { i := add(i, 32) }\n        {\n            mstore(add(dst, i), mload(add(src, i)))\n        }\n        if gt(i, length) { mstore(add(dst, length), 0) }\n    }\n    function extract_byte_array_length(data) -> length\n    {\n        length := div(data, 2)\n        let outOfPlaceEncoding := and(data, 1)\n        if iszero(outOfPlaceEncoding) { length := and(length, 0x7f) }\n        if eq(outOfPlaceEncoding, lt(length, 32))\n        {\n            mstore(0, shl(224, 0x4e487b71))\n            mstore(4, 0x22)\n            revert(0, 0x24)\n        }\n    }\n    function panic_error_0x41()\n    {\n        mstore(0, shl(224, 0x4e487b71))\n        mstore(4, 0x41)\n        revert(0, 0x24)\n    }\n    function validator_revert_t_address(value)\n    {\n        if iszero(eq(value, and(value, sub(shl(160, 1), 1)))) { revert(0, 0) }\n    }\n}",
       "id": 18,
       "language": "Yul",
       "name": "#utility.yul"
@@ -9249,13 +9249,13 @@
         1746
       ],
       "EnergiaEolica": [
-        10286
+        10287
       ],
       "EnergiaHidraulica": [
-        10314
+        10315
       ],
       "EnergiaSolar": [
-        10258
+        10259
       ],
       "Generador": [
         686
@@ -9273,16 +9273,16 @@
         1864
       ],
       "TipoEnergia": [
-        10230
+        10231
       ],
       "TipoEnergiaFactory": [
-        10392
+        10393
       ],
       "Validations": [
         1996
       ],
       "infoContrato": [
-        10170
+        10171
       ]
     },
     "id": 420,
@@ -9315,7 +9315,7 @@
         "id": 201,
         "nodeType": "ImportDirective",
         "scope": 420,
-        "sourceUnit": 10315,
+        "sourceUnit": 10316,
         "src": "93:34:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -9326,7 +9326,7 @@
         "id": 202,
         "nodeType": "ImportDirective",
         "scope": 420,
-        "sourceUnit": 10171,
+        "sourceUnit": 10172,
         "src": "129:35:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -9337,7 +9337,7 @@
         "id": 203,
         "nodeType": "ImportDirective",
         "scope": 420,
-        "sourceUnit": 10393,
+        "sourceUnit": 10394,
         "src": "166:41:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -9404,7 +9404,7 @@
         ],
         "contractDependencies": [
           10117,
-          10392
+          10393
         ],
         "contractKind": "contract",
         "fullyImplemented": true,
@@ -9490,7 +9490,7 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$_$",
+              "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$_$",
               "typeString": "mapping(string => mapping(address => contract TipoEnergia))"
             },
             "typeName": {
@@ -9508,7 +9508,7 @@
               "nodeType": "Mapping",
               "src": "537:50:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$_$",
+                "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$_$",
                 "typeString": "mapping(string => mapping(address => contract TipoEnergia))"
               },
               "valueType": {
@@ -9526,7 +9526,7 @@
                 "nodeType": "Mapping",
                 "src": "555:31:1",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$",
+                  "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$",
                   "typeString": "mapping(address => contract TipoEnergia)"
                 },
                 "valueType": {
@@ -9536,13 +9536,13 @@
                     "id": 217,
                     "name": "TipoEnergia",
                     "nodeType": "IdentifierPath",
-                    "referencedDeclaration": 10230,
+                    "referencedDeclaration": 10231,
                     "src": "574:11:1"
                   },
-                  "referencedDeclaration": 10230,
+                  "referencedDeclaration": 10231,
                   "src": "574:11:1",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                    "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                     "typeString": "contract TipoEnergia"
                   }
                 }
@@ -9561,7 +9561,7 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10392",
+              "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10393",
               "typeString": "contract TipoEnergiaFactory"
             },
             "typeName": {
@@ -9571,13 +9571,13 @@
                 "id": 222,
                 "name": "TipoEnergiaFactory",
                 "nodeType": "IdentifierPath",
-                "referencedDeclaration": 10392,
+                "referencedDeclaration": 10393,
                 "src": "625:18:1"
               },
-              "referencedDeclaration": 10392,
+              "referencedDeclaration": 10393,
               "src": "625:18:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10392",
+                "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10393",
                 "typeString": "contract TipoEnergiaFactory"
               }
             },
@@ -9954,7 +9954,7 @@
                       "referencedDeclaration": 224,
                       "src": "1143:14:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10392",
+                        "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10393",
                         "typeString": "contract TipoEnergiaFactory"
                       }
                     },
@@ -9972,7 +9972,7 @@
                         "nodeType": "NewExpression",
                         "src": "1160:22:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_function_creation_nonpayable$__$returns$_t_contract$_TipoEnergiaFactory_$10392_$",
+                          "typeIdentifier": "t_function_creation_nonpayable$__$returns$_t_contract$_TipoEnergiaFactory_$10393_$",
                           "typeString": "function () returns (contract TipoEnergiaFactory)"
                         },
                         "typeName": {
@@ -9982,13 +9982,13 @@
                             "id": 267,
                             "name": "TipoEnergiaFactory",
                             "nodeType": "IdentifierPath",
-                            "referencedDeclaration": 10392,
+                            "referencedDeclaration": 10393,
                             "src": "1164:18:1"
                           },
-                          "referencedDeclaration": 10392,
+                          "referencedDeclaration": 10393,
                           "src": "1164:18:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10392",
+                            "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10393",
                             "typeString": "contract TipoEnergiaFactory"
                           }
                         }
@@ -10004,13 +10004,13 @@
                       "src": "1160:24:1",
                       "tryCall": false,
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10392",
+                        "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10393",
                         "typeString": "contract TipoEnergiaFactory"
                       }
                     },
                     "src": "1143:41:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10392",
+                      "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10393",
                       "typeString": "contract TipoEnergiaFactory"
                     }
                   },
@@ -10459,7 +10459,7 @@
                               "referencedDeclaration": 221,
                               "src": "1992:30:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$_$",
+                                "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$_$",
                                 "typeString": "mapping(string memory => mapping(address => contract TipoEnergia))"
                               }
                             },
@@ -10483,7 +10483,7 @@
                             "nodeType": "IndexAccess",
                             "src": "1992:49:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$",
+                              "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$",
                               "typeString": "mapping(address => contract TipoEnergia)"
                             }
                           },
@@ -10507,7 +10507,7 @@
                           "nodeType": "IndexAccess",
                           "src": "1992:64:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                            "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                             "typeString": "contract TipoEnergia"
                           }
                         }
@@ -10515,7 +10515,7 @@
                       "expression": {
                         "argumentTypes": [
                           {
-                            "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                            "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                             "typeString": "contract TipoEnergia"
                           }
                         ],
@@ -10611,7 +10611,7 @@
                                   "referencedDeclaration": 221,
                                   "src": "2365:30:1",
                                   "typeDescriptions": {
-                                    "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$_$",
+                                    "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$_$",
                                     "typeString": "mapping(string memory => mapping(address => contract TipoEnergia))"
                                   }
                                 },
@@ -10635,7 +10635,7 @@
                                 "nodeType": "IndexAccess",
                                 "src": "2365:49:1",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$",
+                                  "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$",
                                   "typeString": "mapping(address => contract TipoEnergia)"
                                 }
                               },
@@ -10659,7 +10659,7 @@
                               "nodeType": "IndexAccess",
                               "src": "2365:64:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                                "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                                 "typeString": "contract TipoEnergia"
                               }
                             },
@@ -10670,7 +10670,7 @@
                             "lValueRequested": false,
                             "memberName": "addCantidadEnergia",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 10212,
+                            "referencedDeclaration": 10213,
                             "src": "2365:101:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$returns$__$",
@@ -10723,7 +10723,7 @@
                                 "referencedDeclaration": 221,
                                 "src": "2113:30:1",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$_$",
+                                  "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$_$",
                                   "typeString": "mapping(string memory => mapping(address => contract TipoEnergia))"
                                 }
                               },
@@ -10747,7 +10747,7 @@
                               "nodeType": "IndexAccess",
                               "src": "2113:49:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$",
+                                "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$",
                                 "typeString": "mapping(address => contract TipoEnergia)"
                               }
                             },
@@ -10771,7 +10771,7 @@
                             "nodeType": "IndexAccess",
                             "src": "2113:96:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                              "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                               "typeString": "contract TipoEnergia"
                             }
                           },
@@ -10823,7 +10823,7 @@
                                 "referencedDeclaration": 224,
                                 "src": "2212:14:1",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10392",
+                                  "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10393",
                                   "typeString": "contract TipoEnergiaFactory"
                                 }
                               },
@@ -10834,10 +10834,10 @@
                               "lValueRequested": false,
                               "memberName": "generarNuevaEnergia",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 10391,
+                              "referencedDeclaration": 10392,
                               "src": "2212:34:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_function_external_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$_t_contract$_TipoEnergia_$10230_$",
+                                "typeIdentifier": "t_function_external_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$_t_contract$_TipoEnergia_$10231_$",
                                 "typeString": "function (string memory,uint256) external returns (contract TipoEnergia)"
                               }
                             },
@@ -10852,13 +10852,13 @@
                             "src": "2212:120:1",
                             "tryCall": false,
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                              "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                               "typeString": "contract TipoEnergia"
                             }
                           },
                           "src": "2113:219:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                            "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                             "typeString": "contract TipoEnergia"
                           }
                         },
@@ -11201,7 +11201,7 @@
                             "referencedDeclaration": 221,
                             "src": "3041:30:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$_$",
+                              "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$_$",
                               "typeString": "mapping(string memory => mapping(address => contract TipoEnergia))"
                             }
                           },
@@ -11225,7 +11225,7 @@
                           "nodeType": "IndexAccess",
                           "src": "3041:50:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$",
+                            "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$",
                             "typeString": "mapping(address => contract TipoEnergia)"
                           }
                         },
@@ -11249,7 +11249,7 @@
                         "nodeType": "IndexAccess",
                         "src": "3041:60:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                          "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                           "typeString": "contract TipoEnergia"
                         }
                       },
@@ -11260,7 +11260,7 @@
                       "lValueRequested": false,
                       "memberName": "getCantidadEnergia",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 10195,
+                      "referencedDeclaration": 10196,
                       "src": "3041:97:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$__$returns$_t_uint256_$",
@@ -11899,13 +11899,13 @@
         1746
       ],
       "EnergiaEolica": [
-        10286
+        10287
       ],
       "EnergiaHidraulica": [
-        10314
+        10315
       ],
       "EnergiaSolar": [
-        10258
+        10259
       ],
       "Generador": [
         686
@@ -11923,16 +11923,16 @@
         1864
       ],
       "TipoEnergia": [
-        10230
+        10231
       ],
       "TipoEnergiaFactory": [
-        10392
+        10393
       ],
       "Validations": [
         1996
       ],
       "infoContrato": [
-        10170
+        10171
       ]
     },
     "id": 420,
@@ -11965,7 +11965,7 @@
         "id": 201,
         "nodeType": "ImportDirective",
         "scope": 420,
-        "sourceUnit": 10315,
+        "sourceUnit": 10316,
         "src": "93:34:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -11976,7 +11976,7 @@
         "id": 202,
         "nodeType": "ImportDirective",
         "scope": 420,
-        "sourceUnit": 10171,
+        "sourceUnit": 10172,
         "src": "129:35:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -11987,7 +11987,7 @@
         "id": 203,
         "nodeType": "ImportDirective",
         "scope": 420,
-        "sourceUnit": 10393,
+        "sourceUnit": 10394,
         "src": "166:41:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -12054,7 +12054,7 @@
         ],
         "contractDependencies": [
           10117,
-          10392
+          10393
         ],
         "contractKind": "contract",
         "fullyImplemented": true,
@@ -12140,7 +12140,7 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$_$",
+              "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$_$",
               "typeString": "mapping(string => mapping(address => contract TipoEnergia))"
             },
             "typeName": {
@@ -12158,7 +12158,7 @@
               "nodeType": "Mapping",
               "src": "537:50:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$_$",
+                "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$_$",
                 "typeString": "mapping(string => mapping(address => contract TipoEnergia))"
               },
               "valueType": {
@@ -12176,7 +12176,7 @@
                 "nodeType": "Mapping",
                 "src": "555:31:1",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$",
+                  "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$",
                   "typeString": "mapping(address => contract TipoEnergia)"
                 },
                 "valueType": {
@@ -12186,13 +12186,13 @@
                     "id": 217,
                     "name": "TipoEnergia",
                     "nodeType": "IdentifierPath",
-                    "referencedDeclaration": 10230,
+                    "referencedDeclaration": 10231,
                     "src": "574:11:1"
                   },
-                  "referencedDeclaration": 10230,
+                  "referencedDeclaration": 10231,
                   "src": "574:11:1",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                    "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                     "typeString": "contract TipoEnergia"
                   }
                 }
@@ -12211,7 +12211,7 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10392",
+              "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10393",
               "typeString": "contract TipoEnergiaFactory"
             },
             "typeName": {
@@ -12221,13 +12221,13 @@
                 "id": 222,
                 "name": "TipoEnergiaFactory",
                 "nodeType": "IdentifierPath",
-                "referencedDeclaration": 10392,
+                "referencedDeclaration": 10393,
                 "src": "625:18:1"
               },
-              "referencedDeclaration": 10392,
+              "referencedDeclaration": 10393,
               "src": "625:18:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10392",
+                "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10393",
                 "typeString": "contract TipoEnergiaFactory"
               }
             },
@@ -12604,7 +12604,7 @@
                       "referencedDeclaration": 224,
                       "src": "1143:14:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10392",
+                        "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10393",
                         "typeString": "contract TipoEnergiaFactory"
                       }
                     },
@@ -12622,7 +12622,7 @@
                         "nodeType": "NewExpression",
                         "src": "1160:22:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_function_creation_nonpayable$__$returns$_t_contract$_TipoEnergiaFactory_$10392_$",
+                          "typeIdentifier": "t_function_creation_nonpayable$__$returns$_t_contract$_TipoEnergiaFactory_$10393_$",
                           "typeString": "function () returns (contract TipoEnergiaFactory)"
                         },
                         "typeName": {
@@ -12632,13 +12632,13 @@
                             "id": 267,
                             "name": "TipoEnergiaFactory",
                             "nodeType": "IdentifierPath",
-                            "referencedDeclaration": 10392,
+                            "referencedDeclaration": 10393,
                             "src": "1164:18:1"
                           },
-                          "referencedDeclaration": 10392,
+                          "referencedDeclaration": 10393,
                           "src": "1164:18:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10392",
+                            "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10393",
                             "typeString": "contract TipoEnergiaFactory"
                           }
                         }
@@ -12654,13 +12654,13 @@
                       "src": "1160:24:1",
                       "tryCall": false,
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10392",
+                        "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10393",
                         "typeString": "contract TipoEnergiaFactory"
                       }
                     },
                     "src": "1143:41:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10392",
+                      "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10393",
                       "typeString": "contract TipoEnergiaFactory"
                     }
                   },
@@ -13109,7 +13109,7 @@
                               "referencedDeclaration": 221,
                               "src": "1992:30:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$_$",
+                                "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$_$",
                                 "typeString": "mapping(string memory => mapping(address => contract TipoEnergia))"
                               }
                             },
@@ -13133,7 +13133,7 @@
                             "nodeType": "IndexAccess",
                             "src": "1992:49:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$",
+                              "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$",
                               "typeString": "mapping(address => contract TipoEnergia)"
                             }
                           },
@@ -13157,7 +13157,7 @@
                           "nodeType": "IndexAccess",
                           "src": "1992:64:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                            "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                             "typeString": "contract TipoEnergia"
                           }
                         }
@@ -13165,7 +13165,7 @@
                       "expression": {
                         "argumentTypes": [
                           {
-                            "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                            "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                             "typeString": "contract TipoEnergia"
                           }
                         ],
@@ -13261,7 +13261,7 @@
                                   "referencedDeclaration": 221,
                                   "src": "2365:30:1",
                                   "typeDescriptions": {
-                                    "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$_$",
+                                    "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$_$",
                                     "typeString": "mapping(string memory => mapping(address => contract TipoEnergia))"
                                   }
                                 },
@@ -13285,7 +13285,7 @@
                                 "nodeType": "IndexAccess",
                                 "src": "2365:49:1",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$",
+                                  "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$",
                                   "typeString": "mapping(address => contract TipoEnergia)"
                                 }
                               },
@@ -13309,7 +13309,7 @@
                               "nodeType": "IndexAccess",
                               "src": "2365:64:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                                "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                                 "typeString": "contract TipoEnergia"
                               }
                             },
@@ -13320,7 +13320,7 @@
                             "lValueRequested": false,
                             "memberName": "addCantidadEnergia",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 10212,
+                            "referencedDeclaration": 10213,
                             "src": "2365:101:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$returns$__$",
@@ -13373,7 +13373,7 @@
                                 "referencedDeclaration": 221,
                                 "src": "2113:30:1",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$_$",
+                                  "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$_$",
                                   "typeString": "mapping(string memory => mapping(address => contract TipoEnergia))"
                                 }
                               },
@@ -13397,7 +13397,7 @@
                               "nodeType": "IndexAccess",
                               "src": "2113:49:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$",
+                                "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$",
                                 "typeString": "mapping(address => contract TipoEnergia)"
                               }
                             },
@@ -13421,7 +13421,7 @@
                             "nodeType": "IndexAccess",
                             "src": "2113:96:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                              "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                               "typeString": "contract TipoEnergia"
                             }
                           },
@@ -13473,7 +13473,7 @@
                                 "referencedDeclaration": 224,
                                 "src": "2212:14:1",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10392",
+                                  "typeIdentifier": "t_contract$_TipoEnergiaFactory_$10393",
                                   "typeString": "contract TipoEnergiaFactory"
                                 }
                               },
@@ -13484,10 +13484,10 @@
                               "lValueRequested": false,
                               "memberName": "generarNuevaEnergia",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 10391,
+                              "referencedDeclaration": 10392,
                               "src": "2212:34:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_function_external_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$_t_contract$_TipoEnergia_$10230_$",
+                                "typeIdentifier": "t_function_external_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$_t_contract$_TipoEnergia_$10231_$",
                                 "typeString": "function (string memory,uint256) external returns (contract TipoEnergia)"
                               }
                             },
@@ -13502,13 +13502,13 @@
                             "src": "2212:120:1",
                             "tryCall": false,
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                              "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                               "typeString": "contract TipoEnergia"
                             }
                           },
                           "src": "2113:219:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                            "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                             "typeString": "contract TipoEnergia"
                           }
                         },
@@ -13851,7 +13851,7 @@
                             "referencedDeclaration": 221,
                             "src": "3041:30:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$_$",
+                              "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$_$",
                               "typeString": "mapping(string memory => mapping(address => contract TipoEnergia))"
                             }
                           },
@@ -13875,7 +13875,7 @@
                           "nodeType": "IndexAccess",
                           "src": "3041:50:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10230_$",
+                            "typeIdentifier": "t_mapping$_t_address_$_t_contract$_TipoEnergia_$10231_$",
                             "typeString": "mapping(address => contract TipoEnergia)"
                           }
                         },
@@ -13899,7 +13899,7 @@
                         "nodeType": "IndexAccess",
                         "src": "3041:60:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_TipoEnergia_$10230",
+                          "typeIdentifier": "t_contract$_TipoEnergia_$10231",
                           "typeString": "contract TipoEnergia"
                         }
                       },
@@ -13910,7 +13910,7 @@
                       "lValueRequested": false,
                       "memberName": "getCantidadEnergia",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 10195,
+                      "referencedDeclaration": 10196,
                       "src": "3041:97:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$__$returns$_t_uint256_$",
@@ -14549,7 +14549,7 @@
     }
   },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2022-06-30T21:49:59.759Z",
+  "updatedAt": "2022-07-01T13:02:06.095Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
