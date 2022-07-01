@@ -7,30 +7,19 @@ import generadorFactory from "../../../build/contracts/MvmGeneradorFactory.json"
 import { AbiItem } from 'web3-utils';
 import { catchError, forkJoin, from, switchMap, throwError } from 'rxjs';
 import { Observable } from 'rxjs';
+import { FactoryService } from './factory.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GeneradorFactoryService {
-
-  contract: Contract | undefined;
-  account: any;
-
-  constructor(private winRef: WinRefService, private web3Connect: Web3ConnectService) { }
+export class GeneradorFactoryService extends FactoryService {
 
   async loadBlockChainContractData() {
     await this.web3Connect.loadWeb3();
     const web3 = this.winRef.window.web3 as Web3;
     const networkId = await web3.eth.net.getId();
     const networkData = generadorFactory.networks[networkId];
-    if (networkData) {
-      const abi = generadorFactory.abi;
-      const address = networkData.address;
-      this.contract = new web3.eth.Contract(abi as unknown as AbiItem, address);
-      console.log(this.contract);
-    } else {
-      window.alert('Esta aplicación no está disponible en este network.');
-    }
+    this.setContractData(generadorFactory, networkData, web3);
   }
 
   agregarGenerador(nombreGenerador): Observable<any> {

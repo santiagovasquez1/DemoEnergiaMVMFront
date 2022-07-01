@@ -130,13 +130,13 @@
         1746
       ],
       "EnergiaEolica": [
-        10272
+        10286
       ],
       "EnergiaHidraulica": [
-        10300
+        10314
       ],
       "EnergiaSolar": [
-        10244
+        10258
       ],
       "IER20": [
         1431
@@ -151,10 +151,10 @@
         1864
       ],
       "TipoEnergia": [
-        10216
+        10230
       ],
       "infoContrato": [
-        10156
+        10170
       ]
     },
     "id": 10118,
@@ -201,7 +201,7 @@
         "id": 10065,
         "nodeType": "ImportDirective",
         "scope": 10118,
-        "sourceUnit": 10157,
+        "sourceUnit": 10171,
         "src": "137:28:13",
         "symbolAliases": [],
         "unitAlias": ""
@@ -778,10 +778,10 @@
                       "name": "infoContrato",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10156,
+                      "referencedDeclaration": 10170,
                       "src": "828:12:13",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_struct$_infoContrato_$10156_storage_ptr_$",
+                        "typeIdentifier": "t_type$_t_struct$_infoContrato_$10170_storage_ptr_$",
                         "typeString": "type(struct infoContrato storage pointer)"
                       }
                     },
@@ -796,7 +796,7 @@
                     "src": "828:41:13",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_infoContrato_$10156_memory_ptr",
+                      "typeIdentifier": "t_struct$_infoContrato_$10170_memory_ptr",
                       "typeString": "struct infoContrato memory"
                     }
                   },
@@ -835,7 +835,7 @@
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_infoContrato_$10156_memory_ptr",
+                    "typeIdentifier": "t_struct$_infoContrato_$10170_memory_ptr",
                     "typeString": "struct infoContrato"
                   },
                   "typeName": {
@@ -845,13 +845,13 @@
                       "id": 10105,
                       "name": "infoContrato",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 10156,
+                      "referencedDeclaration": 10170,
                       "src": "789:12:13"
                     },
-                    "referencedDeclaration": 10156,
+                    "referencedDeclaration": 10170,
                     "src": "789:12:13",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_infoContrato_$10156_storage_ptr",
+                      "typeIdentifier": "t_struct$_infoContrato_$10170_storage_ptr",
                       "typeString": "struct infoContrato"
                     }
                   },
@@ -883,13 +883,13 @@
         1746
       ],
       "EnergiaEolica": [
-        10272
+        10286
       ],
       "EnergiaHidraulica": [
-        10300
+        10314
       ],
       "EnergiaSolar": [
-        10244
+        10258
       ],
       "IER20": [
         1431
@@ -904,10 +904,10 @@
         1864
       ],
       "TipoEnergia": [
-        10216
+        10230
       ],
       "infoContrato": [
-        10156
+        10170
       ]
     },
     "id": 10118,
@@ -954,7 +954,7 @@
         "id": 10065,
         "nodeType": "ImportDirective",
         "scope": 10118,
-        "sourceUnit": 10157,
+        "sourceUnit": 10171,
         "src": "137:28:13",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1531,10 +1531,10 @@
                       "name": "infoContrato",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 10156,
+                      "referencedDeclaration": 10170,
                       "src": "828:12:13",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_struct$_infoContrato_$10156_storage_ptr_$",
+                        "typeIdentifier": "t_type$_t_struct$_infoContrato_$10170_storage_ptr_$",
                         "typeString": "type(struct infoContrato storage pointer)"
                       }
                     },
@@ -1549,7 +1549,7 @@
                     "src": "828:41:13",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_infoContrato_$10156_memory_ptr",
+                      "typeIdentifier": "t_struct$_infoContrato_$10170_memory_ptr",
                       "typeString": "struct infoContrato memory"
                     }
                   },
@@ -1588,7 +1588,7 @@
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_infoContrato_$10156_memory_ptr",
+                    "typeIdentifier": "t_struct$_infoContrato_$10170_memory_ptr",
                     "typeString": "struct infoContrato"
                   },
                   "typeName": {
@@ -1598,13 +1598,13 @@
                       "id": 10105,
                       "name": "infoContrato",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 10156,
+                      "referencedDeclaration": 10170,
                       "src": "789:12:13"
                     },
-                    "referencedDeclaration": 10156,
+                    "referencedDeclaration": 10170,
                     "src": "789:12:13",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_infoContrato_$10156_storage_ptr",
+                      "typeIdentifier": "t_struct$_infoContrato_$10170_storage_ptr",
                       "typeString": "struct infoContrato"
                     }
                   },
@@ -1632,7 +1632,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2022-06-30T19:25:59.256Z",
+  "updatedAt": "2022-06-30T21:49:45.155Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
