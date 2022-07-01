@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { GeneradorFactoryService } from 'src/app/services/generador-factory.service';
-import { Web3Service } from '../../../services/web3.service';
 
 @Component({
   selector: 'app-agregar-generador',
@@ -11,48 +11,48 @@ import { Web3Service } from '../../../services/web3.service';
 })
 export class AgregarGeneradorComponent implements OnInit {
 
-  generadorForm: FormGroup; 
-  loading: boolean=false;
-  
+  generadorForm: FormGroup;
+  loading: boolean = false;
+
   constructor(private fb: FormBuilder,
-              private web3Service: Web3Service,
-              private toastr: ToastrService,
-              private generadorService: GeneradorFactoryService
-              ) { 
-    
+    private toastr: ToastrService,
+    private generadorService: GeneradorFactoryService,
+    private spinnerService: NgxSpinnerService
+  ) {
     this.generadorForm = this.fb.group({
-      nombreGenerador: ['',Validators.required]
+      nombreGenerador: ['', Validators.required]
     });
   }
 
   async ngOnInit() {
-    try{
+    try {
       await this.generadorService.loadBlockChainContractData();
       console.log("Cargado generador!");
     }
-    catch{
-      console.log("Error generador!");
+    catch {
+      this.toastr.error('Error al cargar el contrato', 'Error');
     }
   }
 
 
-  guardarGenerador(): void{
+  guardarGenerador(): void {
     console.log("Guardando generador");
+    this.spinnerService.show();
     this.generadorService.agregarGenerador(this.generadorForm.value.nombreGenerador).subscribe({
 
-      next:data=>{
+      next: data => {
         debugger
         console.log(data);
         this.toastr.success('Generador guardado con éxito', 'Operación exitosa');
         this.generadorForm.reset();
-        this.loading = false;
+        this.spinnerService.hide();
       },
       error: err => {
         debugger
         console.log(err);
-        this.toastr.success('Error realizando la transacción', 'Error');
+        this.toastr.error('Error realizando la transacción', 'Error');
         this.generadorForm.reset();
-        this.loading = false;
+        this.spinnerService.hide();
       }
     });
 

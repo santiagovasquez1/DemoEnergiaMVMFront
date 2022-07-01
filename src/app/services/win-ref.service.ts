@@ -8,11 +8,13 @@ const w = () => {
   providedIn: 'root'
 })
 export class WinRefService {
+  prueba: string;
 
-
-  constructor() { }
+  constructor() {
+    this.prueba = 'prueba';
+  }
   get window(): any {
     return w();
   }
-  
+
 }

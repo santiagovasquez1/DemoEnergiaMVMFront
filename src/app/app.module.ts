@@ -1,3 +1,4 @@
+import { Web3ConnectService } from 'src/app/services/web3-connect.service';
 import { PagesModule } from './pages/pages.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthorizationModule } from './authorization/authorization.module';
@@ -34,9 +35,9 @@ import { ReguladorMercadoService } from './services/regulador-mercado.service';
     FlexModule,
     ToastrModule.forRoot(),
     MatDialogModule
-    
+
   ],
-  providers: [WinRefService, ReguladorMercadoService],
+  providers: [WinRefService, Web3ConnectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
