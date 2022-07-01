@@ -28,33 +28,37 @@ export class LoginComponent {
     try {
       this.spinnerService.show();
       await this.web3Service.loadWeb3();
-      this.spinnerService.hide();
-      this.router.navigate(['/dashboard']);
-      // let promises: Promise<void>[] = [];
-      // promises.push(this.clienteFactory.loadBlockChainContractData());
-      // promises.push(this.comercializadorFactory.loadBlockChainContractData());
-      // promises.push(this.generadorFactory.loadBlockChainContractData());
-      // await Promise.all(promises);
-      // debugger
-      // let comprobacionCuenta: Observable<any>[] = [];
-      // comprobacionCuenta.push(this.clienteFactory.getIsDireccionRegistrada());
-      // comprobacionCuenta.push(this.comercializadorFactory.getIsDireccionRegistrada());
-      // comprobacionCuenta.push(this.generadorFactory.getIsDireccionRegistrada());
+      let promises: Promise<void>[] = [];
+      promises.push(this.clienteFactory.loadBlockChainContractData());
+      promises.push(this.comercializadorFactory.loadBlockChainContractData());
+      promises.push(this.generadorFactory.loadBlockChainContractData());
+      await Promise.all(promises);
+      
+      let comprobacionCuenta: Observable<any>[] = [];
+      comprobacionCuenta.push(this.clienteFactory.getIsDireccionRegistrada());
+      comprobacionCuenta.push(this.comercializadorFactory.getIsDireccionRegistrada());
+      comprobacionCuenta.push(this.generadorFactory.getIsDireccionRegistrada());
 
-      // forkJoin(comprobacionCuenta).subscribe({
-      //   next: (result) => {
-      //     debugger
-      //     console.log(result);
-      //     this.spinnerService.hide();
-      //     this.router.navigate(['/dashboard']);
-      //   },
-      //   error: (error) => {
-      //     debugger
-      //     this.spinnerService.hide();
-      //     console.log(error);
-      //     this.toastr.error(error.message, 'Error');
-      //   }
-      // });
+      forkJoin(comprobacionCuenta).subscribe({
+        next: (result) => {          
+          console.log(result);
+          let existeCuenta = result.find((element) => element === true);
+          this.spinnerService.hide();
+          if(existeCuenta) {
+            //TODO: Almacenar el tipo de cuenta en una variable de sesion
+            this.router.navigate(['/dashboard']);
+          }else{
+            //TODO: Enviar a pagina de registro
+            this.toastr.error('Esta cuenta no está registrada.', 'Error');
+            this.router.navigate(['/dashboard']);
+          }
+        },
+        error: (error) => {
+          this.spinnerService.hide();
+          console.log(error);
+          this.toastr.error(error.message, 'Error');
+        }
+      });
     } catch (error) {
 
       this.spinnerService.hide();
