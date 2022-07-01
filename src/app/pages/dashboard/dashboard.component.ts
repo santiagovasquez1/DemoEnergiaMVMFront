@@ -1,4 +1,5 @@
-import { Web3Service } from './../../services/web3.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { Web3ConnectService } from 'src/app/services/web3-connect.service';
@@ -10,21 +11,32 @@ import { Web3ConnectService } from 'src/app/services/web3-connect.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private web3Service: Web3ConnectService,
-              private reguladorService: ReguladorMercadoService) { }
+  constructor(private reguladorService: ReguladorMercadoService,
+    private toastr: ToastrService,
+    private spinnerService:NgxSpinnerService) { }
 
   async ngOnInit() {
     //this.web3Service.initContract();
-    try{
-      await this.web3Service.loadWeb3();
+    try {
+      this.spinnerService.show();
       await this.reguladorService.loadBlockChainContractData();
-      console.log("Cargado regulador dashboard!");
+      this.reguladorService.getTokensDisponibles().subscribe({
+        next: data => {
+          console.log(data);
+          this.spinnerService.hide();
+        },
+        error: err => {
+          console.log(err);
+          this.toastr.error('Error al obtener los tokens disponibles', 'Error');
+          this.spinnerService.hide();
+        }
+      });
     }
-    catch{
-      console.log("Error regulador dashboard!");
+    catch {
+      console.log("Error al cargar el contrato");
+      this.toastr.error('Error al cargar el contrato', 'Error');
+      this.spinnerService.hide();
     }
-    
-    
   }
 
 }

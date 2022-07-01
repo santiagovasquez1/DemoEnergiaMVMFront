@@ -1,3 +1,4 @@
+import { Web3ConnectService } from 'src/app/services/web3-connect.service';
 import { PagesModule } from './pages/pages.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthorizationModule } from './authorization/authorization.module';
@@ -17,7 +18,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { WinRefService } from './services/win-ref.service';
 import { ReguladorMercadoService } from './services/regulador-mercado.service';
 import { GeneradorFactoryService } from './services/generador-factory.service';
-import { Web3ConnectService } from './services/web3-connect.service';
 
 @NgModule({
   declarations: [
@@ -36,9 +36,9 @@ import { Web3ConnectService } from './services/web3-connect.service';
     FlexModule,
     ToastrModule.forRoot(),
     MatDialogModule
-    
+
   ],
-  providers: [WinRefService, ReguladorMercadoService,GeneradorFactoryService,Web3ConnectService],
+  providers: [WinRefService, Web3ConnectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
