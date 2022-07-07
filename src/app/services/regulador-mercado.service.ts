@@ -1,3 +1,6 @@
+import { TiposContratos } from './../models/EnumTiposContratos';
+import { InfoContrato } from './../models/infoContrato';
+import { SolicitudContrato } from './../models/solicitudContrato';
 import { Web3ConnectService } from 'src/app/services/web3-connect.service';
 import { Injectable } from '@angular/core';
 import Web3 from 'web3';
@@ -24,13 +27,14 @@ export class ReguladorMercadoService {
   async loadBlockChainContractData() {
     await this.web3ConnectService.loadWeb3();
     const web3 = this.winRef.window.web3 as Web3;
+
     const networkId = await web3.eth.net.getId();
     const networkData = reguladorMercado.networks[networkId];
     if (networkData) {
       const abi = reguladorMercado.abi;
       this.adressContract = networkData.address;
       this.contract = new web3.eth.Contract(abi as unknown as AbiItem, this.adressContract);
-
+      this.account = localStorage.getItem('account');
       this.ComprandoTokens$ = this.contract.events.ComprandoTokens();
       this.tokensDevueltos$ = this.contract.events.tokensDevueltos();
       this.EnviarTokens$ = this.contract.events.EnviarTokensEvent();
@@ -39,6 +43,14 @@ export class ReguladorMercadoService {
     } else {
       window.alert('Esta aplicación no está disponible en este network.');
     }
+  }
+
+  getOwner(): Observable<any> {
+    return from(this.contract?.methods.owner().call({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
   }
 
   getTokensDisponibles(): Observable<number> {
@@ -73,4 +85,39 @@ export class ReguladorMercadoService {
     );
   }
 
+  getSolicitudesRegistro(): Observable<SolicitudContrato> {
+    return from(this.contract?.methods.getSolicitudes().call({ from: this.account })).pipe(
+      map((data: any) => {
+        return data as SolicitudContrato;
+      }), catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+  postRegistrarSolicitud(infoContrato: InfoContrato, tipoContrato: TiposContratos): Observable<any> {
+    return from(this.contract?.methods.registrarSolicitud(infoContrato, tipoContrato).send({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+  postDiligenciarSolicitud(index: number): Observable<any> {
+    return from(this.contract?.methods.diligenciarSolicitud(index).send({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+  existeSolicitud(): Observable<boolean> {
+    return from(this.contract?.methods.existeSolicitud().call({ from: this.account })).pipe(
+      map((data: any) => {
+        return data as boolean;
+      }), catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
 }

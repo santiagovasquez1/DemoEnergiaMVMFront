@@ -16,12 +16,11 @@ export class Web3ConnectService {
     if (this.winRef.window.ethereum) {
       this.winRef.window.web3 = new Web3(this.winRef.window.ethereum);
       try {
-        await this.winRef.window.ethereum.enable();
+        await this.winRef.window.ethereum.request({ method: 'eth_requestAccounts' });
         const web3 = this.winRef.window.web3 as Web3;
         const accounts = await web3.eth.getAccounts();
         this.account = accounts[0];
         localStorage.setItem('account', this.account);
-        console.log('Web3 injected successfully.');
       } catch (error) {
         console.error(error);
       }

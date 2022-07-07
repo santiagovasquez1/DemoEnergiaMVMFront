@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  municipiosUrl: 'https://www.datos.gov.co/resource/xdk5-pm3f.json'
 };
 
 /*
