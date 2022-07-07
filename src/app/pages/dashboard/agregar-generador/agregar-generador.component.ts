@@ -41,14 +41,12 @@ export class AgregarGeneradorComponent implements OnInit {
     this.generadorService.agregarGenerador(this.generadorForm.value.nombreGenerador).subscribe({
 
       next: data => {
-        debugger
         console.log(data);
         this.toastr.success('Generador guardado con éxito', 'Operación exitosa');
         this.generadorForm.reset();
         this.spinnerService.hide();
       },
       error: err => {
-        debugger
         console.log(err);
         this.toastr.error('Error realizando la transacción', 'Error');
         this.generadorForm.reset();

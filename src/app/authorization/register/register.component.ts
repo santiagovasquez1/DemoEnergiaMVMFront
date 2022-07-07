@@ -116,6 +116,7 @@ export class RegisterComponent implements OnInit {
 
     this.reguladorMercado.postRegistrarSolicitud(solicitudContrato.infoContrato, solicitudContrato.tipoContrato).subscribe({
       next: (res) => {
+        //TODO: Notificar al administrador que se ha registrado una solicitud
         this.toastr.success('Solicitud enviada correctamente');
         this.router.navigate(['/login']);
       }, error: (err) => {

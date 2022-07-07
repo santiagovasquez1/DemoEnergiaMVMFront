@@ -52,7 +52,6 @@ body {
     padding-bottom: 40px !important;
     padding-left: 47px !important;
     padding-right: 47px !important;
-    margin: 0px auto !important;
 }
 
 .w-240 {
@@ -85,4 +84,24 @@ body {
 
 .p-20 {
     padding: 20px !important;
+}
+
+.m-20 {
+    margin: 20px !important;
+}
+
+.mt-20 {
+    margin-top: 20px !important;
+}
+
+.mb-20 {
+    margin-bottom: 20px !important;
+}
+
+.ml-20 {
+    margin-left: 20px !important;
+}
+
+.mr-20 {
+    margin-right: 20px !important;
 }

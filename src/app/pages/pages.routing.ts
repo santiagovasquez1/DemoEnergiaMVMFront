@@ -1,3 +1,4 @@
+import { ReguladorMercadoComponent } from './regulador-mercado/regulador-mercado.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AgregarGeneradorComponent } from './dashboard/agregar-generador/agregar-generador.component';
@@ -11,13 +12,17 @@ const routes: Routes = [
         component: DashboardComponent,
         children: [
             {
+                path: "",
+                component:ReguladorMercadoComponent
+            },
+            {
                 path: "agregarGenerador",
                 component: AgregarGeneradorComponent
             },
             {
                 path: "verGeneradores",
                 component: VerGeneradoresComponent
-            }
+            },
         ]
     }
 ]

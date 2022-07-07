@@ -21,7 +21,6 @@ export class DashboardComponent implements OnInit {
   async ngOnInit() {
     try {
       this.spinnerService.show();
-      debugger;
       await this.reguladorService.loadBlockChainContractData();
       let observables: Observable<any>[] = [];
       observables.push(this.reguladorService.getTokensDisponibles());

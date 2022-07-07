@@ -85,10 +85,34 @@ export class ReguladorMercadoService {
     );
   }
 
-  getSolicitudesRegistro(): Observable<SolicitudContrato> {
+  getSolicitudesRegistro(): Observable<SolicitudContrato[]> {
     return from(this.contract?.methods.getSolicitudes().call({ from: this.account })).pipe(
       map((data: any) => {
-        return data as SolicitudContrato;
+        let solicitudes = data.map((solicitud: any) => {
+
+          let tempInfo: InfoContrato = {
+            owner: solicitud.infoContrato.owner,
+            ciudad: solicitud.infoContrato.ciudad,
+            direccion: solicitud.infoContrato.direccion,
+            telefono: solicitud.infoContrato.telefono,
+            comercializador: solicitud.infoContrato.comercializador,
+            contacto: solicitud.infoContrato.contacto,
+            correo: solicitud.infoContrato.correo,
+            departamento: solicitud.infoContrato.departamento,
+            nit: solicitud.infoContrato.nit,
+            dirContrato: solicitud.infoContrato.dirContrato,
+            empresa: solicitud.infoContrato.empresa,
+            tipoComercio: solicitud.infoContrato.tipoComercio
+          };
+          let tempTipo = solicitud.tipoContrato;
+          let solicitudDef: SolicitudContrato = {
+            infoContrato: tempInfo,
+            tipoContrato: tempTipo,
+          }
+          return solicitudDef;
+        });
+        return solicitudes as SolicitudContrato[];
+        // return data as SolicitudContrato[];
       }), catchError((error) => {
         return throwError(() => new Error(error.message));
       })
