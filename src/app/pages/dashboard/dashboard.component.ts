@@ -1,3 +1,4 @@
+import { Observable, forkJoin } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
@@ -10,29 +11,36 @@ import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.serv
 })
 export class DashboardComponent implements OnInit {
 
+  numTokensDisponibles: number = 0;
+  solicutudesRegistro: any[] = [];
+
   constructor(private reguladorService: ReguladorMercadoService,
     private toastr: ToastrService,
-    private spinnerService:NgxSpinnerService) { }
+    private spinnerService: NgxSpinnerService) { }
 
   async ngOnInit() {
-    //this.web3Service.initContract();
     try {
       this.spinnerService.show();
       await this.reguladorService.loadBlockChainContractData();
-      this.reguladorService.getTokensDisponibles().subscribe({
-        next: data => {
-          console.log(data);
+      let observables: Observable<any>[] = [];
+      observables.push(this.reguladorService.getTokensDisponibles());
+      observables.push(this.reguladorService.getSolicitudesRegistro());
+
+      forkJoin(observables).subscribe({
+        next: (data) => {
+          this.numTokensDisponibles = data[0];
+          this.solicutudesRegistro = data[1];
+          console.log(this.numTokensDisponibles);
+          console.log(this.solicutudesRegistro);
           this.spinnerService.hide();
-        },
-        error: err => {
-          console.log(err);
-          this.toastr.error('Error al obtener los tokens disponibles', 'Error');
+        },error: (err) => {
           this.spinnerService.hide();
+          this.toastr.error(err.message, 'Error');
         }
       });
     }
-    catch {
-      console.log("Error al cargar el contrato");
+    catch (error) {
+      console.log(error);
       this.toastr.error('Error al cargar el contrato', 'Error');
       this.spinnerService.hide();
     }

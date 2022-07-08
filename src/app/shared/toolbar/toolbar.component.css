@@ -10,16 +10,17 @@
     background-color: white;
     background-position: 50% 50%;
     background-size: cover;
+    cursor: pointer;
 }
 
-mat-toolbar{
-    
-}
+mat-toolbar {}
+
 
 /* .avatar-container img {
     width: 100%;
     object-fit: contain;
 } */
+
 
 /*
 .container mat-toolbar{

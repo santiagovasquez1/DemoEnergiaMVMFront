@@ -1,3 +1,4 @@
+import { InfoContrato } from './../models/infoContrato';
 import { ToastrService } from 'ngx-toastr';
 import { Injectable } from '@angular/core';
 import { Web3ConnectService } from './web3-connect.service';
@@ -30,6 +31,14 @@ export abstract class FactoryService {
     }
   }
 
+  setFactoryContrato(infoContrato: InfoContrato): Observable<any> {
+    return from(this.contract?.methods.FactoryContrato(infoContrato).send({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
   getContratos(): Observable<any> {
     return from(this.contract?.methods.getContratosOwners().call()).pipe(
       catchError((error) => {
@@ -45,5 +54,5 @@ export abstract class FactoryService {
       })
     );
   }
-  
+
 }

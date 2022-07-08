@@ -1,0 +1,60 @@
+<div class="loginContainer p-20 ">
+    <mat-card class="custom">
+        <mat-card-header>
+            <mat-card-title>Registro agente del mercado</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-label>Seleccione el tipo de agente que eres: </mat-label>
+            <mat-select [(ngModel)]="agenteMercado" (ngModelChange)="onTipoComercializadorChange()">
+                <mat-option [value]="agente.id" *ngFor="let agente of agentesMercado">{{agente.tipo}}</mat-option>
+            </mat-select>
+            <form [formGroup]="registroForm" autocomplete="off">
+                <mat-form-field class="w-100p">
+                    <mat-label>Nit</mat-label>
+                    <input matInput formControlName="nit" type="text" placeholder="Nit">
+                </mat-form-field>
+                <mat-form-field class="w-100p">
+                    <mat-label>Empresa</mat-label>
+                    <input matInput formControlName="empresa" type="text" placeholder="Empresa">
+                </mat-form-field>
+                <mat-form-field class="w-100p">
+                    <mat-label>Contacto</mat-label>
+                    <input matInput formControlName="contacto" type="text" placeholder="Contacto">
+                </mat-form-field>
+                <mat-form-field class="w-100p">
+                    <mat-label>Telefono</mat-label>
+                    <input matInput formControlName="telefono" type="text" placeholder="Telefono">
+                </mat-form-field>
+                <mat-form-field class="w-100p">
+                    <mat-label>Correo</mat-label>
+                    <input matInput formControlName="correo" type="email" placeholder="Correo">
+                </mat-form-field>
+                <mat-form-field class="w-100p">
+                    <mat-label>Departamento</mat-label>
+                    <mat-select formControlName="departamento">
+                        <mat-option *ngFor="let departamento of departamentos" [value]="departamento">{{departamento}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="w-100p">
+                    <mat-label>Ciudad</mat-label>
+                    <mat-select formControlName="ciudad">
+                        <mat-option *ngFor="let ciudad of municipiosDepartamento" [value]="ciudad">{{ciudad}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="w-100p">
+                    <mat-label>Direccion</mat-label>
+                    <input matInput formControlName="direccion" type="text" placeholder="Direccion">
+                </mat-form-field>
+                <mat-form-field *ngIf="agenteMercado==1" class="w-100p">
+                    <mat-label>Tipo de comercializador</mat-label>
+                    <mat-select formControlName="tipoComercio">
+                        <mat-option [value]="tipoComercio.id" *ngFor="let tipoComercio of tiposCoComercializador">{{tipoComercio.tipo}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" [disabled]="!registroForm.valid" (click)="onSubmit()">Registrar</button>
+            </mat-card-actions>
+        </mat-card-content>
+    </mat-card>
+</div>

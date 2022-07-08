@@ -16,6 +16,7 @@ import { VerGeneradoresComponent } from './dashboard/ver-generadores/ver-generad
 import { GenerarEnergiaComponent } from '../shared/generar-energia/generar-energia.component';
 import { WinRefService } from '../services/win-ref.service';
 import { ReguladorMercadoService } from '../services/regulador-mercado.service';
+import { ReguladorMercadoComponent } from './regulador-mercado/regulador-mercado.component';
 
 
 
@@ -23,7 +24,8 @@ import { ReguladorMercadoService } from '../services/regulador-mercado.service';
   declarations: [
     DashboardComponent,
     AgregarGeneradorComponent,
-    VerGeneradoresComponent
+    VerGeneradoresComponent,
+    ReguladorMercadoComponent
   ],
   imports: [
     CommonModule,
@@ -35,14 +37,15 @@ import { ReguladorMercadoService } from '../services/regulador-mercado.service';
     AngularMaterialModule,
     FlexModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule,
-
-
+    BrowserAnimationsModule
   ],
   entryComponents: [GenerarEnergiaComponent],
   providers: [WinRefService, Web3ConnectService],
   exports: [
-    DashboardComponent
+    DashboardComponent,
+    AgregarGeneradorComponent,
+    VerGeneradoresComponent,
+    ReguladorMercadoComponent
   ]
 })
 export class PagesModule { }
