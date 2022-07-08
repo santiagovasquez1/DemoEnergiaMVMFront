@@ -1,4 +1,5 @@
 /* The side navigation menu */
+
 .sidebar {
     margin: 0;
     padding: 0;
@@ -6,11 +7,10 @@
     background-color: #3F51B5;
     padding-left: 5px;
     height: calc(100vh - 64px);
-    
+    box-shadow: 10px 0 5px -2px #888;
 }
 
-
-.sidebar a{
+.sidebar a {
     color: white;
     display: flex;
     height: 40px;
@@ -19,21 +19,20 @@
     text-decoration: none;
 }
 
-.sidebar a span{
+.sidebar a span {
     width: 80%;
     padding-left: 10px;
 }
 
-.sidebar h3{
+.sidebar h3 {
     color: white;
 }
 
-#energia{
+#energia {
     margin-top: 15px;
 }
 
-
-.sidebar a:hover{
+.sidebar a:hover {
     width: 98%;
     background-color: #7584dd;
 }
