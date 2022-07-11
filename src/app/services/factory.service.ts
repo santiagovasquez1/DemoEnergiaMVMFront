@@ -24,8 +24,8 @@ export abstract class FactoryService {
     if (networkData) {
       const abi = factoryJson.abi;
       const address = networkData.address;
+      this.account = localStorage.getItem('account');
       this.contract = new web3.eth.Contract(abi as unknown as AbiItem, address);
-      console.log(this.contract);
     } else {
       this.toastr.error('Esta aplicación no está disponible en este network.');
     }
