@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AgregarGeneradorComponent } from './dashboard/agregar-generador/agregar-generador.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { VerGeneradoresComponent } from './dashboard/ver-generadores/ver-generadores.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 
 const routes: Routes = [
@@ -13,15 +14,18 @@ const routes: Routes = [
         children: [
             {
                 path: "",
-                component:ReguladorMercadoComponent
+                component:ReguladorMercadoComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: "agregarGenerador",
-                component: AgregarGeneradorComponent
+                component: AgregarGeneradorComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: "verGeneradores",
-                component: VerGeneradoresComponent
+                component: VerGeneradoresComponent,
+                canActivate: [AuthGuard]
             },
         ]
     }

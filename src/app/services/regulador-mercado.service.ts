@@ -144,4 +144,11 @@ export class ReguladorMercadoService {
       })
     );
   }
+
+  validarUsuario(): Observable<any> {
+    return from(this.contract?.methods.validarUsuario().call({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      }));
+  }
 }
