@@ -13,7 +13,9 @@ import { GenerarEnergiaComponent } from 'src/app/shared/generar-energia/generar-
 })
 export class VerGeneradoresComponent implements OnInit {
 
-  generadores: string[] = ['Generador1', 'Generador2', 'Generador3', 'Generador4'];
+  generadores: string[] = [];
+  dirContratos: string[] = [];
+  dirGeneradores: string[] = [];
   message: string;
 
   constructor(
@@ -29,6 +31,8 @@ export class VerGeneradoresComponent implements OnInit {
       this.generadorService.verGeneradores().subscribe({
         next: data => {
           console.log(data);
+          
+          this.leerGeneradores(data);
         },
         error: err => {
           console.log(err);
@@ -41,10 +45,19 @@ export class VerGeneradoresComponent implements OnInit {
     }
   }
 
-  leerGeneradores() {
+  leerGeneradores(data) {
+    
+    for(var gen of data){
+      this.dirGeneradores.push(gen[0]);
+      this.dirContratos.push(gen[1]);
+      this.generadores.push(gen[2]);
+      console.log(this.generadores);
+    }
+
     if (this.generadores.length == 0) {
       this.message = "¡No hay generadores para mostrar!"
       console.log(this.message);
+      this.toastr.error('¡No hay generadores para mostrar!', '');
     }
   }
 
