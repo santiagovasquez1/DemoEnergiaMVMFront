@@ -21,19 +21,19 @@ export class ReguladorMercadoService {
   ComprandoTokens$: any;
   tokensDevueltos$: any;
   EnviarTokens$: any;
-
+  web3: Web3;
   constructor(private winRef: WinRefService, private web3ConnectService: Web3ConnectService) { }
 
   async loadBlockChainContractData() {
     await this.web3ConnectService.loadWeb3();
-    const web3 = this.winRef.window.web3 as Web3;
+    this.web3 = this.winRef.window.web3 as Web3;
 
-    const networkId = await web3.eth.net.getId();
+    const networkId = await this.web3.eth.net.getId();
     const networkData = reguladorMercado.networks[networkId];
     if (networkData) {
       const abi = reguladorMercado.abi;
       this.adressContract = networkData.address;
-      this.contract = new web3.eth.Contract(abi as unknown as AbiItem, this.adressContract);
+      this.contract = new this.web3.eth.Contract(abi as unknown as AbiItem, this.adressContract);
       this.account = localStorage.getItem('account');
       this.ComprandoTokens$ = this.contract.events.ComprandoTokens();
       this.tokensDevueltos$ = this.contract.events.tokensDevueltos();
@@ -62,7 +62,8 @@ export class ReguladorMercadoService {
   }
 
   postComprarTokens(cantidadTokens: number): Observable<any> {
-    return from(this.contract?.methods.ComprarTokens(cantidadTokens).send({ from: this.account })).pipe(
+    let valorToken = this.web3.utils.toWei(cantidadTokens.toString(), 'finney');
+    return from(this.contract?.methods.ComprarTokens(cantidadTokens).send({ from: this.account, value: valorToken })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
@@ -89,30 +90,22 @@ export class ReguladorMercadoService {
     return from(this.contract?.methods.getSolicitudes().call({ from: this.account })).pipe(
       map((data: any) => {
         let solicitudes = data.map((solicitud: any) => {
-
-          let tempInfo: InfoContrato = {
-            owner: solicitud.infoContrato.owner,
-            ciudad: solicitud.infoContrato.ciudad,
-            direccion: solicitud.infoContrato.direccion,
-            telefono: solicitud.infoContrato.telefono,
-            comercializador: solicitud.infoContrato.comercializador,
-            contacto: solicitud.infoContrato.contacto,
-            correo: solicitud.infoContrato.correo,
-            departamento: solicitud.infoContrato.departamento,
-            nit: solicitud.infoContrato.nit,
-            dirContrato: solicitud.infoContrato.dirContrato,
-            empresa: solicitud.infoContrato.empresa,
-            tipoComercio: solicitud.infoContrato.tipoComercio
-          };
-          let tempTipo = solicitud.tipoContrato;
-          let solicitudDef: SolicitudContrato = {
-            infoContrato: tempInfo,
-            tipoContrato: tempTipo,
-          }
-          return solicitudDef;
+          return this.mappingSolicitud(solicitud);
         });
         return solicitudes as SolicitudContrato[];
-        // return data as SolicitudContrato[];
+      }), catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+  getContratosRegistrados(): Observable<SolicitudContrato[]> {
+    return from(this.contract?.methods.getRegistros().call({ from: this.account })).pipe(
+      map((data: any) => {
+        let solicitudes = data.map((solicitud: any) => {
+          return this.mappingSolicitud(solicitud);
+        });
+        return solicitudes as SolicitudContrato[];
       }), catchError((error) => {
         return throwError(() => new Error(error.message));
       })
@@ -150,5 +143,28 @@ export class ReguladorMercadoService {
       catchError((error) => {
         return throwError(() => new Error(error.message));
       }));
+  }
+
+  private mappingSolicitud(data: any): SolicitudContrato {
+    let tempInfo: InfoContrato = {
+      owner: data.infoContrato.owner,
+      ciudad: data.infoContrato.ciudad,
+      direccion: data.infoContrato.direccion,
+      telefono: data.infoContrato.telefono,
+      comercializador: data.infoContrato.comercializador,
+      contacto: data.infoContrato.contacto,
+      correo: data.infoContrato.correo,
+      departamento: data.infoContrato.departamento,
+      nit: data.infoContrato.nit,
+      dirContrato: data.infoContrato.dirContrato,
+      empresa: data.infoContrato.empresa,
+      tipoComercio: data.infoContrato.tipoComercio
+    };
+    let tempTipo = data.tipoContrato;
+    let solicitudDef: SolicitudContrato = {
+      infoContrato: tempInfo,
+      tipoContrato: tempTipo,
+    }
+    return solicitudDef;
   }
 }

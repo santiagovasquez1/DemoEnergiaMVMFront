@@ -1,0 +1,10 @@
+<h2 class="mt-20">Contratar comercializador del cliente</h2>
+<mat-form-field class="w-100p">
+    <mat-label>Comercializadores disponibles</mat-label>
+    <mat-select [(ngModel)]="comercializadorSeleccionado">
+        <mat-option *ngFor="let comercializador of comercializadores" [value]="comercializador">
+            {{comercializador.empresa}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<button mat-raised-button color="primary" [disabled]="!validForm" (click)="onContratar()">Contratar</button>

@@ -1,0 +1,37 @@
+<div class="container" *ngIf="infoCliente">
+    <h2 class="mt-20">Información del cliente</h2>
+    <mat-card class="custom mb-20">
+        <mat-card-title>Empresa: {{infoCliente.empresa}}</mat-card-title>
+        <mat-card-subtitle>Nit: {{infoCliente.nit}}</mat-card-subtitle>
+        <mat-card-content>
+            <p>
+                Dueño del contrato: {{infoCliente.owner}}
+            </p>
+            <p>
+                Contacto: {{infoCliente.contacto}}
+            </p>
+            <p>
+                Teléfono: {{infoCliente.telefono}}
+            </p>
+            <p>
+                Correo: {{infoCliente.correo}}
+            </p>
+            <p>
+                Departamento: {{infoCliente.departamento}}
+            </p>
+            <p>
+                Ciudad: {{infoCliente.ciudad}}
+            </p>
+            <p>
+                Dirección: {{infoCliente.direccion}}
+            </p>
+            <p>
+                Tokens Disponibles: {{tokensCliente}}
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-stroked-button color="primary" (click)="onComprarTokens()">Comprar tokens</button>
+            <button mat-stroked-button color="primary" (click)="onContratarComercializador()">Contratar Comercializador</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
