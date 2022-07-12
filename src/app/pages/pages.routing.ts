@@ -1,3 +1,4 @@
+import { ClienteDashboardComponent } from './cliente/cliente-dashboard.component';
 import { ReguladorMercadoComponent } from './regulador-mercado/regulador-mercado.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -14,7 +15,12 @@ const routes: Routes = [
         children: [
             {
                 path: "",
-                component:ReguladorMercadoComponent,
+                component: ReguladorMercadoComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: "cliente",
+                component: ClienteDashboardComponent,
                 canActivate: [AuthGuard]
             },
             {

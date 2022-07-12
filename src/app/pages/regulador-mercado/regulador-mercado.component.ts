@@ -44,6 +44,7 @@ export class ReguladorMercadoComponent implements OnInit, OnDestroy {
     this.isFromInit = true;
     this.spinner.show();
     await this.regulardorMercado.loadBlockChainContractData();
+    console.log('opciones',this.regulardorMercado.contract.options)
     this.spinner.hide();
     this.timerSubscription = this.timer$.subscribe(() => {
       this.regulardorMercado.getSolicitudesRegistro().subscribe({

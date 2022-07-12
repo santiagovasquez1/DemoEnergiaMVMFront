@@ -1,7 +1,7 @@
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Web3ConnectService } from 'src/app/services/web3-connect.service';
 
@@ -27,17 +27,16 @@ export class LoginComponent {
       await this.regulardorMercado.loadBlockChainContractData();
       this.regulardorMercado.validarUsuario().subscribe({
         next: (data) => {
-          debugger;
-          if(data[0]){
+          if (data[0]) {
             this.spinnerService.hide();
-            localStorage.setItem('tipoAgente', data[1]);
+            localStorage.setItem('dirContract', data[1]);
+            localStorage.setItem('tipoAgente', data[2]);
             this.router.navigate(['/dashboard']);
-          }else{
+          } else {
             this.spinnerService.hide();
             this.router.navigate(['/register']);
-          }          
+          }
         }, error: (err) => {
-          debugger;
           console.log(err);
           this.spinnerService.hide();
           this.toastr.error('Error al validar usuario', 'Error');
