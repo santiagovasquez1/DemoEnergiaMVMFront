@@ -1,20 +1,49 @@
 <div class="sidebar">
-    <h3><b>Cliente</b></h3>
-    <a [routerLink]="['/dashboard/cliente']">
-        <span>Información</span>
-        <mat-icon>keyboard_arrow_right</mat-icon>
-    </a>
 
 
-    <h3><b>Generadores</b> </h3>
-    <a [routerLink]="['/dashboard/agregarGenerador']">
-        <span>Agregar generador</span>
-        <mat-icon>keyboard_arrow_right</mat-icon>
-    </a>
-    <a [routerLink]="['/dashboard/verGeneradores']">
-        <span>Ver generadores</span>
-        <mat-icon>keyboard_arrow_right</mat-icon>
-    </a>
+    <div *ngIf="tipoContrato == 0">
+        <h3><b>Cliente</b></h3>
+        <a [routerLink]="['/dashboard/cliente']">
+            <span>Información</span>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </a>
+    </div>
+
+    <div *ngIf="tipoContrato == 1">
+        <h3><b>Comercializador</b></h3>
+        <a [routerLink]="['/dashboard/comercializador']">
+            <span>Información</span>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </a>
+    </div>
+
+    <div *ngIf="tipoContrato==2">
+        <h3><b>Generadores</b> </h3>
+        <a [routerLink]="['/dashboard/agregarGenerador']">
+            <span>Agregar generador</span>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </a>
+        <a [routerLink]="['/dashboard/verGeneradores']">
+            <span>Ver generadores</span>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </a>
+    </div>
+
+    <div *ngIf="tipoContrato==3">
+        <h3><b>Administrador</b></h3>
+        <a [routerLink]="['/dashboard/regulador-mercado']">
+            <span>Información</span>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </a>
+        <a [routerLink]="['/dashboard/regulador-mercado/solicitudes']">
+            <span>Solicitudes pendientes</span>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </a>
+        <a [routerLink]="['/dashboard/regulador-mercado/registros']">
+            <span>Registros</span>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </a>
+    </div>
 
     <h3><b>Plantas</b> </h3>
     <a>

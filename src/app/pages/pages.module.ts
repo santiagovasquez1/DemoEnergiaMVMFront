@@ -20,6 +20,10 @@ import { ReguladorMercadoService } from '../services/regulador-mercado.service';
 import { ReguladorMercadoComponent } from './regulador-mercado/regulador-mercado.component';
 import { ComprarTokensComponent } from './cliente/comprar-tokens/comprar-tokens.component';
 import { ContratarComercializadorComponent } from './cliente/contratar-comercializador/contratar-comercializador.component';
+import { ComprarEnergiaComponent } from './cliente/comprar-energia/comprar-energia.component';
+import { ComercializadorComponent } from './comercializador/comercializador.component';
+import { RegistrosComponent } from './regulador-mercado/registros/registros.component';
+import { SolicitudesComponent } from './regulador-mercado/solicitudes/solicitudes.component';
 
 
 
@@ -31,7 +35,11 @@ import { ContratarComercializadorComponent } from './cliente/contratar-comercial
     ReguladorMercadoComponent,
     ClienteDashboardComponent,
     ComprarTokensComponent,
-    ContratarComercializadorComponent
+    ContratarComercializadorComponent,
+    ComprarEnergiaComponent,
+    ComercializadorComponent,
+    RegistrosComponent,
+    SolicitudesComponent
   ],
   imports: [
     CommonModule,

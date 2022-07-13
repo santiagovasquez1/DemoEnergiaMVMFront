@@ -1,5 +1,6 @@
 export enum TiposContratos {
     Cliente,
     Comercializador,
-    Generador
+    Generador,
+    ReguladorMercado
 }

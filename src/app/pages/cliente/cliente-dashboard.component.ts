@@ -6,6 +6,7 @@ import { ClienteContractService } from 'src/app/services/cliente-contract.servic
 import { MatDialog } from '@angular/material/dialog';
 import { ComprarTokensComponent } from './comprar-tokens/comprar-tokens.component';
 import { ContratarComercializadorComponent } from './contratar-comercializador/contratar-comercializador.component';
+import { ComprarEnergiaComponent } from './comprar-energia/comprar-energia.component';
 
 @Component({
   selector: 'app-cliente-dashboard',
@@ -70,6 +71,15 @@ export class ClienteDashboardComponent implements OnInit {
 
   onContratarComercializador(){
     let dialogRef = this.dialog.open(ContratarComercializadorComponent, {
+      width: '500px',
+      data: {
+        dirContrato: localStorage.getItem('dirContract')
+      }
+    });
+  }
+
+  onComprarEnergia(){
+    let dialogRef = this.dialog.open(ComprarEnergiaComponent, {
       width: '500px',
       data: {
         dirContrato: localStorage.getItem('dirContract')
