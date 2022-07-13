@@ -7,4 +7,33 @@
         </mat-option>
     </mat-select>
 </mat-form-field>
+
+<mat-card class="custom mb-20" *ngIf="comercializadorSeleccionado">
+    <mat-card-title>Empresa: {{comercializadorSeleccionado.empresa}}</mat-card-title>
+    <mat-card-subtitle>Nit: {{comercializadorSeleccionado.nit}}</mat-card-subtitle>
+    <mat-card-content>
+        <p>
+            Dueño del contrato: {{comercializadorSeleccionado.owner}}
+        </p>
+        <p>
+            Contacto: {{comercializadorSeleccionado.contacto}}
+        </p>
+        <p>
+            Teléfono: {{comercializadorSeleccionado.telefono}}
+        </p>
+        <p>
+            Correo: {{comercializadorSeleccionado.correo}}
+        </p>
+        <p>
+            Departamento: {{comercializadorSeleccionado.departamento}}
+        </p>
+        <p>
+            Ciudad: {{comercializadorSeleccionado.ciudad}}
+        </p>
+        <p>
+            Dirección: {{comercializadorSeleccionado.direccion}}
+        </p>
+    </mat-card-content>
+</mat-card>
+
 <button mat-raised-button color="primary" [disabled]="!validForm" (click)="onContratar()">Contratar</button>

@@ -1,34 +1,19 @@
-<div class="container">
-    <h2 class="mt-20">Solicitudes pendientes</h2>
-    <mat-card class="custom mb-20" *ngFor="let solicitud of solicitudesRegistro; let index = index">
-        <mat-card-title>Empresa: {{solicitud.infoContrato.empresa}}</mat-card-title>
-        <mat-card-subtitle>Nit: {{solicitud.infoContrato.nit}}</mat-card-subtitle>
+<div class="container" *ngIf="infoRegulador">
+    <h2 class="mt-20">Información del Administrador</h2>
+    <mat-card class="custom mb-20">
+        <mat-card-title>
+            Contrato regulador del mercado
+        </mat-card-title>
         <mat-card-content>
-            <p>
-                Dueño del contrato: {{solicitud.infoContrato.owner}}
-            </p>
-            <p>
-                Contacto: {{solicitud.infoContrato.contacto}}
-            </p>
-            <p>
-                Teléfono: {{solicitud.infoContrato.telefono}}
-            </p>
-            <p>
-                Correo: {{solicitud.infoContrato.correo}}
-            </p>
-            <p>
-                Departamento: {{solicitud.infoContrato.departamento}}
-            </p>
-            <p>
-                Ciudad: {{solicitud.infoContrato.ciudad}}
-            </p>
-            <p>
-                Dirección: {{solicitud.infoContrato.direccion}}
-            </p>
+            <p>Dueño del contrato: {{infoRegulador.owner}}</p>
+            <p>Dirección del contrato: {{infoRegulador.dirContrato}}</p>
+            <p>Nombre del token: {{infoRegulador.nombreToken}}</p>
+            <p>Simbolo del token: {{infoRegulador.simboloToken}}</p>
+            <p>Cantidad de tokens Disponibles: {{infoRegulador.cantidadTokens}}</p>
+            <p>Precio del token: {{infoRegulador.valorToken}} ethers</p>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-stroked-button color="primary" (click)="onDiligenciarSolicitud(index,solicitud)">Aceptar</button>
-            <button mat-stroked-button color="primary">Rechazar</button>
+            <button mat-stroked-button color="primary" (click)="onInyectarTokens()">Inyectar Tokens</button>
         </mat-card-actions>
     </mat-card>
 </div>

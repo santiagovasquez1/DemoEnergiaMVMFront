@@ -1,5 +1,8 @@
 <mat-toolbar class="toolbar">
-    <div class="avatar-container" [routerLink]="['/dashboard']"></div>
+    <div *ngIf="tipoContrato == 0" class="avatar-container" [routerLink]="['/dashboard/cliente']"></div>
+    <div *ngIf="tipoContrato == 1" class="avatar-container" [routerLink]="['/dashboard/comercializador']"></div>
+    <div *ngIf="tipoContrato == 2" class="avatar-container" [routerLink]="['/dashboard/generador']"></div>
+    <div *ngIf="tipoContrato == 3" class="avatar-container" [routerLink]="['/dashboard/regulador-mercado']"></div>
 
     <div class="spacer"></div>
 
