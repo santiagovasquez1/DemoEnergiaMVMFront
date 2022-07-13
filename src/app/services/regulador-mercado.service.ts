@@ -71,6 +71,14 @@ export class ReguladorMercadoService {
     );
   }
 
+  postDevolverTokens(cantidadTokens: number) {
+    return from(this.contract?.methods.DevolverTokens(cantidadTokens).send({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
   postGenerarTokens(numTokens: number): Observable<any> {
     return from(this.contract?.methods.GenerarTokens(numTokens).send({ from: this.account })).pipe(
       catchError((error) => {

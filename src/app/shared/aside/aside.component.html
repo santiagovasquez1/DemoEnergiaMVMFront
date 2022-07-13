@@ -15,6 +15,10 @@
             <span>Información</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
+        <a [routerLink]="['/dashboard/comercializador/lista-clientes']">
+            <span>Lista de clientes</span>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </a>
     </div>
 
     <div *ngIf="tipoContrato==2">
@@ -44,16 +48,6 @@
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
     </div>
-
-    <h3><b>Plantas</b> </h3>
-    <a>
-        <span>Agregar planta</span>
-        <mat-icon>keyboard_arrow_right</mat-icon>
-    </a>
-    <a>
-        <span>Ver plantas</span>
-        <mat-icon>keyboard_arrow_right</mat-icon>
-    </a>
 
     <h3 id="energia"><b>Energía</b> </h3>
     <a>

@@ -36,6 +36,7 @@ export class ComprarTokensComponent implements OnInit {
         this.tokensDisponibles = data;
         this.compraTokensForm.get('tokensRegulador').setValue(data);
       }, error: (error) => {
+        
         console.log(error);
         this.toastr.error(error.message, 'Error');
       }

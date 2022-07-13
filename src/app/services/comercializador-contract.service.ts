@@ -1,5 +1,6 @@
+import { InfoContrato } from './../models/infoContrato';
 import { CompraEnergiaRequest } from './../models/CompraEnergiaRequest';
-import { catchError, from, Observable, throwError } from 'rxjs';
+import { catchError, from, map, Observable, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AgenteContractService } from './agente-contract.service';
 import Comercializador from '../../../build/contracts/Comercializador.json';
@@ -16,8 +17,43 @@ export class ComercializadorContractService extends AgenteContractService {
     this.setContractData(Comercializador, web3);
   }
 
-  getClientesComercializador(): Observable<any> {
+  getClientesComercializador(): Observable<InfoContrato[]> {
     return from(this.contract.methods.getClientesComercializador().call({ from: this.account })).pipe(
+      map((data: any) => {
+        let infoContratos = data.map(infoContrato => {
+          const [
+            dirContrato,
+            owner,
+            nit,
+            empresa,
+            contacto,
+            telefono,
+            correo,
+            departamento,
+            ciudad,
+            direccion,
+            comercializador,
+            tipoComercio
+          ] = infoContrato
+
+          let tempInfo: InfoContrato = {
+            dirContrato,
+            owner,
+            nit,
+            empresa,
+            contacto,
+            telefono,
+            correo,
+            departamento,
+            ciudad,
+            direccion,
+            comercializador,
+            tipoComercio
+          }
+          return tempInfo;
+        });
+        return infoContratos as InfoContrato[];
+      }),
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
@@ -32,7 +68,7 @@ export class ComercializadorContractService extends AgenteContractService {
     );
   }
 
-  ComprarEnergia(compraEnergiaRequest:CompraEnergiaRequest): Observable<any> {
+  ComprarEnergia(compraEnergiaRequest: CompraEnergiaRequest): Observable<any> {
     return from(this.contract.methods.ComprarEnergia(compraEnergiaRequest.dirContratoGenerador, compraEnergiaRequest.ownerCliente, compraEnergiaRequest.cantidadEnergia, compraEnergiaRequest.tipoEnergia).send({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));

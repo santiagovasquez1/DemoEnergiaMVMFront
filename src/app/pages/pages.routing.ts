@@ -9,6 +9,7 @@ import { AgregarGeneradorComponent } from './dashboard/agregar-generador/agregar
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { VerGeneradoresComponent } from './dashboard/ver-generadores/ver-generadores.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { ListaClientesComponent } from './comercializador/lista-clientes/lista-clientes.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,11 @@ const routes: Routes = [
             {
                 path:"comercializador",
                 component: ComercializadorComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path:"comercializador/lista-clientes",
+                component: ListaClientesComponent,
                 canActivate: [AuthGuard]
             },
             {

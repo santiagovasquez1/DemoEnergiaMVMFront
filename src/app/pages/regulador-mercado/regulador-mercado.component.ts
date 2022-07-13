@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription, timer } from 'rxjs';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { InfoReguladorMercado } from './../../models/infoReguladorMercado';
+import { InyectarTokensComponent } from './inyectar-tokens/inyectar-tokens.component';
 
 @Component({
   selector: 'app-regulador-mercado',
@@ -16,7 +18,8 @@ export class ReguladorMercadoComponent implements OnInit, OnDestroy {
   timerSubscription: Subscription;
 
   constructor(private toastr: ToastrService,
-    private regulardorMercado: ReguladorMercadoService) {
+    private regulardorMercado: ReguladorMercadoService,
+    public dialog: MatDialog ) {
     this.timer$ = timer(0, 1000);
   }
 
@@ -55,6 +58,12 @@ export class ReguladorMercadoComponent implements OnInit, OnDestroy {
       console.log(error);
       this.toastr.error(error.message, 'Error');
     }
+  }
+
+  onInyectarTokens() {
+    this.dialog.open(InyectarTokensComponent, {
+      width: '500px'
+    });
   }
 
 

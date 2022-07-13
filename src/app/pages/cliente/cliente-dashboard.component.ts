@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ComprarTokensComponent } from './comprar-tokens/comprar-tokens.component';
 import { ContratarComercializadorComponent } from './contratar-comercializador/contratar-comercializador.component';
 import { ComprarEnergiaComponent } from './comprar-energia/comprar-energia.component';
+import { DevolverTokensComponent } from './devolver-tokens/devolver-tokens.component';
 
 @Component({
   selector: 'app-cliente-dashboard',
@@ -69,7 +70,30 @@ export class ClienteDashboardComponent implements OnInit {
     })
   }
 
-  onContratarComercializador(){
+  onDevolverTokens() {
+    let dialogRef = this.dialog.open(DevolverTokensComponent, {
+      width: '500px',
+      data: {
+        tokensDisponibles: this.tokensCliente
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.spinner.show();
+      this.clienteService.getMisTokens().subscribe({
+        next: (data) => {
+          this.tokensCliente = data;
+          this.spinner.hide();
+        }, error: (error) => {
+          console.log(error);
+          this.toastr.error(error.message, 'Error');
+          this.spinner.hide();
+        }
+      });
+    })
+  }
+
+  onContratarComercializador() {
     let dialogRef = this.dialog.open(ContratarComercializadorComponent, {
       width: '500px',
       data: {
@@ -78,7 +102,7 @@ export class ClienteDashboardComponent implements OnInit {
     });
   }
 
-  onComprarEnergia(){
+  onComprarEnergia() {
     let dialogRef = this.dialog.open(ComprarEnergiaComponent, {
       width: '500px',
       data: {

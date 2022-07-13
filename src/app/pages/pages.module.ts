@@ -24,6 +24,9 @@ import { ComprarEnergiaComponent } from './cliente/comprar-energia/comprar-energ
 import { ComercializadorComponent } from './comercializador/comercializador.component';
 import { RegistrosComponent } from './regulador-mercado/registros/registros.component';
 import { SolicitudesComponent } from './regulador-mercado/solicitudes/solicitudes.component';
+import { InyectarTokensComponent } from './regulador-mercado/inyectar-tokens/inyectar-tokens.component';
+import { ListaClientesComponent } from './comercializador/lista-clientes/lista-clientes.component';
+import { DevolverTokensComponent } from './cliente/devolver-tokens/devolver-tokens.component';
 
 
 
@@ -39,7 +42,10 @@ import { SolicitudesComponent } from './regulador-mercado/solicitudes/solicitude
     ComprarEnergiaComponent,
     ComercializadorComponent,
     RegistrosComponent,
-    SolicitudesComponent
+    SolicitudesComponent,
+    InyectarTokensComponent,
+    ListaClientesComponent,
+    DevolverTokensComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +68,14 @@ import { SolicitudesComponent } from './regulador-mercado/solicitudes/solicitude
     VerGeneradoresComponent,
     ReguladorMercadoComponent,
     ClienteDashboardComponent,
-    ComprarTokensComponent
+    ComprarTokensComponent,
+    ContratarComercializadorComponent,
+    ComprarEnergiaComponent,
+    ComercializadorComponent,
+    RegistrosComponent,
+    SolicitudesComponent,
+    InyectarTokensComponent,
+    ListaClientesComponent
   ]
 })
 export class PagesModule { }
