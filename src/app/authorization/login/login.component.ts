@@ -1,12 +1,10 @@
-import { Observable, forkJoin } from 'rxjs';
+import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { ToastrService } from 'ngx-toastr';
-import { ClienteFactoryService } from './../../services/cliente-factory.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Web3ConnectService } from 'src/app/services/web3-connect.service';
-import { ComercializadorFactoryService } from 'src/app/services/comercializador-factory.service';
-import { GeneradorFactoryService } from 'src/app/services/generador-factory.service';
+
 
 @Component({
   selector: 'app-login',
@@ -16,9 +14,7 @@ import { GeneradorFactoryService } from 'src/app/services/generador-factory.serv
 export class LoginComponent {
 
   constructor(private web3Service: Web3ConnectService,
-    private clienteFactory: ClienteFactoryService,
-    private comercializadorFactory: ComercializadorFactoryService,
-    private generadorFactory: GeneradorFactoryService,
+    private regulardorMercado: ReguladorMercadoService,
     private spinnerService: NgxSpinnerService,
     private toastr: ToastrService,
     private router: Router
@@ -28,35 +24,22 @@ export class LoginComponent {
     try {
       this.spinnerService.show();
       await this.web3Service.loadWeb3();
-      let promises: Promise<void>[] = [];
-      promises.push(this.clienteFactory.loadBlockChainContractData());
-      promises.push(this.comercializadorFactory.loadBlockChainContractData());
-      promises.push(this.generadorFactory.loadBlockChainContractData());
-      await Promise.all(promises);
-      
-      let comprobacionCuenta: Observable<any>[] = [];
-      comprobacionCuenta.push(this.clienteFactory.getIsDireccionRegistrada());
-      comprobacionCuenta.push(this.comercializadorFactory.getIsDireccionRegistrada());
-      comprobacionCuenta.push(this.generadorFactory.getIsDireccionRegistrada());
-
-      forkJoin(comprobacionCuenta).subscribe({
-        next: (result) => {          
-          console.log(result);
-          let existeCuenta = result.find((element) => element === true);
-          this.spinnerService.hide();
-          if(existeCuenta) {
-            //TODO: Almacenar el tipo de cuenta en una variable de sesion
+      await this.regulardorMercado.loadBlockChainContractData();
+      this.regulardorMercado.validarUsuario().subscribe({
+        next: (data) => {
+          if (data[0]) {
+            this.spinnerService.hide();
+            localStorage.setItem('dirContract', data[1]);
+            localStorage.setItem('tipoAgente', data[2]);
             this.router.navigate(['/dashboard']);
-          }else{
-            //TODO: Enviar a pagina de registro
-            this.toastr.error('Esta cuenta no está registrada.', 'Error');
-            this.router.navigate(['/dashboard']);
+          } else {
+            this.spinnerService.hide();
+            this.router.navigate(['/register']);
           }
-        },
-        error: (error) => {
+        }, error: (err) => {
+          console.log(err);
           this.spinnerService.hide();
-          console.log(error);
-          this.toastr.error(error.message, 'Error');
+          this.toastr.error('Error al validar usuario', 'Error');
         }
       });
     } catch (error) {

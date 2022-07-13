@@ -1,0 +1,13 @@
+<h2 class="mt-20">Compra de tokens</h2>
+<form [formGroup]="compraTokensForm">
+    <mat-form-field class="w-100p">
+        <mat-label>Tokens Disponibles en el mercado:</mat-label>
+        <input matInput formControlName="tokensRegulador" type="text" placeholder="Tokens Disponibles en el mercado">
+    </mat-form-field>
+    <mat-form-field class="w-100p">
+        <mat-label>Tokens a comprar:</mat-label>
+        <input matInput formControlName="cantidadTokensComprar" type="number" placeholder="Tokens a comprar">
+    </mat-form-field>
+    <button mat-raised-button color="primary" [disabled]="!compraTokensForm.valid" (click)="onSubmit()">Comprar</button>
+
+</form>

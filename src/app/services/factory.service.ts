@@ -1,3 +1,4 @@
+import { InfoContrato } from './../models/infoContrato';
 import { ToastrService } from 'ngx-toastr';
 import { Injectable } from '@angular/core';
 import { Web3ConnectService } from './web3-connect.service';
@@ -23,11 +24,19 @@ export abstract class FactoryService {
     if (networkData) {
       const abi = factoryJson.abi;
       const address = networkData.address;
+      this.account = localStorage.getItem('account');
       this.contract = new web3.eth.Contract(abi as unknown as AbiItem, address);
-      console.log(this.contract);
     } else {
       this.toastr.error('Esta aplicación no está disponible en este network.');
     }
+  }
+
+  setFactoryContrato(infoContrato: InfoContrato): Observable<any> {
+    return from(this.contract?.methods.FactoryContrato(infoContrato).send({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
   }
 
   getContratos(): Observable<any> {
@@ -45,5 +54,5 @@ export abstract class FactoryService {
       })
     );
   }
-  
+
 }

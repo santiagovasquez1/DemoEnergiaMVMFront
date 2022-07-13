@@ -1,0 +1,34 @@
+<div class="container">
+    <h2 class="mt-20">Solicitudes pendientes</h2>
+    <mat-card class="custom mb-20" *ngFor="let solicitud of solicitudesRegistro; let index = index">
+        <mat-card-title>Empresa: {{solicitud.infoContrato.empresa}}</mat-card-title>
+        <mat-card-subtitle>Nit: {{solicitud.infoContrato.nit}}</mat-card-subtitle>
+        <mat-card-content>
+            <p>
+                Dueño del contrato: {{solicitud.infoContrato.owner}}
+            </p>
+            <p>
+                Contacto: {{solicitud.infoContrato.contacto}}
+            </p>
+            <p>
+                Teléfono: {{solicitud.infoContrato.telefono}}
+            </p>
+            <p>
+                Correo: {{solicitud.infoContrato.correo}}
+            </p>
+            <p>
+                Departamento: {{solicitud.infoContrato.departamento}}
+            </p>
+            <p>
+                Ciudad: {{solicitud.infoContrato.ciudad}}
+            </p>
+            <p>
+                Dirección: {{solicitud.infoContrato.direccion}}
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-stroked-button color="primary" (click)="onDiligenciarSolicitud(index,solicitud)">Aceptar</button>
+            <button mat-stroked-button color="primary">Rechazar</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

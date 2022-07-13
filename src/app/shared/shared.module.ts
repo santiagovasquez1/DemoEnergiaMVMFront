@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { AngularMaterialModule } from './../anular-material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -31,7 +32,8 @@ import { FlexModule } from '@angular/flex-layout';
     BrowserAnimationsModule,
     MatDialogModule,
     ReactiveFormsModule,
-    FlexModule
+    FlexModule,
+    RouterModule
     
   ],
   entryComponents: [GenerarEnergiaComponent],

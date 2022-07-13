@@ -16,8 +16,8 @@ import { FlexModule } from '@angular/flex-layout';
 import { ToastrModule } from 'ngx-toastr';
 import { MatDialogModule } from '@angular/material/dialog';
 import { WinRefService } from './services/win-ref.service';
-import { ReguladorMercadoService } from './services/regulador-mercado.service';
-import { GeneradorFactoryService } from './services/generador-factory.service';
+import { HttpClientModule } from '@angular/common/http';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -35,8 +35,9 @@ import { GeneradorFactoryService } from './services/generador-factory.service';
     PagesModule,
     FlexModule,
     ToastrModule.forRoot(),
-    MatDialogModule
-
+    MatDialogModule,
+    HttpClientModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [WinRefService, Web3ConnectService],
   bootstrap: [AppComponent]
