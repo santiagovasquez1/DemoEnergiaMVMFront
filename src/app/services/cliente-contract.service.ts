@@ -1,5 +1,4 @@
 import { Observable, catchError, throwError, from } from 'rxjs';
-import { InfoContrato } from './../models/infoContrato';
 import { Injectable } from '@angular/core';
 import Web3 from 'web3';
 import { AgenteContractService } from './agente-contract.service';
@@ -18,11 +17,18 @@ export class ClienteContractService extends AgenteContractService {
   }
 
   postContratarComercializador(addresComercializador: string): Observable<any> {
-    debugger;
     return from(this.contract?.methods.contratarComercializador(addresComercializador).send({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
     )
+  }
+
+  postComprarEnergia(tipoEnergia:string, cantidad: number): Observable<any> {
+    return from(this.contract?.methods.comprarEnergia(tipoEnergia, cantidad).send({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
   }
 }

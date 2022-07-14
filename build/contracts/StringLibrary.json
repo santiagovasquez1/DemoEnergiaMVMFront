@@ -1928,6 +1928,7 @@
     "exportedSymbols": {
       "StringLibrary": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         1746
       ]
     },
@@ -1938,15 +1939,25 @@
     },
     "id": 2236,
 >>>>>>> master
+=======
+        2273
+      ]
+    },
+    "id": 2274,
+>>>>>>> origin/master
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
 <<<<<<< HEAD
+<<<<<<< HEAD
         "id": 1712,
 =======
         "id": 2201,
 >>>>>>> master
+=======
+        "id": 2239,
+>>>>>>> origin/master
         "literals": [
           "solidity",
           "^",
@@ -1958,10 +1969,14 @@
       },
       {
 <<<<<<< HEAD
+<<<<<<< HEAD
         "id": 1713,
 =======
         "id": 2202,
 >>>>>>> master
+=======
+        "id": 2240,
+>>>>>>> origin/master
         "literals": [
           "experimental",
           "ABIEncoderV2"
@@ -1976,6 +1991,7 @@
         "contractKind": "library",
         "fullyImplemented": true,
 <<<<<<< HEAD
+<<<<<<< HEAD
         "id": 1746,
         "linearizedBaseContracts": [
           1746
@@ -1984,6 +2000,11 @@
         "linearizedBaseContracts": [
           2235
 >>>>>>> master
+=======
+        "id": 2273,
+        "linearizedBaseContracts": [
+          2273
+>>>>>>> origin/master
         ],
         "name": "StringLibrary",
         "nodeType": "ContractDefinition",
@@ -1991,24 +2012,33 @@
           {
             "body": {
 <<<<<<< HEAD
+<<<<<<< HEAD
               "id": 1744,
 =======
               "id": 2233,
 >>>>>>> master
+=======
+              "id": 2271,
+>>>>>>> origin/master
               "nodeType": "Block",
               "src": "218:178:10",
               "statements": [
                 {
                   "assignments": [
 <<<<<<< HEAD
+<<<<<<< HEAD
                     1723
 =======
                     2212
 >>>>>>> master
+=======
+                    2250
+>>>>>>> origin/master
                   ],
                   "declarations": [
                     {
                       "constant": false,
+<<<<<<< HEAD
 <<<<<<< HEAD
                       "id": 1723,
                       "mutability": "mutable",
@@ -2022,6 +2052,13 @@
                       "nodeType": "VariableDeclaration",
                       "scope": 2233,
 >>>>>>> master
+=======
+                      "id": 2250,
+                      "mutability": "mutable",
+                      "name": "hashCadena1",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 2271,
+>>>>>>> origin/master
                       "src": "229:19:10",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -2031,10 +2068,14 @@
                       },
                       "typeName": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "id": 1722,
 =======
                         "id": 2211,
 >>>>>>> master
+=======
+                        "id": 2249,
+>>>>>>> origin/master
                         "name": "bytes32",
                         "nodeType": "ElementaryTypeName",
                         "src": "229:7:10",
@@ -2047,15 +2088,20 @@
                     }
                   ],
 <<<<<<< HEAD
+<<<<<<< HEAD
                   "id": 1730,
 =======
                   "id": 2219,
 >>>>>>> master
+=======
+                  "id": 2257,
+>>>>>>> origin/master
                   "initialValue": {
                     "arguments": [
                       {
                         "arguments": [
                           {
+<<<<<<< HEAD
 <<<<<<< HEAD
                             "id": 1727,
                             "name": "cadena1",
@@ -2069,6 +2115,13 @@
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 2204,
 >>>>>>> master
+=======
+                            "id": 2254,
+                            "name": "cadena1",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2242,
+>>>>>>> origin/master
                             "src": "273:7:10",
                             "typeDescriptions": {
                               "typeIdentifier": "t_string_memory_ptr",
@@ -2085,10 +2138,14 @@
                           ],
                           "expression": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                             "id": 1725,
 =======
                             "id": 2214,
 >>>>>>> master
+=======
+                            "id": 2252,
+>>>>>>> origin/master
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
@@ -2100,10 +2157,14 @@
                             }
                           },
 <<<<<<< HEAD
+<<<<<<< HEAD
                           "id": 1726,
 =======
                           "id": 2215,
 >>>>>>> master
+=======
+                          "id": 2253,
+>>>>>>> origin/master
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -2117,10 +2178,14 @@
                           }
                         },
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "id": 1728,
 =======
                         "id": 2217,
 >>>>>>> master
+=======
+                        "id": 2255,
+>>>>>>> origin/master
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -2144,10 +2209,14 @@
                         }
                       ],
 <<<<<<< HEAD
+<<<<<<< HEAD
                       "id": 1724,
 =======
                       "id": 2213,
 >>>>>>> master
+=======
+                      "id": 2251,
+>>>>>>> origin/master
                       "name": "keccak256",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
@@ -2159,10 +2228,14 @@
                       }
                     },
 <<<<<<< HEAD
+<<<<<<< HEAD
                     "id": 1729,
 =======
                     "id": 2218,
 >>>>>>> master
+=======
+                    "id": 2256,
+>>>>>>> origin/master
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2183,14 +2256,19 @@
                 {
                   "assignments": [
 <<<<<<< HEAD
+<<<<<<< HEAD
                     1732
 =======
                     2221
 >>>>>>> master
+=======
+                    2259
+>>>>>>> origin/master
                   ],
                   "declarations": [
                     {
                       "constant": false,
+<<<<<<< HEAD
 <<<<<<< HEAD
                       "id": 1732,
                       "mutability": "mutable",
@@ -2204,6 +2282,13 @@
                       "nodeType": "VariableDeclaration",
                       "scope": 2233,
 >>>>>>> master
+=======
+                      "id": 2259,
+                      "mutability": "mutable",
+                      "name": "hashCadena2",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 2271,
+>>>>>>> origin/master
                       "src": "293:19:10",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -2213,10 +2298,14 @@
                       },
                       "typeName": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "id": 1731,
 =======
                         "id": 2220,
 >>>>>>> master
+=======
+                        "id": 2258,
+>>>>>>> origin/master
                         "name": "bytes32",
                         "nodeType": "ElementaryTypeName",
                         "src": "293:7:10",
@@ -2229,15 +2318,20 @@
                     }
                   ],
 <<<<<<< HEAD
+<<<<<<< HEAD
                   "id": 1739,
 =======
                   "id": 2228,
 >>>>>>> master
+=======
+                  "id": 2266,
+>>>>>>> origin/master
                   "initialValue": {
                     "arguments": [
                       {
                         "arguments": [
                           {
+<<<<<<< HEAD
 <<<<<<< HEAD
                             "id": 1736,
                             "name": "cadena2",
@@ -2251,6 +2345,13 @@
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 2206,
 >>>>>>> master
+=======
+                            "id": 2263,
+                            "name": "cadena2",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2244,
+>>>>>>> origin/master
                             "src": "337:7:10",
                             "typeDescriptions": {
                               "typeIdentifier": "t_string_memory_ptr",
@@ -2267,10 +2368,14 @@
                           ],
                           "expression": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                             "id": 1734,
 =======
                             "id": 2223,
 >>>>>>> master
+=======
+                            "id": 2261,
+>>>>>>> origin/master
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
@@ -2282,10 +2387,14 @@
                             }
                           },
 <<<<<<< HEAD
+<<<<<<< HEAD
                           "id": 1735,
 =======
                           "id": 2224,
 >>>>>>> master
+=======
+                          "id": 2262,
+>>>>>>> origin/master
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -2299,10 +2408,14 @@
                           }
                         },
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "id": 1737,
 =======
                         "id": 2226,
 >>>>>>> master
+=======
+                        "id": 2264,
+>>>>>>> origin/master
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -2326,10 +2439,14 @@
                         }
                       ],
 <<<<<<< HEAD
+<<<<<<< HEAD
                       "id": 1733,
 =======
                       "id": 2222,
 >>>>>>> master
+=======
+                      "id": 2260,
+>>>>>>> origin/master
                       "name": "keccak256",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
@@ -2341,10 +2458,14 @@
                       }
                     },
 <<<<<<< HEAD
+<<<<<<< HEAD
                     "id": 1738,
 =======
                     "id": 2227,
 >>>>>>> master
+=======
+                    "id": 2265,
+>>>>>>> origin/master
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2369,15 +2490,20 @@
                       "typeString": "bytes32"
                     },
 <<<<<<< HEAD
+<<<<<<< HEAD
                     "id": 1742,
 =======
                     "id": 2231,
 >>>>>>> master
+=======
+                    "id": 2269,
+>>>>>>> origin/master
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
+<<<<<<< HEAD
 <<<<<<< HEAD
                       "id": 1740,
                       "name": "hashCadena1",
@@ -2391,6 +2517,13 @@
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 2212,
 >>>>>>> master
+=======
+                      "id": 2267,
+                      "name": "hashCadena1",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2250,
+>>>>>>> origin/master
                       "src": "364:11:10",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -2400,6 +2533,7 @@
                     "nodeType": "BinaryOperation",
                     "operator": "==",
                     "rightExpression": {
+<<<<<<< HEAD
 <<<<<<< HEAD
                       "id": 1741,
                       "name": "hashCadena2",
@@ -2413,6 +2547,13 @@
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 2221,
 >>>>>>> master
+=======
+                      "id": 2268,
+                      "name": "hashCadena2",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2259,
+>>>>>>> origin/master
                       "src": "377:11:10",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -2426,12 +2567,17 @@
                     }
                   },
 <<<<<<< HEAD
+<<<<<<< HEAD
                   "functionReturnParameters": 1721,
                   "id": 1743,
 =======
                   "functionReturnParameters": 2210,
                   "id": 2232,
 >>>>>>> master
+=======
+                  "functionReturnParameters": 2248,
+                  "id": 2270,
+>>>>>>> origin/master
                   "nodeType": "Return",
                   "src": "357:31:10"
                 }
@@ -2439,10 +2585,14 @@
             },
             "functionSelector": "88d8da5f",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "id": 1745,
 =======
             "id": 2234,
 >>>>>>> master
+=======
+            "id": 2272,
+>>>>>>> origin/master
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -2450,14 +2600,19 @@
             "nodeType": "FunctionDefinition",
             "parameters": {
 <<<<<<< HEAD
+<<<<<<< HEAD
               "id": 1718,
 =======
               "id": 2207,
 >>>>>>> master
+=======
+              "id": 2245,
+>>>>>>> origin/master
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< HEAD
 <<<<<<< HEAD
                   "id": 1715,
                   "mutability": "mutable",
@@ -2471,6 +2626,13 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 2234,
 >>>>>>> master
+=======
+                  "id": 2242,
+                  "mutability": "mutable",
+                  "name": "cadena1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2272,
+>>>>>>> origin/master
                   "src": "146:21:10",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -2480,10 +2642,14 @@
                   },
                   "typeName": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                     "id": 1714,
 =======
                     "id": 2203,
 >>>>>>> master
+=======
+                    "id": 2241,
+>>>>>>> origin/master
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "146:6:10",
@@ -2497,6 +2663,7 @@
                 {
                   "constant": false,
 <<<<<<< HEAD
+<<<<<<< HEAD
                   "id": 1717,
                   "mutability": "mutable",
                   "name": "cadena2",
@@ -2509,6 +2676,13 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 2234,
 >>>>>>> master
+=======
+                  "id": 2244,
+                  "mutability": "mutable",
+                  "name": "cadena2",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2272,
+>>>>>>> origin/master
                   "src": "169:21:10",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -2518,10 +2692,14 @@
                   },
                   "typeName": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                     "id": 1716,
 =======
                     "id": 2205,
 >>>>>>> master
+=======
+                    "id": 2243,
+>>>>>>> origin/master
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "169:6:10",
@@ -2537,14 +2715,19 @@
             },
             "returnParameters": {
 <<<<<<< HEAD
+<<<<<<< HEAD
               "id": 1721,
 =======
               "id": 2210,
 >>>>>>> master
+=======
+              "id": 2248,
+>>>>>>> origin/master
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< HEAD
 <<<<<<< HEAD
                   "id": 1720,
                   "mutability": "mutable",
@@ -2558,6 +2741,13 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 2234,
 >>>>>>> master
+=======
+                  "id": 2247,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2272,
+>>>>>>> origin/master
                   "src": "213:4:10",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2567,10 +2757,14 @@
                   },
                   "typeName": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                     "id": 1719,
 =======
                     "id": 2208,
 >>>>>>> master
+=======
+                    "id": 2246,
+>>>>>>> origin/master
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "213:4:10",
@@ -2585,10 +2779,14 @@
               "src": "212:6:10"
             },
 <<<<<<< HEAD
+<<<<<<< HEAD
             "scope": 1746,
 =======
             "scope": 2235,
 >>>>>>> master
+=======
+            "scope": 2273,
+>>>>>>> origin/master
             "src": "129:267:10",
             "stateMutability": "pure",
             "virtual": false,
@@ -2596,9 +2794,13 @@
           }
         ],
 <<<<<<< HEAD
+<<<<<<< HEAD
         "scope": 1747,
 =======
         "scope": 2236,
+=======
+        "scope": 2274,
+>>>>>>> origin/master
         "src": "95:304:10"
       }
     ],
@@ -2608,15 +2810,15 @@
     "absolutePath": "project:/contracts/libraries/StringLibrary.sol",
     "exportedSymbols": {
       "StringLibrary": [
-        2235
+        2273
       ]
     },
-    "id": 2236,
+    "id": 2274,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 2201,
+        "id": 2239,
         "literals": [
           "solidity",
           "^",
@@ -2627,7 +2829,7 @@
         "src": "33:23:10"
       },
       {
-        "id": 2202,
+        "id": 2240,
         "literals": [
           "experimental",
           "ABIEncoderV2"
@@ -2641,31 +2843,31 @@
         "contractDependencies": [],
         "contractKind": "library",
         "fullyImplemented": true,
-        "id": 2235,
+        "id": 2273,
         "linearizedBaseContracts": [
-          2235
+          2273
         ],
         "name": "StringLibrary",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 2233,
+              "id": 2271,
               "nodeType": "Block",
               "src": "218:178:10",
               "statements": [
                 {
                   "assignments": [
-                    2212
+                    2250
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 2212,
+                      "id": 2250,
                       "mutability": "mutable",
                       "name": "hashCadena1",
                       "nodeType": "VariableDeclaration",
-                      "scope": 2233,
+                      "scope": 2271,
                       "src": "229:19:10",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -2674,7 +2876,7 @@
                         "typeString": "bytes32"
                       },
                       "typeName": {
-                        "id": 2211,
+                        "id": 2249,
                         "name": "bytes32",
                         "nodeType": "ElementaryTypeName",
                         "src": "229:7:10",
@@ -2686,17 +2888,17 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 2219,
+                  "id": 2257,
                   "initialValue": {
                     "arguments": [
                       {
                         "arguments": [
                           {
-                            "id": 2216,
+                            "id": 2254,
                             "name": "cadena1",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2204,
+                            "referencedDeclaration": 2242,
                             "src": "273:7:10",
                             "typeDescriptions": {
                               "typeIdentifier": "t_string_memory_ptr",
@@ -2712,7 +2914,7 @@
                             }
                           ],
                           "expression": {
-                            "id": 2214,
+                            "id": 2252,
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
@@ -2723,7 +2925,7 @@
                               "typeString": "abi"
                             }
                           },
-                          "id": 2215,
+                          "id": 2253,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -2736,7 +2938,7 @@
                             "typeString": "function () pure returns (bytes memory)"
                           }
                         },
-                        "id": 2217,
+                        "id": 2255,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -2759,7 +2961,7 @@
                           "typeString": "bytes memory"
                         }
                       ],
-                      "id": 2213,
+                      "id": 2251,
                       "name": "keccak256",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
@@ -2770,7 +2972,7 @@
                         "typeString": "function (bytes memory) pure returns (bytes32)"
                       }
                     },
-                    "id": 2218,
+                    "id": 2256,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2790,16 +2992,16 @@
                 },
                 {
                   "assignments": [
-                    2221
+                    2259
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 2221,
+                      "id": 2259,
                       "mutability": "mutable",
                       "name": "hashCadena2",
                       "nodeType": "VariableDeclaration",
-                      "scope": 2233,
+                      "scope": 2271,
                       "src": "293:19:10",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -2808,7 +3010,7 @@
                         "typeString": "bytes32"
                       },
                       "typeName": {
-                        "id": 2220,
+                        "id": 2258,
                         "name": "bytes32",
                         "nodeType": "ElementaryTypeName",
                         "src": "293:7:10",
@@ -2820,17 +3022,17 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 2228,
+                  "id": 2266,
                   "initialValue": {
                     "arguments": [
                       {
                         "arguments": [
                           {
-                            "id": 2225,
+                            "id": 2263,
                             "name": "cadena2",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2206,
+                            "referencedDeclaration": 2244,
                             "src": "337:7:10",
                             "typeDescriptions": {
                               "typeIdentifier": "t_string_memory_ptr",
@@ -2846,7 +3048,7 @@
                             }
                           ],
                           "expression": {
-                            "id": 2223,
+                            "id": 2261,
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
@@ -2857,7 +3059,7 @@
                               "typeString": "abi"
                             }
                           },
-                          "id": 2224,
+                          "id": 2262,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -2870,7 +3072,7 @@
                             "typeString": "function () pure returns (bytes memory)"
                           }
                         },
-                        "id": 2226,
+                        "id": 2264,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -2893,7 +3095,7 @@
                           "typeString": "bytes memory"
                         }
                       ],
-                      "id": 2222,
+                      "id": 2260,
                       "name": "keccak256",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
@@ -2904,7 +3106,7 @@
                         "typeString": "function (bytes memory) pure returns (bytes32)"
                       }
                     },
-                    "id": 2227,
+                    "id": 2265,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2928,17 +3130,17 @@
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     },
-                    "id": 2231,
+                    "id": 2269,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
-                      "id": 2229,
+                      "id": 2267,
                       "name": "hashCadena1",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 2212,
+                      "referencedDeclaration": 2250,
                       "src": "364:11:10",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -2948,11 +3150,11 @@
                     "nodeType": "BinaryOperation",
                     "operator": "==",
                     "rightExpression": {
-                      "id": 2230,
+                      "id": 2268,
                       "name": "hashCadena2",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 2221,
+                      "referencedDeclaration": 2259,
                       "src": "377:11:10",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -2965,31 +3167,31 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 2210,
-                  "id": 2232,
+                  "functionReturnParameters": 2248,
+                  "id": 2270,
                   "nodeType": "Return",
                   "src": "357:31:10"
                 }
               ]
             },
             "functionSelector": "88d8da5f",
-            "id": 2234,
+            "id": 2272,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "equals",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 2207,
+              "id": 2245,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2204,
+                  "id": 2242,
                   "mutability": "mutable",
                   "name": "cadena1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2234,
+                  "scope": 2272,
                   "src": "146:21:10",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -2998,7 +3200,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 2203,
+                    "id": 2241,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "146:6:10",
@@ -3011,11 +3213,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 2206,
+                  "id": 2244,
                   "mutability": "mutable",
                   "name": "cadena2",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2234,
+                  "scope": 2272,
                   "src": "169:21:10",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -3024,7 +3226,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 2205,
+                    "id": 2243,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "169:6:10",
@@ -3039,16 +3241,16 @@
               "src": "145:46:10"
             },
             "returnParameters": {
-              "id": 2210,
+              "id": 2248,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2209,
+                  "id": 2247,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2234,
+                  "scope": 2272,
                   "src": "213:4:10",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3057,7 +3259,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 2208,
+                    "id": 2246,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "213:4:10",
@@ -3071,15 +3273,19 @@
               ],
               "src": "212:6:10"
             },
-            "scope": 2235,
+            "scope": 2273,
             "src": "129:267:10",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "public"
           }
         ],
+<<<<<<< HEAD
         "scope": 2236,
 >>>>>>> master
+=======
+        "scope": 2274,
+>>>>>>> origin/master
         "src": "95:304:10"
       }
     ],
@@ -3093,6 +3299,7 @@
     "5777": {
       "events": {},
       "links": {},
+<<<<<<< HEAD
 <<<<<<< HEAD
       "address": "0x19c4DD8932E72fDa496a11dCf6859736E2d83eb5",
       "transactionHash": "0x8f012b3bbf125a7bc4e3463900cc578b7831832697a22174f09cb6628ece2468"
@@ -3108,6 +3315,14 @@
   "schemaVersion": "3.4.4",
   "updatedAt": "2022-07-12T16:03:38.361Z",
 >>>>>>> master
+=======
+      "address": "0x86fA12c8b6B58CFd77540A73Ce677E3d39Cc7Df0",
+      "transactionHash": "0xdaba52fcb7729c67f00d61a33404f6086449a7bcb7a15824de2a746f1f280903"
+    }
+  },
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-07-13T21:08:06.676Z",
+>>>>>>> origin/master
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

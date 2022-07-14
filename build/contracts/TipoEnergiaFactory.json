@@ -3288,8 +3288,12 @@
                 }
               ]
             },
+<<<<<<< HEAD
             "name": "abi_encode_tuple_t_contract$_TipoEnergia_$2617__to_t_address__fromStack_reversed",
 >>>>>>> master
+=======
+            "name": "abi_encode_tuple_t_contract$_TipoEnergia_$2655__to_t_address__fromStack_reversed",
+>>>>>>> origin/master
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -5878,7 +5882,7 @@
           }
         ]
       },
-      "contents": "{\n    { }\n    function abi_decode_tuple_t_bool_fromMemory(headStart, dataEnd) -> value0\n    {\n        if slt(sub(dataEnd, headStart), 32) { revert(value0, value0) }\n        let value := mload(headStart)\n        if iszero(eq(value, iszero(iszero(value)))) { revert(value0, value0) }\n        value0 := value\n    }\n    function abi_decode_tuple_t_string_memory_ptrt_uint256(headStart, dataEnd) -> value0, value1\n    {\n        if slt(sub(dataEnd, headStart), 64) { revert(value1, value1) }\n        let offset := calldataload(headStart)\n        let _1 := 0xffffffffffffffff\n        if gt(offset, _1) { revert(value1, value1) }\n        let _2 := add(headStart, offset)\n        if iszero(slt(add(_2, 0x1f), dataEnd)) { revert(value1, value1) }\n        let _3 := calldataload(_2)\n        let _4 := 0x20\n        if gt(_3, _1) { panic_error_0x41() }\n        let memPtr := mload(64)\n        let newFreePtr := add(add(memPtr, and(add(_3, 0x1f), not(31))), _4)\n        if or(gt(newFreePtr, _1), lt(newFreePtr, memPtr)) { panic_error_0x41() }\n        mstore(64, newFreePtr)\n        mstore(memPtr, _3)\n        if gt(add(add(_2, _3), _4), dataEnd) { revert(value1, value1) }\n        calldatacopy(add(memPtr, _4), add(_2, _4), _3)\n        mstore(add(add(memPtr, _3), _4), value1)\n        value0 := memPtr\n        value1 := calldataload(add(headStart, _4))\n    }\n    function abi_decode_tuple_t_uint256(headStart, dataEnd) -> value0\n    {\n        if slt(sub(dataEnd, headStart), 32) { revert(value0, value0) }\n        value0 := calldataload(headStart)\n    }\n    function abi_encode_t_string(value, pos) -> end\n    {\n        let length := mload(value)\n        mstore(pos, length)\n        let i := end\n        for { } lt(i, length) { i := add(i, 0x20) }\n        {\n            let _1 := 0x20\n            mstore(add(add(pos, i), _1), mload(add(add(value, i), _1)))\n        }\n        if gt(i, length)\n        {\n            mstore(add(add(pos, length), 0x20), end)\n        }\n        end := add(add(pos, and(add(length, 31), not(31))), 0x20)\n    }\n    function abi_encode_t_stringliteral_31e1(pos) -> end\n    {\n        mstore(pos, 5)\n        mstore(add(pos, 0x20), \"solar\")\n        end := add(pos, 64)\n    }\n    function abi_encode_t_stringliteral_3504(pos) -> end\n    {\n        mstore(pos, 6)\n        mstore(add(pos, 0x20), \"eolica\")\n        end := add(pos, 64)\n    }\n    function abi_encode_tuple_t_contract$_TipoEnergia_$2617__to_t_address__fromStack_reversed(headStart, value0) -> tail\n    {\n        tail := add(headStart, 32)\n        mstore(headStart, and(value0, sub(shl(160, 1), 1)))\n    }\n    function abi_encode_tuple_t_string_memory_ptr__to_t_string_memory_ptr__fromStack_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 32)\n        tail := abi_encode_t_string(value0, add(headStart, 32))\n    }\n    function abi_encode_tuple_t_string_memory_ptr_t_stringliteral_31e1c5bf9da84811147b2cab01421da1659d9baff618fb99b976b2c0901cba01__to_t_string_memory_ptr_t_string_memory_ptr__fromStack_library_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 64)\n        let tail_1 := abi_encode_t_string(value0, add(headStart, 64))\n        mstore(add(headStart, 32), sub(tail_1, headStart))\n        tail := abi_encode_t_stringliteral_31e1(tail_1)\n    }\n    function abi_encode_tuple_t_string_memory_ptr_t_stringliteral_350415ea5a6bb12557bdd9ca6ea277f7eee18139246ad7976823de3477c5f127__to_t_string_memory_ptr_t_string_memory_ptr__fromStack_library_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 64)\n        let tail_1 := abi_encode_t_string(value0, add(headStart, 64))\n        mstore(add(headStart, 32), sub(tail_1, headStart))\n        tail := abi_encode_t_stringliteral_3504(tail_1)\n    }\n    function abi_encode_tuple_t_stringliteral_0139426e27fc778d151aa559500f09ccf53eefbc679aa425a66304cb79ea8719__to_t_string_memory_ptr__fromStack_reversed(headStart) -> tail\n    {\n        mstore(headStart, 32)\n        mstore(add(headStart, 32), 82)\n        mstore(add(headStart, 64), \"No es un tipo de energia valido,\")\n        mstore(add(headStart, 96), \" los tipos validos son: solar, e\")\n        mstore(add(headStart, 128), \"olica o hidraulica\")\n        tail := add(headStart, 160)\n    }\n    function abi_encode_tuple_t_stringliteral_31e1c5bf9da84811147b2cab01421da1659d9baff618fb99b976b2c0901cba01_t_uint256__to_t_string_memory_ptr_t_uint256__fromStack_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 64)\n        tail := abi_encode_t_stringliteral_31e1(add(headStart, 64))\n        mstore(add(headStart, 32), value0)\n    }\n    function abi_encode_tuple_t_stringliteral_350415ea5a6bb12557bdd9ca6ea277f7eee18139246ad7976823de3477c5f127_t_uint256__to_t_string_memory_ptr_t_uint256__fromStack_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 64)\n        tail := abi_encode_t_stringliteral_3504(add(headStart, 64))\n        mstore(add(headStart, 32), value0)\n    }\n    function extract_byte_array_length(data) -> length\n    {\n        length := div(data, 2)\n        let outOfPlaceEncoding := and(data, 1)\n        if iszero(outOfPlaceEncoding) { length := and(length, 0x7f) }\n        if eq(outOfPlaceEncoding, lt(length, 32))\n        {\n            mstore(0, shl(224, 0x4e487b71))\n            mstore(4, 0x22)\n            revert(0, 0x24)\n        }\n    }\n    function panic_error_0x41()\n    {\n        mstore(0, shl(224, 0x4e487b71))\n        mstore(4, 0x41)\n        revert(0, 0x24)\n    }\n}",
+      "contents": "{\n    { }\n    function abi_decode_tuple_t_bool_fromMemory(headStart, dataEnd) -> value0\n    {\n        if slt(sub(dataEnd, headStart), 32) { revert(value0, value0) }\n        let value := mload(headStart)\n        if iszero(eq(value, iszero(iszero(value)))) { revert(value0, value0) }\n        value0 := value\n    }\n    function abi_decode_tuple_t_string_memory_ptrt_uint256(headStart, dataEnd) -> value0, value1\n    {\n        if slt(sub(dataEnd, headStart), 64) { revert(value1, value1) }\n        let offset := calldataload(headStart)\n        let _1 := 0xffffffffffffffff\n        if gt(offset, _1) { revert(value1, value1) }\n        let _2 := add(headStart, offset)\n        if iszero(slt(add(_2, 0x1f), dataEnd)) { revert(value1, value1) }\n        let _3 := calldataload(_2)\n        let _4 := 0x20\n        if gt(_3, _1) { panic_error_0x41() }\n        let memPtr := mload(64)\n        let newFreePtr := add(add(memPtr, and(add(_3, 0x1f), not(31))), _4)\n        if or(gt(newFreePtr, _1), lt(newFreePtr, memPtr)) { panic_error_0x41() }\n        mstore(64, newFreePtr)\n        mstore(memPtr, _3)\n        if gt(add(add(_2, _3), _4), dataEnd) { revert(value1, value1) }\n        calldatacopy(add(memPtr, _4), add(_2, _4), _3)\n        mstore(add(add(memPtr, _3), _4), value1)\n        value0 := memPtr\n        value1 := calldataload(add(headStart, _4))\n    }\n    function abi_decode_tuple_t_uint256(headStart, dataEnd) -> value0\n    {\n        if slt(sub(dataEnd, headStart), 32) { revert(value0, value0) }\n        value0 := calldataload(headStart)\n    }\n    function abi_encode_t_string(value, pos) -> end\n    {\n        let length := mload(value)\n        mstore(pos, length)\n        let i := end\n        for { } lt(i, length) { i := add(i, 0x20) }\n        {\n            let _1 := 0x20\n            mstore(add(add(pos, i), _1), mload(add(add(value, i), _1)))\n        }\n        if gt(i, length)\n        {\n            mstore(add(add(pos, length), 0x20), end)\n        }\n        end := add(add(pos, and(add(length, 31), not(31))), 0x20)\n    }\n    function abi_encode_t_stringliteral_31e1(pos) -> end\n    {\n        mstore(pos, 5)\n        mstore(add(pos, 0x20), \"solar\")\n        end := add(pos, 64)\n    }\n    function abi_encode_t_stringliteral_3504(pos) -> end\n    {\n        mstore(pos, 6)\n        mstore(add(pos, 0x20), \"eolica\")\n        end := add(pos, 64)\n    }\n    function abi_encode_tuple_t_contract$_TipoEnergia_$2655__to_t_address__fromStack_reversed(headStart, value0) -> tail\n    {\n        tail := add(headStart, 32)\n        mstore(headStart, and(value0, sub(shl(160, 1), 1)))\n    }\n    function abi_encode_tuple_t_string_memory_ptr__to_t_string_memory_ptr__fromStack_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 32)\n        tail := abi_encode_t_string(value0, add(headStart, 32))\n    }\n    function abi_encode_tuple_t_string_memory_ptr_t_stringliteral_31e1c5bf9da84811147b2cab01421da1659d9baff618fb99b976b2c0901cba01__to_t_string_memory_ptr_t_string_memory_ptr__fromStack_library_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 64)\n        let tail_1 := abi_encode_t_string(value0, add(headStart, 64))\n        mstore(add(headStart, 32), sub(tail_1, headStart))\n        tail := abi_encode_t_stringliteral_31e1(tail_1)\n    }\n    function abi_encode_tuple_t_string_memory_ptr_t_stringliteral_350415ea5a6bb12557bdd9ca6ea277f7eee18139246ad7976823de3477c5f127__to_t_string_memory_ptr_t_string_memory_ptr__fromStack_library_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 64)\n        let tail_1 := abi_encode_t_string(value0, add(headStart, 64))\n        mstore(add(headStart, 32), sub(tail_1, headStart))\n        tail := abi_encode_t_stringliteral_3504(tail_1)\n    }\n    function abi_encode_tuple_t_stringliteral_0139426e27fc778d151aa559500f09ccf53eefbc679aa425a66304cb79ea8719__to_t_string_memory_ptr__fromStack_reversed(headStart) -> tail\n    {\n        mstore(headStart, 32)\n        mstore(add(headStart, 32), 82)\n        mstore(add(headStart, 64), \"No es un tipo de energia valido,\")\n        mstore(add(headStart, 96), \" los tipos validos son: solar, e\")\n        mstore(add(headStart, 128), \"olica o hidraulica\")\n        tail := add(headStart, 160)\n    }\n    function abi_encode_tuple_t_stringliteral_31e1c5bf9da84811147b2cab01421da1659d9baff618fb99b976b2c0901cba01_t_uint256__to_t_string_memory_ptr_t_uint256__fromStack_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 64)\n        tail := abi_encode_t_stringliteral_31e1(add(headStart, 64))\n        mstore(add(headStart, 32), value0)\n    }\n    function abi_encode_tuple_t_stringliteral_350415ea5a6bb12557bdd9ca6ea277f7eee18139246ad7976823de3477c5f127_t_uint256__to_t_string_memory_ptr_t_uint256__fromStack_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 64)\n        tail := abi_encode_t_stringliteral_3504(add(headStart, 64))\n        mstore(add(headStart, 32), value0)\n    }\n    function extract_byte_array_length(data) -> length\n    {\n        length := div(data, 2)\n        let outOfPlaceEncoding := and(data, 1)\n        if iszero(outOfPlaceEncoding) { length := and(length, 0x7f) }\n        if eq(outOfPlaceEncoding, lt(length, 32))\n        {\n            mstore(0, shl(224, 0x4e487b71))\n            mstore(4, 0x22)\n            revert(0, 0x24)\n        }\n    }\n    function panic_error_0x41()\n    {\n        mstore(0, shl(224, 0x4e487b71))\n        mstore(4, 0x41)\n        revert(0, 0x24)\n    }\n}",
       "id": 17,
 >>>>>>> master
       "language": "Yul",
@@ -5900,6 +5904,7 @@
     "absolutePath": "project:/contracts/models/TipoEnergiaFactory.sol",
     "exportedSymbols": {
       "EnergiaEolica": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         10182
       ],
@@ -5925,37 +5930,48 @@
     "id": 10302,
 =======
         2673
+=======
+        2711
+>>>>>>> origin/master
       ],
       "EnergiaHidraulica": [
-        2701
+        2739
       ],
       "EnergiaSolar": [
-        2645
+        2683
       ],
       "SafeMath": [
-        2199
+        2237
       ],
       "StringLibrary": [
-        2235
+        2273
       ],
       "TipoEnergia": [
-        2617
+        2655
       ],
       "TipoEnergiaFactory": [
-        2779
+        2817
       ]
     },
+<<<<<<< HEAD
     "id": 2780,
 >>>>>>> master
+=======
+    "id": 2818,
+>>>>>>> origin/master
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
 <<<<<<< HEAD
+<<<<<<< HEAD
         "id": 10212,
 =======
         "id": 2703,
 >>>>>>> master
+=======
+        "id": 2741,
+>>>>>>> origin/master
         "literals": [
           "solidity",
           "^",
@@ -5969,6 +5985,7 @@
         "absolutePath": "project:/contracts/models/TipoEnergia.sol",
         "file": "./TipoEnergia.sol",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "id": 10213,
         "nodeType": "ImportDirective",
         "scope": 10302,
@@ -5976,9 +5993,12 @@
         "src": "58:27:17",
 =======
         "id": 2704,
+=======
+        "id": 2742,
+>>>>>>> origin/master
         "nodeType": "ImportDirective",
-        "scope": 2780,
-        "sourceUnit": 2702,
+        "scope": 2818,
+        "sourceUnit": 2740,
         "src": "58:27:16",
 >>>>>>> master
         "symbolAliases": [],
@@ -5988,6 +6008,7 @@
         "absolutePath": "project:/contracts/libraries/StringLibrary.sol",
         "file": "../libraries/StringLibrary.sol",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "id": 10214,
         "nodeType": "ImportDirective",
         "scope": 10302,
@@ -5995,9 +6016,12 @@
         "src": "87:40:17",
 =======
         "id": 2705,
+=======
+        "id": 2743,
+>>>>>>> origin/master
         "nodeType": "ImportDirective",
-        "scope": 2780,
-        "sourceUnit": 2236,
+        "scope": 2818,
+        "sourceUnit": 2274,
         "src": "87:40:16",
 >>>>>>> master
         "symbolAliases": [],
@@ -6007,6 +6031,7 @@
         "abstract": false,
         "baseContracts": [],
         "contractDependencies": [
+<<<<<<< HEAD
 <<<<<<< HEAD
           10154,
           10182,
@@ -6020,18 +6045,27 @@
 =======
           2645,
           2673
+=======
+          2683,
+          2711
+>>>>>>> origin/master
         ],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 2779,
+        "id": 2817,
         "linearizedBaseContracts": [
+<<<<<<< HEAD
           2779
 >>>>>>> master
+=======
+          2817
+>>>>>>> origin/master
         ],
         "name": "TipoEnergiaFactory",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
+<<<<<<< HEAD
 <<<<<<< HEAD
             "id": 10217,
             "libraryName": {
@@ -6042,11 +6076,14 @@
               "src": "172:13:17"
 =======
             "id": 2708,
+=======
+            "id": 2746,
+>>>>>>> origin/master
             "libraryName": {
-              "id": 2706,
+              "id": 2744,
               "name": "StringLibrary",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 2235,
+              "referencedDeclaration": 2273,
               "src": "172:13:16"
 >>>>>>> master
             },
@@ -6054,10 +6091,14 @@
             "src": "166:31:16",
             "typeName": {
 <<<<<<< HEAD
+<<<<<<< HEAD
               "id": 10216,
 =======
               "id": 2707,
 >>>>>>> master
+=======
+              "id": 2745,
+>>>>>>> origin/master
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "190:6:16",
@@ -6080,11 +6121,11 @@
 =======
             "constant": false,
             "functionSelector": "6d4fe5c7",
-            "id": 2714,
+            "id": 2752,
             "mutability": "mutable",
             "name": "tiposEnergia",
             "nodeType": "VariableDeclaration",
-            "scope": 2779,
+            "scope": 2817,
             "src": "203:50:16",
             "stateVariable": true,
             "storageLocation": "default",
@@ -6094,7 +6135,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 2709,
+                "id": 2747,
                 "name": "string",
                 "nodeType": "ElementaryTypeName",
                 "src": "203:6:16",
@@ -6103,7 +6144,7 @@
                   "typeString": "string"
                 }
               },
-              "id": 2710,
+              "id": 2748,
               "nodeType": "ArrayTypeName",
               "src": "203:8:16",
               "typeDescriptions": {
@@ -6115,7 +6156,7 @@
               "components": [
                 {
                   "hexValue": "736f6c6172",
-                  "id": 2711,
+                  "id": 2749,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
@@ -6131,7 +6172,7 @@
                 },
                 {
                   "hexValue": "656f6c696361",
-                  "id": 2712,
+                  "id": 2750,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
@@ -6146,7 +6187,7 @@
                   "value": "eolica"
                 }
               ],
-              "id": 2713,
+              "id": 2751,
               "isConstant": false,
               "isInlineArray": true,
               "isLValue": false,
@@ -6163,18 +6204,23 @@
           },
           {
             "body": {
-              "id": 2777,
+              "id": 2815,
               "nodeType": "Block",
               "src": "404:579:16",
               "statements": [
                 {
                   "assignments": [
+<<<<<<< HEAD
                     2726
 >>>>>>> master
+=======
+                    2764
+>>>>>>> origin/master
                   ],
                   "declarations": [
                     {
                       "constant": false,
+<<<<<<< HEAD
 <<<<<<< HEAD
                       "id": 10229,
                       "mutability": "mutable",
@@ -6204,38 +6250,46 @@
                           "typeIdentifier": "t_contract$_TipoEnergia_$10126",
 =======
                       "id": 2726,
+=======
+                      "id": 2764,
+>>>>>>> origin/master
                       "mutability": "mutable",
                       "name": "tempTipoEnergia",
                       "nodeType": "VariableDeclaration",
-                      "scope": 2777,
+                      "scope": 2815,
                       "src": "415:27:16",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_TipoEnergia_$2617",
+                        "typeIdentifier": "t_contract$_TipoEnergia_$2655",
                         "typeString": "contract TipoEnergia"
                       },
                       "typeName": {
-                        "id": 2725,
+                        "id": 2763,
                         "nodeType": "UserDefinedTypeName",
                         "pathNode": {
-                          "id": 2724,
+                          "id": 2762,
                           "name": "TipoEnergia",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 2617,
+                          "referencedDeclaration": 2655,
                           "src": "415:11:16"
                         },
-                        "referencedDeclaration": 2617,
+                        "referencedDeclaration": 2655,
                         "src": "415:11:16",
                         "typeDescriptions": {
+<<<<<<< HEAD
                           "typeIdentifier": "t_contract$_TipoEnergia_$2617",
 >>>>>>> master
+=======
+                          "typeIdentifier": "t_contract$_TipoEnergia_$2655",
+>>>>>>> origin/master
                           "typeString": "contract TipoEnergia"
                         }
                       },
                       "visibility": "internal"
                     }
                   ],
+<<<<<<< HEAD
 <<<<<<< HEAD
                   "id": 10230,
                   "nodeType": "VariableDeclarationStatement",
@@ -6246,17 +6300,25 @@
                     10232
 =======
                   "id": 2727,
+=======
+                  "id": 2765,
+>>>>>>> origin/master
                   "nodeType": "VariableDeclarationStatement",
                   "src": "415:27:16"
                 },
                 {
                   "assignments": [
+<<<<<<< HEAD
                     2729
 >>>>>>> master
+=======
+                    2767
+>>>>>>> origin/master
                   ],
                   "declarations": [
                     {
                       "constant": false,
+<<<<<<< HEAD
 <<<<<<< HEAD
                       "id": 10232,
                       "mutability": "mutable",
@@ -6266,10 +6328,13 @@
                       "src": "396:9:17",
 =======
                       "id": 2729,
+=======
+                      "id": 2767,
+>>>>>>> origin/master
                       "mutability": "mutable",
                       "name": "flag",
                       "nodeType": "VariableDeclaration",
-                      "scope": 2777,
+                      "scope": 2815,
                       "src": "453:9:16",
 >>>>>>> master
                       "stateVariable": false,
@@ -6280,12 +6345,16 @@
                       },
                       "typeName": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "id": 10231,
                         "name": "bool",
                         "nodeType": "ElementaryTypeName",
                         "src": "396:4:17",
 =======
                         "id": 2728,
+=======
+                        "id": 2766,
+>>>>>>> origin/master
                         "name": "bool",
                         "nodeType": "ElementaryTypeName",
                         "src": "453:4:16",
@@ -6299,6 +6368,7 @@
                     }
                   ],
 <<<<<<< HEAD
+<<<<<<< HEAD
                   "id": 10234,
                   "initialValue": {
                     "hexValue": "66616c7365",
@@ -6309,6 +6379,12 @@
                     "hexValue": "66616c7365",
                     "id": 2730,
 >>>>>>> master
+=======
+                  "id": 2769,
+                  "initialValue": {
+                    "hexValue": "66616c7365",
+                    "id": 2768,
+>>>>>>> origin/master
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
@@ -6339,10 +6415,14 @@
                       {
                         "hexValue": "736f6c6172",
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "id": 10237,
 =======
                         "id": 2734,
 >>>>>>> master
+=======
+                        "id": 2772,
+>>>>>>> origin/master
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -6370,6 +6450,7 @@
                       ],
                       "expression": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "id": 10235,
                         "name": "nombreTipoEnergia",
                         "nodeType": "Identifier",
@@ -6378,10 +6459,13 @@
                         "src": "428:17:17",
 =======
                         "id": 2732,
+=======
+                        "id": 2770,
+>>>>>>> origin/master
                         "name": "nombreTipoEnergia",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2716,
+                        "referencedDeclaration": 2754,
                         "src": "485:17:16",
 >>>>>>> master
                         "typeDescriptions": {
@@ -6390,10 +6474,14 @@
                         }
                       },
 <<<<<<< HEAD
+<<<<<<< HEAD
                       "id": 10236,
 =======
                       "id": 2733,
 >>>>>>> master
+=======
+                      "id": 2771,
+>>>>>>> origin/master
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -6401,10 +6489,14 @@
                       "memberName": "equals",
                       "nodeType": "MemberAccess",
 <<<<<<< HEAD
+<<<<<<< HEAD
                       "referencedDeclaration": 1745,
                       "src": "428:24:17",
 =======
                       "referencedDeclaration": 2234,
+=======
+                      "referencedDeclaration": 2272,
+>>>>>>> origin/master
                       "src": "485:24:16",
 >>>>>>> master
                       "typeDescriptions": {
@@ -6413,10 +6505,14 @@
                       }
                     },
 <<<<<<< HEAD
+<<<<<<< HEAD
                     "id": 10238,
 =======
                     "id": 2735,
 >>>>>>> master
+=======
+                    "id": 2773,
+>>>>>>> origin/master
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -6441,10 +6537,14 @@
                         {
                           "hexValue": "656f6c696361",
 <<<<<<< HEAD
+<<<<<<< HEAD
                           "id": 10255,
 =======
                           "id": 2752,
 >>>>>>> master
+=======
+                          "id": 2790,
+>>>>>>> origin/master
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -6472,6 +6572,7 @@
                         ],
                         "expression": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                           "id": 10253,
                           "name": "nombreTipoEnergia",
                           "nodeType": "Identifier",
@@ -6480,10 +6581,13 @@
                           "src": "587:17:17",
 =======
                           "id": 2750,
+=======
+                          "id": 2788,
+>>>>>>> origin/master
                           "name": "nombreTipoEnergia",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2716,
+                          "referencedDeclaration": 2754,
                           "src": "644:17:16",
 >>>>>>> master
                           "typeDescriptions": {
@@ -6492,10 +6596,14 @@
                           }
                         },
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "id": 10254,
 =======
                         "id": 2751,
 >>>>>>> master
+=======
+                        "id": 2789,
+>>>>>>> origin/master
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -6503,10 +6611,14 @@
                         "memberName": "equals",
                         "nodeType": "MemberAccess",
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "referencedDeclaration": 1745,
                         "src": "587:24:17",
 =======
                         "referencedDeclaration": 2234,
+=======
+                        "referencedDeclaration": 2272,
+>>>>>>> origin/master
                         "src": "644:24:16",
 >>>>>>> master
                         "typeDescriptions": {
@@ -6515,10 +6627,14 @@
                         }
                       },
 <<<<<<< HEAD
+<<<<<<< HEAD
                       "id": 10256,
 =======
                       "id": 2753,
 >>>>>>> master
+=======
+                      "id": 2791,
+>>>>>>> origin/master
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -6537,6 +6653,7 @@
                         "typeString": "bool"
                       }
                     },
+<<<<<<< HEAD
 <<<<<<< HEAD
                     "falseBody": {
                       "condition": {
@@ -6794,22 +6911,30 @@
                             "id": 10264,
 =======
                     "id": 2768,
+=======
+                    "id": 2806,
+>>>>>>> origin/master
                     "nodeType": "IfStatement",
                     "src": "640:156:16",
                     "trueBody": {
-                      "id": 2767,
+                      "id": 2805,
                       "nodeType": "Block",
                       "src": "680:116:16",
                       "statements": [
                         {
                           "expression": {
+<<<<<<< HEAD
                             "id": 2761,
 >>>>>>> master
+=======
+                            "id": 2799,
+>>>>>>> origin/master
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
                             "lValueRequested": false,
                             "leftHandSide": {
+<<<<<<< HEAD
 <<<<<<< HEAD
                               "id": 10257,
                               "name": "tempTipoEnergia",
@@ -6821,14 +6946,21 @@
                                 "typeIdentifier": "t_contract$_TipoEnergia_$10126",
 =======
                               "id": 2754,
+=======
+                              "id": 2792,
+>>>>>>> origin/master
                               "name": "tempTipoEnergia",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 2726,
+                              "referencedDeclaration": 2764,
                               "src": "695:15:16",
                               "typeDescriptions": {
+<<<<<<< HEAD
                                 "typeIdentifier": "t_contract$_TipoEnergia_$2617",
 >>>>>>> master
+=======
+                                "typeIdentifier": "t_contract$_TipoEnergia_$2655",
+>>>>>>> origin/master
                                 "typeString": "contract TipoEnergia"
                               }
                             },
@@ -6839,10 +6971,14 @@
                                 {
                                   "hexValue": "656f6c696361",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                   "id": 10261,
 =======
                                   "id": 2758,
 >>>>>>> master
+=======
+                                  "id": 2796,
+>>>>>>> origin/master
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": true,
@@ -6862,6 +6998,7 @@
                                 },
                                 {
 <<<<<<< HEAD
+<<<<<<< HEAD
                                   "id": 10262,
                                   "name": "_cantidadEnergia",
                                   "nodeType": "Identifier",
@@ -6870,10 +7007,13 @@
                                   "src": "684:16:17",
 =======
                                   "id": 2759,
+=======
+                                  "id": 2797,
+>>>>>>> origin/master
                                   "name": "_cantidadEnergia",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 2718,
+                                  "referencedDeclaration": 2756,
                                   "src": "741:16:16",
 >>>>>>> master
                                   "typeDescriptions": {
@@ -6894,10 +7034,14 @@
                                   }
                                 ],
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 "id": 10260,
 =======
                                 "id": 2757,
 >>>>>>> master
+=======
+                                "id": 2795,
+>>>>>>> origin/master
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": false,
@@ -6926,33 +7070,41 @@
 =======
                                 "src": "713:17:16",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_function_creation_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$_t_contract$_EnergiaEolica_$2673_$",
+                                  "typeIdentifier": "t_function_creation_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$_t_contract$_EnergiaEolica_$2711_$",
                                   "typeString": "function (string memory,uint256) returns (contract EnergiaEolica)"
                                 },
                                 "typeName": {
-                                  "id": 2756,
+                                  "id": 2794,
                                   "nodeType": "UserDefinedTypeName",
                                   "pathNode": {
-                                    "id": 2755,
+                                    "id": 2793,
                                     "name": "EnergiaEolica",
                                     "nodeType": "IdentifierPath",
-                                    "referencedDeclaration": 2673,
+                                    "referencedDeclaration": 2711,
                                     "src": "717:13:16"
                                   },
-                                  "referencedDeclaration": 2673,
+                                  "referencedDeclaration": 2711,
                                   "src": "717:13:16",
                                   "typeDescriptions": {
+<<<<<<< HEAD
                                     "typeIdentifier": "t_contract$_EnergiaEolica_$2673",
 >>>>>>> master
+=======
+                                    "typeIdentifier": "t_contract$_EnergiaEolica_$2711",
+>>>>>>> origin/master
                                     "typeString": "contract EnergiaEolica"
                                   }
                                 }
                               },
 <<<<<<< HEAD
+<<<<<<< HEAD
                               "id": 10263,
 =======
                               "id": 2760,
 >>>>>>> master
+=======
+                              "id": 2798,
+>>>>>>> origin/master
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": false,
@@ -6985,29 +7137,34 @@
                               "src": "713:45:16",
                               "tryCall": false,
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_EnergiaEolica_$2673",
+                                "typeIdentifier": "t_contract$_EnergiaEolica_$2711",
                                 "typeString": "contract EnergiaEolica"
                               }
                             },
                             "src": "695:63:16",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_TipoEnergia_$2617",
+                              "typeIdentifier": "t_contract$_TipoEnergia_$2655",
                               "typeString": "contract TipoEnergia"
                             }
                           },
-                          "id": 2762,
+                          "id": 2800,
                           "nodeType": "ExpressionStatement",
                           "src": "695:63:16"
                         },
                         {
                           "expression": {
+<<<<<<< HEAD
                             "id": 2765,
 >>>>>>> master
+=======
+                            "id": 2803,
+>>>>>>> origin/master
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
                             "lValueRequested": false,
                             "leftHandSide": {
+<<<<<<< HEAD
 <<<<<<< HEAD
                               "id": 10266,
                               "name": "flag",
@@ -7017,10 +7174,13 @@
                               "src": "716:4:17",
 =======
                               "id": 2763,
+=======
+                              "id": 2801,
+>>>>>>> origin/master
                               "name": "flag",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 2729,
+                              "referencedDeclaration": 2767,
                               "src": "773:4:16",
 >>>>>>> master
                               "typeDescriptions": {
@@ -7033,10 +7193,14 @@
                             "rightHandSide": {
                               "hexValue": "74727565",
 <<<<<<< HEAD
+<<<<<<< HEAD
                               "id": 10267,
 =======
                               "id": 2764,
 >>>>>>> master
+=======
+                              "id": 2802,
+>>>>>>> origin/master
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -7065,11 +7229,15 @@
                             }
                           },
 <<<<<<< HEAD
+<<<<<<< HEAD
                           "id": 10269,
                           "nodeType": "ExpressionStatement",
                           "src": "716:11:17"
 =======
                           "id": 2766,
+=======
+                          "id": 2804,
+>>>>>>> origin/master
                           "nodeType": "ExpressionStatement",
                           "src": "773:11:16"
 >>>>>>> master
@@ -7077,6 +7245,7 @@
                       ]
                     }
                   },
+<<<<<<< HEAD
 <<<<<<< HEAD
                   "id": 10291,
                   "nodeType": "IfStatement",
@@ -7091,22 +7260,30 @@
                           "id": 10246,
 =======
                   "id": 2769,
+=======
+                  "id": 2807,
+>>>>>>> origin/master
                   "nodeType": "IfStatement",
                   "src": "481:315:16",
                   "trueBody": {
-                    "id": 2749,
+                    "id": 2787,
                     "nodeType": "Block",
                     "src": "520:114:16",
                     "statements": [
                       {
                         "expression": {
+<<<<<<< HEAD
                           "id": 2743,
 >>>>>>> master
+=======
+                          "id": 2781,
+>>>>>>> origin/master
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "leftHandSide": {
+<<<<<<< HEAD
 <<<<<<< HEAD
                             "id": 10239,
                             "name": "tempTipoEnergia",
@@ -7118,14 +7295,21 @@
                               "typeIdentifier": "t_contract$_TipoEnergia_$10126",
 =======
                             "id": 2736,
+=======
+                            "id": 2774,
+>>>>>>> origin/master
                             "name": "tempTipoEnergia",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2726,
+                            "referencedDeclaration": 2764,
                             "src": "535:15:16",
                             "typeDescriptions": {
+<<<<<<< HEAD
                               "typeIdentifier": "t_contract$_TipoEnergia_$2617",
 >>>>>>> master
+=======
+                              "typeIdentifier": "t_contract$_TipoEnergia_$2655",
+>>>>>>> origin/master
                               "typeString": "contract TipoEnergia"
                             }
                           },
@@ -7136,10 +7320,14 @@
                               {
                                 "hexValue": "736f6c6172",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 "id": 10243,
 =======
                                 "id": 2740,
 >>>>>>> master
+=======
+                                "id": 2778,
+>>>>>>> origin/master
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": true,
@@ -7159,6 +7347,7 @@
                               },
                               {
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 "id": 10244,
                                 "name": "_cantidadEnergia",
                                 "nodeType": "Identifier",
@@ -7167,10 +7356,13 @@
                                 "src": "522:16:17",
 =======
                                 "id": 2741,
+=======
+                                "id": 2779,
+>>>>>>> origin/master
                                 "name": "_cantidadEnergia",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 2718,
+                                "referencedDeclaration": 2756,
                                 "src": "579:16:16",
 >>>>>>> master
                                 "typeDescriptions": {
@@ -7191,10 +7383,14 @@
                                 }
                               ],
 <<<<<<< HEAD
+<<<<<<< HEAD
                               "id": 10242,
 =======
                               "id": 2739,
 >>>>>>> master
+=======
+                              "id": 2777,
+>>>>>>> origin/master
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": false,
@@ -7223,33 +7419,41 @@
 =======
                               "src": "553:16:16",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_function_creation_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$_t_contract$_EnergiaSolar_$2645_$",
+                                "typeIdentifier": "t_function_creation_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$_t_contract$_EnergiaSolar_$2683_$",
                                 "typeString": "function (string memory,uint256) returns (contract EnergiaSolar)"
                               },
                               "typeName": {
-                                "id": 2738,
+                                "id": 2776,
                                 "nodeType": "UserDefinedTypeName",
                                 "pathNode": {
-                                  "id": 2737,
+                                  "id": 2775,
                                   "name": "EnergiaSolar",
                                   "nodeType": "IdentifierPath",
-                                  "referencedDeclaration": 2645,
+                                  "referencedDeclaration": 2683,
                                   "src": "557:12:16"
                                 },
-                                "referencedDeclaration": 2645,
+                                "referencedDeclaration": 2683,
                                 "src": "557:12:16",
                                 "typeDescriptions": {
+<<<<<<< HEAD
                                   "typeIdentifier": "t_contract$_EnergiaSolar_$2645",
 >>>>>>> master
+=======
+                                  "typeIdentifier": "t_contract$_EnergiaSolar_$2683",
+>>>>>>> origin/master
                                   "typeString": "contract EnergiaSolar"
                                 }
                               }
                             },
 <<<<<<< HEAD
+<<<<<<< HEAD
                             "id": 10245,
 =======
                             "id": 2742,
 >>>>>>> master
+=======
+                            "id": 2780,
+>>>>>>> origin/master
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -7282,29 +7486,34 @@
                             "src": "553:43:16",
                             "tryCall": false,
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_EnergiaSolar_$2645",
+                              "typeIdentifier": "t_contract$_EnergiaSolar_$2683",
                               "typeString": "contract EnergiaSolar"
                             }
                           },
                           "src": "535:61:16",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_TipoEnergia_$2617",
+                            "typeIdentifier": "t_contract$_TipoEnergia_$2655",
                             "typeString": "contract TipoEnergia"
                           }
                         },
-                        "id": 2744,
+                        "id": 2782,
                         "nodeType": "ExpressionStatement",
                         "src": "535:61:16"
                       },
                       {
                         "expression": {
+<<<<<<< HEAD
                           "id": 2747,
 >>>>>>> master
+=======
+                          "id": 2785,
+>>>>>>> origin/master
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "leftHandSide": {
+<<<<<<< HEAD
 <<<<<<< HEAD
                             "id": 10248,
                             "name": "flag",
@@ -7314,10 +7523,13 @@
                             "src": "554:4:17",
 =======
                             "id": 2745,
+=======
+                            "id": 2783,
+>>>>>>> origin/master
                             "name": "flag",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2729,
+                            "referencedDeclaration": 2767,
                             "src": "611:4:16",
 >>>>>>> master
                             "typeDescriptions": {
@@ -7330,10 +7542,14 @@
                           "rightHandSide": {
                             "hexValue": "74727565",
 <<<<<<< HEAD
+<<<<<<< HEAD
                             "id": 10249,
 =======
                             "id": 2746,
 >>>>>>> master
+=======
+                            "id": 2784,
+>>>>>>> origin/master
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -7362,11 +7578,15 @@
                           }
                         },
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "id": 10251,
                         "nodeType": "ExpressionStatement",
                         "src": "554:11:17"
 =======
                         "id": 2748,
+=======
+                        "id": 2786,
+>>>>>>> origin/master
                         "nodeType": "ExpressionStatement",
                         "src": "611:11:16"
 >>>>>>> master
@@ -7379,6 +7599,7 @@
                     "arguments": [
                       {
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "id": 10293,
                         "name": "flag",
                         "nodeType": "Identifier",
@@ -7387,10 +7608,13 @@
                         "src": "994:4:17",
 =======
                         "id": 2771,
+=======
+                        "id": 2809,
+>>>>>>> origin/master
                         "name": "flag",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2729,
+                        "referencedDeclaration": 2767,
                         "src": "828:4:16",
 >>>>>>> master
                         "typeDescriptions": {
@@ -7401,10 +7625,14 @@
                       {
                         "hexValue": "4e6f20657320756e207469706f20646520656e65726769612076616c69646f2c206c6f73207469706f732076616c69646f7320736f6e3a20736f6c61722c20656f6c696361206f206869647261756c696361",
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "id": 10294,
 =======
                         "id": 2772,
 >>>>>>> master
+=======
+                        "id": 2810,
+>>>>>>> origin/master
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -7435,10 +7663,14 @@
                         }
                       ],
 <<<<<<< HEAD
+<<<<<<< HEAD
                       "id": 10292,
 =======
                       "id": 2770,
 >>>>>>> master
+=======
+                      "id": 2808,
+>>>>>>> origin/master
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -7457,10 +7689,14 @@
                       }
                     },
 <<<<<<< HEAD
+<<<<<<< HEAD
                     "id": 10295,
 =======
                     "id": 2773,
 >>>>>>> master
+=======
+                    "id": 2811,
+>>>>>>> origin/master
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -7479,6 +7715,7 @@
                       "typeString": "tuple()"
                     }
                   },
+<<<<<<< HEAD
 <<<<<<< HEAD
                   "id": 10296,
                   "nodeType": "ExpressionStatement",
@@ -7503,24 +7740,27 @@
                   "src": "1119:22:17"
 =======
                   "id": 2774,
+=======
+                  "id": 2812,
+>>>>>>> origin/master
                   "nodeType": "ExpressionStatement",
                   "src": "806:136:16"
                 },
                 {
                   "expression": {
-                    "id": 2775,
+                    "id": 2813,
                     "name": "tempTipoEnergia",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 2726,
+                    "referencedDeclaration": 2764,
                     "src": "960:15:16",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_TipoEnergia_$2617",
+                      "typeIdentifier": "t_contract$_TipoEnergia_$2655",
                       "typeString": "contract TipoEnergia"
                     }
                   },
-                  "functionReturnParameters": 2723,
-                  "id": 2776,
+                  "functionReturnParameters": 2761,
+                  "id": 2814,
                   "nodeType": "Return",
                   "src": "953:22:16"
 >>>>>>> master
@@ -7529,10 +7769,14 @@
             },
             "functionSelector": "259e7577",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "id": 10300,
 =======
             "id": 2778,
 >>>>>>> master
+=======
+            "id": 2816,
+>>>>>>> origin/master
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -7540,14 +7784,19 @@
             "nodeType": "FunctionDefinition",
             "parameters": {
 <<<<<<< HEAD
+<<<<<<< HEAD
               "id": 10222,
 =======
               "id": 2719,
 >>>>>>> master
+=======
+              "id": 2757,
+>>>>>>> origin/master
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< HEAD
 <<<<<<< HEAD
                   "id": 10219,
                   "mutability": "mutable",
@@ -7557,10 +7806,13 @@
                   "src": "244:31:17",
 =======
                   "id": 2716,
+=======
+                  "id": 2754,
+>>>>>>> origin/master
                   "mutability": "mutable",
                   "name": "nombreTipoEnergia",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2778,
+                  "scope": 2816,
                   "src": "301:31:16",
 >>>>>>> master
                   "stateVariable": false,
@@ -7571,12 +7823,16 @@
                   },
                   "typeName": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                     "id": 10218,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "244:6:17",
 =======
                     "id": 2715,
+=======
+                    "id": 2753,
+>>>>>>> origin/master
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "301:6:16",
@@ -7591,6 +7847,7 @@
                 {
                   "constant": false,
 <<<<<<< HEAD
+<<<<<<< HEAD
                   "id": 10221,
                   "mutability": "mutable",
                   "name": "_cantidadEnergia",
@@ -7599,10 +7856,13 @@
                   "src": "286:24:17",
 =======
                   "id": 2718,
+=======
+                  "id": 2756,
+>>>>>>> origin/master
                   "mutability": "mutable",
                   "name": "_cantidadEnergia",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2778,
+                  "scope": 2816,
                   "src": "343:24:16",
 >>>>>>> master
                   "stateVariable": false,
@@ -7613,12 +7873,16 @@
                   },
                   "typeName": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                     "id": 10220,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "286:7:17",
 =======
                     "id": 2717,
+=======
+                    "id": 2755,
+>>>>>>> origin/master
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "343:7:16",
@@ -7640,12 +7904,17 @@
               "src": "290:84:16"
             },
             "returnParameters": {
+<<<<<<< HEAD
               "id": 2723,
 >>>>>>> master
+=======
+              "id": 2761,
+>>>>>>> origin/master
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< HEAD
 <<<<<<< HEAD
                   "id": 10225,
                   "mutability": "mutable",
@@ -7675,32 +7944,39 @@
                       "typeIdentifier": "t_contract$_TipoEnergia_$10126",
 =======
                   "id": 2722,
+=======
+                  "id": 2760,
+>>>>>>> origin/master
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2778,
+                  "scope": 2816,
                   "src": "391:11:16",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_TipoEnergia_$2617",
+                    "typeIdentifier": "t_contract$_TipoEnergia_$2655",
                     "typeString": "contract TipoEnergia"
                   },
                   "typeName": {
-                    "id": 2721,
+                    "id": 2759,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 2720,
+                      "id": 2758,
                       "name": "TipoEnergia",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 2617,
+                      "referencedDeclaration": 2655,
                       "src": "391:11:16"
                     },
-                    "referencedDeclaration": 2617,
+                    "referencedDeclaration": 2655,
                     "src": "391:11:16",
                     "typeDescriptions": {
+<<<<<<< HEAD
                       "typeIdentifier": "t_contract$_TipoEnergia_$2617",
 >>>>>>> master
+=======
+                      "typeIdentifier": "t_contract$_TipoEnergia_$2655",
+>>>>>>> origin/master
                       "typeString": "contract TipoEnergia"
                     }
                   },
@@ -7715,7 +7991,7 @@
 =======
               "src": "390:13:16"
             },
-            "scope": 2779,
+            "scope": 2817,
             "src": "262:721:16",
 >>>>>>> master
             "stateMutability": "nonpayable",
@@ -7724,6 +8000,7 @@
           }
         ],
 <<<<<<< HEAD
+<<<<<<< HEAD
         "scope": 10302,
         "src": "131:1021:17"
       }
@@ -7731,6 +8008,9 @@
     "src": "33:1121:17"
 =======
         "scope": 2780,
+=======
+        "scope": 2818,
+>>>>>>> origin/master
         "src": "131:855:16"
       }
     ],
@@ -7740,33 +8020,33 @@
     "absolutePath": "project:/contracts/models/TipoEnergiaFactory.sol",
     "exportedSymbols": {
       "EnergiaEolica": [
-        2673
+        2711
       ],
       "EnergiaHidraulica": [
-        2701
+        2739
       ],
       "EnergiaSolar": [
-        2645
+        2683
       ],
       "SafeMath": [
-        2199
+        2237
       ],
       "StringLibrary": [
-        2235
+        2273
       ],
       "TipoEnergia": [
-        2617
+        2655
       ],
       "TipoEnergiaFactory": [
-        2779
+        2817
       ]
     },
-    "id": 2780,
+    "id": 2818,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 2703,
+        "id": 2741,
         "literals": [
           "solidity",
           "^",
@@ -7779,10 +8059,10 @@
       {
         "absolutePath": "project:/contracts/models/TipoEnergia.sol",
         "file": "./TipoEnergia.sol",
-        "id": 2704,
+        "id": 2742,
         "nodeType": "ImportDirective",
-        "scope": 2780,
-        "sourceUnit": 2702,
+        "scope": 2818,
+        "sourceUnit": 2740,
         "src": "58:27:16",
         "symbolAliases": [],
         "unitAlias": ""
@@ -7790,10 +8070,10 @@
       {
         "absolutePath": "project:/contracts/libraries/StringLibrary.sol",
         "file": "../libraries/StringLibrary.sol",
-        "id": 2705,
+        "id": 2743,
         "nodeType": "ImportDirective",
-        "scope": 2780,
-        "sourceUnit": 2236,
+        "scope": 2818,
+        "sourceUnit": 2274,
         "src": "87:40:16",
         "symbolAliases": [],
         "unitAlias": ""
@@ -7802,31 +8082,31 @@
         "abstract": false,
         "baseContracts": [],
         "contractDependencies": [
-          2645,
-          2673
+          2683,
+          2711
         ],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 2779,
+        "id": 2817,
         "linearizedBaseContracts": [
-          2779
+          2817
         ],
         "name": "TipoEnergiaFactory",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "id": 2708,
+            "id": 2746,
             "libraryName": {
-              "id": 2706,
+              "id": 2744,
               "name": "StringLibrary",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 2235,
+              "referencedDeclaration": 2273,
               "src": "172:13:16"
             },
             "nodeType": "UsingForDirective",
             "src": "166:31:16",
             "typeName": {
-              "id": 2707,
+              "id": 2745,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "190:6:16",
@@ -7839,11 +8119,11 @@
           {
             "constant": false,
             "functionSelector": "6d4fe5c7",
-            "id": 2714,
+            "id": 2752,
             "mutability": "mutable",
             "name": "tiposEnergia",
             "nodeType": "VariableDeclaration",
-            "scope": 2779,
+            "scope": 2817,
             "src": "203:50:16",
             "stateVariable": true,
             "storageLocation": "default",
@@ -7853,7 +8133,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 2709,
+                "id": 2747,
                 "name": "string",
                 "nodeType": "ElementaryTypeName",
                 "src": "203:6:16",
@@ -7862,7 +8142,7 @@
                   "typeString": "string"
                 }
               },
-              "id": 2710,
+              "id": 2748,
               "nodeType": "ArrayTypeName",
               "src": "203:8:16",
               "typeDescriptions": {
@@ -7874,7 +8154,7 @@
               "components": [
                 {
                   "hexValue": "736f6c6172",
-                  "id": 2711,
+                  "id": 2749,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
@@ -7890,7 +8170,7 @@
                 },
                 {
                   "hexValue": "656f6c696361",
-                  "id": 2712,
+                  "id": 2750,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
@@ -7905,7 +8185,7 @@
                   "value": "eolica"
                 }
               ],
-              "id": 2713,
+              "id": 2751,
               "isConstant": false,
               "isInlineArray": true,
               "isLValue": false,
@@ -7922,65 +8202,65 @@
           },
           {
             "body": {
-              "id": 2777,
+              "id": 2815,
               "nodeType": "Block",
               "src": "404:579:16",
               "statements": [
                 {
                   "assignments": [
-                    2726
+                    2764
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 2726,
+                      "id": 2764,
                       "mutability": "mutable",
                       "name": "tempTipoEnergia",
                       "nodeType": "VariableDeclaration",
-                      "scope": 2777,
+                      "scope": 2815,
                       "src": "415:27:16",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_TipoEnergia_$2617",
+                        "typeIdentifier": "t_contract$_TipoEnergia_$2655",
                         "typeString": "contract TipoEnergia"
                       },
                       "typeName": {
-                        "id": 2725,
+                        "id": 2763,
                         "nodeType": "UserDefinedTypeName",
                         "pathNode": {
-                          "id": 2724,
+                          "id": 2762,
                           "name": "TipoEnergia",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 2617,
+                          "referencedDeclaration": 2655,
                           "src": "415:11:16"
                         },
-                        "referencedDeclaration": 2617,
+                        "referencedDeclaration": 2655,
                         "src": "415:11:16",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_TipoEnergia_$2617",
+                          "typeIdentifier": "t_contract$_TipoEnergia_$2655",
                           "typeString": "contract TipoEnergia"
                         }
                       },
                       "visibility": "internal"
                     }
                   ],
-                  "id": 2727,
+                  "id": 2765,
                   "nodeType": "VariableDeclarationStatement",
                   "src": "415:27:16"
                 },
                 {
                   "assignments": [
-                    2729
+                    2767
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 2729,
+                      "id": 2767,
                       "mutability": "mutable",
                       "name": "flag",
                       "nodeType": "VariableDeclaration",
-                      "scope": 2777,
+                      "scope": 2815,
                       "src": "453:9:16",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -7989,7 +8269,7 @@
                         "typeString": "bool"
                       },
                       "typeName": {
-                        "id": 2728,
+                        "id": 2766,
                         "name": "bool",
                         "nodeType": "ElementaryTypeName",
                         "src": "453:4:16",
@@ -8001,10 +8281,10 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 2731,
+                  "id": 2769,
                   "initialValue": {
                     "hexValue": "66616c7365",
-                    "id": 2730,
+                    "id": 2768,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
@@ -8026,7 +8306,7 @@
                     "arguments": [
                       {
                         "hexValue": "736f6c6172",
-                        "id": 2734,
+                        "id": 2772,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -8049,32 +8329,32 @@
                         }
                       ],
                       "expression": {
-                        "id": 2732,
+                        "id": 2770,
                         "name": "nombreTipoEnergia",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2716,
+                        "referencedDeclaration": 2754,
                         "src": "485:17:16",
                         "typeDescriptions": {
                           "typeIdentifier": "t_string_memory_ptr",
                           "typeString": "string memory"
                         }
                       },
-                      "id": 2733,
+                      "id": 2771,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "equals",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2234,
+                      "referencedDeclaration": 2272,
                       "src": "485:24:16",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_delegatecall_pure$_t_string_memory_ptr_$_t_string_memory_ptr_$returns$_t_bool_$bound_to$_t_string_memory_ptr_$",
                         "typeString": "function (string memory,string memory) pure returns (bool)"
                       }
                     },
-                    "id": 2735,
+                    "id": 2773,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -8094,7 +8374,7 @@
                       "arguments": [
                         {
                           "hexValue": "656f6c696361",
-                          "id": 2752,
+                          "id": 2790,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -8117,32 +8397,32 @@
                           }
                         ],
                         "expression": {
-                          "id": 2750,
+                          "id": 2788,
                           "name": "nombreTipoEnergia",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2716,
+                          "referencedDeclaration": 2754,
                           "src": "644:17:16",
                           "typeDescriptions": {
                             "typeIdentifier": "t_string_memory_ptr",
                             "typeString": "string memory"
                           }
                         },
-                        "id": 2751,
+                        "id": 2789,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "equals",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 2234,
+                        "referencedDeclaration": 2272,
                         "src": "644:24:16",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_delegatecall_pure$_t_string_memory_ptr_$_t_string_memory_ptr_$returns$_t_bool_$bound_to$_t_string_memory_ptr_$",
                           "typeString": "function (string memory,string memory) pure returns (bool)"
                         }
                       },
-                      "id": 2753,
+                      "id": 2791,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -8157,30 +8437,30 @@
                         "typeString": "bool"
                       }
                     },
-                    "id": 2768,
+                    "id": 2806,
                     "nodeType": "IfStatement",
                     "src": "640:156:16",
                     "trueBody": {
-                      "id": 2767,
+                      "id": 2805,
                       "nodeType": "Block",
                       "src": "680:116:16",
                       "statements": [
                         {
                           "expression": {
-                            "id": 2761,
+                            "id": 2799,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
                             "lValueRequested": false,
                             "leftHandSide": {
-                              "id": 2754,
+                              "id": 2792,
                               "name": "tempTipoEnergia",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 2726,
+                              "referencedDeclaration": 2764,
                               "src": "695:15:16",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_TipoEnergia_$2617",
+                                "typeIdentifier": "t_contract$_TipoEnergia_$2655",
                                 "typeString": "contract TipoEnergia"
                               }
                             },
@@ -8190,7 +8470,7 @@
                               "arguments": [
                                 {
                                   "hexValue": "656f6c696361",
-                                  "id": 2758,
+                                  "id": 2796,
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": true,
@@ -8205,11 +8485,11 @@
                                   "value": "eolica"
                                 },
                                 {
-                                  "id": 2759,
+                                  "id": 2797,
                                   "name": "_cantidadEnergia",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 2718,
+                                  "referencedDeclaration": 2756,
                                   "src": "741:16:16",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint256",
@@ -8228,7 +8508,7 @@
                                     "typeString": "uint256"
                                   }
                                 ],
-                                "id": 2757,
+                                "id": 2795,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": false,
@@ -8236,28 +8516,28 @@
                                 "nodeType": "NewExpression",
                                 "src": "713:17:16",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_function_creation_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$_t_contract$_EnergiaEolica_$2673_$",
+                                  "typeIdentifier": "t_function_creation_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$_t_contract$_EnergiaEolica_$2711_$",
                                   "typeString": "function (string memory,uint256) returns (contract EnergiaEolica)"
                                 },
                                 "typeName": {
-                                  "id": 2756,
+                                  "id": 2794,
                                   "nodeType": "UserDefinedTypeName",
                                   "pathNode": {
-                                    "id": 2755,
+                                    "id": 2793,
                                     "name": "EnergiaEolica",
                                     "nodeType": "IdentifierPath",
-                                    "referencedDeclaration": 2673,
+                                    "referencedDeclaration": 2711,
                                     "src": "717:13:16"
                                   },
-                                  "referencedDeclaration": 2673,
+                                  "referencedDeclaration": 2711,
                                   "src": "717:13:16",
                                   "typeDescriptions": {
-                                    "typeIdentifier": "t_contract$_EnergiaEolica_$2673",
+                                    "typeIdentifier": "t_contract$_EnergiaEolica_$2711",
                                     "typeString": "contract EnergiaEolica"
                                   }
                                 }
                               },
-                              "id": 2760,
+                              "id": 2798,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": false,
@@ -8268,33 +8548,33 @@
                               "src": "713:45:16",
                               "tryCall": false,
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_EnergiaEolica_$2673",
+                                "typeIdentifier": "t_contract$_EnergiaEolica_$2711",
                                 "typeString": "contract EnergiaEolica"
                               }
                             },
                             "src": "695:63:16",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_TipoEnergia_$2617",
+                              "typeIdentifier": "t_contract$_TipoEnergia_$2655",
                               "typeString": "contract TipoEnergia"
                             }
                           },
-                          "id": 2762,
+                          "id": 2800,
                           "nodeType": "ExpressionStatement",
                           "src": "695:63:16"
                         },
                         {
                           "expression": {
-                            "id": 2765,
+                            "id": 2803,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
                             "lValueRequested": false,
                             "leftHandSide": {
-                              "id": 2763,
+                              "id": 2801,
                               "name": "flag",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 2729,
+                              "referencedDeclaration": 2767,
                               "src": "773:4:16",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_bool",
@@ -8305,7 +8585,7 @@
                             "operator": "=",
                             "rightHandSide": {
                               "hexValue": "74727565",
-                              "id": 2764,
+                              "id": 2802,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -8325,37 +8605,37 @@
                               "typeString": "bool"
                             }
                           },
-                          "id": 2766,
+                          "id": 2804,
                           "nodeType": "ExpressionStatement",
                           "src": "773:11:16"
                         }
                       ]
                     }
                   },
-                  "id": 2769,
+                  "id": 2807,
                   "nodeType": "IfStatement",
                   "src": "481:315:16",
                   "trueBody": {
-                    "id": 2749,
+                    "id": 2787,
                     "nodeType": "Block",
                     "src": "520:114:16",
                     "statements": [
                       {
                         "expression": {
-                          "id": 2743,
+                          "id": 2781,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "leftHandSide": {
-                            "id": 2736,
+                            "id": 2774,
                             "name": "tempTipoEnergia",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2726,
+                            "referencedDeclaration": 2764,
                             "src": "535:15:16",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_TipoEnergia_$2617",
+                              "typeIdentifier": "t_contract$_TipoEnergia_$2655",
                               "typeString": "contract TipoEnergia"
                             }
                           },
@@ -8365,7 +8645,7 @@
                             "arguments": [
                               {
                                 "hexValue": "736f6c6172",
-                                "id": 2740,
+                                "id": 2778,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": true,
@@ -8380,11 +8660,11 @@
                                 "value": "solar"
                               },
                               {
-                                "id": 2741,
+                                "id": 2779,
                                 "name": "_cantidadEnergia",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 2718,
+                                "referencedDeclaration": 2756,
                                 "src": "579:16:16",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
@@ -8403,7 +8683,7 @@
                                   "typeString": "uint256"
                                 }
                               ],
-                              "id": 2739,
+                              "id": 2777,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": false,
@@ -8411,28 +8691,28 @@
                               "nodeType": "NewExpression",
                               "src": "553:16:16",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_function_creation_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$_t_contract$_EnergiaSolar_$2645_$",
+                                "typeIdentifier": "t_function_creation_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$_t_contract$_EnergiaSolar_$2683_$",
                                 "typeString": "function (string memory,uint256) returns (contract EnergiaSolar)"
                               },
                               "typeName": {
-                                "id": 2738,
+                                "id": 2776,
                                 "nodeType": "UserDefinedTypeName",
                                 "pathNode": {
-                                  "id": 2737,
+                                  "id": 2775,
                                   "name": "EnergiaSolar",
                                   "nodeType": "IdentifierPath",
-                                  "referencedDeclaration": 2645,
+                                  "referencedDeclaration": 2683,
                                   "src": "557:12:16"
                                 },
-                                "referencedDeclaration": 2645,
+                                "referencedDeclaration": 2683,
                                 "src": "557:12:16",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_contract$_EnergiaSolar_$2645",
+                                  "typeIdentifier": "t_contract$_EnergiaSolar_$2683",
                                   "typeString": "contract EnergiaSolar"
                                 }
                               }
                             },
-                            "id": 2742,
+                            "id": 2780,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -8443,33 +8723,33 @@
                             "src": "553:43:16",
                             "tryCall": false,
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_EnergiaSolar_$2645",
+                              "typeIdentifier": "t_contract$_EnergiaSolar_$2683",
                               "typeString": "contract EnergiaSolar"
                             }
                           },
                           "src": "535:61:16",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_TipoEnergia_$2617",
+                            "typeIdentifier": "t_contract$_TipoEnergia_$2655",
                             "typeString": "contract TipoEnergia"
                           }
                         },
-                        "id": 2744,
+                        "id": 2782,
                         "nodeType": "ExpressionStatement",
                         "src": "535:61:16"
                       },
                       {
                         "expression": {
-                          "id": 2747,
+                          "id": 2785,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "leftHandSide": {
-                            "id": 2745,
+                            "id": 2783,
                             "name": "flag",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2729,
+                            "referencedDeclaration": 2767,
                             "src": "611:4:16",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bool",
@@ -8480,7 +8760,7 @@
                           "operator": "=",
                           "rightHandSide": {
                             "hexValue": "74727565",
-                            "id": 2746,
+                            "id": 2784,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -8500,7 +8780,7 @@
                             "typeString": "bool"
                           }
                         },
-                        "id": 2748,
+                        "id": 2786,
                         "nodeType": "ExpressionStatement",
                         "src": "611:11:16"
                       }
@@ -8511,11 +8791,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 2771,
+                        "id": 2809,
                         "name": "flag",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2729,
+                        "referencedDeclaration": 2767,
                         "src": "828:4:16",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
@@ -8524,7 +8804,7 @@
                       },
                       {
                         "hexValue": "4e6f20657320756e207469706f20646520656e65726769612076616c69646f2c206c6f73207469706f732076616c69646f7320736f6e3a20736f6c61722c20656f6c696361206f206869647261756c696361",
-                        "id": 2772,
+                        "id": 2810,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -8550,7 +8830,7 @@
                           "typeString": "literal_string \"No es un tipo de energia valido, los tipos validos son: solar, eolica o hidraulica\""
                         }
                       ],
-                      "id": 2770,
+                      "id": 2808,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -8564,7 +8844,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 2773,
+                    "id": 2811,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -8579,48 +8859,48 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 2774,
+                  "id": 2812,
                   "nodeType": "ExpressionStatement",
                   "src": "806:136:16"
                 },
                 {
                   "expression": {
-                    "id": 2775,
+                    "id": 2813,
                     "name": "tempTipoEnergia",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 2726,
+                    "referencedDeclaration": 2764,
                     "src": "960:15:16",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_TipoEnergia_$2617",
+                      "typeIdentifier": "t_contract$_TipoEnergia_$2655",
                       "typeString": "contract TipoEnergia"
                     }
                   },
-                  "functionReturnParameters": 2723,
-                  "id": 2776,
+                  "functionReturnParameters": 2761,
+                  "id": 2814,
                   "nodeType": "Return",
                   "src": "953:22:16"
                 }
               ]
             },
             "functionSelector": "259e7577",
-            "id": 2778,
+            "id": 2816,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "generarNuevaEnergia",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 2719,
+              "id": 2757,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2716,
+                  "id": 2754,
                   "mutability": "mutable",
                   "name": "nombreTipoEnergia",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2778,
+                  "scope": 2816,
                   "src": "301:31:16",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -8629,7 +8909,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 2715,
+                    "id": 2753,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "301:6:16",
@@ -8642,11 +8922,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 2718,
+                  "id": 2756,
                   "mutability": "mutable",
                   "name": "_cantidadEnergia",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2778,
+                  "scope": 2816,
                   "src": "343:24:16",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -8655,7 +8935,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 2717,
+                    "id": 2755,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "343:7:16",
@@ -8670,37 +8950,37 @@
               "src": "290:84:16"
             },
             "returnParameters": {
-              "id": 2723,
+              "id": 2761,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2722,
+                  "id": 2760,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2778,
+                  "scope": 2816,
                   "src": "391:11:16",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_TipoEnergia_$2617",
+                    "typeIdentifier": "t_contract$_TipoEnergia_$2655",
                     "typeString": "contract TipoEnergia"
                   },
                   "typeName": {
-                    "id": 2721,
+                    "id": 2759,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 2720,
+                      "id": 2758,
                       "name": "TipoEnergia",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 2617,
+                      "referencedDeclaration": 2655,
                       "src": "391:11:16"
                     },
-                    "referencedDeclaration": 2617,
+                    "referencedDeclaration": 2655,
                     "src": "391:11:16",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_TipoEnergia_$2617",
+                      "typeIdentifier": "t_contract$_TipoEnergia_$2655",
                       "typeString": "contract TipoEnergia"
                     }
                   },
@@ -8709,14 +8989,14 @@
               ],
               "src": "390:13:16"
             },
-            "scope": 2779,
+            "scope": 2817,
             "src": "262:721:16",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 2780,
+        "scope": 2818,
         "src": "131:855:16"
       }
     ],
@@ -8733,8 +9013,12 @@
   "updatedAt": "2022-07-07T19:15:22.604Z",
 =======
   "schemaVersion": "3.4.4",
+<<<<<<< HEAD
   "updatedAt": "2022-07-12T16:03:27.604Z",
 >>>>>>> master
+=======
+  "updatedAt": "2022-07-13T21:07:56.658Z",
+>>>>>>> origin/master
   "devdoc": {
     "kind": "dev",
     "methods": {},

@@ -317,8 +317,12 @@
       "type": "function"
     }
   ],
+<<<<<<< HEAD
   "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"Creacion\",\"type\":\"event\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"dirContrato\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"nit\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"empresa\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"contacto\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"telefono\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"correo\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"departamento\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"ciudad\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"direccion\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"comercializador\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tipoComercio\",\"type\":\"uint256\"}],\"internalType\":\"struct InfoContrato\",\"name\":\"infoContrato\",\"type\":\"tuple\"}],\"name\":\"FactoryContrato\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"dir\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"dirContrato\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"nit\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"empresa\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"contacto\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"telefono\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"correo\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"departamento\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"ciudad\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"direccion\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"comercializador\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tipoComercio\",\"type\":\"uint256\"}],\"internalType\":\"struct InfoContrato\",\"name\":\"infoContrato\",\"type\":\"tuple\"}],\"name\":\"diligenciarContratoRegulador\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dirContrato\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"direccionRegistrada\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getContratosOwners\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"dirContrato\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"nit\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"empresa\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"contacto\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"telefono\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"correo\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"departamento\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"ciudad\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"direccion\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"comercializador\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tipoComercio\",\"type\":\"uint256\"}],\"internalType\":\"struct InfoContrato[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"reguladorMercado\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/models/Factory.sol\":\"Factory\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ReguladorMercado.sol\":{\"keccak256\":\"0xb4e14568749ab537d82c5e5655301df3c18899551a9b43e0a9f119c0c8b1fffe\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://08c1d1cb54fff28849a78163b8f8fbb03865946e9d414b30308bfd59c1c199cb\",\"dweb:/ipfs/QmSTzvHQSJnLii83dAzue7fqGRnPeXUm7pnw596WXm6JrE\"]},\"project:/contracts/TokenErc20/ERC20.sol\":{\"keccak256\":\"0x5b8c048fd77ae5cf340c1dc7886852b3d639bee67f3c6027dee809d36e7942d4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://3c7af5fd4d8c5033bf36d4cef6be677679dec511db586738680c1258f9a55998\",\"dweb:/ipfs/QmR6EqoDmv8LoqwnDnfhnDE6PdULHWAvQDCEExfXs6b924\"]},\"project:/contracts/TokenErc20/SafeMath.sol\":{\"keccak256\":\"0xcef1639682189003ca0b1b5a9178122de25304519fa742e91ea0bee11ffd0113\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c024d1d4372a54da8977cf93fd8a2881893a4101f343f1cc51468864e652fb3b\",\"dweb:/ipfs/QmX5s1aExpK6EA5k1GKRcBeZqb8hUAofQ8JtBSE8LCpYb8\"]},\"project:/contracts/libraries/Validations.sol\":{\"keccak256\":\"0x595474474af725474ff89e6289cdb3ad03491654acff9aef0d40509e5d1db9de\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://64eb2bd52f99d28787d5869e39650107c9ee6276bb4386bcdbb899536e05a506\",\"dweb:/ipfs/QmYwSS3gjgrgZXafSPt4HjNCsX4k95JVWgMJiMNVFZ5dLA\"]},\"project:/contracts/models/Factory.sol\":{\"keccak256\":\"0x0361f2caccf4cdc9074ff492394dd6c21596b41f97711d36f853dc1a6611f724\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4d0f4c17092cce270026a805efff6bf02fcd80e39299690039a81cd950ac4d1f\",\"dweb:/ipfs/QmR1UwfPgjpc9tpiWs6mTfHMoPhMVUXjbM3wxVmajExRPV\"]},\"project:/contracts/models/InfoContrato.sol\":{\"keccak256\":\"0x228ae5af68d0cb547dee434145d18809c3375d2e62913df7c6ba75f94688d92f\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f08c7b9447982869ff3fb9f80b1069729af716ce5648e242c3b9395fab386b1e\",\"dweb:/ipfs/Qmcn5yYtzi8AbKzMHSoSFFp1xF6H5nCHjaMTggVHU5ybGZ\"]}},\"version\":1}",
 >>>>>>> master
+=======
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"Creacion\",\"type\":\"event\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"dirContrato\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"nit\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"empresa\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"contacto\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"telefono\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"correo\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"departamento\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"ciudad\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"direccion\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"comercializador\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tipoComercio\",\"type\":\"uint256\"}],\"internalType\":\"struct InfoContrato\",\"name\":\"infoContrato\",\"type\":\"tuple\"}],\"name\":\"FactoryContrato\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"dir\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"dirContrato\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"nit\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"empresa\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"contacto\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"telefono\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"correo\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"departamento\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"ciudad\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"direccion\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"comercializador\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tipoComercio\",\"type\":\"uint256\"}],\"internalType\":\"struct InfoContrato\",\"name\":\"infoContrato\",\"type\":\"tuple\"}],\"name\":\"diligenciarContratoRegulador\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dirContrato\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"direccionRegistrada\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getContratosOwners\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"dirContrato\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"nit\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"empresa\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"contacto\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"telefono\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"correo\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"departamento\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"ciudad\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"direccion\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"comercializador\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tipoComercio\",\"type\":\"uint256\"}],\"internalType\":\"struct InfoContrato[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"reguladorMercado\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/models/Factory.sol\":\"Factory\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ReguladorMercado.sol\":{\"keccak256\":\"0x8364cf5987d47a1e7608a1a2fa5512d67a014a2e5268323a8b60573fafb75a6a\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8ea3ea2f47912ccbf72dd5decb9d3192fd25cfbe4be4596acf28f5b1cd90d42b\",\"dweb:/ipfs/QmZVJpvLMqYV3V6y2imBFiQHPhQrcAmm6p3Lxid4QaVNQv\"]},\"project:/contracts/TokenErc20/ERC20.sol\":{\"keccak256\":\"0x5b8c048fd77ae5cf340c1dc7886852b3d639bee67f3c6027dee809d36e7942d4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://3c7af5fd4d8c5033bf36d4cef6be677679dec511db586738680c1258f9a55998\",\"dweb:/ipfs/QmR6EqoDmv8LoqwnDnfhnDE6PdULHWAvQDCEExfXs6b924\"]},\"project:/contracts/TokenErc20/SafeMath.sol\":{\"keccak256\":\"0xcef1639682189003ca0b1b5a9178122de25304519fa742e91ea0bee11ffd0113\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c024d1d4372a54da8977cf93fd8a2881893a4101f343f1cc51468864e652fb3b\",\"dweb:/ipfs/QmX5s1aExpK6EA5k1GKRcBeZqb8hUAofQ8JtBSE8LCpYb8\"]},\"project:/contracts/libraries/Validations.sol\":{\"keccak256\":\"0x595474474af725474ff89e6289cdb3ad03491654acff9aef0d40509e5d1db9de\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://64eb2bd52f99d28787d5869e39650107c9ee6276bb4386bcdbb899536e05a506\",\"dweb:/ipfs/QmYwSS3gjgrgZXafSPt4HjNCsX4k95JVWgMJiMNVFZ5dLA\"]},\"project:/contracts/models/Factory.sol\":{\"keccak256\":\"0x0361f2caccf4cdc9074ff492394dd6c21596b41f97711d36f853dc1a6611f724\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4d0f4c17092cce270026a805efff6bf02fcd80e39299690039a81cd950ac4d1f\",\"dweb:/ipfs/QmR1UwfPgjpc9tpiWs6mTfHMoPhMVUXjbM3wxVmajExRPV\"]},\"project:/contracts/models/InfoContrato.sol\":{\"keccak256\":\"0x228ae5af68d0cb547dee434145d18809c3375d2e62913df7c6ba75f94688d92f\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f08c7b9447982869ff3fb9f80b1069729af716ce5648e242c3b9395fab386b1e\",\"dweb:/ipfs/Qmcn5yYtzi8AbKzMHSoSFFp1xF6H5nCHjaMTggVHU5ybGZ\"]}},\"version\":1}",
+>>>>>>> origin/master
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -337,9 +341,10 @@
     "absolutePath": "project:/contracts/models/Factory.sol",
     "exportedSymbols": {
       "ERC20Basic": [
-        2117
+        2155
       ],
       "Factory": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         10057
       ],
@@ -350,34 +355,45 @@
     "id": 10058,
 =======
         2522
+=======
+        2560
+>>>>>>> origin/master
       ],
       "IERC20": [
-        1802
+        1840
       ],
       "InfoContrato": [
-        2549
+        2587
       ],
       "ReguladorMercado": [
-        1731
+        1769
       ],
       "SafeMath": [
-        2199
+        2237
       ],
       "Validations": [
-        2367
+        2405
       ]
     },
+<<<<<<< HEAD
     "id": 2523,
 >>>>>>> master
+=======
+    "id": 2561,
+>>>>>>> origin/master
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
 <<<<<<< HEAD
+<<<<<<< HEAD
         "id": 10029,
 =======
         "id": 2420,
 >>>>>>> master
+=======
+        "id": 2458,
+>>>>>>> origin/master
         "literals": [
           "solidity",
           "^",
@@ -391,6 +407,7 @@
         "absolutePath": "project:/contracts/models/InfoContrato.sol",
         "file": "./InfoContrato.sol",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "id": 10030,
         "nodeType": "ImportDirective",
         "scope": 10058,
@@ -398,9 +415,12 @@
         "src": "58:28:14",
 =======
         "id": 2421,
+=======
+        "id": 2459,
+>>>>>>> origin/master
         "nodeType": "ImportDirective",
-        "scope": 2523,
-        "sourceUnit": 2550,
+        "scope": 2561,
+        "sourceUnit": 2588,
         "src": "58:28:13",
 >>>>>>> master
         "symbolAliases": [],
@@ -411,10 +431,10 @@
 =======
         "absolutePath": "project:/contracts/libraries/Validations.sol",
         "file": "../libraries/Validations.sol",
-        "id": 2422,
+        "id": 2460,
         "nodeType": "ImportDirective",
-        "scope": 2523,
-        "sourceUnit": 2368,
+        "scope": 2561,
+        "sourceUnit": 2406,
         "src": "88:38:13",
         "symbolAliases": [],
         "unitAlias": ""
@@ -422,10 +442,10 @@
       {
         "absolutePath": "project:/contracts/ReguladorMercado.sol",
         "file": "../ReguladorMercado.sol",
-        "id": 2423,
+        "id": 2461,
         "nodeType": "ImportDirective",
-        "scope": 2523,
-        "sourceUnit": 1732,
+        "scope": 2561,
+        "sourceUnit": 1770,
         "src": "128:33:13",
         "symbolAliases": [],
         "unitAlias": ""
@@ -443,10 +463,14 @@
           10057
 =======
         "fullyImplemented": false,
-        "id": 2522,
+        "id": 2560,
         "linearizedBaseContracts": [
+<<<<<<< HEAD
           2522
 >>>>>>> master
+=======
+          2560
+>>>>>>> origin/master
         ],
         "name": "Factory",
         "nodeType": "ContractDefinition",
@@ -454,6 +478,7 @@
           {
             "constant": false,
             "functionSelector": "8da5cb5b",
+<<<<<<< HEAD
 <<<<<<< HEAD
             "id": 10032,
             "mutability": "mutable",
@@ -463,10 +488,13 @@
             "src": "123:20:14",
 =======
             "id": 2425,
+=======
+            "id": 2463,
+>>>>>>> origin/master
             "mutability": "mutable",
             "name": "owner",
             "nodeType": "VariableDeclaration",
-            "scope": 2522,
+            "scope": 2560,
             "src": "198:20:13",
 >>>>>>> master
             "stateVariable": true,
@@ -477,12 +505,16 @@
             },
             "typeName": {
 <<<<<<< HEAD
+<<<<<<< HEAD
               "id": 10031,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "123:7:14",
 =======
               "id": 2424,
+=======
+              "id": 2462,
+>>>>>>> origin/master
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "198:7:13",
@@ -499,6 +531,7 @@
             "constant": false,
             "functionSelector": "856788df",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "id": 10034,
             "mutability": "mutable",
             "name": "dirContrato",
@@ -507,10 +540,13 @@
             "src": "150:26:14",
 =======
             "id": 2427,
+=======
+            "id": 2465,
+>>>>>>> origin/master
             "mutability": "mutable",
             "name": "dirContrato",
             "nodeType": "VariableDeclaration",
-            "scope": 2522,
+            "scope": 2560,
             "src": "225:26:13",
 >>>>>>> master
             "stateVariable": true,
@@ -521,12 +557,16 @@
             },
             "typeName": {
 <<<<<<< HEAD
+<<<<<<< HEAD
               "id": 10033,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "150:7:14",
 =======
               "id": 2426,
+=======
+              "id": 2464,
+>>>>>>> origin/master
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "225:7:13",
@@ -543,6 +583,7 @@
             "constant": false,
             "functionSelector": "7eb5a688",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "id": 10036,
             "mutability": "mutable",
             "name": "reguladorMercado",
@@ -551,10 +592,13 @@
             "src": "183:31:14",
 =======
             "id": 2429,
+=======
+            "id": 2467,
+>>>>>>> origin/master
             "mutability": "mutable",
             "name": "reguladorMercado",
             "nodeType": "VariableDeclaration",
-            "scope": 2522,
+            "scope": 2560,
             "src": "258:31:13",
 >>>>>>> master
             "stateVariable": true,
@@ -565,12 +609,16 @@
             },
             "typeName": {
 <<<<<<< HEAD
+<<<<<<< HEAD
               "id": 10035,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "183:7:14",
 =======
               "id": 2428,
+=======
+              "id": 2466,
+>>>>>>> origin/master
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "258:7:13",
@@ -585,6 +633,7 @@
           },
           {
             "constant": false,
+<<<<<<< HEAD
 <<<<<<< HEAD
             "id": 10040,
             "mutability": "mutable",
@@ -624,40 +673,43 @@
                 "typeString": "struct infoContrato[]"
 =======
             "id": 2433,
+=======
+            "id": 2471,
+>>>>>>> origin/master
             "mutability": "mutable",
             "name": "contratosOwners",
             "nodeType": "VariableDeclaration",
-            "scope": 2522,
+            "scope": 2560,
             "src": "296:39:13",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2549_storage_$dyn_storage",
+              "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2587_storage_$dyn_storage",
               "typeString": "struct InfoContrato[]"
             },
             "typeName": {
               "baseType": {
-                "id": 2431,
+                "id": 2469,
                 "nodeType": "UserDefinedTypeName",
                 "pathNode": {
-                  "id": 2430,
+                  "id": 2468,
                   "name": "InfoContrato",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 2549,
+                  "referencedDeclaration": 2587,
                   "src": "296:12:13"
                 },
-                "referencedDeclaration": 2549,
+                "referencedDeclaration": 2587,
                 "src": "296:12:13",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_InfoContrato_$2549_storage_ptr",
+                  "typeIdentifier": "t_struct$_InfoContrato_$2587_storage_ptr",
                   "typeString": "struct InfoContrato"
                 }
               },
-              "id": 2432,
+              "id": 2470,
               "nodeType": "ArrayTypeName",
               "src": "296:14:13",
               "typeDescriptions": {
-                "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2549_storage_$dyn_storage_ptr",
+                "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2587_storage_$dyn_storage_ptr",
                 "typeString": "struct InfoContrato[]"
 >>>>>>> master
               }
@@ -666,6 +718,7 @@
           },
           {
             "anonymous": false,
+<<<<<<< HEAD
 <<<<<<< HEAD
             "id": 10046,
             "name": "Creacion",
@@ -679,24 +732,39 @@
             "parameters": {
               "id": 2438,
 >>>>>>> master
+=======
+            "id": 2477,
+            "name": "Creacion",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 2476,
+>>>>>>> origin/master
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
 <<<<<<< HEAD
+<<<<<<< HEAD
                   "id": 10042,
 =======
                   "id": 2435,
 >>>>>>> master
+=======
+                  "id": 2473,
+>>>>>>> origin/master
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
 <<<<<<< HEAD
+<<<<<<< HEAD
                   "scope": 10046,
                   "src": "282:6:14",
 =======
                   "scope": 2439,
+=======
+                  "scope": 2477,
+>>>>>>> origin/master
                   "src": "357:6:13",
 >>>>>>> master
                   "stateVariable": false,
@@ -707,12 +775,16 @@
                   },
                   "typeName": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                     "id": 10041,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "282:6:14",
 =======
                     "id": 2434,
+=======
+                    "id": 2472,
+>>>>>>> origin/master
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "357:6:13",
@@ -727,19 +799,27 @@
                 {
                   "constant": false,
 <<<<<<< HEAD
+<<<<<<< HEAD
                   "id": 10044,
 =======
                   "id": 2437,
 >>>>>>> master
+=======
+                  "id": 2475,
+>>>>>>> origin/master
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
 <<<<<<< HEAD
+<<<<<<< HEAD
                   "scope": 10046,
                   "src": "290:7:14",
 =======
                   "scope": 2439,
+=======
+                  "scope": 2477,
+>>>>>>> origin/master
                   "src": "365:7:13",
 >>>>>>> master
                   "stateVariable": false,
@@ -750,12 +830,16 @@
                   },
                   "typeName": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                     "id": 10043,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "290:7:14",
 =======
                     "id": 2436,
+=======
+                    "id": 2474,
+>>>>>>> origin/master
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "365:7:13",
@@ -804,25 +888,25 @@
           },
           {
             "body": {
-              "id": 2448,
+              "id": 2486,
               "nodeType": "Block",
               "src": "456:41:13",
               "statements": [
                 {
                   "expression": {
-                    "id": 2446,
+                    "id": 2484,
                     "name": "contratosOwners",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 2433,
+                    "referencedDeclaration": 2471,
                     "src": "474:15:13",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2549_storage_$dyn_storage",
+                      "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2587_storage_$dyn_storage",
                       "typeString": "struct InfoContrato storage ref[] storage ref"
                     }
                   },
-                  "functionReturnParameters": 2445,
-                  "id": 2447,
+                  "functionReturnParameters": 2483,
+                  "id": 2485,
                   "nodeType": "Return",
                   "src": "467:22:13"
 >>>>>>> master
@@ -831,16 +915,21 @@
             },
             "functionSelector": "4cdbdb6d",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "id": 10056,
 =======
             "id": 2449,
 >>>>>>> master
+=======
+            "id": 2487,
+>>>>>>> origin/master
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getContratosOwners",
             "nodeType": "FunctionDefinition",
             "parameters": {
+<<<<<<< HEAD
 <<<<<<< HEAD
               "id": 10047,
               "nodeType": "ParameterList",
@@ -851,17 +940,25 @@
               "id": 10052,
 =======
               "id": 2440,
+=======
+              "id": 2478,
+>>>>>>> origin/master
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "409:2:13"
             },
             "returnParameters": {
+<<<<<<< HEAD
               "id": 2445,
 >>>>>>> master
+=======
+              "id": 2483,
+>>>>>>> origin/master
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< HEAD
 <<<<<<< HEAD
                   "id": 10051,
                   "mutability": "mutable",
@@ -901,40 +998,43 @@
                       "typeString": "struct infoContrato[]"
 =======
                   "id": 2444,
+=======
+                  "id": 2482,
+>>>>>>> origin/master
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2449,
+                  "scope": 2487,
                   "src": "433:21:13",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2549_memory_ptr_$dyn_memory_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2587_memory_ptr_$dyn_memory_ptr",
                     "typeString": "struct InfoContrato[]"
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 2442,
+                      "id": 2480,
                       "nodeType": "UserDefinedTypeName",
                       "pathNode": {
-                        "id": 2441,
+                        "id": 2479,
                         "name": "InfoContrato",
                         "nodeType": "IdentifierPath",
-                        "referencedDeclaration": 2549,
+                        "referencedDeclaration": 2587,
                         "src": "433:12:13"
                       },
-                      "referencedDeclaration": 2549,
+                      "referencedDeclaration": 2587,
                       "src": "433:12:13",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_InfoContrato_$2549_storage_ptr",
+                        "typeIdentifier": "t_struct$_InfoContrato_$2587_storage_ptr",
                         "typeString": "struct InfoContrato"
                       }
                     },
-                    "id": 2443,
+                    "id": 2481,
                     "nodeType": "ArrayTypeName",
                     "src": "433:14:13",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2549_storage_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2587_storage_$dyn_storage_ptr",
                       "typeString": "struct InfoContrato[]"
 >>>>>>> master
                     }
@@ -950,7 +1050,7 @@
 =======
               "src": "432:23:13"
             },
-            "scope": 2522,
+            "scope": 2560,
             "src": "382:115:13",
             "stateMutability": "view",
             "virtual": false,
@@ -958,13 +1058,13 @@
           },
           {
             "body": {
-              "id": 2462,
+              "id": 2500,
               "nodeType": "Block",
               "src": "563:82:13",
               "statements": [
                 {
                   "expression": {
-                    "id": 2460,
+                    "id": 2498,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -977,7 +1077,7 @@
                       "arguments": [
                         {
                           "expression": {
-                            "id": 2456,
+                            "id": 2494,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
@@ -988,7 +1088,7 @@
                               "typeString": "msg"
                             }
                           },
-                          "id": 2457,
+                          "id": 2495,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1002,14 +1102,14 @@
                           }
                         },
                         {
-                          "id": 2458,
+                          "id": 2496,
                           "name": "contratosOwners",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2433,
+                          "referencedDeclaration": 2471,
                           "src": "621:15:13",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2549_storage_$dyn_storage",
+                            "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2587_storage_$dyn_storage",
                             "typeString": "struct InfoContrato storage ref[] storage ref"
                           }
                         }
@@ -1021,37 +1121,37 @@
                             "typeString": "address"
                           },
                           {
-                            "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2549_storage_$dyn_storage",
+                            "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2587_storage_$dyn_storage",
                             "typeString": "struct InfoContrato storage ref[] storage ref"
                           }
                         ],
                         "expression": {
-                          "id": 2454,
+                          "id": 2492,
                           "name": "Validations",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2367,
+                          "referencedDeclaration": 2405,
                           "src": "582:11:13",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_Validations_$2367_$",
+                            "typeIdentifier": "t_type$_t_contract$_Validations_$2405_$",
                             "typeString": "type(library Validations)"
                           }
                         },
-                        "id": 2455,
+                        "id": 2493,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "aproveCreation",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 2282,
+                        "referencedDeclaration": 2320,
                         "src": "582:26:13",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_function_delegatecall_pure$_t_address_$_t_array$_t_struct$_InfoContrato_$2549_memory_ptr_$dyn_memory_ptr_$returns$_t_bool_$",
+                          "typeIdentifier": "t_function_delegatecall_pure$_t_address_$_t_array$_t_struct$_InfoContrato_$2587_memory_ptr_$dyn_memory_ptr_$returns$_t_bool_$",
                           "typeString": "function (address,struct InfoContrato memory[] memory) pure returns (bool)"
                         }
                       },
-                      "id": 2459,
+                      "id": 2497,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1071,37 +1171,37 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 2453,
-                  "id": 2461,
+                  "functionReturnParameters": 2491,
+                  "id": 2499,
                   "nodeType": "Return",
                   "src": "574:63:13"
                 }
               ]
             },
             "functionSelector": "3607329d",
-            "id": 2463,
+            "id": 2501,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "direccionRegistrada",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 2450,
+              "id": 2488,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "533:2:13"
             },
             "returnParameters": {
-              "id": 2453,
+              "id": 2491,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2452,
+                  "id": 2490,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2463,
+                  "scope": 2501,
                   "src": "557:4:13",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1110,7 +1210,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 2451,
+                    "id": 2489,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "557:4:13",
@@ -1124,7 +1224,7 @@
               ],
               "src": "556:6:13"
             },
-            "scope": 2522,
+            "scope": 2560,
             "src": "505:140:13",
 >>>>>>> master
             "stateMutability": "view",
@@ -1133,44 +1233,44 @@
           },
           {
             "functionSelector": "037ad4dd",
-            "id": 2469,
+            "id": 2507,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "FactoryContrato",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 2467,
+              "id": 2505,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2466,
+                  "id": 2504,
                   "mutability": "mutable",
                   "name": "infoContrato",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2469,
+                  "scope": 2507,
                   "src": "678:32:13",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_InfoContrato_$2549_memory_ptr",
+                    "typeIdentifier": "t_struct$_InfoContrato_$2587_memory_ptr",
                     "typeString": "struct InfoContrato"
                   },
                   "typeName": {
-                    "id": 2465,
+                    "id": 2503,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 2464,
+                      "id": 2502,
                       "name": "InfoContrato",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 2549,
+                      "referencedDeclaration": 2587,
                       "src": "678:12:13"
                     },
-                    "referencedDeclaration": 2549,
+                    "referencedDeclaration": 2587,
                     "src": "678:12:13",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_InfoContrato_$2549_storage_ptr",
+                      "typeIdentifier": "t_struct$_InfoContrato_$2587_storage_ptr",
                       "typeString": "struct InfoContrato"
                     }
                   },
@@ -1180,12 +1280,12 @@
               "src": "677:34:13"
             },
             "returnParameters": {
-              "id": 2468,
+              "id": 2506,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "728:0:13"
             },
-            "scope": 2522,
+            "scope": 2560,
             "src": "653:76:13",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -1193,7 +1293,7 @@
           },
           {
             "body": {
-              "id": 2484,
+              "id": 2522,
               "nodeType": "Block",
               "src": "758:178:13",
               "statements": [
@@ -1205,14 +1305,14 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 2479,
+                        "id": 2517,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "expression": {
-                            "id": 2472,
+                            "id": 2510,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
@@ -1223,7 +1323,7 @@
                               "typeString": "msg"
                             }
                           },
-                          "id": 2473,
+                          "id": 2511,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1245,11 +1345,11 @@
                             "expression": {
                               "arguments": [
                                 {
-                                  "id": 2475,
+                                  "id": 2513,
                                   "name": "reguladorMercado",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 2429,
+                                  "referencedDeclaration": 2467,
                                   "src": "822:16:13",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_address",
@@ -1264,18 +1364,18 @@
                                     "typeString": "address"
                                   }
                                 ],
-                                "id": 2474,
+                                "id": 2512,
                                 "name": "ReguladorMercado",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1731,
+                                "referencedDeclaration": 1769,
                                 "src": "805:16:13",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1731_$",
+                                  "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1769_$",
                                   "typeString": "type(contract ReguladorMercado)"
                                 }
                               },
-                              "id": 2476,
+                              "id": 2514,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": false,
@@ -1286,25 +1386,25 @@
                               "src": "805:34:13",
                               "tryCall": false,
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_ReguladorMercado_$1731",
+                                "typeIdentifier": "t_contract$_ReguladorMercado_$1769",
                                 "typeString": "contract ReguladorMercado"
                               }
                             },
-                            "id": 2477,
+                            "id": 2515,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
                             "lValueRequested": false,
                             "memberName": "getOwner",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 1563,
+                            "referencedDeclaration": 1573,
                             "src": "805:43:13",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_view$__$returns$_t_address_$",
                               "typeString": "function () view external returns (address)"
                             }
                           },
-                          "id": 2478,
+                          "id": 2516,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1327,7 +1427,7 @@
                       },
                       {
                         "hexValue": "4e6f207469656e65207065726d69736f73207061726120637265617220636f6e747261746f73",
-                        "id": 2480,
+                        "id": 2518,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -1353,7 +1453,7 @@
                           "typeString": "literal_string \"No tiene permisos para crear contratos\""
                         }
                       ],
-                      "id": 2471,
+                      "id": 2509,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -1367,7 +1467,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 2481,
+                    "id": 2519,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1382,22 +1482,22 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 2482,
+                  "id": 2520,
                   "nodeType": "ExpressionStatement",
                   "src": "769:147:13"
                 },
                 {
-                  "id": 2483,
+                  "id": 2521,
                   "nodeType": "PlaceholderStatement",
                   "src": "927:1:13"
                 }
               ]
             },
-            "id": 2485,
+            "id": 2523,
             "name": "canCreate",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 2470,
+              "id": 2508,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "755:2:13"
@@ -1408,7 +1508,7 @@
           },
           {
             "body": {
-              "id": 2520,
+              "id": 2558,
               "nodeType": "Block",
               "src": "1061:347:13",
               "statements": [
@@ -1418,11 +1518,11 @@
                       {
                         "arguments": [
                           {
-                            "id": 2498,
+                            "id": 2536,
                             "name": "dir",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2487,
+                            "referencedDeclaration": 2525,
                             "src": "1145:3:13",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -1440,11 +1540,11 @@
                           "expression": {
                             "arguments": [
                               {
-                                "id": 2495,
+                                "id": 2533,
                                 "name": "reguladorMercado",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 2429,
+                                "referencedDeclaration": 2467,
                                 "src": "1111:16:13",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_address",
@@ -1459,18 +1559,18 @@
                                   "typeString": "address"
                                 }
                               ],
-                              "id": 2494,
+                              "id": 2532,
                               "name": "ReguladorMercado",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1731,
+                              "referencedDeclaration": 1769,
                               "src": "1094:16:13",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1731_$",
+                                "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1769_$",
                                 "typeString": "type(contract ReguladorMercado)"
                               }
                             },
-                            "id": 2496,
+                            "id": 2534,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -1481,25 +1581,25 @@
                             "src": "1094:34:13",
                             "tryCall": false,
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ReguladorMercado_$1731",
+                              "typeIdentifier": "t_contract$_ReguladorMercado_$1769",
                               "typeString": "contract ReguladorMercado"
                             }
                           },
-                          "id": 2497,
+                          "id": 2535,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "existeSolicitud",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 1603,
+                          "referencedDeclaration": 1613,
                           "src": "1094:50:13",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_bool_$",
                             "typeString": "function (address) view external returns (bool)"
                           }
                         },
-                        "id": 2499,
+                        "id": 2537,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1516,7 +1616,7 @@
                       },
                       {
                         "hexValue": "4e6f2065786973746520736f6c696369747564",
-                        "id": 2500,
+                        "id": 2538,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -1542,7 +1642,7 @@
                           "typeString": "literal_string \"No existe solicitud\""
                         }
                       ],
-                      "id": 2493,
+                      "id": 2531,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -1556,7 +1656,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 2501,
+                    "id": 2539,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1571,22 +1671,22 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 2502,
+                  "id": 2540,
                   "nodeType": "ExpressionStatement",
                   "src": "1072:124:13"
                 },
                 {
                   "assignments": [
-                    2504
+                    2542
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 2504,
+                      "id": 2542,
                       "mutability": "mutable",
                       "name": "indexSolicitud",
                       "nodeType": "VariableDeclaration",
-                      "scope": 2520,
+                      "scope": 2558,
                       "src": "1207:22:13",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -1595,7 +1695,7 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 2503,
+                        "id": 2541,
                         "name": "uint256",
                         "nodeType": "ElementaryTypeName",
                         "src": "1207:7:13",
@@ -1607,15 +1707,15 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 2511,
+                  "id": 2549,
                   "initialValue": {
                     "arguments": [
                       {
-                        "id": 2509,
+                        "id": 2547,
                         "name": "dir",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2487,
+                        "referencedDeclaration": 2525,
                         "src": "1301:3:13",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1633,11 +1733,11 @@
                       "expression": {
                         "arguments": [
                           {
-                            "id": 2506,
+                            "id": 2544,
                             "name": "reguladorMercado",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2429,
+                            "referencedDeclaration": 2467,
                             "src": "1249:16:13",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -1652,18 +1752,18 @@
                               "typeString": "address"
                             }
                           ],
-                          "id": 2505,
+                          "id": 2543,
                           "name": "ReguladorMercado",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1731,
+                          "referencedDeclaration": 1769,
                           "src": "1232:16:13",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1731_$",
+                            "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1769_$",
                             "typeString": "type(contract ReguladorMercado)"
                           }
                         },
-                        "id": 2507,
+                        "id": 2545,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1674,25 +1774,25 @@
                         "src": "1232:34:13",
                         "tryCall": false,
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ReguladorMercado_$1731",
+                          "typeIdentifier": "t_contract$_ReguladorMercado_$1769",
                           "typeString": "contract ReguladorMercado"
                         }
                       },
-                      "id": 2508,
+                      "id": 2546,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "getIndexSolicitudes",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1730,
+                      "referencedDeclaration": 1740,
                       "src": "1232:68:13",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_uint256_$",
                         "typeString": "function (address) view external returns (uint256)"
                       }
                     },
-                    "id": 2510,
+                    "id": 2548,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1714,11 +1814,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 2516,
+                        "id": 2554,
                         "name": "indexSolicitud",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2504,
+                        "referencedDeclaration": 2542,
                         "src": "1372:14:13",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -1726,14 +1826,14 @@
                         }
                       },
                       {
-                        "id": 2517,
+                        "id": 2555,
                         "name": "infoContrato",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2490,
+                        "referencedDeclaration": 2528,
                         "src": "1387:12:13",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_InfoContrato_$2549_memory_ptr",
+                          "typeIdentifier": "t_struct$_InfoContrato_$2587_memory_ptr",
                           "typeString": "struct InfoContrato memory"
                         }
                       }
@@ -1745,18 +1845,18 @@
                           "typeString": "uint256"
                         },
                         {
-                          "typeIdentifier": "t_struct$_InfoContrato_$2549_memory_ptr",
+                          "typeIdentifier": "t_struct$_InfoContrato_$2587_memory_ptr",
                           "typeString": "struct InfoContrato memory"
                         }
                       ],
                       "expression": {
                         "arguments": [
                           {
-                            "id": 2513,
+                            "id": 2551,
                             "name": "reguladorMercado",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2429,
+                            "referencedDeclaration": 2467,
                             "src": "1333:16:13",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -1771,18 +1871,18 @@
                               "typeString": "address"
                             }
                           ],
-                          "id": 2512,
+                          "id": 2550,
                           "name": "ReguladorMercado",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1731,
+                          "referencedDeclaration": 1769,
                           "src": "1316:16:13",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1731_$",
+                            "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1769_$",
                             "typeString": "type(contract ReguladorMercado)"
                           }
                         },
-                        "id": 2514,
+                        "id": 2552,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1793,25 +1893,25 @@
                         "src": "1316:34:13",
                         "tryCall": false,
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ReguladorMercado_$1731",
+                          "typeIdentifier": "t_contract$_ReguladorMercado_$1769",
                           "typeString": "contract ReguladorMercado"
                         }
                       },
-                      "id": 2515,
+                      "id": 2553,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "diligenciarSolicitud",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1555,
+                      "referencedDeclaration": 1565,
                       "src": "1316:55:13",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$_t_struct$_InfoContrato_$2549_memory_ptr_$returns$__$",
+                        "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$_t_struct$_InfoContrato_$2587_memory_ptr_$returns$__$",
                         "typeString": "function (uint256,struct InfoContrato memory) external"
                       }
                     },
-                    "id": 2518,
+                    "id": 2556,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1826,30 +1926,30 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 2519,
+                  "id": 2557,
                   "nodeType": "ExpressionStatement",
                   "src": "1316:84:13"
                 }
               ]
             },
             "functionSelector": "47ec8b0e",
-            "id": 2521,
+            "id": 2559,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "diligenciarContratoRegulador",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 2491,
+              "id": 2529,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2487,
+                  "id": 2525,
                   "mutability": "mutable",
                   "name": "dir",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2521,
+                  "scope": 2559,
                   "src": "992:11:13",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1858,7 +1958,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 2486,
+                    "id": 2524,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "992:7:13",
@@ -1872,32 +1972,32 @@
                 },
                 {
                   "constant": false,
-                  "id": 2490,
+                  "id": 2528,
                   "mutability": "mutable",
                   "name": "infoContrato",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2521,
+                  "scope": 2559,
                   "src": "1014:32:13",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_InfoContrato_$2549_memory_ptr",
+                    "typeIdentifier": "t_struct$_InfoContrato_$2587_memory_ptr",
                     "typeString": "struct InfoContrato"
                   },
                   "typeName": {
-                    "id": 2489,
+                    "id": 2527,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 2488,
+                      "id": 2526,
                       "name": "InfoContrato",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 2549,
+                      "referencedDeclaration": 2587,
                       "src": "1014:12:13"
                     },
-                    "referencedDeclaration": 2549,
+                    "referencedDeclaration": 2587,
                     "src": "1014:12:13",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_InfoContrato_$2549_storage_ptr",
+                      "typeIdentifier": "t_struct$_InfoContrato_$2587_storage_ptr",
                       "typeString": "struct InfoContrato"
                     }
                   },
@@ -1907,18 +2007,19 @@
               "src": "981:72:13"
             },
             "returnParameters": {
-              "id": 2492,
+              "id": 2530,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1061:0:13"
             },
-            "scope": 2522,
+            "scope": 2560,
             "src": "944:464:13",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
+<<<<<<< HEAD
 <<<<<<< HEAD
         "scope": 10058,
         "src": "90:335:14"
@@ -1927,6 +2028,9 @@
     "src": "33:394:14"
 =======
         "scope": 2523,
+=======
+        "scope": 2561,
+>>>>>>> origin/master
         "src": "165:1246:13"
       }
     ],
@@ -1936,33 +2040,33 @@
     "absolutePath": "project:/contracts/models/Factory.sol",
     "exportedSymbols": {
       "ERC20Basic": [
-        2117
+        2155
       ],
       "Factory": [
-        2522
+        2560
       ],
       "IERC20": [
-        1802
+        1840
       ],
       "InfoContrato": [
-        2549
+        2587
       ],
       "ReguladorMercado": [
-        1731
+        1769
       ],
       "SafeMath": [
-        2199
+        2237
       ],
       "Validations": [
-        2367
+        2405
       ]
     },
-    "id": 2523,
+    "id": 2561,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 2420,
+        "id": 2458,
         "literals": [
           "solidity",
           "^",
@@ -1975,10 +2079,10 @@
       {
         "absolutePath": "project:/contracts/models/InfoContrato.sol",
         "file": "./InfoContrato.sol",
-        "id": 2421,
+        "id": 2459,
         "nodeType": "ImportDirective",
-        "scope": 2523,
-        "sourceUnit": 2550,
+        "scope": 2561,
+        "sourceUnit": 2588,
         "src": "58:28:13",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1986,10 +2090,10 @@
       {
         "absolutePath": "project:/contracts/libraries/Validations.sol",
         "file": "../libraries/Validations.sol",
-        "id": 2422,
+        "id": 2460,
         "nodeType": "ImportDirective",
-        "scope": 2523,
-        "sourceUnit": 2368,
+        "scope": 2561,
+        "sourceUnit": 2406,
         "src": "88:38:13",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1997,10 +2101,10 @@
       {
         "absolutePath": "project:/contracts/ReguladorMercado.sol",
         "file": "../ReguladorMercado.sol",
-        "id": 2423,
+        "id": 2461,
         "nodeType": "ImportDirective",
-        "scope": 2523,
-        "sourceUnit": 1732,
+        "scope": 2561,
+        "sourceUnit": 1770,
         "src": "128:33:13",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2011,9 +2115,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": false,
-        "id": 2522,
+        "id": 2560,
         "linearizedBaseContracts": [
-          2522
+          2560
         ],
         "name": "Factory",
         "nodeType": "ContractDefinition",
@@ -2021,11 +2125,11 @@
           {
             "constant": false,
             "functionSelector": "8da5cb5b",
-            "id": 2425,
+            "id": 2463,
             "mutability": "mutable",
             "name": "owner",
             "nodeType": "VariableDeclaration",
-            "scope": 2522,
+            "scope": 2560,
             "src": "198:20:13",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2034,7 +2138,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 2424,
+              "id": 2462,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "198:7:13",
@@ -2049,11 +2153,11 @@
           {
             "constant": false,
             "functionSelector": "856788df",
-            "id": 2427,
+            "id": 2465,
             "mutability": "mutable",
             "name": "dirContrato",
             "nodeType": "VariableDeclaration",
-            "scope": 2522,
+            "scope": 2560,
             "src": "225:26:13",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2062,7 +2166,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 2426,
+              "id": 2464,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "225:7:13",
@@ -2077,11 +2181,11 @@
           {
             "constant": false,
             "functionSelector": "7eb5a688",
-            "id": 2429,
+            "id": 2467,
             "mutability": "mutable",
             "name": "reguladorMercado",
             "nodeType": "VariableDeclaration",
-            "scope": 2522,
+            "scope": 2560,
             "src": "258:31:13",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2090,7 +2194,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 2428,
+              "id": 2466,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "258:7:13",
@@ -2104,41 +2208,41 @@
           },
           {
             "constant": false,
-            "id": 2433,
+            "id": 2471,
             "mutability": "mutable",
             "name": "contratosOwners",
             "nodeType": "VariableDeclaration",
-            "scope": 2522,
+            "scope": 2560,
             "src": "296:39:13",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2549_storage_$dyn_storage",
+              "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2587_storage_$dyn_storage",
               "typeString": "struct InfoContrato[]"
             },
             "typeName": {
               "baseType": {
-                "id": 2431,
+                "id": 2469,
                 "nodeType": "UserDefinedTypeName",
                 "pathNode": {
-                  "id": 2430,
+                  "id": 2468,
                   "name": "InfoContrato",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 2549,
+                  "referencedDeclaration": 2587,
                   "src": "296:12:13"
                 },
-                "referencedDeclaration": 2549,
+                "referencedDeclaration": 2587,
                 "src": "296:12:13",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_InfoContrato_$2549_storage_ptr",
+                  "typeIdentifier": "t_struct$_InfoContrato_$2587_storage_ptr",
                   "typeString": "struct InfoContrato"
                 }
               },
-              "id": 2432,
+              "id": 2470,
               "nodeType": "ArrayTypeName",
               "src": "296:14:13",
               "typeDescriptions": {
-                "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2549_storage_$dyn_storage_ptr",
+                "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2587_storage_$dyn_storage_ptr",
                 "typeString": "struct InfoContrato[]"
               }
             },
@@ -2146,21 +2250,21 @@
           },
           {
             "anonymous": false,
-            "id": 2439,
+            "id": 2477,
             "name": "Creacion",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 2438,
+              "id": 2476,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2435,
+                  "id": 2473,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2439,
+                  "scope": 2477,
                   "src": "357:6:13",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2169,7 +2273,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 2434,
+                    "id": 2472,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "357:6:13",
@@ -2182,12 +2286,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 2437,
+                  "id": 2475,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2439,
+                  "scope": 2477,
                   "src": "365:7:13",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2196,7 +2300,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 2436,
+                    "id": 2474,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "365:7:13",
@@ -2215,84 +2319,84 @@
           },
           {
             "body": {
-              "id": 2448,
+              "id": 2486,
               "nodeType": "Block",
               "src": "456:41:13",
               "statements": [
                 {
                   "expression": {
-                    "id": 2446,
+                    "id": 2484,
                     "name": "contratosOwners",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 2433,
+                    "referencedDeclaration": 2471,
                     "src": "474:15:13",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2549_storage_$dyn_storage",
+                      "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2587_storage_$dyn_storage",
                       "typeString": "struct InfoContrato storage ref[] storage ref"
                     }
                   },
-                  "functionReturnParameters": 2445,
-                  "id": 2447,
+                  "functionReturnParameters": 2483,
+                  "id": 2485,
                   "nodeType": "Return",
                   "src": "467:22:13"
                 }
               ]
             },
             "functionSelector": "4cdbdb6d",
-            "id": 2449,
+            "id": 2487,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getContratosOwners",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 2440,
+              "id": 2478,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "409:2:13"
             },
             "returnParameters": {
-              "id": 2445,
+              "id": 2483,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2444,
+                  "id": 2482,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2449,
+                  "scope": 2487,
                   "src": "433:21:13",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2549_memory_ptr_$dyn_memory_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2587_memory_ptr_$dyn_memory_ptr",
                     "typeString": "struct InfoContrato[]"
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 2442,
+                      "id": 2480,
                       "nodeType": "UserDefinedTypeName",
                       "pathNode": {
-                        "id": 2441,
+                        "id": 2479,
                         "name": "InfoContrato",
                         "nodeType": "IdentifierPath",
-                        "referencedDeclaration": 2549,
+                        "referencedDeclaration": 2587,
                         "src": "433:12:13"
                       },
-                      "referencedDeclaration": 2549,
+                      "referencedDeclaration": 2587,
                       "src": "433:12:13",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_InfoContrato_$2549_storage_ptr",
+                        "typeIdentifier": "t_struct$_InfoContrato_$2587_storage_ptr",
                         "typeString": "struct InfoContrato"
                       }
                     },
-                    "id": 2443,
+                    "id": 2481,
                     "nodeType": "ArrayTypeName",
                     "src": "433:14:13",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2549_storage_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2587_storage_$dyn_storage_ptr",
                       "typeString": "struct InfoContrato[]"
                     }
                   },
@@ -2301,7 +2405,7 @@
               ],
               "src": "432:23:13"
             },
-            "scope": 2522,
+            "scope": 2560,
             "src": "382:115:13",
             "stateMutability": "view",
             "virtual": false,
@@ -2309,13 +2413,13 @@
           },
           {
             "body": {
-              "id": 2462,
+              "id": 2500,
               "nodeType": "Block",
               "src": "563:82:13",
               "statements": [
                 {
                   "expression": {
-                    "id": 2460,
+                    "id": 2498,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2328,7 +2432,7 @@
                       "arguments": [
                         {
                           "expression": {
-                            "id": 2456,
+                            "id": 2494,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
@@ -2339,7 +2443,7 @@
                               "typeString": "msg"
                             }
                           },
-                          "id": 2457,
+                          "id": 2495,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -2353,14 +2457,14 @@
                           }
                         },
                         {
-                          "id": 2458,
+                          "id": 2496,
                           "name": "contratosOwners",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2433,
+                          "referencedDeclaration": 2471,
                           "src": "621:15:13",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2549_storage_$dyn_storage",
+                            "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2587_storage_$dyn_storage",
                             "typeString": "struct InfoContrato storage ref[] storage ref"
                           }
                         }
@@ -2372,37 +2476,37 @@
                             "typeString": "address"
                           },
                           {
-                            "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2549_storage_$dyn_storage",
+                            "typeIdentifier": "t_array$_t_struct$_InfoContrato_$2587_storage_$dyn_storage",
                             "typeString": "struct InfoContrato storage ref[] storage ref"
                           }
                         ],
                         "expression": {
-                          "id": 2454,
+                          "id": 2492,
                           "name": "Validations",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2367,
+                          "referencedDeclaration": 2405,
                           "src": "582:11:13",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_Validations_$2367_$",
+                            "typeIdentifier": "t_type$_t_contract$_Validations_$2405_$",
                             "typeString": "type(library Validations)"
                           }
                         },
-                        "id": 2455,
+                        "id": 2493,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "aproveCreation",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 2282,
+                        "referencedDeclaration": 2320,
                         "src": "582:26:13",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_function_delegatecall_pure$_t_address_$_t_array$_t_struct$_InfoContrato_$2549_memory_ptr_$dyn_memory_ptr_$returns$_t_bool_$",
+                          "typeIdentifier": "t_function_delegatecall_pure$_t_address_$_t_array$_t_struct$_InfoContrato_$2587_memory_ptr_$dyn_memory_ptr_$returns$_t_bool_$",
                           "typeString": "function (address,struct InfoContrato memory[] memory) pure returns (bool)"
                         }
                       },
-                      "id": 2459,
+                      "id": 2497,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -2422,37 +2526,37 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 2453,
-                  "id": 2461,
+                  "functionReturnParameters": 2491,
+                  "id": 2499,
                   "nodeType": "Return",
                   "src": "574:63:13"
                 }
               ]
             },
             "functionSelector": "3607329d",
-            "id": 2463,
+            "id": 2501,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "direccionRegistrada",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 2450,
+              "id": 2488,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "533:2:13"
             },
             "returnParameters": {
-              "id": 2453,
+              "id": 2491,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2452,
+                  "id": 2490,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2463,
+                  "scope": 2501,
                   "src": "557:4:13",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2461,7 +2565,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 2451,
+                    "id": 2489,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "557:4:13",
@@ -2475,7 +2579,7 @@
               ],
               "src": "556:6:13"
             },
-            "scope": 2522,
+            "scope": 2560,
             "src": "505:140:13",
             "stateMutability": "view",
             "virtual": false,
@@ -2483,44 +2587,44 @@
           },
           {
             "functionSelector": "037ad4dd",
-            "id": 2469,
+            "id": 2507,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "FactoryContrato",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 2467,
+              "id": 2505,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2466,
+                  "id": 2504,
                   "mutability": "mutable",
                   "name": "infoContrato",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2469,
+                  "scope": 2507,
                   "src": "678:32:13",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_InfoContrato_$2549_memory_ptr",
+                    "typeIdentifier": "t_struct$_InfoContrato_$2587_memory_ptr",
                     "typeString": "struct InfoContrato"
                   },
                   "typeName": {
-                    "id": 2465,
+                    "id": 2503,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 2464,
+                      "id": 2502,
                       "name": "InfoContrato",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 2549,
+                      "referencedDeclaration": 2587,
                       "src": "678:12:13"
                     },
-                    "referencedDeclaration": 2549,
+                    "referencedDeclaration": 2587,
                     "src": "678:12:13",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_InfoContrato_$2549_storage_ptr",
+                      "typeIdentifier": "t_struct$_InfoContrato_$2587_storage_ptr",
                       "typeString": "struct InfoContrato"
                     }
                   },
@@ -2530,12 +2634,12 @@
               "src": "677:34:13"
             },
             "returnParameters": {
-              "id": 2468,
+              "id": 2506,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "728:0:13"
             },
-            "scope": 2522,
+            "scope": 2560,
             "src": "653:76:13",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -2543,7 +2647,7 @@
           },
           {
             "body": {
-              "id": 2484,
+              "id": 2522,
               "nodeType": "Block",
               "src": "758:178:13",
               "statements": [
@@ -2555,14 +2659,14 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 2479,
+                        "id": 2517,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "expression": {
-                            "id": 2472,
+                            "id": 2510,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
@@ -2573,7 +2677,7 @@
                               "typeString": "msg"
                             }
                           },
-                          "id": 2473,
+                          "id": 2511,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -2595,11 +2699,11 @@
                             "expression": {
                               "arguments": [
                                 {
-                                  "id": 2475,
+                                  "id": 2513,
                                   "name": "reguladorMercado",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 2429,
+                                  "referencedDeclaration": 2467,
                                   "src": "822:16:13",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_address",
@@ -2614,18 +2718,18 @@
                                     "typeString": "address"
                                   }
                                 ],
-                                "id": 2474,
+                                "id": 2512,
                                 "name": "ReguladorMercado",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1731,
+                                "referencedDeclaration": 1769,
                                 "src": "805:16:13",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1731_$",
+                                  "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1769_$",
                                   "typeString": "type(contract ReguladorMercado)"
                                 }
                               },
-                              "id": 2476,
+                              "id": 2514,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": false,
@@ -2636,25 +2740,25 @@
                               "src": "805:34:13",
                               "tryCall": false,
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_ReguladorMercado_$1731",
+                                "typeIdentifier": "t_contract$_ReguladorMercado_$1769",
                                 "typeString": "contract ReguladorMercado"
                               }
                             },
-                            "id": 2477,
+                            "id": 2515,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
                             "lValueRequested": false,
                             "memberName": "getOwner",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 1563,
+                            "referencedDeclaration": 1573,
                             "src": "805:43:13",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_view$__$returns$_t_address_$",
                               "typeString": "function () view external returns (address)"
                             }
                           },
-                          "id": 2478,
+                          "id": 2516,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -2677,7 +2781,7 @@
                       },
                       {
                         "hexValue": "4e6f207469656e65207065726d69736f73207061726120637265617220636f6e747261746f73",
-                        "id": 2480,
+                        "id": 2518,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -2703,7 +2807,7 @@
                           "typeString": "literal_string \"No tiene permisos para crear contratos\""
                         }
                       ],
-                      "id": 2471,
+                      "id": 2509,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -2717,7 +2821,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 2481,
+                    "id": 2519,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2732,22 +2836,22 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 2482,
+                  "id": 2520,
                   "nodeType": "ExpressionStatement",
                   "src": "769:147:13"
                 },
                 {
-                  "id": 2483,
+                  "id": 2521,
                   "nodeType": "PlaceholderStatement",
                   "src": "927:1:13"
                 }
               ]
             },
-            "id": 2485,
+            "id": 2523,
             "name": "canCreate",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 2470,
+              "id": 2508,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "755:2:13"
@@ -2758,7 +2862,7 @@
           },
           {
             "body": {
-              "id": 2520,
+              "id": 2558,
               "nodeType": "Block",
               "src": "1061:347:13",
               "statements": [
@@ -2768,11 +2872,11 @@
                       {
                         "arguments": [
                           {
-                            "id": 2498,
+                            "id": 2536,
                             "name": "dir",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2487,
+                            "referencedDeclaration": 2525,
                             "src": "1145:3:13",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -2790,11 +2894,11 @@
                           "expression": {
                             "arguments": [
                               {
-                                "id": 2495,
+                                "id": 2533,
                                 "name": "reguladorMercado",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 2429,
+                                "referencedDeclaration": 2467,
                                 "src": "1111:16:13",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_address",
@@ -2809,18 +2913,18 @@
                                   "typeString": "address"
                                 }
                               ],
-                              "id": 2494,
+                              "id": 2532,
                               "name": "ReguladorMercado",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1731,
+                              "referencedDeclaration": 1769,
                               "src": "1094:16:13",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1731_$",
+                                "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1769_$",
                                 "typeString": "type(contract ReguladorMercado)"
                               }
                             },
-                            "id": 2496,
+                            "id": 2534,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -2831,25 +2935,25 @@
                             "src": "1094:34:13",
                             "tryCall": false,
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ReguladorMercado_$1731",
+                              "typeIdentifier": "t_contract$_ReguladorMercado_$1769",
                               "typeString": "contract ReguladorMercado"
                             }
                           },
-                          "id": 2497,
+                          "id": 2535,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "existeSolicitud",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 1603,
+                          "referencedDeclaration": 1613,
                           "src": "1094:50:13",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_bool_$",
                             "typeString": "function (address) view external returns (bool)"
                           }
                         },
-                        "id": 2499,
+                        "id": 2537,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -2866,7 +2970,7 @@
                       },
                       {
                         "hexValue": "4e6f2065786973746520736f6c696369747564",
-                        "id": 2500,
+                        "id": 2538,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -2892,7 +2996,7 @@
                           "typeString": "literal_string \"No existe solicitud\""
                         }
                       ],
-                      "id": 2493,
+                      "id": 2531,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -2906,7 +3010,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 2501,
+                    "id": 2539,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2921,22 +3025,22 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 2502,
+                  "id": 2540,
                   "nodeType": "ExpressionStatement",
                   "src": "1072:124:13"
                 },
                 {
                   "assignments": [
-                    2504
+                    2542
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 2504,
+                      "id": 2542,
                       "mutability": "mutable",
                       "name": "indexSolicitud",
                       "nodeType": "VariableDeclaration",
-                      "scope": 2520,
+                      "scope": 2558,
                       "src": "1207:22:13",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -2945,7 +3049,7 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 2503,
+                        "id": 2541,
                         "name": "uint256",
                         "nodeType": "ElementaryTypeName",
                         "src": "1207:7:13",
@@ -2957,15 +3061,15 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 2511,
+                  "id": 2549,
                   "initialValue": {
                     "arguments": [
                       {
-                        "id": 2509,
+                        "id": 2547,
                         "name": "dir",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2487,
+                        "referencedDeclaration": 2525,
                         "src": "1301:3:13",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -2983,11 +3087,11 @@
                       "expression": {
                         "arguments": [
                           {
-                            "id": 2506,
+                            "id": 2544,
                             "name": "reguladorMercado",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2429,
+                            "referencedDeclaration": 2467,
                             "src": "1249:16:13",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -3002,18 +3106,18 @@
                               "typeString": "address"
                             }
                           ],
-                          "id": 2505,
+                          "id": 2543,
                           "name": "ReguladorMercado",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1731,
+                          "referencedDeclaration": 1769,
                           "src": "1232:16:13",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1731_$",
+                            "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1769_$",
                             "typeString": "type(contract ReguladorMercado)"
                           }
                         },
-                        "id": 2507,
+                        "id": 2545,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -3024,25 +3128,25 @@
                         "src": "1232:34:13",
                         "tryCall": false,
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ReguladorMercado_$1731",
+                          "typeIdentifier": "t_contract$_ReguladorMercado_$1769",
                           "typeString": "contract ReguladorMercado"
                         }
                       },
-                      "id": 2508,
+                      "id": 2546,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "getIndexSolicitudes",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1730,
+                      "referencedDeclaration": 1740,
                       "src": "1232:68:13",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_uint256_$",
                         "typeString": "function (address) view external returns (uint256)"
                       }
                     },
-                    "id": 2510,
+                    "id": 2548,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3064,11 +3168,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 2516,
+                        "id": 2554,
                         "name": "indexSolicitud",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2504,
+                        "referencedDeclaration": 2542,
                         "src": "1372:14:13",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -3076,14 +3180,14 @@
                         }
                       },
                       {
-                        "id": 2517,
+                        "id": 2555,
                         "name": "infoContrato",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2490,
+                        "referencedDeclaration": 2528,
                         "src": "1387:12:13",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_InfoContrato_$2549_memory_ptr",
+                          "typeIdentifier": "t_struct$_InfoContrato_$2587_memory_ptr",
                           "typeString": "struct InfoContrato memory"
                         }
                       }
@@ -3095,18 +3199,18 @@
                           "typeString": "uint256"
                         },
                         {
-                          "typeIdentifier": "t_struct$_InfoContrato_$2549_memory_ptr",
+                          "typeIdentifier": "t_struct$_InfoContrato_$2587_memory_ptr",
                           "typeString": "struct InfoContrato memory"
                         }
                       ],
                       "expression": {
                         "arguments": [
                           {
-                            "id": 2513,
+                            "id": 2551,
                             "name": "reguladorMercado",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2429,
+                            "referencedDeclaration": 2467,
                             "src": "1333:16:13",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -3121,18 +3225,18 @@
                               "typeString": "address"
                             }
                           ],
-                          "id": 2512,
+                          "id": 2550,
                           "name": "ReguladorMercado",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1731,
+                          "referencedDeclaration": 1769,
                           "src": "1316:16:13",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1731_$",
+                            "typeIdentifier": "t_type$_t_contract$_ReguladorMercado_$1769_$",
                             "typeString": "type(contract ReguladorMercado)"
                           }
                         },
-                        "id": 2514,
+                        "id": 2552,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -3143,25 +3247,25 @@
                         "src": "1316:34:13",
                         "tryCall": false,
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ReguladorMercado_$1731",
+                          "typeIdentifier": "t_contract$_ReguladorMercado_$1769",
                           "typeString": "contract ReguladorMercado"
                         }
                       },
-                      "id": 2515,
+                      "id": 2553,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "diligenciarSolicitud",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1555,
+                      "referencedDeclaration": 1565,
                       "src": "1316:55:13",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$_t_struct$_InfoContrato_$2549_memory_ptr_$returns$__$",
+                        "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$_t_struct$_InfoContrato_$2587_memory_ptr_$returns$__$",
                         "typeString": "function (uint256,struct InfoContrato memory) external"
                       }
                     },
-                    "id": 2518,
+                    "id": 2556,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3176,30 +3280,30 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 2519,
+                  "id": 2557,
                   "nodeType": "ExpressionStatement",
                   "src": "1316:84:13"
                 }
               ]
             },
             "functionSelector": "47ec8b0e",
-            "id": 2521,
+            "id": 2559,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "diligenciarContratoRegulador",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 2491,
+              "id": 2529,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2487,
+                  "id": 2525,
                   "mutability": "mutable",
                   "name": "dir",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2521,
+                  "scope": 2559,
                   "src": "992:11:13",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3208,7 +3312,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 2486,
+                    "id": 2524,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "992:7:13",
@@ -3222,32 +3326,32 @@
                 },
                 {
                   "constant": false,
-                  "id": 2490,
+                  "id": 2528,
                   "mutability": "mutable",
                   "name": "infoContrato",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2521,
+                  "scope": 2559,
                   "src": "1014:32:13",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_InfoContrato_$2549_memory_ptr",
+                    "typeIdentifier": "t_struct$_InfoContrato_$2587_memory_ptr",
                     "typeString": "struct InfoContrato"
                   },
                   "typeName": {
-                    "id": 2489,
+                    "id": 2527,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 2488,
+                      "id": 2526,
                       "name": "InfoContrato",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 2549,
+                      "referencedDeclaration": 2587,
                       "src": "1014:12:13"
                     },
-                    "referencedDeclaration": 2549,
+                    "referencedDeclaration": 2587,
                     "src": "1014:12:13",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_InfoContrato_$2549_storage_ptr",
+                      "typeIdentifier": "t_struct$_InfoContrato_$2587_storage_ptr",
                       "typeString": "struct InfoContrato"
                     }
                   },
@@ -3257,19 +3361,19 @@
               "src": "981:72:13"
             },
             "returnParameters": {
-              "id": 2492,
+              "id": 2530,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1061:0:13"
             },
-            "scope": 2522,
+            "scope": 2560,
             "src": "944:464:13",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 2523,
+        "scope": 2561,
         "src": "165:1246:13"
       }
     ],
@@ -3286,8 +3390,12 @@
   "updatedAt": "2022-07-07T19:15:22.580Z",
 =======
   "schemaVersion": "3.4.4",
+<<<<<<< HEAD
   "updatedAt": "2022-07-12T16:03:27.578Z",
 >>>>>>> master
+=======
+  "updatedAt": "2022-07-13T21:07:56.637Z",
+>>>>>>> origin/master
   "devdoc": {
     "kind": "dev",
     "methods": {},

@@ -1,3 +1,4 @@
+import { InfoReguladorMercado } from './../models/infoReguladorMercado';
 import { TiposContratos } from './../models/EnumTiposContratos';
 import { InfoContrato } from './../models/infoContrato';
 import { SolicitudContrato } from './../models/solicitudContrato';
@@ -70,6 +71,14 @@ export class ReguladorMercadoService {
     );
   }
 
+  postDevolverTokens(cantidadTokens: number) {
+    return from(this.contract?.methods.DevolverTokens(cantidadTokens).send({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
   postGenerarTokens(numTokens: number): Observable<any> {
     return from(this.contract?.methods.GenerarTokens(numTokens).send({ from: this.account })).pipe(
       catchError((error) => {
@@ -106,6 +115,25 @@ export class ReguladorMercadoService {
           return this.mappingSolicitud(solicitud);
         });
         return solicitudes as SolicitudContrato[];
+      }), catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+  getInfoRegulador(): Observable<InfoReguladorMercado> {
+    return from(this.contract?.methods.getInfoRegulador().call({ from: this.account })).pipe(
+      map((data: any) => {
+        const [owner, dirContrato, cantidadTokens, nombreToken, simboloToken, valorToken] = data;
+        const tempInfoRegulador: InfoReguladorMercado = {
+          owner: owner,
+          dirContrato: dirContrato,
+          cantidadTokens: cantidadTokens,
+          nombreToken: nombreToken,
+          simboloToken: simboloToken,
+          valorToken: parseFloat(this.web3.utils.fromWei(valorToken, 'ether'))
+        }
+        return tempInfoRegulador;
       }), catchError((error) => {
         return throwError(() => new Error(error.message));
       })

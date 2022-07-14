@@ -1,3 +1,4 @@
+import { TiposContratos } from './../../models/EnumTiposContratos';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./aside.component.css']
 })
 export class AsideComponent implements OnInit {
-
-  constructor() { }
+  tipoContrato: TiposContratos
+  constructor() { 
+    this.tipoContrato = parseInt(localStorage.getItem('tipoAgente')) as TiposContratos;
+    
+  }
 
   ngOnInit(): void {
   }

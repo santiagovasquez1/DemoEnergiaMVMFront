@@ -1,0 +1,30 @@
+<div class="container">
+    <h2 class="mt-20">Listado de clientes</h2>
+    <mat-card class="custom mb-20" *ngFor="let cliente of clientesComercializador; let index = index">
+        <mat-card-title>Empresa: {{cliente.empresa}}</mat-card-title>
+        <mat-card-subtitle>Nit: {{cliente.nit}}</mat-card-subtitle>
+        <mat-card-content>
+            <p>
+                Dueño del contrato: {{cliente.owner}}
+            </p>
+            <p>
+                Contacto: {{cliente.contacto}}
+            </p>
+            <p>
+                Teléfono: {{cliente.telefono}}
+            </p>
+            <p>
+                Correo: {{cliente.correo}}
+            </p>
+            <p>
+                Departamento: {{cliente.departamento}}
+            </p>
+            <p>
+                Ciudad: {{cliente.ciudad}}
+            </p>
+            <p>
+                Dirección: {{cliente.direccion}}
+            </p>
+        </mat-card-content>
+    </mat-card>
+</div>
