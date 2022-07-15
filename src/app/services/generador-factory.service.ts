@@ -44,4 +44,5 @@ export class GeneradorFactoryService extends FactoryService {
       })
     );
   }
+
 }
