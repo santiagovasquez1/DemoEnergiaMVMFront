@@ -22,11 +22,11 @@ export class GeneradorFactoryService extends FactoryService {
     this.setContractData(generadorFactory, networkData, web3);
   }
 
-  agregarGenerador(nombreGenerador): Observable<any> {
+  agregarGenerador(reguladorMercado,nombreGenerador): Observable<any> {
     let account = localStorage.getItem('account');
     if (account) {
       console.log(this.contract);
-      return from(this.contract.methods.factoryGenerador(nombreGenerador).send({ from: account })).pipe(
+      return from(this.contract.methods.factoryGenerador(reguladorMercado,nombreGenerador).send({ from: account })).pipe(
         catchError((error) => {
           return throwError(() => new Error(error.message));
         })
@@ -38,10 +38,11 @@ export class GeneradorFactoryService extends FactoryService {
   }
 
   verGeneradores(): Observable<any> {
-    return from(this.contract?.methods.getContratosOwners().call()).pipe(
+    return from(this.contract?.methods.getGeneradoresOwners().call()).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
     );
   }
+
 }

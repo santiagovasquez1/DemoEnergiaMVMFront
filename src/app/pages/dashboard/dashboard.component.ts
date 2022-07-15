@@ -3,6 +3,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
+import { Web3ConnectService } from 'src/app/services/web3-connect.service';
 
 @Component({
   selector: 'app-dashboard',
