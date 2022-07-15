@@ -13,6 +13,7 @@ export class AgregarGeneradorComponent implements OnInit {
 
   generadorForm: FormGroup;
   loading: boolean = false;
+  reguladorMercado: string;
 
   constructor(private fb: FormBuilder,
     private toastr: ToastrService,
@@ -37,8 +38,9 @@ export class AgregarGeneradorComponent implements OnInit {
 
   guardarGenerador(): void {
     console.log("Guardando generador");
+    this.reguladorMercado = localStorage.getItem('addressRegulador')
     this.spinnerService.show();
-    this.generadorService.agregarGenerador(this.generadorForm.value.nombreGenerador).subscribe({
+    this.generadorService.agregarGenerador(this.reguladorMercado,this.generadorForm.value.nombreGenerador).subscribe({
 
       next: data => {
         console.log(data);

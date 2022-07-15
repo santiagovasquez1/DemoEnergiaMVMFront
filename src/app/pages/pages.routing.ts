@@ -11,6 +11,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { VerGeneradoresComponent } from './dashboard/ver-generadores/ver-generadores.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { ListaClientesComponent } from './comercializador/lista-clientes/lista-clientes.component';
+import { GeneradorComponent } from './generador/generador.component';
+import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-generadores.component';
 
 
 const routes: Routes = [
@@ -53,8 +55,23 @@ const routes: Routes = [
                 canActivate: [AuthGuard]
             },
             {
+                path: "generador",
+                component: GeneradorComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: "agregarGenerador",
+                component: AgregarGeneradorComponent,
+                canActivate: [AuthGuard]
+            },
+            {
                 path: "verGeneradores",
                 component: VerGeneradoresComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: "todos-generadores",
+                component: TodosGeneradoresComponent,
                 canActivate: [AuthGuard]
             },
         ]

@@ -28,6 +28,8 @@ import { InyectarTokensComponent } from './regulador-mercado/inyectar-tokens/iny
 import { ListaClientesComponent } from './comercializador/lista-clientes/lista-clientes.component';
 import { DevolverTokensComponent } from './cliente/devolver-tokens/devolver-tokens.component';
 import { BancoEnergiaComponent } from './banco-energia/banco-energia.component';
+import { GeneradorComponent } from './generador/generador.component';
+import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-generadores.component';
 
 
 
@@ -48,6 +50,8 @@ import { BancoEnergiaComponent } from './banco-energia/banco-energia.component';
     ListaClientesComponent,
     DevolverTokensComponent,
     BancoEnergiaComponent
+    GeneradorComponent,
+    TodosGeneradoresComponent
   ],
   imports: [
     CommonModule,

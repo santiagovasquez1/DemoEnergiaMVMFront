@@ -6,19 +6,25 @@
 
     <div class="spacer"></div>
 
-    <button mat-button [matMenuTriggerFor]="aboveMenu">Generador</button>
+    <button mat-button [matMenuTriggerFor]="aboveMenu" *ngIf="tipoContrato==3">Administrador</button>
     <mat-menu #aboveMenu="matMenu" yPosition="above">
         <button mat-menu-item>Crear planta</button>
         <button mat-menu-item>Agregar energía</button>
     </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="belowMenu">Comercializador</button>
+    <button mat-button [matMenuTriggerFor]="aboveMenu" *ngIf="tipoContrato==2">Generador</button>
+    <mat-menu #aboveMenu="matMenu" yPosition="above">
+        <button mat-menu-item>Crear planta</button>
+        <button mat-menu-item>Agregar energía</button>
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="belowMenu" *ngIf="tipoContrato==1">Comercializador</button>
     <mat-menu #belowMenu="matMenu" yPosition="below">
         <button mat-menu-item>Plantas disponibles</button>
         <button mat-menu-item>Tipos de energía</button>
     </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="beforeMenu">Cliente</button>
+    <button mat-button [matMenuTriggerFor]="beforeMenu" *ngIf="tipoContrato==0">Cliente</button>
     <mat-menu #beforeMenu="matMenu" xPosition="before">
         <button mat-menu-item>Item 1</button>
         <button mat-menu-item>Item 2</button>
