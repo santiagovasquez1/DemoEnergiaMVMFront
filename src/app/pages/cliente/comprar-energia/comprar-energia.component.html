@@ -4,7 +4,7 @@
         <mat-label>Tipo de energia</mat-label>
         <mat-select formControlName="tipoEnergia">
             <mat-option *ngFor="let tipoEnergia of tiposEnergia" [value]="tipoEnergia">
-                {{tipoEnergia}}
+                {{tipoEnergia.nombre}}
             </mat-option>
         </mat-select>
     </mat-form-field>

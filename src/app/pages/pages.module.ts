@@ -27,6 +27,7 @@ import { SolicitudesComponent } from './regulador-mercado/solicitudes/solicitude
 import { InyectarTokensComponent } from './regulador-mercado/inyectar-tokens/inyectar-tokens.component';
 import { ListaClientesComponent } from './comercializador/lista-clientes/lista-clientes.component';
 import { DevolverTokensComponent } from './cliente/devolver-tokens/devolver-tokens.component';
+import { BancoEnergiaComponent } from './banco-energia/banco-energia.component';
 
 
 
@@ -45,7 +46,8 @@ import { DevolverTokensComponent } from './cliente/devolver-tokens/devolver-toke
     SolicitudesComponent,
     InyectarTokensComponent,
     ListaClientesComponent,
-    DevolverTokensComponent
+    DevolverTokensComponent,
+    BancoEnergiaComponent
   ],
   imports: [
     CommonModule,

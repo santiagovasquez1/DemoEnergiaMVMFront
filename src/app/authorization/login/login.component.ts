@@ -27,7 +27,7 @@ export class LoginComponent {
       await this.regulardorMercado.loadBlockChainContractData();
       this.regulardorMercado.validarUsuario().subscribe({
         next: (data) => {
-          if (data[0]) {
+           if (data[0]) {
             this.spinnerService.hide();
             localStorage.setItem('dirContract', data[1]);
             localStorage.setItem('tipoAgente', data[2]);

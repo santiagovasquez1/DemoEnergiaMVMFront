@@ -1,3 +1,4 @@
+import { BancoEnergiaComponent } from './banco-energia/banco-energia.component';
 import { SolicitudesComponent } from './regulador-mercado/solicitudes/solicitudes.component';
 import { RegistrosComponent } from './regulador-mercado/registros/registros.component';
 import { ComercializadorComponent } from './comercializador/comercializador.component';
@@ -18,18 +19,22 @@ const routes: Routes = [
         component: DashboardComponent,
         children: [
             {
-                path:"regulador-mercado",
+                path: "",
+                component: BancoEnergiaComponent
+            },
+            {
+                path: "regulador-mercado",
                 component: ReguladorMercadoComponent,
                 canActivate: [AuthGuard],
             },
             {
-                path:"regulador-mercado/solicitudes",
+                path: "regulador-mercado/solicitudes",
                 component: SolicitudesComponent,
                 canActivate: [AuthGuard],
             },
             {
-                path:"regulador-mercado/registros",
-                component:RegistrosComponent,
+                path: "regulador-mercado/registros",
+                component: RegistrosComponent,
                 canActivate: [AuthGuard]
             },
             {
@@ -38,18 +43,13 @@ const routes: Routes = [
                 canActivate: [AuthGuard]
             },
             {
-                path:"comercializador",
+                path: "comercializador",
                 component: ComercializadorComponent,
                 canActivate: [AuthGuard]
             },
             {
-                path:"comercializador/lista-clientes",
+                path: "comercializador/lista-clientes",
                 component: ListaClientesComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path: "agregarGenerador",
-                component: AgregarGeneradorComponent,
                 canActivate: [AuthGuard]
             },
             {
