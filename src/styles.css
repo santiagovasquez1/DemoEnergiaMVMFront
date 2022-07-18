@@ -126,3 +126,17 @@ body {
     border-bottom: 1px solid #e0e0e0 !important;
     box-shadow: 0px 0px 50px #868585 !important;
 }
+
+.custom {
+    max-width: 400px;
+    margin: 20px;
+}
+
+.container-generadores{
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.container-generadores  .custom h2{
+    text-align: center;
+}
