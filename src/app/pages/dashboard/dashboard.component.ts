@@ -1,3 +1,4 @@
+import { Contract } from 'web3-eth-contract';
 import { ClienteContractService } from 'src/app/services/cliente-contract.service';
 import { ComercializadorContractService } from './../../services/comercializador-contract.service';
 import { Observable, forkJoin, Subscription, timer } from 'rxjs';
@@ -41,22 +42,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
       let dirContract = localStorage.getItem('dirContract');
       switch (tipoAgente) {
         case TiposContratos.Comercializador:
-          this.comercializador.loadBlockChainContractData(dirContract);
-          this.timerSubscription = this.timer$.subscribe({
-            next: () => {
-              this.comercializador.getClientesComercializador().subscribe({
-                next: (data) => {
-                  this.ContratosClientesMonitor(data);
-                }, error: (error) => {
-                  console.log(error);
-                  this.toastr.error(error.message, 'Error');
-                }
-              })
-            }
-          })
+          await this.comercializador.loadBlockChainContractData(dirContract);
+          this.ContratosClientesMonitor();
           break;
         case TiposContratos.Cliente:
-          this.cliente.loadBlockChainContractData(dirContract);
+          await this.cliente.loadBlockChainContractData(dirContract);
           break;
         case TiposContratos.Generador:
           break;
@@ -68,16 +58,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
 
-  private ContratosClientesMonitor(data: import("d:/Santiago/BlockChain/DemoEnergiaMVMFront/src/app/models/infoContrato").InfoContrato[]) {
-    this.contadorActual = data.length;
-    if (this.contadorActual !== this.contadorAnterior) {
-      let promises: Promise<void>[] = [];
-      data.forEach(infoContrato => {
-        promises.push(this.cliente.loadBlockChainContractData(infoContrato.dirContrato));
-      });
-      Promise.all(promises).then((data: any[]) => {
-        console.log(data);
-      });
-    }
+  private ContratosClientesMonitor() {
+    this.comercializador.contract.events.EmisionDeCompra({
+      fromBlock: 'latest'
+    }, (err, event) => {
+      if(err){
+        console.log(err);
+        this.toastr.error(err.message, 'Error');
+      }else{
+        console.log(event);
+        this.toastr.success('Emisión de compra realizada', 'Éxito');
+      }
+    });
   }
 }

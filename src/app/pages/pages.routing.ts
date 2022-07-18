@@ -1,3 +1,4 @@
+import { EmisionesCompraComponent } from './comercializador/emisiones-compra/emisiones-compra.component';
 import { BancoEnergiaComponent } from './banco-energia/banco-energia.component';
 import { SolicitudesComponent } from './regulador-mercado/solicitudes/solicitudes.component';
 import { RegistrosComponent } from './regulador-mercado/registros/registros.component';
@@ -52,6 +53,11 @@ const routes: Routes = [
             {
                 path: "comercializador/lista-clientes",
                 component: ListaClientesComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path:"comercializador/emisiones-de-compra",
+                component: EmisionesCompraComponent,
                 canActivate: [AuthGuard]
             },
             {

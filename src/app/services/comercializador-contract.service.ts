@@ -1,10 +1,12 @@
+import { InfoEmisionCompra } from './../models/InfoEmisionCompra';
 import { InfoContrato } from './../models/infoContrato';
 import { CompraEnergiaRequest } from './../models/CompraEnergiaRequest';
-import { catchError, from, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError, switchMap, forkJoin, from } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AgenteContractService } from './agente-contract.service';
 import Comercializador from '../../../build/contracts/Comercializador.json';
 import Web3 from 'web3';
+import moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -74,5 +76,42 @@ export class ComercializadorContractService extends AgenteContractService {
         return throwError(() => new Error(error.message));
       })
     );
+  }
+
+  getEmisionesDeCompra(): Observable<any> {
+    return from(this.contract.methods.contadorEmisiones().call({ from: this.account })).pipe(
+      switchMap((data: string) => {
+        let numEmisiones = parseInt(data);
+        let observables: Observable<any>[] = [];
+        for (let i = numEmisiones - 1; i >= 0; i--) {
+          let tempObs = from(this.contract.methods.getInfoEmisionesDeCompra(i).call({ from: this.account })).pipe(
+            map((data: any) => {
+              const [
+                dirContratoCliente,
+                empresaCliente,
+                tipoEnergia,
+                cantidadDeEnergia,
+                estado,
+                fechaEmision,
+                fechaAprobacion
+              ] = data;
+
+              let tempInfo: InfoEmisionCompra = {
+                dirContratoCliente,
+                empresaCliente,
+                tipoEnergia,
+                cantidadDeEnergia,
+                estado,
+                fechaEmision: moment(parseInt(fechaEmision)*1000).format('DD/MM/YYYY HH:mm:ss'),
+                fechaAprobacion: moment(parseInt(fechaAprobacion)*1000).format('DD/MM/YYYY HH:mm:ss')
+              }
+              return tempInfo;
+            })
+          );
+          observables.push(tempObs);
+        }
+        return forkJoin(observables);
+      })
+    )
   }
 }

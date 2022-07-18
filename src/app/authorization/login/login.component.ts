@@ -29,6 +29,7 @@ export class LoginComponent {
         next: (data) => {
            if (data[0]) {
             this.spinnerService.hide();
+            debugger;
             localStorage.setItem('dirContract', data[1]);
             localStorage.setItem('tipoAgente', data[2]);
             this.router.navigate(['/dashboard']);

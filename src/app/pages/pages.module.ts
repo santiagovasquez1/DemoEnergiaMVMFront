@@ -30,6 +30,8 @@ import { DevolverTokensComponent } from './cliente/devolver-tokens/devolver-toke
 import { BancoEnergiaComponent } from './banco-energia/banco-energia.component';
 import { GeneradorComponent } from './generador/generador.component';
 import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-generadores.component';
+import { EmisionesCompraComponent } from './comercializador/emisiones-compra/emisiones-compra.component';
+import { DelegarTokensComponent } from './cliente/delegar-tokens/delegar-tokens.component';
 
 
 
@@ -49,9 +51,11 @@ import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-g
     InyectarTokensComponent,
     ListaClientesComponent,
     DevolverTokensComponent,
-    BancoEnergiaComponent
+    BancoEnergiaComponent,
     GeneradorComponent,
-    TodosGeneradoresComponent
+    TodosGeneradoresComponent,
+    EmisionesCompraComponent,
+    DelegarTokensComponent
   ],
   imports: [
     CommonModule,
@@ -81,7 +85,13 @@ import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-g
     RegistrosComponent,
     SolicitudesComponent,
     InyectarTokensComponent,
-    ListaClientesComponent
+    ListaClientesComponent,
+    DevolverTokensComponent,
+    BancoEnergiaComponent,
+    GeneradorComponent,
+    TodosGeneradoresComponent,
+    EmisionesCompraComponent,
+    DelegarTokensComponent
   ]
 })
 export class PagesModule { }

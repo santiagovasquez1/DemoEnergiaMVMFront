@@ -71,7 +71,7 @@ export class ContratarComercializadorComponent implements OnInit {
   }
 
   get validForm(): boolean {
-    return this.comercializadorSeleccionado != null;
+    return this.comercializadorSeleccionado != null && this.comercializadorSeleccionado.dirContrato !== this.data.comercializador;
   }
 
 }

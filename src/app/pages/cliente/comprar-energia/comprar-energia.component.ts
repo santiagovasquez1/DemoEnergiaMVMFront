@@ -1,4 +1,3 @@
-import { InfoEnergia } from './../../../models/InfoEnergia';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -7,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ClienteContractService } from 'src/app/services/cliente-contract.service';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
+import { InfoEnergia } from 'src/app/models/InfoEnergia';
 
 @Component({
   selector: 'app-comprar-energia',
@@ -64,7 +64,7 @@ export class ComprarEnergiaComponent implements OnInit {
   }
 
   private onEnergiaChange() {
-    let tipoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value ==''? null: this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
+    let tipoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value == '' ? null : this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
     let cantidadEnergia = this.comprarEnergiaForm.get('cantidadEnergia').value == '' ? 0 : this.comprarEnergiaForm.get('cantidadEnergia').value;
     if (cantidadEnergia > 0 && tipoEnergia) {
       let precioEnergia = tipoEnergia.precio * cantidadEnergia;
@@ -82,8 +82,27 @@ export class ComprarEnergiaComponent implements OnInit {
 
   onComprarEnergia() {
     this.alertDialog.confirmAlert('Confirmar', '¿Está seguro de que desea comprar energía?').then((result) => {
-
+      if (result.isConfirmed) {
+        this.spinner.show();
+        let infoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
+        let cantidadEnergia = this.comprarEnergiaForm.get('cantidadEnergia').value;
+        this.clienteService.postComprarEnergia(infoEnergia.nombre, cantidadEnergia).subscribe({
+          next: () => {
+            this.spinner.hide();
+            this.toastr.success('Emision de compra de energia', 'Éxito');
+            this.dialogRef.close();
+          }, error: (error) => {
+            this.spinner.hide();
+            this.toastr.error(error.message, 'Error');
+          }
+        });
+      }
     });
+  }
+
+  get isComprarValid(): boolean {
+    let valorCompra = this.comprarEnergiaForm.get('valorCompra').value;
+    return this.comprarEnergiaForm.valid && valorCompra <= this.data.tokensDelegados;
   }
 
 }
