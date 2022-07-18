@@ -27,7 +27,6 @@ export abstract class AgenteContractService {
       const abi = factoryJson.abi;
       this.account = localStorage.getItem('account');
       this.contract = new web3.eth.Contract(abi as unknown as AbiItem, this.dirContrato);
-      console.log(this.contract);
     } catch (error) {
       this.toastr.error(error.message, 'Error');
     }

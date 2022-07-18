@@ -99,6 +99,7 @@ export class SolicitudesComponent implements OnInit, OnDestroy {
               break;
             case TiposContratos.Generador:
               await this.generadorFactory.loadBlockChainContractData();
+              debugger;
               this.generadorFactory.setFactoryContrato(solicitud.infoContrato).subscribe({
                 next: () => {
                   this.spinner.hide();
