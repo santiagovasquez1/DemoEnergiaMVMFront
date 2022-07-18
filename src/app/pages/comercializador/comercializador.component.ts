@@ -15,8 +15,7 @@ import { InfoContrato } from 'src/app/models/infoContrato';
 export class ComercializadorComponent implements OnInit {
   infoCliente: InfoContrato;
 
-  constructor(private clienteService: ClienteContractService,
-    private comercializadorService:ComercializadorContractService,
+  constructor(private comercializadorService: ComercializadorContractService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
     public dialog: MatDialog) { }

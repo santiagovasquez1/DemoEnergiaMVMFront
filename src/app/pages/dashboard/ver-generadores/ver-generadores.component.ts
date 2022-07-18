@@ -33,7 +33,6 @@ export class VerGeneradoresComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private generadorService: GeneradorFactoryService,
     private spinnerService: NgxSpinnerService,
-    private factoryService: FactoryService,
     private regulardorMercado: ReguladorMercadoService ) { 
     this.timer$ = timer(0, 1000);
   }

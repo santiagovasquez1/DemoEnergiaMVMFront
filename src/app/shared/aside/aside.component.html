@@ -23,6 +23,10 @@
             <span>Lista de clientes</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
+        <a [routerLink]="['comercializador/emisiones-de-compra']">
+            <span>Emisiones de compra</span>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </a>
         <a [routerLink]="['/dashboard/todos-generadores']">
             <span>Ver generadores</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
@@ -55,19 +59,16 @@
             <span>Registros</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
+
         <a [routerLink]="['/dashboard/todos-generadores']">
             <span>Lista generadores</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
     </div>
 
-    <h3 id="energia"><b>Energía</b> </h3>
-    <a>
-        <span>Agregar tipo de energía</span>
-        <mat-icon>keyboard_arrow_right</mat-icon>
-    </a>
-    <a>
-        <span>Ver tipos de energía</span>
+    <h3 id="energia"><b>Banco de energia</b> </h3>
+    <a [routerLink]="['/dashboard']">
+        <span>Información</span>
         <mat-icon>keyboard_arrow_right</mat-icon>
     </a>
 </div>
