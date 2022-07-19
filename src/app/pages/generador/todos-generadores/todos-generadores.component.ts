@@ -9,8 +9,7 @@ import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.serv
 
 @Component({
   selector: 'app-todos-generadores',
-  templateUrl: './todos-generadores.component.html',
-  styleUrls: ['./todos-generadores.component.css']
+  templateUrl: './todos-generadores.component.html'
 })
 export class TodosGeneradoresComponent implements OnInit {
 

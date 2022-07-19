@@ -4,9 +4,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription, timer } from 'rxjs';
 import { SolicitudContrato } from 'src/app/models/solicitudContrato';
+import { AgenteContractService } from 'src/app/services/agente-contract.service';
 import { FactoryService } from 'src/app/services/factory.service';
 import { GeneradorFactoryService } from 'src/app/services/generador-factory.service';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
+import {InfoContrato} from 'src/app/models/infoContrato'
 
 @Component({
   selector: 'app-generador',
@@ -23,19 +25,23 @@ export class GeneradorComponent implements OnInit {
   timerSubscription: Subscription;
   account: string;
   infoGenerador: SolicitudContrato = {} as SolicitudContrato;
+  infoContrato: InfoContrato = {} as InfoContrato;
 
   constructor(
     private toastr: ToastrService,
     private generadorService: GeneradorFactoryService,
     private spinnerService: NgxSpinnerService,
-    private regulardorMercado: ReguladorMercadoService ) { 
+    private regulardorMercado: ReguladorMercadoService,
+    private  agenteService: AgenteContractService) { 
     this.timer$ = timer(0, 1000);
   }
 
   async ngOnInit(): Promise<void> {
+    
     this.account = localStorage.getItem('account');
     try {
         await this.generadorService.loadBlockChainContractData();
+
         //this.timerSubscription = this.timer$.subscribe(() => {
           this.regulardorMercado.getContratosRegistrados().subscribe({
           next: data => {
@@ -54,6 +60,18 @@ export class GeneradorComponent implements OnInit {
         console.log(error);
         this.toastr.error('Error al cargar el contrato', 'Error');
       }
+      
+      this.agenteService.getInfoContrato().subscribe({
+        next: data => {
+          console.log("AGENTE SERVICE: ",this.infoContrato);
+          this.infoContrato = data;
+          console.log("AGENTE SERVICE: ",this.infoContrato);
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
+      
 
   }
 
@@ -62,6 +80,5 @@ export class GeneradorComponent implements OnInit {
     this.infoGenerador = this.registros.find(element => element.infoContrato.owner == this.account)
     console.log(this.infoGenerador.infoContrato);
   }
-  
 
 }
