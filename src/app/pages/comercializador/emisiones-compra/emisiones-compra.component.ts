@@ -25,8 +25,6 @@ export class EmisionesCompraComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     let dirContract = localStorage.getItem('dirContract');
     try {
-      this.isLoading = true;
-      this.spinner.show();
       await this.comercializadorService.loadBlockChainContractData(dirContract);
       this.comercializadorService.contract.events.EmisionDeCompra({
         fromBlock: 'latest'
@@ -35,10 +33,6 @@ export class EmisionesCompraComponent implements OnInit {
           console.log(err);
           this.toastr.error(err.message, 'Error');
         } else {
-          if (!this.isLoading) {
-            this.isLoading = true;
-            this.spinner.show();
-          }
           this.getEmisionesDeCompra();
         }
       });
@@ -51,19 +45,12 @@ export class EmisionesCompraComponent implements OnInit {
 
 
   private getEmisionesDeCompra() {
+
     this.comercializadorService.getEmisionesDeCompra().subscribe({
       next: (emisiones) => {
         this.emisionesDeCompra = emisiones;
-        if (this.isLoading) {
-          this.spinner.hide();
-          this.isLoading = false;
-        }
       }, error: (err) => {
         console.log(err);
-        if (this.isLoading) {
-          this.spinner.hide();
-          this.isLoading = false;
-        }
         this.toastr.error(err.message, 'Error');
       }
     });
