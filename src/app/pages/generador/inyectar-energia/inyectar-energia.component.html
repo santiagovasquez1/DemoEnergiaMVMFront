@@ -1,0 +1,11 @@
+<h2 class="mt-20">Crear nueva energía</h2>
+<mat-form-field class="w-100p">
+    <mat-label>Nombre energía</mat-label>
+    <input matInput [(ngModel)]="nombreEnergia" type="text" autocomplete="off">
+</mat-form-field>
+
+<mat-form-field class="w-100p">
+    <mat-label>Cantidad de energía</mat-label>
+    <input matInput [(ngModel)]="cantidadEnergia" type="number" autocomplete="off">
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="onInyectarEnergia()" [disabled]="!true">Crear energía</button>

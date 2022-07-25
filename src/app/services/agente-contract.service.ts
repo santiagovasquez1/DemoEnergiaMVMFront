@@ -37,6 +37,7 @@ export abstract class AgenteContractService {
   public getInfoContrato(): Observable<InfoContrato> {
     return from(this.contract?.methods.getInfoContrato().call({ from: this.account })).pipe(
       map((data: any) => {
+        console.log("ejecutando getinfocontrato desde agente");
         let tempInfo = {
           owner: data.owner,
           ciudad: data.ciudad,
