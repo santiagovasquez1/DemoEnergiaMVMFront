@@ -32,6 +32,8 @@ import { GeneradorComponent } from './generador/generador.component';
 import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-generadores.component';
 import { EmisionesCompraComponent } from './comercializador/emisiones-compra/emisiones-compra.component';
 import { DelegarTokensComponent } from './cliente/delegar-tokens/delegar-tokens.component';
+import { NuevaEnergiaComponent } from './generador/nueva-energia/nueva-energia.component';
+import { InyectarEnergiaComponent } from './generador/inyectar-energia/inyectar-energia.component';
 
 
 
@@ -55,7 +57,9 @@ import { DelegarTokensComponent } from './cliente/delegar-tokens/delegar-tokens.
     GeneradorComponent,
     TodosGeneradoresComponent,
     EmisionesCompraComponent,
-    DelegarTokensComponent
+    DelegarTokensComponent,
+    NuevaEnergiaComponent,
+    InyectarEnergiaComponent
   ],
   imports: [
     CommonModule,
