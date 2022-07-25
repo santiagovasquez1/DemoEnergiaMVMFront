@@ -1,21 +1,21 @@
 <div class="container" *ngIf="infoGenerador">
     <h2 class="mt-20">Información del generador</h2>
-    <mat-card class="custom mb-20">
+    <mat-card class="mb-20">
         <mat-card-title>
-            {{infoGenerador.infoContrato.empresa}}
+            {{infoGenerador.infoContrato?.empresa}}
         </mat-card-title>
         <mat-card-content>
-            <p>Dueño del contrato: {{infoGenerador.infoContrato.owner}}</p>
-            <p>Empresa: {{infoGenerador.infoContrato.empresa}}</p>
-            <p>Departamento: {{infoGenerador.infoContrato.departamento}}</p>
-            <p>Ciudad: {{infoGenerador.infoContrato.ciudad}}</p>
-            <p>Dirección: {{infoGenerador.infoContrato.direccion}}</p>
-            <p>Nit: {{infoGenerador.infoContrato.nit}}</p>
-            <p>Telefono: {{infoGenerador.infoContrato.telefono}}</p>
+            <p>Dueño del contrato: {{infoGenerador.infoContrato?.owner}}</p>
+            <p>Empresa: {{infoGenerador.infoContrato?.empresa}}</p>
+            <p>Departamento: {{infoGenerador.infoContrato?.departamento}}</p>
+            <p>Ciudad: {{infoGenerador.infoContrato?.ciudad}}</p>
+            <p>Dirección: {{infoGenerador.infoContrato?.direccion}}</p>
+            <p>Nit: {{infoGenerador.infoContrato?.nit}}</p>
+            <p>Telefono: {{infoGenerador.infoContrato?.telefono}}</p>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-stroked-button color="primary">Crear nueva energía</button>
-            <button mat-stroked-button color="primary">Inyectar energía</button>
+            <button mat-stroked-button color="primary" (click)="onNuevaEnergia()">Crear nueva energía</button>
+            <button mat-stroked-button color="primary" (click)="onInyectarEnergia()">Inyectar energía</button>
             <button mat-stroked-button color="primary">Contratar comercializador</button>
         </mat-card-actions>
     </mat-card>
