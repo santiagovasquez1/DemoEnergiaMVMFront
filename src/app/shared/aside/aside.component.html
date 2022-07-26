@@ -1,14 +1,8 @@
 <div class="sidebar">
-
-
     <div *ngIf="tipoContrato == 0">
         <h3><b>Cliente</b></h3>
         <a [routerLink]="['/dashboard/cliente']">
             <span>Información</span>
-            <mat-icon>keyboard_arrow_right</mat-icon>
-        </a>
-        <a [routerLink]="['/dashboard/todos-generadores']">
-            <span>Lista generadores</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
     </div>
@@ -27,20 +21,12 @@
             <span>Emisiones de compra</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
-        <a [routerLink]="['/dashboard/todos-generadores']">
-            <span>Ver generadores</span>
-            <mat-icon>keyboard_arrow_right</mat-icon>
-        </a>
     </div>
 
     <div *ngIf="tipoContrato==2">
         <h3><b>Generadores</b> </h3>
         <a [routerLink]="['/dashboard/generador']">
             <span>Información</span>
-            <mat-icon>keyboard_arrow_right</mat-icon>
-        </a>
-        <a [routerLink]="['/dashboard/todos-generadores']">
-            <span>Lista generadores</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
     </div>
@@ -59,16 +45,15 @@
             <span>Registros</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
-
-        <a [routerLink]="['/dashboard/todos-generadores']">
-            <span>Lista generadores</span>
-            <mat-icon>keyboard_arrow_right</mat-icon>
-        </a>
     </div>
 
     <h3 id="energia"><b>Banco de energia</b> </h3>
     <a [routerLink]="['/dashboard']">
         <span>Información</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+    </a>
+    <a [routerLink]="['/dashboard/todos-generadores']">
+        <span>Lista generadores</span>
         <mat-icon>keyboard_arrow_right</mat-icon>
     </a>
 </div>

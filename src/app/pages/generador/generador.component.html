@@ -1,18 +1,30 @@
-<div class="container" *ngIf="infoGenerador">
+<div class="container" *ngIf="infoContrato">
     <h2 class="mt-20">Información del generador</h2>
-    <mat-card class="mb-20">
+    <mat-card class="custom mb-20">
         <mat-card-title>
-            {{infoGenerador.infoContrato?.empresa}}
+            {{infoContrato.empresa}}
         </mat-card-title>
         <mat-card-content>
-            <p>Dueño del contrato: {{infoGenerador.infoContrato?.owner}}</p>
-            <p>Empresa: {{infoGenerador.infoContrato?.empresa}}</p>
-            <p>Departamento: {{infoGenerador.infoContrato?.departamento}}</p>
-            <p>Ciudad: {{infoGenerador.infoContrato?.ciudad}}</p>
-            <p>Dirección: {{infoGenerador.infoContrato?.direccion}}</p>
-            <p>Nit: {{infoGenerador.infoContrato?.nit}}</p>
-            <p>Telefono: {{infoGenerador.infoContrato?.telefono}}</p>
+            <p>Dueño del contrato: {{infoContrato.owner}}</p>
+            <p>Empresa: {{infoContrato.empresa}}</p>
+            <p>Departamento: {{infoContrato.departamento}}</p>
+            <p>Ciudad: {{infoContrato.ciudad}}</p>
+            <p>Dirección: {{infoContrato.direccion}}</p>
+            <p>Nit: {{infoContrato.nit}}</p>
+            <p>Telefono: {{infoContrato.telefono}}</p>
+            <p>Tokens: {{tokensGenerador}}</p>
         </mat-card-content>
+        <hr>
+        <div *ngFor="let energia of energiasDisponibles; let index = index">
+            <mat-card-subtitle>
+                <h3>Energia {{energia}}</h3>
+            </mat-card-subtitle>
+            <mat-card-content>
+                cantidad : {{cantidadesDisponibles[index]}}
+            </mat-card-content>
+            <hr>
+        </div>
+
         <mat-card-actions>
             <button mat-stroked-button color="primary" (click)="onNuevaEnergia()">Crear nueva energía</button>
             <button mat-stroked-button color="primary" (click)="onInyectarEnergia()">Inyectar energía</button>

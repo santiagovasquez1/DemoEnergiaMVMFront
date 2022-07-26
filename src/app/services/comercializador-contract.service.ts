@@ -71,39 +71,45 @@ export class ComercializadorContractService extends AgenteContractService {
   }
 
   ComprarEnergia(compraEnergiaRequest: CompraEnergiaRequest): Observable<any> {
-    return from(this.contract.methods.ComprarEnergia(compraEnergiaRequest.dirContratoGenerador, compraEnergiaRequest.ownerCliente, compraEnergiaRequest.cantidadEnergia, compraEnergiaRequest.tipoEnergia).send({ from: this.account })).pipe(
-      catchError((error) => {
-        return throwError(() => new Error(error.message));
-      })
-    );
+    return from(this.contract.methods.ComprarEnergia(compraEnergiaRequest.dirContratoGenerador, compraEnergiaRequest.ownerCliente,
+      compraEnergiaRequest.cantidadEnergia, compraEnergiaRequest.tipoEnergia,
+      compraEnergiaRequest.index).send({ from: this.account })).pipe(
+        catchError((error) => {
+          return throwError(() => new Error(error.message));
+        })
+      );
   }
 
-  getEmisionesDeCompra(): Observable<any> {
+  getEmisionesDeCompra(): Observable<InfoEmisionCompra[]> {
     return from(this.contract.methods.contadorEmisiones().call({ from: this.account })).pipe(
       switchMap((data: string) => {
         let numEmisiones = parseInt(data);
-        let observables: Observable<any>[] = [];
+        let observables: Observable<InfoEmisionCompra>[] = [];
         for (let i = numEmisiones - 1; i >= 0; i--) {
           let tempObs = from(this.contract.methods.getInfoEmisionesDeCompra(i).call({ from: this.account })).pipe(
             map((data: any) => {
               const [
+                ownerCliente,
                 dirContratoCliente,
                 empresaCliente,
                 tipoEnergia,
                 cantidadDeEnergia,
                 estado,
                 fechaEmision,
-                fechaAprobacion
+                fechaAprobacion,
+                index
               ] = data;
 
               let tempInfo: InfoEmisionCompra = {
+                ownerCliente,
                 dirContratoCliente,
                 empresaCliente,
                 tipoEnergia,
                 cantidadDeEnergia,
                 estado,
-                fechaEmision: moment(parseInt(fechaEmision)*1000).format('DD/MM/YYYY HH:mm:ss'),
-                fechaAprobacion: moment(parseInt(fechaAprobacion)*1000).format('DD/MM/YYYY HH:mm:ss')
+                fechaEmision: moment(parseInt(fechaEmision) * 1000).format('DD/MM/YYYY HH:mm:ss'),
+                fechaAprobacion: moment(parseInt(fechaAprobacion) * 1000).format('DD/MM/YYYY HH:mm:ss'),
+                index
               }
               return tempInfo;
             })

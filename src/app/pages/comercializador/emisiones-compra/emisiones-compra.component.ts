@@ -1,10 +1,12 @@
+import { CompraEnergiaComponent } from './../compra-energia/compra-energia.component';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { InfoEmisionCompra } from './../../../models/InfoEmisionCompra';
+import { EstadoCompra, InfoEmisionCompra } from './../../../models/InfoEmisionCompra';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { filter, Observable, Subscription } from 'rxjs';
 import { ComercializadorContractService } from 'src/app/services/comercializador-contract.service';
+import { CompraEnergiaRequest } from 'src/app/models/CompraEnergiaRequest';
 
 @Component({
   selector: 'app-emisiones-compra',
@@ -48,11 +50,27 @@ export class EmisionesCompraComponent implements OnInit {
 
     this.comercializadorService.getEmisionesDeCompra().subscribe({
       next: (emisiones) => {
-        this.emisionesDeCompra = emisiones;
+        debugger;
+        this.emisionesDeCompra = emisiones.filter(emision => emision.estado == EstadoCompra.pendiente);
       }, error: (err) => {
         console.log(err);
         this.toastr.error(err.message, 'Error');
       }
+    });
+  }
+
+  public onRealizarCompra(emisionCompra: InfoEmisionCompra, index: number) {
+    let dialog = this.dialog.open(CompraEnergiaComponent, {
+      width: '800px',
+      data: {
+        emision: emisionCompra,
+        index: index,
+        dirContract: localStorage.getItem('dirContract')
+      }
+    });
+
+    dialog.afterClosed().subscribe(result => {
+      this.getEmisionesDeCompra();
     });
   }
 }

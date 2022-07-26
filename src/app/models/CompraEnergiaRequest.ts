@@ -3,4 +3,5 @@ export interface CompraEnergiaRequest {
     ownerCliente: string;
     cantidadEnergia: number;
     tipoEnergia: string;
+    index:number;
 }
