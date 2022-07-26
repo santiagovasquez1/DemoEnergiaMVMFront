@@ -1,8 +1,9 @@
+import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ComercializadorContractService } from './../../../services/comercializador-contract.service';
 import { InfoContrato } from './../../../models/infoContrato';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription, timer } from 'rxjs';
+import { forkJoin, Observable, Subscription, timer } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -14,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ListaClientesComponent implements OnInit, OnDestroy {
 
   clientesComercializador: InfoContrato[] = [];
+  tokensDelegados: number[] = [];
   timer$: Observable<any>;
   timerSubscription: Subscription;
   contadorAnterior = 0;
@@ -22,6 +24,7 @@ export class ListaClientesComponent implements OnInit, OnDestroy {
 
   constructor(private toastr: ToastrService,
     private comercializador: ComercializadorContractService,
+    private reguladorMercado: ReguladorMercadoService,
     private spinner: NgxSpinnerService) {
     this.timer$ = timer(0, 1000);
   }
@@ -35,7 +38,7 @@ export class ListaClientesComponent implements OnInit, OnDestroy {
     try {
       this.isFromInit = true;
       const dirContrato = localStorage.getItem('dirContract');
-
+      await this.reguladorMercado.loadBlockChainContractData();
       await this.comercializador.loadBlockChainContractData(dirContrato);
       this.timer$.subscribe({
         next: () => {
@@ -44,6 +47,20 @@ export class ListaClientesComponent implements OnInit, OnDestroy {
               this.contadorActual = data.length;
               if (this.contadorActual !== this.contadorAnterior) {
                 this.clientesComercializador = data;
+                let delegacionesObs: Observable<number>[] = [];
+                this.clientesComercializador.forEach(cliente => {
+                  debugger;
+                  delegacionesObs.push(this.reguladorMercado.getTokensDelegados(this.comercializador.dirContrato, cliente.owner));
+                });
+                forkJoin(delegacionesObs).subscribe({
+                  next: (data) => {
+                    debugger;
+                    this.tokensDelegados = data;
+                  },error: (err) => {
+                    console.log(err);
+                    this.toastr.error(err.message, 'Error');
+                  }
+                });
                 if (this.contadorActual > this.contadorAnterior && !this.isFromInit) {
                   this.toastr.success('Nuevo cliente suscrito', 'Registro');
                 }

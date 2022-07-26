@@ -65,7 +65,7 @@ export class ClienteDashboardComponent implements OnInit {
     observables.push(this.clienteService.getMisTokens());
     debugger;
     if (this.infoCliente.comercializador !== '0x0000000000000000000000000000000000000000') {
-      observables.push(this.reguladorMercado.getTokensDelegados(this.infoCliente.comercializador));
+      observables.push(this.reguladorMercado.getTokensDelegados(this.infoCliente.comercializador, this.infoCliente.owner));
     }
     return forkJoin(observables)
   }
@@ -147,10 +147,12 @@ export class ClienteDashboardComponent implements OnInit {
   }
 
   onDelegarTokens() {
+    debugger;
     let dialogRef = this.dialog.open(DelegarTokensComponent, {
       width: '500px',
       data: {
         tokensCliente: this.tokensCliente,
+        tokensDelegados: this.tokensDelegados,
         delegateAddress: this.infoCliente.comercializador
       }
     });

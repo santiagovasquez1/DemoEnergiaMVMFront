@@ -33,9 +33,7 @@ import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-g
 import { EmisionesCompraComponent } from './comercializador/emisiones-compra/emisiones-compra.component';
 import { DelegarTokensComponent } from './cliente/delegar-tokens/delegar-tokens.component';
 import { NuevaEnergiaComponent } from './generador/nueva-energia/nueva-energia.component';
-import { InyectarEnergiaComponent } from './generador/inyectar-energia/inyectar-energia.component';
-
-
+import { CompraEnergiaComponent } from './comercializador/compra-energia/compra-energia.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +57,7 @@ import { InyectarEnergiaComponent } from './generador/inyectar-energia/inyectar-
     EmisionesCompraComponent,
     DelegarTokensComponent,
     NuevaEnergiaComponent,
-    InyectarEnergiaComponent
+    CompraEnergiaComponent
   ],
   imports: [
     CommonModule,

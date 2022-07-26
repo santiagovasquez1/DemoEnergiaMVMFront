@@ -95,8 +95,8 @@ export class ReguladorMercadoService {
     );
   }
 
-  getTokensDelegados(delegate:string):Observable<number>{
-    return from(this.contract?.methods.getTokensDelegados(delegate).call({ from: this.account })).pipe(
+  getTokensDelegados(delegate: string, address: string): Observable<number> {
+    return from(this.contract?.methods.getTokensDelegados(delegate).call({ from: address })).pipe(
       map((data: any) => {
         return parseInt(data);
       }), catchError((error) => {

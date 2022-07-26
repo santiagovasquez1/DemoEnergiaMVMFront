@@ -1,6 +1,6 @@
 <div class="container">
     <h2 class="mt-20">Emisiones de compra pendientes</h2>
-    <mat-card class="custom mb-20" *ngFor="let emision of emisionesDeCompra">
+    <mat-card class="custom mb-20" *ngFor="let emision of emisionesDeCompra; let i = index">
         <mat-card-title>Empresa: {{emision.empresaCliente}}</mat-card-title>
         <mat-card-subtitle>Fecha Emision: {{emision.fechaEmision}}</mat-card-subtitle>
         <mat-card-content>
@@ -14,5 +14,8 @@
                 Cantidad de energia: {{emision.cantidadDeEnergia}}
             </p>
         </mat-card-content>
+        <mat-card-actions>
+            <button mat-stroked-button color="primary" (click)="onRealizarCompra(emision, i)">Realizar Compra</button>
+        </mat-card-actions>
     </mat-card>
 </div>

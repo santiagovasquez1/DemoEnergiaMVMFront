@@ -1,5 +1,5 @@
-<h2 class="mt-20">Lista de generadores</h2>
-<div class="container-generadores" *ngIf="true">
+<div class="container" *ngIf="todoGeneradores">
+    <h2 class="mt-20">Lista de generadores</h2>
     <mat-card class="custom mb-20" *ngFor="let registro of todoGeneradores; let index = index">
         <mat-card-title>
             {{registro.infoContrato.empresa}}

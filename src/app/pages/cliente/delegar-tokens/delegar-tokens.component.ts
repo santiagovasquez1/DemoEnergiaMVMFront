@@ -28,8 +28,9 @@ export class DelegarTokensComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     try {
       await this.reguladorMercado.loadBlockChainContractData();
-      this.tokensCliente = this.data.tokensCliente;
+      this.tokensCliente = this.data.tokensCliente;      
       this.delegarTokensForm.get('cantidadTokensCliente').setValue(this.tokensCliente);
+      this.delegarTokensForm.get('cantidadTokensDelegados').setValue(this.data.tokensDelegados);
     } catch (error) {
       console.log(error);
       this.toastr.error(error.message, 'Error');
@@ -39,6 +40,7 @@ export class DelegarTokensComponent implements OnInit {
   initForm() {
     this.delegarTokensForm = this.fb.group({
       cantidadTokensCliente: [{ value: '', disabled: true }],
+      cantidadTokensDelegados: [{ value: '', disabled: true }],
       cantidadTokensDelegar: ['', Validators.required]
     });
   }
@@ -63,6 +65,6 @@ export class DelegarTokensComponent implements OnInit {
   }
 
   get isValid(): boolean {
-    return this.delegarTokensForm.valid && this.delegarTokensForm.get('cantidadTokensDelegar').value <= this.tokensCliente;
+    return this.delegarTokensForm.valid && this.delegarTokensForm.get('cantidadTokensDelegar').value + this.data.tokensDelegados <= this.tokensCliente;
   }
 }
