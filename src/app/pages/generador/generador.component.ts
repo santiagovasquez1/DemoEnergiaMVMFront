@@ -12,6 +12,7 @@ import {InfoContrato} from 'src/app/models/infoContrato'
 import { MatDialog } from '@angular/material/dialog';
 import { NuevaEnergiaComponent } from './nueva-energia/nueva-energia.component';
 import { InyectarEnergiaComponent } from './inyectar-energia/inyectar-energia.component';
+import { ContratarComercializadorGComponent } from './contratar-comercializador-g/contratar-comercializador-g.component';
 
 @Component({
   selector: 'app-generador',
@@ -95,7 +96,14 @@ export class GeneradorComponent implements OnInit {
     this.dialog.open(InyectarEnergiaComponent, {
       width: '500px'
     });
-    
   }
+
+  onContratarComerciliazador(){
+    this.dialog.open(ContratarComercializadorGComponent, {
+    width: '500px'
+    });
+  }
+    
+  
 
 }

@@ -34,6 +34,7 @@ import { EmisionesCompraComponent } from './comercializador/emisiones-compra/emi
 import { DelegarTokensComponent } from './cliente/delegar-tokens/delegar-tokens.component';
 import { NuevaEnergiaComponent } from './generador/nueva-energia/nueva-energia.component';
 import { InyectarEnergiaComponent } from './generador/inyectar-energia/inyectar-energia.component';
+import { ContratarComercializadorGComponent } from './generador/contratar-comercializador-g/contratar-comercializador-g.component';
 
 
 
@@ -59,7 +60,9 @@ import { InyectarEnergiaComponent } from './generador/inyectar-energia/inyectar-
     EmisionesCompraComponent,
     DelegarTokensComponent,
     NuevaEnergiaComponent,
-    InyectarEnergiaComponent
+    InyectarEnergiaComponent,
+    ContratarComercializadorGComponent
+    
   ],
   imports: [
     CommonModule,
@@ -95,7 +98,8 @@ import { InyectarEnergiaComponent } from './generador/inyectar-energia/inyectar-
     GeneradorComponent,
     TodosGeneradoresComponent,
     EmisionesCompraComponent,
-    DelegarTokensComponent
+    DelegarTokensComponent,
+    
   ]
 })
 export class PagesModule { }
