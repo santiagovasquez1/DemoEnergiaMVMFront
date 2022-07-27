@@ -22,9 +22,9 @@ export abstract class AgenteContractService {
 
   abstract loadBlockChainContractData(dirContrato: string): Promise<void>;
 
-  public setContractData(factoryJson: any, web3: Web3) {
+  public setContractData(contractJson: any, web3: Web3) {
     try {
-      const abi = factoryJson.abi;
+      const abi = contractJson.abi;
       this.account = localStorage.getItem('account');
       this.contract = new web3.eth.Contract(abi as unknown as AbiItem, this.dirContrato);
     } catch (error) {

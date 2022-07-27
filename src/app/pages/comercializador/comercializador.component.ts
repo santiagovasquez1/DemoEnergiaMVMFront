@@ -17,8 +17,7 @@ export class ComercializadorComponent implements OnInit {
 
   constructor(private comercializadorService: ComercializadorContractService,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService,
-    public dialog: MatDialog) { }
+    private toastr: ToastrService) { }
 
   async ngOnInit(): Promise<void> {
     let dirContract = localStorage.getItem('dirContract');

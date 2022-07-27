@@ -1,0 +1,16 @@
+<div *ngFor="let generador of generadoresDisponibles; let i = index">
+    <div class="infoGeneradorContainer">
+        <div class="column-1">
+            <p>
+                <strong>{{generador.empresa}}</strong>
+                <span> Cantidad de energia {{emision.tipoEnergia}} disponible: {{cantidadEnergiasDisponibles[i]}}</span>
+            </p>
+        </div>
+        <div class="column-1">
+            <button class="w-60 mr-20" mat-raised-button color="warn" (click)="onDisminuirCantidad(i)">-</button>
+            <input class="w-60 mr-20" type="number" matInput [(ngModel)]="energiaAComprar[i]">
+            <button class="w-60" mat-raised-button color="primary" (click)="onAumentarCantidad(i)">+</button>
+        </div>
+    </div>
+</div>
+<button mat-raised-button color="primary" (click)="onComprarEnergia()">Comprar</button>
