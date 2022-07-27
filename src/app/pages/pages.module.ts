@@ -33,10 +33,14 @@ import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-g
 import { EmisionesCompraComponent } from './comercializador/emisiones-compra/emisiones-compra.component';
 import { DelegarTokensComponent } from './cliente/delegar-tokens/delegar-tokens.component';
 import { NuevaEnergiaComponent } from './generador/nueva-energia/nueva-energia.component';
+<<<<<<< HEAD
 import { InyectarEnergiaComponent } from './generador/inyectar-energia/inyectar-energia.component';
 import { ContratarComercializadorGComponent } from './generador/contratar-comercializador-g/contratar-comercializador-g.component';
 
 
+=======
+import { CompraEnergiaComponent } from './comercializador/compra-energia/compra-energia.component';
+>>>>>>> origin/master
 
 @NgModule({
   declarations: [
