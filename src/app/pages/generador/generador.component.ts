@@ -7,9 +7,10 @@ import { Observable, forkJoin } from 'rxjs';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { InfoContrato } from 'src/app/models/infoContrato'
 import { MatDialog } from '@angular/material/dialog';
-import { NuevaEnergiaComponent } from './nueva-energia/nueva-energia.component';
-import { InyectarEnergiaComponent } from './inyectar-energia/inyectar-energia.component';
+import { Estado, NuevaEnergiaComponent } from './nueva-energia/nueva-energia.component';
+//import { InyectarEnergiaComponent } from './inyectar-energia/inyectar-energia.component';
 import { ContratarComercializadorGComponent } from './contratar-comercializador-g/contratar-comercializador-g.component';
+import { InfoEnergia } from 'src/app/models/InfoEnergia';
 
 @Component({
   selector: 'app-generador',

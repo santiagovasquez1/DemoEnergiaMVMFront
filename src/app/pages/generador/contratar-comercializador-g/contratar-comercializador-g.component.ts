@@ -28,7 +28,7 @@ export class ContratarComercializadorGComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.reguladorMercado.loadBlockChainContractData();
-    await this.generadorContractService.loadBlockChainContractData();
+    await this.generadorContractService.loadBlockChainContractData(localStorage.getItem('dirContract'));
     this.reguladorMercado.getContratosRegistrados().pipe(
       map((data) => {
         let info = data.filter((item) => item.tipoContrato == TiposContratos.Comercializador
