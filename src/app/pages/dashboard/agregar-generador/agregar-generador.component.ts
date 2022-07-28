@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { GeneradorFactoryService } from 'src/app/services/generador-factory.service';
@@ -11,11 +11,11 @@ import { GeneradorFactoryService } from 'src/app/services/generador-factory.serv
 })
 export class AgregarGeneradorComponent implements OnInit {
 
-  generadorForm: FormGroup;
+  generadorForm: UntypedFormGroup;
   loading: boolean = false;
   reguladorMercado: string;
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
     private toastr: ToastrService,
     private generadorService: GeneradorFactoryService,
     private spinnerService: NgxSpinnerService

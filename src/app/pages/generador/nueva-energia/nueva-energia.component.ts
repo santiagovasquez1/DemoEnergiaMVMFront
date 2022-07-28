@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -18,7 +18,7 @@ export enum Estado {
 export class NuevaEnergiaComponent implements OnInit {
 
   energiasDisponibles: string[] = [];
-  nuevaEnergiaForm: FormGroup;
+  nuevaEnergiaForm: UntypedFormGroup;
   estado: Estado;
   title: string
 
@@ -28,7 +28,7 @@ export class NuevaEnergiaComponent implements OnInit {
     private alertDialog: SweetAlertService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private fb: FormBuilder) {
+    private fb: UntypedFormBuilder) {
     this.energiasDisponibles = this.data.energiasDisponibles;
     this.estado = this.data.estado;
     switch (this.estado) {

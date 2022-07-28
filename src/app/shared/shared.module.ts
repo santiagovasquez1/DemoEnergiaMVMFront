@@ -17,31 +17,27 @@ import { FlexModule } from '@angular/flex-layout';
 
 
 @NgModule({
-  declarations: [
-    ToolbarComponent,
-    AsideComponent,
-    GenerarEnergiaComponent
-    
-  ],
-  imports: [
-    CommonModule,
-    AngularMaterialModule,
-    MatButtonModule,
-    MatMenuModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatDialogModule,
-    ReactiveFormsModule,
-    FlexModule,
-    RouterModule
-    
-  ],
-  entryComponents: [GenerarEnergiaComponent],
-  exports:[
-    ToolbarComponent,
-    AsideComponent,
-    GenerarEnergiaComponent
-    
-  ]
+    declarations: [
+        ToolbarComponent,
+        AsideComponent,
+        GenerarEnergiaComponent
+    ],
+    imports: [
+        CommonModule,
+        AngularMaterialModule,
+        MatButtonModule,
+        MatMenuModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        FlexModule,
+        RouterModule
+    ],
+    exports: [
+        ToolbarComponent,
+        AsideComponent,
+        GenerarEnergiaComponent
+    ]
 })
 export class SharedModule { }
