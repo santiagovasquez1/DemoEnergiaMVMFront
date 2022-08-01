@@ -1,24 +1,24 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { InfoContrato } from 'src/app/models/infoContrato';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs';
 import { TiposContratos } from 'src/app/models/EnumTiposContratos';
-import { InfoContrato } from 'src/app/models/infoContrato';
 import { ClienteContractService } from 'src/app/services/cliente-contract.service';
 import { GeneradorContractService } from 'src/app/services/generador-contract.service';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 
 @Component({
-  selector: 'app-contratar-comercializador',
-  templateUrl: './contratar-comercializador.component.html'
+  selector: 'app-contratar-comercializador-g',
+  templateUrl: './contratar-comercializador-g.component.html'
 })
-export class ContratarComercializadorComponent implements OnInit {
+export class ContratarComercializadorGComponent implements OnInit {
 
   comercializadores: InfoContrato[] = [];
   comercializadorSeleccionado: InfoContrato = null;
-  constructor(public dialogRef: MatDialogRef<ContratarComercializadorComponent>,
+  constructor(public dialogRef: MatDialogRef<ContratarComercializadorGComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private reguladorMercado: ReguladorMercadoService,
               private alertDialog: SweetAlertService,
@@ -28,7 +28,7 @@ export class ContratarComercializadorComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.reguladorMercado.loadBlockChainContractData();
-    await this.generadorContractService.loadBlockChainContractData();
+    await this.generadorContractService.loadBlockChainContractData(localStorage.getItem('dirContract'));
     this.reguladorMercado.getContratosRegistrados().pipe(
       map((data) => {
         let info = data.filter((item) => item.tipoContrato == TiposContratos.Comercializador
@@ -51,6 +51,10 @@ export class ContratarComercializadorComponent implements OnInit {
 
   get validForm(): boolean {
     return this.comercializadorSeleccionado != null && this.comercializadorSeleccionado.dirContrato !== this.data.comercializador;
+  }
+
+  onContratar(){
+    
   }
 
 }

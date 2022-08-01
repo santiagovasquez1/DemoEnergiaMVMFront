@@ -14,6 +14,7 @@ import { AuthGuard } from '../guards/auth.guard';
 import { ListaClientesComponent } from './comercializador/lista-clientes/lista-clientes.component';
 import { GeneradorComponent } from './generador/generador.component';
 import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-generadores.component';
+import { EthereumComponent } from './dashboard/ethereum/ethereum.component';
 
 
 const routes: Routes = [
@@ -78,6 +79,11 @@ const routes: Routes = [
             {
                 path: "todos-generadores",
                 component: TodosGeneradoresComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: "ethereum",
+                component: EthereumComponent,
                 canActivate: [AuthGuard]
             },
         ]
