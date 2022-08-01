@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import {default as Annotation} from '../../../../../node_modules/chartjs-plugin-annotation';
+import { EthereumService } from 'src/app/services/dashboard/ethereum.service';
+
 
 @Component({
   selector: 'app-line-chart',
@@ -10,12 +12,21 @@ import {default as Annotation} from '../../../../../node_modules/chartjs-plugin-
 })
 export class LineChartComponent implements OnInit {
 
-  constructor() { 
+  textoPrueba: string = 'line-chart';
+
+  constructor(private EthereumService: EthereumService ) { 
     Chart.register(Annotation)
   }
 
   ngOnInit(): void {
+    this.EthereumService.TriggerDataChartLine.subscribe(
+      data => {
+        this.textoPrueba = data
+        console.log("data desde line-chart: ",data);
+      }
+    )
   }
+
 
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [

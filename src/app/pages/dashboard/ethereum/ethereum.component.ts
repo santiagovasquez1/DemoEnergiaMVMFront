@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import {default as Annotation} from '../../../../../node_modules/chartjs-plugin-annotation';
+import { EthereumService } from 'src/app/services/dashboard/ethereum.service';
 
 @Component({
   selector: 'app-ethereum',
@@ -13,12 +14,15 @@ export class EthereumComponent implements OnInit {
 
 
   precio: string = '';
-  constructor(/*private EthereumService: EthereumService*/) { 
+  constructor(private EthereumService: EthereumService ) { 
     Chart.register(Annotation)
   }
 
   ngOnInit(): void {
+    
   }
+
+  
 
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [

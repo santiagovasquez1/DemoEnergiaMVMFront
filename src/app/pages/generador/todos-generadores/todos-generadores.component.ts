@@ -11,6 +11,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import {default as Annotation} from '../../../../../node_modules/chartjs-plugin-annotation';
 
 import DatalabelsPlugin from '../../../../../node_modules/chartjs-plugin-datalabels';
+import { EthereumService } from 'src/app/services/dashboard/ethereum.service';
 
 
 @Component({
@@ -37,11 +38,15 @@ export class TodosGeneradoresComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
     private generadorService: GeneradorFactoryService,
-    private regulardorMercado: ReguladorMercadoService ) { 
+    private regulardorMercado: ReguladorMercadoService,
+    private ethereumService: EthereumService ) { 
     this.timer$ = timer(0, 1000);
   }
 
   async ngOnInit(): Promise<void> {
+    this.ethereumService.TriggerDataChartLine.emit({
+      data: "desde todos generadores"
+    })
     /*
     this.account = localStorage.getItem('account');
     try {
