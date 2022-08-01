@@ -1,29 +1,19 @@
-<div class="flex">
-    <div class="flex-item">
-      <div style="display: block;">
-      <canvas baseChart width="400" height="400"
-                  [data]="lineChartData"
-                  [options]="lineChartOptions"
-                  [type]="lineChartType"
-                  (chartHover)="chartHovered($event)"
-                  (chartClick)="chartClicked($event)"></canvas>
-      </div>
+<div class="header-crypto">
+    <div class="name-crypto">
+        <img src="../../../../assets/images/logoETH.png" alt="">
+        <span>Ethereum</span>
     </div>
-    <div class="flex-item">
-      <table class="table table-responsive table-condensed">
-        <tr>
-          <th *ngFor="let label of lineChartData.labels">{{label}}</th>
-        </tr>
-        <tr *ngFor="let d of lineChartData.datasets; let i=index" [class]="'line-'+i">
-          <td *ngFor="let label of lineChartData.labels; let j=index">{{d && d.data[j]}}</td>
-        </tr>
-      </table>
-      <div class="button-row">
-        <button mat-button mat-raised-button color="primary" (click)="randomize()">Randomize</button>
-        <button mat-button mat-raised-button color="primary" (click)="pushOne()">Push</button>
-        <button mat-button mat-raised-button color="primary" (click)="changeColor()">Recolor</button>
-        <button mat-button mat-raised-button color="primary" (click)="hideOne()">Toggle Series B</button>
-        <button mat-button mat-raised-button color="primary" (click)="changeLabel()">Change Label</button>
-      </div>
+    <div class="price-crypto">
+        <div class="porcentaje">
+            <button mat-icon-button>
+                <mat-icon>keyboard_arrow_up</mat-icon>
+                <span>3.7%</span>
+            </button>
+            
+        </div>
+        
+        
+        <span>$ 1,250.65</span>
     </div>
 </div>
+<app-line-chart></app-line-chart>

@@ -12,6 +12,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { GenerarEnergiaComponent } from './generar-energia/generar-energia.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexModule } from '@angular/flex-layout';
+import { LineChartComponent } from './charts/line-chart/line-chart.component';
+import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 
 
@@ -20,7 +23,9 @@ import { FlexModule } from '@angular/flex-layout';
     declarations: [
         ToolbarComponent,
         AsideComponent,
-        GenerarEnergiaComponent
+        GenerarEnergiaComponent,
+        LineChartComponent,
+        PieChartComponent
     ],
     imports: [
         CommonModule,
@@ -32,12 +37,15 @@ import { FlexModule } from '@angular/flex-layout';
         MatDialogModule,
         ReactiveFormsModule,
         FlexModule,
-        RouterModule
+        RouterModule,
+        NgChartsModule 
     ],
     exports: [
         ToolbarComponent,
         AsideComponent,
-        GenerarEnergiaComponent
+        GenerarEnergiaComponent,
+        LineChartComponent,
+        PieChartComponent
     ]
 })
 export class SharedModule { }

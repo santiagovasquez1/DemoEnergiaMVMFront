@@ -37,6 +37,7 @@ import { CompraEnergiaComponent } from './comercializador/compra-energia/compra-
 import { ContratarComercializadorGComponent } from './generador/contratar-comercializador-g/contratar-comercializador-g.component';
 import { EthereumComponent } from './dashboard/ethereum/ethereum.component';
 import { NgChartsModule } from 'ng2-charts';
+import { MapaColombiaComponent } from './generador/todos-generadores/mapa-colombia/mapa-colombia.component';
 
 @NgModule({
     declarations: [
@@ -62,7 +63,8 @@ import { NgChartsModule } from 'ng2-charts';
         NuevaEnergiaComponent,
         CompraEnergiaComponent,
         ContratarComercializadorGComponent,
-        EthereumComponent
+        EthereumComponent,
+        MapaColombiaComponent
     ],
     imports: [
         CommonModule,

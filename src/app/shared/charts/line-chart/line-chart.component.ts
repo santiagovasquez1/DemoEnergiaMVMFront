@@ -4,16 +4,13 @@ import { BaseChartDirective } from 'ng2-charts';
 import {default as Annotation} from '../../../../../node_modules/chartjs-plugin-annotation';
 
 @Component({
-  selector: 'app-ethereum',
-  templateUrl: './ethereum.component.html'
+  selector: 'app-line-chart',
+  templateUrl: './line-chart.component.html',
+  styleUrls: ['./line-chart.component.css']
 })
-export class EthereumComponent implements OnInit {
+export class LineChartComponent implements OnInit {
 
-  
-
-
-  precio: string = '';
-  constructor(/*private EthereumService: EthereumService*/) { 
+  constructor() { 
     Chart.register(Annotation)
   }
 
@@ -99,7 +96,7 @@ export class EthereumComponent implements OnInit {
   public randomize(): void {
     for (let i = 0; i < this.lineChartData.datasets.length; i++) {
       for (let j = 0; j < this.lineChartData.datasets[i].data.length; j++) {
-        this.lineChartData.datasets[i].data[j] = EthereumComponent.generateNumber(i);
+        this.lineChartData.datasets[i].data[j] = LineChartComponent.generateNumber(i);
       }
     }
     this.chart?.update();
@@ -121,7 +118,7 @@ export class EthereumComponent implements OnInit {
 
   public pushOne(): void {
     this.lineChartData.datasets.forEach((x, i) => {
-      const num = EthereumComponent.generateNumber(i);
+      const num = LineChartComponent.generateNumber(i);
       x.data.push(num);
     });
     this.lineChartData?.labels?.push(`Label ${ this.lineChartData.labels.length }`);
@@ -143,25 +140,5 @@ export class EthereumComponent implements OnInit {
 
     this.chart?.update();
   }
-
-
-
-
-
-  /*
-
-  getData(){
-    this.EthereumService.precioEther().subscribe(data => {
-      this.precio = data;
-      console.log("customers:" ,this.precio);
-    },err => {
-      console.log(err.error);
-    });
-  }
-  */
-
-  
-
-
 
 }
