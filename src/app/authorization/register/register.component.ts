@@ -3,7 +3,7 @@ import { MunicipiosService } from './../../services/municipios.service';
 import { SolicitudContrato } from './../../models/solicitudContrato';
 import { ToastrService } from 'ngx-toastr';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { TiposContratos } from 'src/app/models/EnumTiposContratos';
 import { Router } from '@angular/router';
@@ -41,8 +41,8 @@ export class RegisterComponent implements OnInit {
   departamentos: string[] = [];
   municipiosDepartamento: string[] = [];
   municipiosInfo: MunicipioInfo[] = [];
-  registroForm: FormGroup;
-  constructor(private fb: FormBuilder,
+  registroForm: UntypedFormGroup;
+  constructor(private fb: UntypedFormBuilder,
     private reguladorMercado: ReguladorMercadoService,
     private toastr: ToastrService,
     private router: Router,

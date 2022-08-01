@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-generar-energia',
@@ -8,11 +8,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class GenerarEnergiaComponent implements OnInit {
 
-  generarEnergiaForm: FormGroup; 
+  generarEnergiaForm: UntypedFormGroup; 
   loading: boolean=false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public dialogRef: MatDialogRef<GenerarEnergiaComponent>,
     @Inject(MAT_DIALOG_DATA) public message: string
   ) {

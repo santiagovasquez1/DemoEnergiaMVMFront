@@ -1,3 +1,4 @@
+<!--
 <div class="container" *ngIf="todoGeneradores">
     <h2 class="mt-20">Lista de generadores</h2>
     <mat-card class="custom mb-20" *ngFor="let registro of todoGeneradores; let index = index">
@@ -14,4 +15,35 @@
             <p>Telefono: {{registro.infoContrato.telefono}}</p>
         </mat-card-content>
     </mat-card>
+</div>
+-->
+
+<div class="container-generadores">
+
+    <div class="pais-generadores">
+        <app-mapa-colombia (departamento)="addItem($event)"></app-mapa-colombia>
+    </div>
+
+    <div class="energia-dpto">
+        <h1>Total de energía renovable generada en {{departamento || 'Colombia'}}</h1>
+        <app-line-chart></app-line-chart>
+    </div>
+    
+    <div class="tipo-energia-dpto">
+        <!--
+        <div>
+            <div>
+              <div class="chart">
+                <canvas baseChart
+                        [data]="pieChartData"
+                        [type]="pieChartType"
+                        [options]="pieChartOptions"
+                        [plugins]="pieChartPlugins">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        -->
+    </div>
+    
 </div>

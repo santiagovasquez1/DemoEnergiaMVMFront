@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,7 +16,7 @@ import { InfoEnergia } from 'src/app/models/InfoEnergia';
 })
 export class ComprarEnergiaComponent implements OnInit {
 
-  comprarEnergiaForm: FormGroup
+  comprarEnergiaForm: UntypedFormGroup
   tiposEnergia: InfoEnergia[] = [];
 
   constructor(public dialogRef: MatDialogRef<ComprarEnergiaComponent>,
@@ -25,7 +25,7 @@ export class ComprarEnergiaComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private clienteService: ClienteContractService,
     private toastr: ToastrService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private bancoEnergia: BancoEnergiaService) {
     this.initForm();
   }

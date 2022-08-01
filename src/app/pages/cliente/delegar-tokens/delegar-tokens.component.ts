@@ -1,7 +1,7 @@
 import { ToastrService } from 'ngx-toastr';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -14,12 +14,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class DelegarTokensComponent implements OnInit {
   tokensCliente: number = 0;
-  delegarTokensForm: FormGroup;
+  delegarTokensForm: UntypedFormGroup;
   constructor(public dialogReg: MatDialogRef<DelegarTokensComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private reguladorMercado: ReguladorMercadoService,
     private toastr: ToastrService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private alertDialog: SweetAlertService,
     private spinner: NgxSpinnerService) {
     this.initForm();

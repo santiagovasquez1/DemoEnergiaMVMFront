@@ -12,36 +12,40 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { GenerarEnergiaComponent } from './generar-energia/generar-energia.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexModule } from '@angular/flex-layout';
+import { LineChartComponent } from './charts/line-chart/line-chart.component';
+import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 
 
 
 @NgModule({
-  declarations: [
-    ToolbarComponent,
-    AsideComponent,
-    GenerarEnergiaComponent
-    
-  ],
-  imports: [
-    CommonModule,
-    AngularMaterialModule,
-    MatButtonModule,
-    MatMenuModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatDialogModule,
-    ReactiveFormsModule,
-    FlexModule,
-    RouterModule
-    
-  ],
-  entryComponents: [GenerarEnergiaComponent],
-  exports:[
-    ToolbarComponent,
-    AsideComponent,
-    GenerarEnergiaComponent
-    
-  ]
+    declarations: [
+        ToolbarComponent,
+        AsideComponent,
+        GenerarEnergiaComponent,
+        LineChartComponent,
+        PieChartComponent
+    ],
+    imports: [
+        CommonModule,
+        AngularMaterialModule,
+        MatButtonModule,
+        MatMenuModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        FlexModule,
+        RouterModule,
+        NgChartsModule 
+    ],
+    exports: [
+        ToolbarComponent,
+        AsideComponent,
+        GenerarEnergiaComponent,
+        LineChartComponent,
+        PieChartComponent
+    ]
 })
 export class SharedModule { }

@@ -1,5 +1,5 @@
 import { SweetAlertService } from './../../../services/sweet-alert.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ReguladorMercadoService } from './../../../services/regulador-mercado.service';
 import { ReguladorMercadoComponent } from './../../regulador-mercado/regulador-mercado.component';
@@ -16,13 +16,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class ComprarTokensComponent implements OnInit {
 
   tokensDisponibles: number = 0;
-  compraTokensForm: FormGroup;
+  compraTokensForm: UntypedFormGroup;
 
   constructor(public dialogRef: MatDialogRef<ComprarTokensComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private reguladorMercado: ReguladorMercadoService,
     private toastr: ToastrService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private alertDialog: SweetAlertService,
     private spinner: NgxSpinnerService) {
     this.initForm();
