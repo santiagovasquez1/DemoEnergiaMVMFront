@@ -16,5 +16,5 @@
         <mat-label>Precio de energia</mat-label>
         <input matInput formControlName="valorCompra" type="number" placeholder="Precio de energia">
     </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="!isComprarValid" (click)="onComprarEnergia()">Comprar</button>
+    <button class="button-mvm" mat-raised-button [disabled]="!isComprarValid" (click)="onComprarEnergia()">Comprar</button>
 </form>

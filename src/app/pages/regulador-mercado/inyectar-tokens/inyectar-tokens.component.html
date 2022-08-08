@@ -3,4 +3,4 @@
     <mat-label>Cantidad de tokens</mat-label>
     <input matInput [(ngModel)]="cantidadTokens" type="number">
 </mat-form-field>
-<button mat-raised-button color="primary" (click)="onInyectarTokens()" [disabled]="!isValid">Inyectar</button>
+<button class="button-mvm" mat-raised-button (click)="onInyectarTokens()" [disabled]="!isValid">Inyectar</button>

@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
+import { Chart, ChartConfiguration, ChartDatasetProperties, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import {default as Annotation} from '../../../../../node_modules/chartjs-plugin-annotation';
 import { EthereumService } from 'src/app/services/dashboard/ethereum.service';
+import { infoChart } from 'src/app/models/infoChart';
 
 
 @Component({
@@ -12,26 +13,33 @@ import { EthereumService } from 'src/app/services/dashboard/ethereum.service';
 })
 export class LineChartComponent implements OnInit {
 
-  textoPrueba: string = 'line-chart';
-
+  textoPrueba = 'tittle';
+  infoChart:[];
   constructor(private EthereumService: EthereumService ) { 
     Chart.register(Annotation)
   }
 
   ngOnInit(): void {
+    console.log("oninit: ",this.textoPrueba)
     this.EthereumService.TriggerDataChartLine.subscribe(
       data => {
-        this.textoPrueba = data
-        console.log("data desde line-chart: ",data);
+        this.infoChart = data.data
+        console.log("data desde line-chart: ",this.infoChart);
       }
     )
+    console.log("oninit luego de serviciio: ",this.textoPrueba)
+  }
+
+  ngOnChanges(){
+    
   }
 
 
   public lineChartData: ChartConfiguration['data'] = {
+    
     datasets: [
       {
-        data: [ 650, 590, 1200, 1140, 1210, 1155, 1400,2065, 1900, 1800, 1750, 1896  ],
+        data: [200],
         label: 'Precio ETH (usd)',
         backgroundColor: 'rgba(12,199,132,0.2)',
         borderColor: 'rgba(12,199,132,1)',

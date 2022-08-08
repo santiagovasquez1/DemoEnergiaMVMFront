@@ -12,5 +12,5 @@
         <mat-label>Tokens a delegar:</mat-label>
         <input matInput formControlName="cantidadTokensDelegar" type="number">
     </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="!isValid" (click)="onDelegarTokens()">Delegar</button>
+    <button class="button-mvm" mat-raised-button [disabled]="!isValid" (click)="onDelegarTokens()">Delegar</button>
 </form>
