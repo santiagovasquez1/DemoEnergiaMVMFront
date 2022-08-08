@@ -8,6 +8,6 @@
         <mat-label>Tokens a comprar:</mat-label>
         <input matInput formControlName="cantidadTokensComprar" type="number" placeholder="Tokens a comprar">
     </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="!compraTokensForm.valid" (click)="onSubmit()">Comprar</button>
+    <button class="button-mvm" mat-raised-button [disabled]="!compraTokensForm.valid" (click)="onSubmit()">Comprar</button>
 
 </form>

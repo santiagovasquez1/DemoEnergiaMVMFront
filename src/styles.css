@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-
+:root {
+    --verde-oscuro: #4C9C2E;
+    --gris-claro: #929292;
+}
 * {
     margin: 0;
     padding: 0;
@@ -19,35 +22,73 @@ body {
     
 }
 
+.title{
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--verde-oscuro);
+    font-family: Montserrat;
+}
+
+.button-mvm{
+    background-color: var(--verde-oscuro);
+    border-radius: 15px !important;
+    color: white;
+    font-family: Montserrat;
+    cursor: pointer;
+}
+
 .loginContainer {
     display: block;
     height: 100%;
-    background-image: url("../src/assets/images/pattern.png");
+    background-color: #F5F5F5;
+    display: grid;
+    grid-template-columns: 45% 55%;
+    grid-template-rows: 100vh;
 }
 
-.loginForm {
-    float: right;
-    width: 30%;
-    height: inherit;
-    background-color: #3F51B5;
-    box-shadow: 0px 0px 10px #000;
+.imagen{
+    background-image: url(./assets/images/imgLogin.png);
+}
+
+.imagen .mensaje{
+    width: 328px;
+    height: 165px;
+    background-color: white;
+    border-radius: 8px;
+    margin: 60vh auto auto auto;
     display: flex;
-    align-items: center;
     justify-content: center;
 }
-
-.loginFormTitle {
-    margin-top: 40px;
-    color: white;
-    text-align: center;
-    padding: 10px;
+.imagen .mensaje span{
+    align-items: center;
+    margin-top: 24px;
 }
 
-.loginFormTitle button {
-    width: 100% !important;
+
+.loginContainer .loginForm{
+    height: 279px;
+    width: 475px;
+    border-radius: 16px;
     background-color: white;
-    color: black;
+    margin: 11vh auto auto auto;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 50% 30% 20%;
+    align-items: center;
+    justify-items: center;
 }
+
+.loginForm button{
+    background-color: var(--verde-oscuro);
+    border-radius: 15px;
+    width: 84px;
+    height: 35px;
+    color: white;
+    font-family: Montserrat;
+    cursor: pointer;
+}
+
+
 
 .custom.mat-card {
     padding-top: 40px !important;
@@ -129,8 +170,7 @@ body {
 }
 
 .toolbar {
-    border-bottom: 1px solid #e0e0e0 !important;
-    box-shadow: 0px 0px 50px #868585 !important;
+    background: white;
 }
 
 
@@ -248,4 +288,27 @@ body {
 
 .energia-dpto h1{
     text-align: center;
+}
+
+
+.swal2-styled.swal2-cancel {
+    border: 1px solid var(--verde-oscuro) !important;
+    border-radius: 15px !important;
+    background-color: white !important;
+    color: var(--gris-claro) !important;
+}
+
+.swal2-styled.swal2-confirm {
+    border-radius: 15px !important;;
+    background-color: var(--verde-oscuro) !important;
+
+}
+
+.swal2-icon.swal2-question {
+    border-color: var(--verde-oscuro) !important;
+    color: var(--gris-claro) !important;
+}
+
+.swal2-styled.swal2-confirm:focus {
+    box-shadow: none; 
 }
