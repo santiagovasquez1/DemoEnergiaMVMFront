@@ -16,5 +16,5 @@
 </form>
 
 
-<button mat-raised-button color="primary" (click)="onCrearNuevaEnergia()" [disabled]="!nuevaEnergiaForm.valid" *ngIf="estado == 0">Crear energía</button>
-<button mat-raised-button color="primary" (click)="onInyectarEnergia()" [disabled]="!nuevaEnergiaForm.valid" *ngIf="estado == 1">Inyectar energía</button>
+<button class="button-mvm" mat-raised-button (click)="onCrearNuevaEnergia()" [disabled]="!nuevaEnergiaForm.valid" *ngIf="estado == 0">Crear energía</button>
+<button class="button-mvm" mat-raised-button (click)="onInyectarEnergia()" [disabled]="!nuevaEnergiaForm.valid" *ngIf="estado == 1">Inyectar energía</button>

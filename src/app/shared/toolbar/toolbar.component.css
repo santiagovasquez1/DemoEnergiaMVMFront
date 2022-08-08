@@ -2,18 +2,13 @@
     flex: 1 1 auto;
 }
 
-.avatar-container {
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-    background: url('../../../assets/images/luzVerde.png');
-    background-color: white;
-    background-position: 50% 50%;
-    background-size: cover;
-    cursor: pointer;
+.avatar-container img{
+    width: 50%;
 }
 
-mat-toolbar {}
+mat-toolbar button{
+    color: var(--gris-claro);
+}
 
 
 /* .avatar-container img {

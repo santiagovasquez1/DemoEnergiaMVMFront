@@ -30,7 +30,8 @@ export class TodosGeneradoresComponent implements OnInit {
   account: string;
   infoGenerador: SolicitudContrato = {} as SolicitudContrato;
   todoGeneradores: SolicitudContrato[] = [];
-
+  
+  titlte = "titulo desde generadores";
   departamento;
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
@@ -44,9 +45,7 @@ export class TodosGeneradoresComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.ethereumService.TriggerDataChartLine.emit({
-      data: "desde todos generadores"
-    })
+    
     /*
     this.account = localStorage.getItem('account');
     try {
@@ -70,6 +69,28 @@ export class TodosGeneradoresComponent implements OnInit {
         this.toastr.error('Error al cargar el contrato', 'Error');
       }
       */
+  }
+
+  ngAfterViewInit(): void{
+    console.log("Todos generadores emitiendo: ",this.titlte);
+    this.ethereumService.TriggerDataChartLine.emit({
+      data: {
+        datasets: [
+          {
+            data: [200],
+            label: 'Precio ETH (usd)',
+            backgroundColor: 'rgba(12,199,132,0.2)',
+            borderColor: 'rgba(12,199,132,1)',
+            pointBackgroundColor: 'rgba(12,199,132,1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(12,199,132,0.8)',
+            fill: 'origin',
+          },
+        ],
+        labels: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'  ]
+      }
+    })
   }
 
   dataGenerador(): void {
