@@ -57,7 +57,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard]
             },
             {
-                path:"comercializador/emisiones-de-compra",
+                path:"comercializador/emisiones-de-compra/:tipo",
                 component: EmisionesCompraComponent,
                 canActivate: [AuthGuard]
             },

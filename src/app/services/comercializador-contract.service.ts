@@ -4,7 +4,7 @@ import { CompraEnergiaRequest } from './../models/CompraEnergiaRequest';
 import { catchError, map, Observable, throwError, switchMap, forkJoin, from } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AgenteContractService } from './agente-contract.service';
-import Comercializador from '../../../build/contracts/Comercializador.json';
+import Comercializador from '../../../buildTruffle/contracts/Comercializador.json';
 import Web3 from 'web3';
 import moment from 'moment';
 

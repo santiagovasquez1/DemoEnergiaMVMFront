@@ -17,8 +17,12 @@
             <span>Lista de clientes</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
-        <a [routerLink]="['comercializador/emisiones-de-compra']">
+        <a [routerLink]="['comercializador/emisiones-de-compra','pendientes']">
             <span>Emisiones de compra</span>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </a>
+        <a [routerLink]="['comercializador/emisiones-de-compra','aprobadas']">
+            <span>Compras realizadas</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
     </div>

@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AgregarGeneradorComponent } from './dashboard/agregar-generador/agregar-generador.component';
 import { AppRoutingModule } from '../app-routing.module';
-import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AngularMaterialModule } from '../anular-material.module';
@@ -26,7 +26,6 @@ import { RegistrosComponent } from './regulador-mercado/registros/registros.comp
 import { SolicitudesComponent } from './regulador-mercado/solicitudes/solicitudes.component';
 import { InyectarTokensComponent } from './regulador-mercado/inyectar-tokens/inyectar-tokens.component';
 import { ListaClientesComponent } from './comercializador/lista-clientes/lista-clientes.component';
-import { DevolverTokensComponent } from './cliente/devolver-tokens/devolver-tokens.component';
 import { BancoEnergiaComponent } from './banco-energia/banco-energia.component';
 import { GeneradorComponent } from './generador/generador.component';
 import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-generadores.component';
@@ -38,6 +37,7 @@ import { ContratarComercializadorGComponent } from './generador/contratar-comerc
 import { EthereumComponent } from './dashboard/ethereum/ethereum.component';
 import { NgChartsModule } from 'ng2-charts';
 import { MapaColombiaComponent } from './generador/todos-generadores/mapa-colombia/mapa-colombia.component';
+import { DevolverTokensComponent } from './devolver-tokens/devolver-tokens.component';
 
 @NgModule({
     declarations: [

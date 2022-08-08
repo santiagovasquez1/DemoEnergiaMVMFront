@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import Web3 from 'web3';
 import { AgenteContractService } from './agente-contract.service';
-import Generador from '../../../build/contracts/Generador.json';
+import Generador from '../../../buildTruffle/contracts/Generador.json';
 import { catchError, from, map, Observable, of, throwError } from 'rxjs';
 
 @Injectable({

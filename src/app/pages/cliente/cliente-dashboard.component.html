@@ -31,6 +31,16 @@
             <p>
                 Tokens Delegados: {{tokensDelegados}}
             </p>
+            <hr>
+            <div *ngFor="let energia of energiasDisponibles; let index = index">
+                <mat-card-subtitle>
+                    <h3>Energia {{energia}}</h3>
+                </mat-card-subtitle>
+                <mat-card-content>
+                    cantidad : {{cantidadesDisponibles[index]}}
+                </mat-card-content>
+                <hr>
+            </div>
         </mat-card-content>
         <mat-card-actions>
             <button mat-stroked-button color="primary" (click)="onComprarTokens()">Comprar tokens</button>
