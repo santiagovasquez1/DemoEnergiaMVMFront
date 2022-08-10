@@ -1,8 +1,10 @@
+import { EstadoPlanta, InfoPlantaEnergia } from './../models/InfoPlantaEnergia';
 import { Injectable } from '@angular/core';
 import Web3 from 'web3';
 import { AgenteContractService } from './agente-contract.service';
 import Generador from '../../../buildTruffle/contracts/Generador.json';
 import { catchError, from, map, Observable, of, throwError } from 'rxjs';
+import moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +27,51 @@ export class GeneradorContractService extends AgenteContractService {
     );
   }
 
+  postGenerarPlantaEnergia(infoPlanta: InfoPlantaEnergia) {
+    return from(this.contract?.methods.generarPlantaEnergia(infoPlanta).send({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    )
+  }
+
+  postInyectarEnergiaPlanta (dirPlanta:string, tipoEnergia:string, cantidad:number): Observable<any> {
+    return from(this.contract?.methods.inyectarEnergiaPlanta(dirPlanta, tipoEnergia, cantidad).send({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+  getPlantasEnergia(): Observable<InfoPlantaEnergia[]> {
+    return from(this.contract?.methods.getPlantasEnergia().call({ from: this.account })).pipe(
+      map((data: any) => {
+        const plantasEnergias = data.map((planta: any) => {
+          const [dirPlanta, nombre, departamento, ciudad, coordenadas, fechaInicio, tasaEmision, isRec, capacidadNominal, estado] = planta;
+          const infoPlanta: InfoPlantaEnergia = {
+            dirPlanta: dirPlanta,
+            nombre: nombre,
+            departamento: departamento,
+            ciudad: ciudad,
+            coordenadas: coordenadas,
+            fechaInicio: moment(parseInt(fechaInicio) * 1000).format('DD/MM/YYYY HH:mm:ss'),
+            tasaEmision: parseInt(tasaEmision),
+            isRec: isRec,
+            capacidadNominal: parseInt(capacidadNominal),
+            estado: estado === 0 ? EstadoPlanta.activa : EstadoPlanta.inactiva
+          }
+          return infoPlanta as InfoPlantaEnergia;
+        })
+        return plantasEnergias as InfoPlantaEnergia[];;        
+      }),
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
   postInyectarEnergia(tipoEnergia: string, cantidad: number): Observable<any> {
-    return from(this.contract?.methods.InyectarEnergia(tipoEnergia, cantidad).send({ from: this.account })).pipe(
+    return from(this.contract?.methods.nyectarEnergia(tipoEnergia, cantidad).send({ from: this.account })).pipe(
       catchError((error) => {
         console.log("error en el service")
         return throwError(() => new Error(error.message));

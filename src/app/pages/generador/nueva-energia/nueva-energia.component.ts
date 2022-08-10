@@ -90,21 +90,19 @@ export class NuevaEnergiaComponent implements OnInit {
         this.spinner.show();
         let nombreEnergia = this.nuevaEnergiaForm.get('nombreEnergia').value;
         let cantidadEnergia = this.nuevaEnergiaForm.get('cantidadEnergia').value;
-        this.generadorContract.postInyectarEnergia(nombreEnergia, cantidadEnergia).subscribe(
-          {
-            next: () => {
-              this.spinner.hide();
-              this.dialogRef.close();
-              this.toastr.success('¡Energía agregada con éxito!');
-            },
-            error: (err) => {
-              this.spinner.hide();
-              console.log(err);
-              this.toastr.error(err.message, 'Error');
-              this.dialogRef.close();
-            }
+        const dirPlanta = this.data.hashPlanta;
+        this.generadorContract.postInyectarEnergiaPlanta(dirPlanta,nombreEnergia, cantidadEnergia).subscribe({
+          next: () => {
+            this.spinner.hide();
+            this.dialogRef.close();
+            this.toastr.success('¡Energía agregada con éxito!');
+          },error: (err) => {
+            this.spinner.hide();
+            console.log(err);
+            this.toastr.error(err.message, 'Error');
+            this.dialogRef.close();
           }
-        );
+        });       
       }
     });
   }

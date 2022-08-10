@@ -1,0 +1,52 @@
+<h2 class="mt-20">{{title}}</h2>
+
+<form [formGroup]="plantaEnergiaForm">
+    <mat-form-field class="w-100p">
+        <mat-label>Nombre de la planta:</mat-label>
+        <input matInput formControlName="nombre" type="text" autocomplete="off">
+    </mat-form-field>
+    <mat-form-field class="w-100p">
+        <mat-label>Departamento:</mat-label>
+        <mat-select formControlName="departamento">
+            <mat-option *ngFor="let departamento of departamentos" [value]="departamento">
+                {{departamento}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="w-100p">
+        <mat-label>Ciudad:</mat-label>
+        <mat-select formControlName="ciudad">
+            <mat-option *ngFor="let ciudad of municipiosDepartamento" [value]="ciudad">
+                {{ciudad}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="w-100p">
+        <mat-label>Coordenadas:</mat-label>
+        <input matInput formControlName="coordenadas" type="text" autocomplete="off">
+    </mat-form-field>
+    <mat-form-field class="w-100p">
+        <mat-label>Tasa de emisión (Mwh):</mat-label>
+        <input matInput formControlName="tasaEmision" type="number" autocomplete="off">
+    </mat-form-field>
+
+    <label>Planta renovable: </label>
+    <mat-radio-group formControlName="isRec">
+        <mat-radio-button value="true">Renovable</mat-radio-button>
+        <mat-radio-button value="false">No renovable</mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field class="w-100p">
+        <mat-label>Capacidad Nominal (Mwh)</mat-label>
+        <input matInput formControlName="capacidadNominal" type="number" autocomplete="off">
+    </mat-form-field>
+    <mat-form-field class="w-100p">
+        <mat-label>Estado de la planta</mat-label>
+        <mat-select formControlName="estado">
+            <mat-option value="0">Activo</mat-option>
+            <mat-option value="1">Inactivo</mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
+
+<button class="button-mvm" mat-raised-button (click)="onCreatePlantaEnergia()" [disabled]="!plantaEnergiaForm.valid">Crear planta</button>

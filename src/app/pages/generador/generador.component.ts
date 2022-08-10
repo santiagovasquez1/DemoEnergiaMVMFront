@@ -1,3 +1,4 @@
+import { PlantasEnergiaComponent } from './plantas-energia/plantas-energia.component';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { GeneradorContractService } from 'src/app/services/generador-contract.service';
 import { Component, OnInit } from '@angular/core';
@@ -77,7 +78,8 @@ export class GeneradorComponent implements OnInit {
         const tiposEnergias = data[1] as InfoEnergia[];
         this.tokensGenerador = data[2] as number;
         this.energiasDisponibles = tiposEnergias.map(x => x.nombre);
-        this.getCantidadesEnergiasDisponibles();
+        this.spinner.hide();
+        //this.getCantidadesEnergiasDisponibles();
       }, error: (error) => {
         this.spinner.hide();
         this.toastr.error(error.message, 'Error');
@@ -98,6 +100,15 @@ export class GeneradorComponent implements OnInit {
         console.log(err);
         this.toastr.error(err.message, 'Error');
         this.spinner.hide();
+      }
+    });
+  }
+
+  onCrearPlanta() {
+    this.dialog.open(PlantasEnergiaComponent,{
+      width: '500px',
+      data:{
+        dirContract: this.dirContract
       }
     });
   }
