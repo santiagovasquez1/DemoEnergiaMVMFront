@@ -101,8 +101,10 @@ export class ComprarEnergiaComponent implements OnInit {
   }
 
   get isComprarValid(): boolean {
+    let cantidadCompra = this.comprarEnergiaForm.get('cantidadEnergia').value;
     let valorCompra = this.comprarEnergiaForm.get('valorCompra').value;
-    return this.comprarEnergiaForm.valid && valorCompra <= this.data.tokensDelegados;
+    let infoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
+    return this.comprarEnergiaForm.valid && valorCompra <= this.data.tokensDelegados && cantidadCompra <= infoEnergia.cantidadEnergia;
   }
 
 }

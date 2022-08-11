@@ -1,3 +1,4 @@
+import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.component';
 import { EmisionesCompraComponent } from './comercializador/emisiones-compra/emisiones-compra.component';
 import { BancoEnergiaComponent } from './banco-energia/banco-energia.component';
 import { SolicitudesComponent } from './regulador-mercado/solicitudes/solicitudes.component';
@@ -57,13 +58,18 @@ const routes: Routes = [
                 canActivate: [AuthGuard]
             },
             {
-                path:"comercializador/emisiones-de-compra",
+                path:"comercializador/emisiones-de-compra/:tipo",
                 component: EmisionesCompraComponent,
                 canActivate: [AuthGuard]
             },
             {
                 path: "generador",
                 component: GeneradorComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: "generador/lista-plantas-energia",
+                component:ListaPlantasComponent,
                 canActivate: [AuthGuard]
             },
             {

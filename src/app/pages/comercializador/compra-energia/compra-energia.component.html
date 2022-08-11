@@ -8,9 +8,15 @@
         </div>
         <div class="column-1">
             <button class="w-60 mr-20" mat-raised-button color="warn" (click)="onDisminuirCantidad(i)">-</button>
-            <input class="w-60 mr-20" type="number" matInput [(ngModel)]="energiaAComprar[i]">
-            <button class="button-mvm" class="w-60" mat-raised-button (click)="onAumentarCantidad(i)">+</button>
+            <input class="w-60 mr-20" type="number" matInput [(ngModel)]="energiaAComprar[i]" (change)="onCantidadChange(index,$event)">
+            <button class="w-60" mat-raised-button color="primary" (click)="onAumentarCantidad(i)">+</button>
         </div>
     </div>
 </div>
-<button class="button-mvm" mat-raised-button (click)="onComprarEnergia()">Comprar</button>
+<div class="totalEnergia">
+    <p>
+        <strong>Total:</strong>
+        <span> {{totalEnergiaAComprar}}</span>
+    </p>
+</div>
+<button mat-raised-button color="primary" (click)="onComprarEnergia()" [disabled]="!isComprarValid">Comprar</button>

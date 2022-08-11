@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import Web3 from 'web3';
 import { FactoryService } from './factory.service';
-import ComercializadorFactory from '../../../build/contracts/MvmComercializadorFactory.json';
+import ComercializadorFactory from '../../../buildTruffle/contracts/MvmComercializadorFactory.json';
 
 @Injectable({
   providedIn: 'root'

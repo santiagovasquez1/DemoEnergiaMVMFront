@@ -1,3 +1,5 @@
+import { EnumTipoEmision } from './../../../models/EnumTipoEmision';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CompraEnergiaComponent } from './../compra-energia/compra-energia.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { EstadoCompra, InfoEmisionCompra } from './../../../models/InfoEmisionCompra';
@@ -15,34 +17,60 @@ import { CompraEnergiaRequest } from 'src/app/models/CompraEnergiaRequest';
   ]
 })
 export class EmisionesCompraComponent implements OnInit {
-
+  title: string;
   emisionesDeCompra: InfoEmisionCompra[] = [];
   isLoading: boolean = false;
-
+  tipoEmision: EnumTipoEmision;
   constructor(private comercializadorService: ComercializadorContractService,
     private toastr: ToastrService,
     public dialog: MatDialog,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService,
+    private activatedRoute: ActivatedRoute,
+    private route: Router) { }
 
-  async ngOnInit(): Promise<void> {
-    let dirContract = localStorage.getItem('dirContract');
-    try {
-      await this.comercializadorService.loadBlockChainContractData(dirContract);
-      this.comercializadorService.contract.events.EmisionDeCompra({
-        fromBlock: 'latest'
-      }, (err, event) => {
-        if (err) {
-          console.log(err);
-          this.toastr.error(err.message, 'Error');
-        } else {
-          this.getEmisionesDeCompra();
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe({
+      next: async (params) => {
+        this.tipoEmision = params.tipo;
+        switch (this.tipoEmision) {
+          case EnumTipoEmision.aprobadas:
+            this.title = 'Emisiones de compra aprobadas';
+            break;
+          case EnumTipoEmision.pendientes:
+            this.title = 'Emisiones de compra pendientes';
+            break;
+          case EnumTipoEmision.rechazadas:
+            this.title = 'Emisiones de compra rechazadas';
+            break;
         }
-      });
-      this.getEmisionesDeCompra();
-    } catch (error) {
-      console.log(error);
-      this.toastr.error("Error al cargar el contrato comercializador", 'Error');
-    }
+
+        let dirContract = localStorage.getItem('dirContract');
+        try {
+          await this.comercializadorService.loadBlockChainContractData(dirContract);
+          console.log('Contract loaded');
+          this.comercializadorService.contract.events.EmisionDeCompra({
+            fromBlock: 'latest'
+          }, (err, event) => {
+            if (err) {
+              console.log(err);
+              this.toastr.error(err.message, 'Error');
+            } else {
+              this.getEmisionesDeCompra();
+            }
+          });
+          this.getEmisionesDeCompra();
+        } catch (error) {
+          console.log(error);
+          this.toastr.error("Error al cargar el contrato comercializador", 'Error');
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error(err.message, 'Error');
+        this.route.navigate(['/']);
+      }
+    });
+
   }
 
 
@@ -50,8 +78,14 @@ export class EmisionesCompraComponent implements OnInit {
 
     this.comercializadorService.getEmisionesDeCompra().subscribe({
       next: (emisiones) => {
-        debugger;
-        this.emisionesDeCompra = emisiones.filter(emision => emision.estado == EstadoCompra.pendiente);
+        switch (this.tipoEmision) {
+          case EnumTipoEmision.aprobadas:
+            this.emisionesDeCompra = emisiones.filter(emision => emision.estado == EstadoCompra.aprobada);
+            break;
+          case EnumTipoEmision.pendientes:
+            this.emisionesDeCompra = emisiones.filter(emision => emision.estado == EstadoCompra.pendiente);
+            break;
+        }
       }, error: (err) => {
         console.log(err);
         this.toastr.error(err.message, 'Error');

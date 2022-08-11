@@ -1,3 +1,4 @@
+import { PlantasEnergiaComponent } from './plantas-energia/plantas-energia.component';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { GeneradorContractService } from 'src/app/services/generador-contract.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,6 +12,7 @@ import { Estado, NuevaEnergiaComponent } from './nueva-energia/nueva-energia.com
 //import { InyectarEnergiaComponent } from './inyectar-energia/inyectar-energia.component';
 import { ContratarComercializadorGComponent } from './contratar-comercializador-g/contratar-comercializador-g.component';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
+import { DevolverTokensComponent } from '../devolver-tokens/devolver-tokens.component';
 
 @Component({
   selector: 'app-generador',
@@ -28,7 +30,7 @@ export class GeneradorComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
     private generadorService: GeneradorContractService,
-    private spinnerService: NgxSpinnerService,
+    private spinner: NgxSpinnerService,
     private regulardorMercado: ReguladorMercadoService,
     private bancoEnergia: BancoEnergiaService,
     public dialog: MatDialog) {
@@ -69,16 +71,17 @@ export class GeneradorComponent implements OnInit {
     observables.push(this.bancoEnergia.getTiposEnergiasDisponibles());
     observables.push(this.generadorService.getMisTokens());
 
-    this.spinnerService.show();
+    this.spinner.show();
     forkJoin(observables).subscribe({
       next: (data: any[]) => {
         this.infoContrato = data[0] as InfoContrato;
         const tiposEnergias = data[1] as InfoEnergia[];
         this.tokensGenerador = data[2] as number;
         this.energiasDisponibles = tiposEnergias.map(x => x.nombre);
+        this.spinner.hide();
         this.getCantidadesEnergiasDisponibles();
       }, error: (error) => {
-        this.spinnerService.hide();
+        this.spinner.hide();
         this.toastr.error(error.message, 'Error');
       }
     });
@@ -91,53 +94,55 @@ export class GeneradorComponent implements OnInit {
     });
     forkJoin(observablesEnergias).subscribe({
       next: (data: number[]) => {
+        debugger;
         this.cantidadesDisponibles = data;
-        this.spinnerService.hide();
+        this.spinner.hide();
       }, error: (err) => {
         console.log(err);
         this.toastr.error(err.message, 'Error');
-        this.spinnerService.hide();
+        this.spinner.hide();
       }
     });
   }
 
-  onNuevaEnergia() {
-    let dialog = this.dialog.open(NuevaEnergiaComponent, {
+  onCrearPlanta() {
+    this.dialog.open(PlantasEnergiaComponent,{
       width: '500px',
-      data: {
+      data:{
         dirContract: this.dirContract,
-        energiasDisponibles: this.energiasDisponibles,
-        estado: Estado.nuevaEnergia
+        energiasDisponibles: this.energiasDisponibles
       }
-    });
-
-    dialog.afterClosed().subscribe(result => {
-      this.spinnerService.show();
-      this.getCantidadesEnergiasDisponibles();
     });
   }
 
-  onInyectarEnergia() {
-    let dialog = this.dialog.open(NuevaEnergiaComponent, {
-      width: '500px',
-      data: {
-        dirContract: this.dirContract,
-        energiasDisponibles: this.energiasDisponibles,
-        estado: Estado.inyectarEnergia
-      }
-    });
-    dialog.afterClosed().subscribe(result => {
-      this.spinnerService.show();
-      this.getCantidadesEnergiasDisponibles();
-    });
-  }
-
-  onContratarComerciliazador(){
+  onContratarComerciliazador() {
     this.dialog.open(ContratarComercializadorGComponent, {
-    width: '500px'
+      width: '500px'
     });
   }
-    
-  
+
+  onDevolverTokens() {
+    let dialogRef = this.dialog.open(DevolverTokensComponent, {
+      width: '500px',
+      data: {
+        tokensDisponibles: this.tokensGenerador
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.spinner.show();
+      this.generadorService.getMisTokens().subscribe({
+        next: (data) => {
+          this.tokensGenerador = data;
+          this.spinner.hide();
+        }, error: (error) => {
+          console.log(error);
+          this.toastr.error(error.message, 'Error');
+          this.spinner.hide();
+        }
+      });
+    });
+  }
+
 
 }
