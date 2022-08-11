@@ -79,7 +79,7 @@ export class GeneradorComponent implements OnInit {
         this.tokensGenerador = data[2] as number;
         this.energiasDisponibles = tiposEnergias.map(x => x.nombre);
         this.spinner.hide();
-        //this.getCantidadesEnergiasDisponibles();
+        this.getCantidadesEnergiasDisponibles();
       }, error: (error) => {
         this.spinner.hide();
         this.toastr.error(error.message, 'Error');
@@ -94,6 +94,7 @@ export class GeneradorComponent implements OnInit {
     });
     forkJoin(observablesEnergias).subscribe({
       next: (data: number[]) => {
+        debugger;
         this.cantidadesDisponibles = data;
         this.spinner.hide();
       }, error: (err) => {
@@ -108,39 +109,9 @@ export class GeneradorComponent implements OnInit {
     this.dialog.open(PlantasEnergiaComponent,{
       width: '500px',
       data:{
-        dirContract: this.dirContract
-      }
-    });
-  }
-
-  onNuevaEnergia() {
-    let dialog = this.dialog.open(NuevaEnergiaComponent, {
-      width: '500px',
-      data: {
         dirContract: this.dirContract,
-        energiasDisponibles: this.energiasDisponibles,
-        estado: Estado.nuevaEnergia
+        energiasDisponibles: this.energiasDisponibles
       }
-    });
-
-    dialog.afterClosed().subscribe(result => {
-      this.spinner.show();
-      this.getCantidadesEnergiasDisponibles();
-    });
-  }
-
-  onInyectarEnergia() {
-    let dialog = this.dialog.open(NuevaEnergiaComponent, {
-      width: '500px',
-      data: {
-        dirContract: this.dirContract,
-        energiasDisponibles: this.energiasDisponibles,
-        estado: Estado.inyectarEnergia
-      }
-    });
-    dialog.afterClosed().subscribe(result => {
-      this.spinner.show();
-      this.getCantidadesEnergiasDisponibles();
     });
   }
 

@@ -27,15 +27,15 @@ export class GeneradorContractService extends AgenteContractService {
     );
   }
 
-  postGenerarPlantaEnergia(infoPlanta: InfoPlantaEnergia) {
-    return from(this.contract?.methods.generarPlantaEnergia(infoPlanta).send({ from: this.account })).pipe(
+  postGenerarPlantaEnergia(infoPlanta: InfoPlantaEnergia, tipoEnergia: string) {
+    return from(this.contract?.methods.crearPlantaEnergia(infoPlanta, tipoEnergia).send({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
     )
   }
 
-  postInyectarEnergiaPlanta (dirPlanta:string, tipoEnergia:string, cantidad:number): Observable<any> {
+  postInyectarEnergiaPlanta(dirPlanta: string, tipoEnergia: string, cantidad: number): Observable<any> {
     return from(this.contract?.methods.inyectarEnergiaPlanta(dirPlanta, tipoEnergia, cantidad).send({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
@@ -62,18 +62,9 @@ export class GeneradorContractService extends AgenteContractService {
           }
           return infoPlanta as InfoPlantaEnergia;
         })
-        return plantasEnergias as InfoPlantaEnergia[];;        
+        return plantasEnergias as InfoPlantaEnergia[];;
       }),
       catchError((error) => {
-        return throwError(() => new Error(error.message));
-      })
-    );
-  }
-
-  postInyectarEnergia(tipoEnergia: string, cantidad: number): Observable<any> {
-    return from(this.contract?.methods.nyectarEnergia(tipoEnergia, cantidad).send({ from: this.account })).pipe(
-      catchError((error) => {
-        console.log("error en el service")
         return throwError(() => new Error(error.message));
       })
     );
@@ -86,17 +77,21 @@ export class GeneradorContractService extends AgenteContractService {
       })
     )
   }
-
-  getTipoEnergia(tipoEnergia: string): Observable<any> {
-    return from(this.contract?.methods.getTipoEnergia(tipoEnergia).call({ from: this.account })).pipe(
+  
+  getCantidadEnergia(tipoEnergia: string): Observable<number> {
+    return from(this.contract?.methods.getCantidadEnergia(tipoEnergia).call({ from: this.account })).pipe(
+      map((data: any) => {
+        return parseInt(data);
+      }),
       catchError((error) => {
-        return throwError(() => new Error(error.message));
+        console.error(error);
+        return of(0);
       })
     )
   }
 
-  getCantidadEnergia(tipoEnergia: string): Observable<number> {
-    return from(this.contract?.methods.getCantidadEnergia(tipoEnergia).call({ from: this.account })).pipe(
+  getCapacidadNominal(): Observable<number> {
+    return from(this.contract?.methods.getCapacidadNominalTotal().call({ from: this.account })).pipe(
       map((data: any) => {
         return parseInt(data);
       }),

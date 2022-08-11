@@ -1,3 +1,5 @@
+import { PlantaEnergiaService } from './../../../services/planta-energia.service';
+import { InfoEnergia } from 'src/app/models/InfoEnergia';
 import { BancoEnergiaService } from './../../../services/banco-energia.service';
 import { NuevaEnergiaComponent, Estado } from './../nueva-energia/nueva-energia.component';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -7,6 +9,8 @@ import { GeneradorContractService } from 'src/app/services/generador-contract.se
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, forkJoin } from 'rxjs';
+import { WinRefService } from 'src/app/services/win-ref.service';
+import { Web3ConnectService } from 'src/app/services/web3-connect.service';
 
 @Component({
   selector: 'app-lista-plantas',
@@ -16,7 +20,9 @@ import { Observable, forkJoin } from 'rxjs';
 })
 export class ListaPlantasComponent implements OnInit {
 
+  contractsPlantasEnergias: PlantaEnergiaService[] = [];
   plantasDeEnergia: InfoPlantaEnergia[] = [];
+  tiposEnergia: InfoEnergia[] = [];
   dirContract: string;
   energiasDisponibles: string[] = [];
 
@@ -25,7 +31,9 @@ export class ListaPlantasComponent implements OnInit {
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     public dialog: MatDialog,
-    private bancoEnergia:BancoEnergiaService) { }
+    private bancoEnergia: BancoEnergiaService,
+    private winRef: WinRefService,
+    private web3Connect: Web3ConnectService) { }
 
   async ngOnInit(): Promise<void> {
     try {
@@ -42,17 +50,19 @@ export class ListaPlantasComponent implements OnInit {
     }
   }
 
-  loadInfoGeneral(){
+  loadInfoGeneral() {
     this.spinner.show();
     let observables: Observable<any>[] = [];
     observables.push(this.bancoEnergia.getTiposEnergiasDisponibles());
     observables.push(this.generadorService.getPlantasEnergia());
 
     forkJoin(observables).subscribe({
-      next: (data: any[]) => {
+      next: async (data: any[]) => {
         const tiposEnergias = data[0];
         this.energiasDisponibles = tiposEnergias.map(tipo => tipo.nombre);
         this.plantasDeEnergia = data[1];
+        await this.setContractsPlantasEnergias();
+        this.getInfoEnergiaPlantas();
         this.spinner.hide();
       },
       error: (err) => {
@@ -76,4 +86,32 @@ export class ListaPlantasComponent implements OnInit {
     });
   }
 
+  async setContractsPlantasEnergias() {
+    let promisesPlantasEnergias: Promise<void>[] = [];
+    this.plantasDeEnergia.forEach(planta => {
+      let contract = new PlantaEnergiaService(this.winRef, this.web3Connect, this.toastr);
+      promisesPlantasEnergias.push(contract.loadBlockChainContractData(planta.dirPlanta));
+      this.contractsPlantasEnergias.push(contract);
+    });
+    await Promise.all(promisesPlantasEnergias);
+  }
+
+  getInfoEnergiaPlantas() {
+    let observablesEnergias: Observable<InfoEnergia>[] = [];
+    this.contractsPlantasEnergias.forEach(plantaContract => {
+      observablesEnergias.push(plantaContract.getTipoEnergia());
+    });
+    this.spinner.show();
+    forkJoin(observablesEnergias).subscribe({
+      next: (data: InfoEnergia[]) => {
+        this.tiposEnergia = data;
+        this.spinner.hide();
+      },
+      error: (err) => {
+        this.spinner.hide();
+        console.log(err);
+        this.toastr.error(err.message, 'Error');
+      }
+    });
+  }
 }

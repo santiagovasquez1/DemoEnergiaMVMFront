@@ -25,6 +25,16 @@
         <mat-label>Coordenadas:</mat-label>
         <input matInput formControlName="coordenadas" type="text" autocomplete="off">
     </mat-form-field>
+
+    <mat-form-field class="w-100p">
+        <mat-label>Tecnología:</mat-label>
+        <mat-select formControlName="tipoEnergia">
+            <mat-option *ngFor="let energia of energiasDisponibles" [value]="energia">
+                {{energia}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
     <mat-form-field class="w-100p">
         <mat-label>Tasa de emisión (Mwh):</mat-label>
         <input matInput formControlName="tasaEmision" type="number" autocomplete="off">

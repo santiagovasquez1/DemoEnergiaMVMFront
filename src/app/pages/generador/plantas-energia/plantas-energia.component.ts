@@ -22,6 +22,7 @@ export class PlantasEnergiaComponent implements OnInit {
   departamentos: string[] = [];
   municipiosDepartamento: string[] = [];
   municipiosInfo: MunicipioInfo[] = [];
+  energiasDisponibles: string[] = [];
 
   constructor(public dialogRef: MatDialogRef<PlantasEnergiaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -31,7 +32,8 @@ export class PlantasEnergiaComponent implements OnInit {
     private alertDialog: SweetAlertService,
     private spinner: NgxSpinnerService,
     private municipioService: MunicipiosService) {
-      this.plantaEnergiaForm = this.fb.group({});
+    this.plantaEnergiaForm = this.fb.group({});
+    this.energiasDisponibles = this.data.energiasDisponibles;
   }
 
   async ngOnInit(): Promise<void> {
@@ -58,6 +60,7 @@ export class PlantasEnergiaComponent implements OnInit {
       coordenadas: ['', Validators.required],
       tasaEmision: ['', Validators.required],
       isRec: [true, Validators.required],
+      tipoEnergia: ['', Validators.required],
       capacidadNominal: ['', Validators.required],
       estado: ['', Validators.required]
     });
@@ -86,7 +89,8 @@ export class PlantasEnergiaComponent implements OnInit {
           capacidadNominal: this.plantaEnergiaForm.get('capacidadNominal').value,
           estado: this.plantaEnergiaForm.get('estado').value as EstadoPlanta
         }
-        this.generadorContract.postGenerarPlantaEnergia(tempInfo).subscribe({
+        const tipoEnergia = this.plantaEnergiaForm.get('tipoEnergia').value;
+        this.generadorContract.postGenerarPlantaEnergia(tempInfo, tipoEnergia).subscribe({
           next: () => {
             this.spinner.hide();
             this.toastr.success('Planta de energía creada con éxito');
