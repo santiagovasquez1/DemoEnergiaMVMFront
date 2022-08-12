@@ -22,13 +22,14 @@ import { CompraEnergiaRequest } from 'src/app/models/CompraEnergiaRequest';
   ]
 })
 export class CompraEnergiaComponent implements OnInit {
-  dirContract:string
+  dirContract: string
   generadoresDisponibles: InfoContrato[] = [];
   cantidadEnergiasDisponibles: number[] = [];
   energiaAComprar: number[] = [];
   generadoresContracts: GeneradorContractService[] = [];
   emision: InfoEmisionCompra;
   index: number;
+
 
   constructor(public dialogRef: MatDialogRef<CompraEnergiaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -38,7 +39,7 @@ export class CompraEnergiaComponent implements OnInit {
     public winRef: WinRefService,
     public web3Connect: Web3ConnectService,
     private alert: SweetAlertService,
-    private comercializador:ComercializadorContractService) {
+    private comercializador: ComercializadorContractService) {
     this.emision = data.emision;
     this.index = data.index;
     this.dirContract = data.dirContract;
@@ -83,7 +84,9 @@ export class CompraEnergiaComponent implements OnInit {
   }
 
   onAumentarCantidad(index: number): void {
-    this.energiaAComprar[index]++;
+    if (this.energiaAComprar[index] < this.cantidadEnergiasDisponibles[index]) {
+      this.energiaAComprar[index]++;
+    }
   }
 
   onDisminuirCantidad(index: number): void {
@@ -99,7 +102,7 @@ export class CompraEnergiaComponent implements OnInit {
         if (result.isConfirmed) {
           this.energiaAComprar.forEach((cantidad, index) => {
             if (cantidad > 0) {
-              let compraRequest : CompraEnergiaRequest = {
+              let compraRequest: CompraEnergiaRequest = {
                 ownerCliente: this.emision.ownerCliente,
                 dirContratoGenerador: this.generadoresDisponibles[index].dirContrato,
                 cantidadEnergia: cantidad,
@@ -114,8 +117,8 @@ export class CompraEnergiaComponent implements OnInit {
             next: (data: any[]) => {
               this.toastr.success('Energía comprada con éxito', 'Éxito');
               this.spinner.hide();
-              this.dialogRef.close();              
-            },error: (err) => {
+              this.dialogRef.close();
+            }, error: (err) => {
               console.log(err);
               this.toastr.error('Error al comprar la energía', 'Error');
               this.spinner.hide();
@@ -124,5 +127,39 @@ export class CompraEnergiaComponent implements OnInit {
           })
         }
       })
+  }
+
+  get isComprarValid(): boolean {
+    let total = 0;
+    this.energiaAComprar.forEach(cantidad => {
+      total += cantidad;
+    });
+
+    if (total == this.emision.cantidadDeEnergia) {
+      return true;
+    }
+
+    return false;
+  }
+
+  get totalEnergiaAComprar(): number {
+    let total = 0;
+    this.energiaAComprar.forEach(cantidad => {
+      total += cantidad;
+    });
+    return total;
+  }
+
+  onCantidadChange(index: number, event:any) {
+
+    if (this.energiaAComprar[index] >= this.cantidadEnergiasDisponibles[index]) {
+      this.energiaAComprar[index] = this.cantidadEnergiasDisponibles[index];
+      event.target.value = this.cantidadEnergiasDisponibles[index];
+    }
+
+    if (this.energiaAComprar[index] <= 0) {
+      this.energiaAComprar[index] = 0;
+      event.target.value = 0;
+    }
   }
 }

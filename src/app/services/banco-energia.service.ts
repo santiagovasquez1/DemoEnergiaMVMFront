@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import Web3 from 'web3';
 import { Web3ConnectService } from './web3-connect.service';
 import { WinRefService } from './win-ref.service';
-import bancoEnergia from '../../../build/contracts/BancoEnergia.json';
+import bancoEnergia from '../../../buildTruffle/contracts/BancoEnergia.json';
 import { Contract } from 'web3-eth-contract';
 import { AbiItem } from 'web3-utils';
 

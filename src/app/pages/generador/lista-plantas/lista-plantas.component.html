@@ -1,0 +1,43 @@
+<div class="container">
+    <h2 class="mt-20">Listado de plantas</h2>
+    <mat-card class="custom mb-20" *ngFor="let planta of plantasDeEnergia;let index=index">
+        <mat-card-title>Nombre de la planta: {{planta.nombre}}</mat-card-title>
+        <mat-card-subtitle>Id planta: {{planta.dirPlanta}}</mat-card-subtitle>
+        <mat-card-content>
+            <p>
+                Departamento: {{planta.departamento}}
+            </p>
+            <p>
+                Ciudad: {{planta.ciudad}}
+            </p>
+            <p>
+                Coordenadas: {{planta.coordenadas}}
+            </p>
+            <p>
+                Fecha de inicio de operación: {{planta.fechaInicio}}
+            </p>
+            <p>
+                Tasa de emision (Mwh): {{planta.tasaEmision}}
+            </p>
+            <p>
+                Es Renovable: {{planta.isRec}}
+            </p>
+            <p>
+                Capacidad de la planta (Mwh): {{planta.capacidadNominal}}
+            </p>
+            <p>
+                Tecno de la planta: {{tiposEnergia[index].nombre}}
+            </p>
+            <p>
+                Cantidad de energia (Mwh): {{tiposEnergia[index].cantidadEnergia}}
+            </p>
+            <p>
+                Estado de la planta: {{planta.estado}}
+            </p>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button class="button-mvm" mat-stroked-button (click)="onInyectarEnergia(planta.dirPlanta)">Inyectar Energia</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

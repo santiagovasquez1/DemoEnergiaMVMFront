@@ -1,8 +1,9 @@
 <div class="container">
-    <h2 class="mt-20">Emisiones de compra pendientes</h2>
+    <h2 class="mt-20">{{title}}</h2>
     <mat-card class="custom mb-20" *ngFor="let emision of emisionesDeCompra; let i = index">
         <mat-card-title>Empresa: {{emision.empresaCliente}}</mat-card-title>
         <mat-card-subtitle>Fecha Emision: {{emision.fechaEmision}}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="tipoEmision === 'aprobadas'">Fecha Aprobacion: {{emision.fechaAprobacion}}</mat-card-subtitle>
         <mat-card-content>
             <p>
                 Direccion del contrato: {{emision.dirContratoCliente}}

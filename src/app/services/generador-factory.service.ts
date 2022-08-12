@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { WinRefService } from './win-ref.service';
 import { Contract } from 'web3-eth-contract';
 import Web3 from 'web3';
-import generadorFactory from "../../../build/contracts/MvmGeneradorFactory.json";
+import generadorFactory from "../../../buildTruffle/contracts/MvmGeneradorFactory.json";
 import { AbiItem } from 'web3-utils';
 import { catchError, forkJoin, from, switchMap, throwError } from 'rxjs';
 import { Observable } from 'rxjs';

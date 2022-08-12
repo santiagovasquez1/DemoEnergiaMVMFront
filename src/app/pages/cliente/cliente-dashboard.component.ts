@@ -1,3 +1,4 @@
+import { BancoEnergiaService } from './../../services/banco-energia.service';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { InfoContrato } from './../../models/infoContrato';
 import { ToastrService } from 'ngx-toastr';
@@ -8,9 +9,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ComprarTokensComponent } from './comprar-tokens/comprar-tokens.component';
 import { ContratarComercializadorComponent } from './contratar-comercializador/contratar-comercializador.component';
 import { ComprarEnergiaComponent } from './comprar-energia/comprar-energia.component';
-import { DevolverTokensComponent } from './devolver-tokens/devolver-tokens.component';
 import { Observable, forkJoin } from 'rxjs';
 import { DelegarTokensComponent } from './delegar-tokens/delegar-tokens.component';
+import { DevolverTokensComponent } from '../devolver-tokens/devolver-tokens.component';
+import { InfoEnergia } from 'src/app/models/InfoEnergia';
+import { ThemeService } from 'ng2-charts';
 
 @Component({
   selector: 'app-cliente-dashboard',
@@ -22,48 +25,93 @@ export class ClienteDashboardComponent implements OnInit {
   infoCliente: InfoContrato;
   tokensCliente: number = 0;
   tokensDelegados: number = 0;
+  energiasDisponibles: string[] = [];
+  cantidadesDisponibles: number[] = [];
 
   constructor(private clienteService: ClienteContractService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
     public dialog: MatDialog,
-    private reguladorMercado: ReguladorMercadoService) { }
+    private reguladorMercado: ReguladorMercadoService,
+    private bancoEnergia: BancoEnergiaService) { }
 
   async ngOnInit(): Promise<void> {
     let dirContract = localStorage.getItem('dirContract');
     try {
-      await this.reguladorMercado.loadBlockChainContractData();
-      await this.clienteService.loadBlockChainContractData(dirContract);
-      this.clienteService.getInfoContrato().subscribe({
-        next: (info) => {
-          debugger;
-          this.infoCliente = info;
-          this.getTokensCliente().subscribe({
-            next: (data) => {
-              debugger;
-              this.tokensCliente = data[0];
-              this.tokensDelegados = data[1] ? data[1] : 0;
-            }, error: (error) => {
-              console.log(error);
-              this.toastr.error(error.message, 'Error');
-            }
-          })
-        }, error: (err) => {
-          console.log(err);
-          this.toastr.error('Error al cargar la información del contrato', 'Error');
+      let promises: Promise<void>[] = []
+      promises.push(this.reguladorMercado.loadBlockChainContractData());
+      promises.push(this.bancoEnergia.loadBlockChainContractData());
+      promises.push(this.clienteService.loadBlockChainContractData(dirContract));
+      await Promise.all(promises);
+      this.clienteService.contract.events.compraEnergia({
+        fromBlock: 'latest'
+      }, (error, event) => {
+        if (error) {
+          console.log(error);
+        } else {
+          this.toastr.success('Compra de energía realizada', 'Energía');
+          this.getInfoContrato();
         }
       });
-
+      this.getInfoContrato();
     } catch (error) {
       console.log(error);
       this.toastr.error("Error al cargar el contrato cliente", 'Error');
     }
   }
 
+  getInfoContrato() {
+    let observables: Observable<any>[] = [];
+    observables.push(this.clienteService.getInfoContrato());
+    observables.push(this.bancoEnergia.getTiposEnergiasDisponibles())
+
+    this.spinner.show();
+    forkJoin(observables).subscribe({
+      next: (data) => {
+        this.infoCliente = data[0];
+        const tiposEnergias = data[1] as InfoEnergia[];
+        this.energiasDisponibles = tiposEnergias.map(x => x.nombre);
+        this.getTokensCliente().subscribe({
+          next: (tokens) => {
+            this.tokensCliente = tokens[0];
+            this.tokensDelegados = tokens[1];
+            this.getCantidadesEnergiasDisponibles();
+          }, error: (error) => {
+            console.log(error);
+            this.toastr.error(error.message, 'Error');
+            this.spinner.hide();
+          }
+        });
+      }, error: (error) => {
+        console.log(error);
+        this.toastr.error(error.message, 'Error');
+        this.spinner.hide();
+      }
+    });
+  }
+
+  private getCantidadesEnergiasDisponibles() {
+    let observables: Observable<InfoEnergia>[] = [];
+    this.energiasDisponibles.forEach(energia => {
+      observables.push(this.clienteService.getEnergiaCliente(energia));
+    });
+    forkJoin(observables).subscribe({
+      next: (data) => {
+        this.cantidadesDisponibles = data.map(x => x.cantidadEnergia);
+        this.spinner.hide();
+      },
+      error: (error) => {
+        console.log(error);
+        this.toastr.error(error.message, 'Error');
+        this.spinner.hide();
+      }
+    })
+  }
+
   getTokensCliente(): Observable<number[]> {
     let observables: Observable<number>[] = [];
     observables.push(this.clienteService.getMisTokens());
-    debugger;
+
     if (this.infoCliente.comercializador !== '0x0000000000000000000000000000000000000000') {
       observables.push(this.reguladorMercado.getTokensDelegados(this.infoCliente.comercializador, this.infoCliente.owner));
     }
@@ -147,7 +195,7 @@ export class ClienteDashboardComponent implements OnInit {
   }
 
   onDelegarTokens() {
-    debugger;
+
     let dialogRef = this.dialog.open(DelegarTokensComponent, {
       width: '500px',
       data: {

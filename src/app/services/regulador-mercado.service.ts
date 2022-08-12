@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import Web3 from 'web3';
 import { Contract } from 'web3-eth-contract';
 import { AbiItem } from 'web3-utils';
-import reguladorMercado from "../../../build/contracts/ReguladorMercado.json";
+import reguladorMercado from "../../../buildTruffle/contracts/ReguladorMercado.json";
 import { WinRefService } from './win-ref.service';
 import { catchError, from, map, Observable, Subscription, throwError } from 'rxjs';
 

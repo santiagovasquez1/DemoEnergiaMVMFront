@@ -1,6 +1,6 @@
 import { FactoryService } from './factory.service';
 import { Injectable } from '@angular/core';
-import ClienteFactory from '../../../build/contracts/MvmClienteFactory.json';
+import ClienteFactory from '../../../buildTruffle/contracts/MvmClienteFactory.json';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 

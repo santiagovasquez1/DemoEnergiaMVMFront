@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -13,20 +13,19 @@ import { SweetAlertService } from 'src/app/services/sweet-alert.service';
   ]
 })
 export class DevolverTokensComponent implements OnInit {
-  devolucionTokensForm: UntypedFormGroup;
+  devolucionTokensForm: FormGroup;
 
   constructor(public dialogRef: MatDialogRef<DevolverTokensComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private reguladorMercado: ReguladorMercadoService,
     private toastr: ToastrService,
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private alertDialog: SweetAlertService,
-    private spinner: NgxSpinnerService
-  ) {
+    private spinner: NgxSpinnerService) {
     this.initForm();
   }
 
-  async ngOnInit(): Promise<void> {
+  async ngOnInit()  {
     try {
       this.devolucionTokensForm.get('tokensDisponibles').setValue(this.data.tokensDisponibles);
       await this.reguladorMercado.loadBlockChainContractData();
