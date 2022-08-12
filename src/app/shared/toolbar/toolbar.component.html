@@ -14,9 +14,9 @@
 
     <div class="spacer"></div>
 
-    <button mat-button [matMenuTriggerFor]="aboveMenu" *ngIf="tipoContrato==3">
+    <button class="btn-rol" mat-button [matMenuTriggerFor]="aboveMenu" *ngIf="tipoContrato==3">
         <mat-icon>person_pin</mat-icon>
-        Administrador</button>
+        <span class="rol">Administrador</span></button>
     <mat-menu #aboveMenu="matMenu" yPosition="above">
         <button mat-menu-item>Crear planta</button>
         <button mat-menu-item>Agregar energía</button>

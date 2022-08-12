@@ -15,6 +15,7 @@ import { ListaClientesComponent } from './comercializador/lista-clientes/lista-c
 import { GeneradorComponent } from './generador/generador.component';
 import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-generadores.component';
 import { EthereumComponent } from './dashboard/ethereum/ethereum.component';
+import { RegistrosDetalleComponent } from './regulador-mercado/registros/registros-detalle/registros-detalle.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,11 @@ const routes: Routes = [
             {
                 path: "regulador-mercado/registros",
                 component: RegistrosComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: "regulador-mercado/registros/detalle",
+                component: RegistrosDetalleComponent,
                 canActivate: [AuthGuard]
             },
             {
