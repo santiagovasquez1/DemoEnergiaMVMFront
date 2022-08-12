@@ -1,19 +1,22 @@
-import { ComercializadorContractService } from 'src/app/services/comercializador-contract.service';
-import { SweetAlertService } from './../../../services/sweet-alert.service';
-import { forkJoin, Observable } from 'rxjs';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
-import { SolicitudContrato } from './../../../models/solicitudContrato';
-import { GeneradorContractService } from 'src/app/services/generador-contract.service';
-import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
-import { InfoContrato } from './../../../models/infoContrato';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatTreeNestedDataSource } from '@angular/material/tree';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { forkJoin, Observable } from 'rxjs';
+import { CompraEnergiaRequest } from 'src/app/models/CompraEnergiaRequest';
 import { TiposContratos } from 'src/app/models/EnumTiposContratos';
 import { InfoEmisionCompra } from 'src/app/models/InfoEmisionCompra';
-import { WinRefService } from 'src/app/services/win-ref.service';
+import { ComercializadorContractService } from 'src/app/services/comercializador-contract.service';
+import { GeneradorContractService } from 'src/app/services/generador-contract.service';
+import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { Web3ConnectService } from 'src/app/services/web3-connect.service';
-import { CompraEnergiaRequest } from 'src/app/models/CompraEnergiaRequest';
+import { WinRefService } from 'src/app/services/win-ref.service';
+import { InfoContrato } from './../../../models/infoContrato';
+import { InfoGeneradorCompra, InfoPlantaCompra } from './../../../models/InfoPlantaCompra';
+import { InfoPlantaEnergia } from './../../../models/InfoPlantaEnergia';
+import { SolicitudContrato } from './../../../models/solicitudContrato';
+import { SweetAlertService } from './../../../services/sweet-alert.service';
 
 @Component({
   selector: 'app-compra-energia',
@@ -24,12 +27,13 @@ import { CompraEnergiaRequest } from 'src/app/models/CompraEnergiaRequest';
 export class CompraEnergiaComponent implements OnInit {
   dirContract: string
   generadoresDisponibles: InfoContrato[] = [];
+  generadoresCompra: InfoGeneradorCompra[] = [];
   cantidadEnergiasDisponibles: number[] = [];
   energiaAComprar: number[] = [];
   generadoresContracts: GeneradorContractService[] = [];
   emision: InfoEmisionCompra;
   index: number;
-
+  datasource: MatTreeNestedDataSource<InfoGeneradorCompra>
 
   constructor(public dialogRef: MatDialogRef<CompraEnergiaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -54,20 +58,42 @@ export class CompraEnergiaComponent implements OnInit {
         this.generadoresDisponibles = data.filter(solicitud => solicitud.tipoContrato == TiposContratos.Generador).map(solicitud => {
           return solicitud.infoContrato;
         });
-        let observables: Observable<number>[] = [];
+        let observables: Observable<InfoPlantaEnergia[]>[] = [];
         let promises: Promise<void>[] = [];
         this.generadoresDisponibles.forEach(generador => {
-          this.generadoresContracts.push(new GeneradorContractService(this.winRef, this.web3Connect, this.toastr));
-          promises.push(this.generadoresContracts[this.generadoresContracts.length - 1].loadBlockChainContractData(generador.dirContrato));
+          const contract = new GeneradorContractService(this.winRef, this.web3Connect, this.toastr);
+          this.generadoresContracts.push(contract);
+          promises.push(contract.loadBlockChainContractData(generador.dirContrato));
         });
+
         Promise.all(promises).then((response: void[]) => {
           for (let i = 0; i < response.length; i++) {
-            observables.push(this.generadoresContracts[i].getCantidadEnergia(this.emision.tipoEnergia));
+            observables.push(this.generadoresContracts[i].getPlantasEnergia());
           }
+
           forkJoin(observables).subscribe({
-            next: (data: number[]) => {
-              this.cantidadEnergiasDisponibles = data;
-              this.energiaAComprar = new Array(this.generadoresDisponibles.length).fill(0);
+            next: (data: InfoPlantaEnergia[][]) => {
+              for (let i = 0; i < data.length; i++) {
+                let tempInfoGeneradorCompra: InfoGeneradorCompra = {
+                  dirGenerador: this.generadoresDisponibles[i].dirContrato,
+                  nombre: this.generadoresDisponibles[i].empresa,
+                  plantasGenerador: data[i].filter(planta => planta.tecnologia == this.emision.tipoEnergia).map(planta => {
+                    const { dirPlanta, nombre, tecnologia, cantidadEnergia } = planta;
+                    const tempInfo: InfoPlantaCompra = {
+                      dirPlanta,
+                      nombre,
+                      tipoEneregia: tecnologia,
+                      cantidadEnergia
+                    }
+                    return tempInfo;
+                  })
+
+                }
+                if (tempInfoGeneradorCompra.plantasGenerador.length > 0) {
+                  this.generadoresCompra.push(tempInfoGeneradorCompra);
+                }
+              }
+
               this.spinner.hide();
             }, error: (err) => {
               console.log(err);
@@ -150,7 +176,7 @@ export class CompraEnergiaComponent implements OnInit {
     return total;
   }
 
-  onCantidadChange(index: number, event:any) {
+  onCantidadChange(index: number, event: any) {
 
     if (this.energiaAComprar[index] >= this.cantidadEnergiasDisponibles[index]) {
       this.energiaAComprar[index] = this.cantidadEnergiasDisponibles[index];

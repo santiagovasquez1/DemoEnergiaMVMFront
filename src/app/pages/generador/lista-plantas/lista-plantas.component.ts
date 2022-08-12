@@ -20,9 +20,7 @@ import { Web3ConnectService } from 'src/app/services/web3-connect.service';
 })
 export class ListaPlantasComponent implements OnInit {
 
-  contractsPlantasEnergias: PlantaEnergiaService[] = [];
   plantasDeEnergia: InfoPlantaEnergia[] = [];
-  tiposEnergia: InfoEnergia[] = [];
   dirContract: string;
   energiasDisponibles: string[] = [];
 
@@ -61,8 +59,6 @@ export class ListaPlantasComponent implements OnInit {
         const tiposEnergias = data[0];
         this.energiasDisponibles = tiposEnergias.map(tipo => tipo.nombre);
         this.plantasDeEnergia = data[1];
-        await this.setContractsPlantasEnergias();
-        this.getInfoEnergiaPlantas();
         this.spinner.hide();
       },
       error: (err) => {
@@ -84,33 +80,10 @@ export class ListaPlantasComponent implements OnInit {
         estado: Estado.inyectarEnergia
       }
     });
-  }
 
-  async setContractsPlantasEnergias() {
-    let promisesPlantasEnergias: Promise<void>[] = [];
-    this.plantasDeEnergia.forEach(planta => {
-      let contract = new PlantaEnergiaService(this.winRef, this.web3Connect, this.toastr);
-      promisesPlantasEnergias.push(contract.loadBlockChainContractData(planta.dirPlanta));
-      this.contractsPlantasEnergias.push(contract);
-    });
-    await Promise.all(promisesPlantasEnergias);
-  }
-
-  getInfoEnergiaPlantas() {
-    let observablesEnergias: Observable<InfoEnergia>[] = [];
-    this.contractsPlantasEnergias.forEach(plantaContract => {
-      observablesEnergias.push(plantaContract.getTipoEnergia());
-    });
-    this.spinner.show();
-    forkJoin(observablesEnergias).subscribe({
-      next: (data: InfoEnergia[]) => {
-        this.tiposEnergia = data;
-        this.spinner.hide();
-      },
-      error: (err) => {
-        this.spinner.hide();
-        console.log(err);
-        this.toastr.error(err.message, 'Error');
+    dialogRef.afterClosed().subscribe({
+      next: () => {
+        this.loadInfoGeneral();
       }
     });
   }

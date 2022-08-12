@@ -1,4 +1,4 @@
-export enum EstadoPlanta{
+export enum EstadoPlanta {
     activa,
     inactiva
 }
@@ -13,5 +13,7 @@ export interface InfoPlantaEnergia {
     tasaEmision: number;
     isRec: boolean;
     capacidadNominal: number;
+    tecnologia: string;
+    cantidadEnergia: number;
     estado: EstadoPlanta;
 }

@@ -87,10 +87,12 @@ export class PlantasEnergiaComponent implements OnInit {
           tasaEmision: this.plantaEnergiaForm.get('tasaEmision').value,
           isRec: this.plantaEnergiaForm.get('isRec').value,
           capacidadNominal: this.plantaEnergiaForm.get('capacidadNominal').value,
+          tecnologia: this.plantaEnergiaForm.get('tipoEnergia').value,
+          cantidadEnergia: 0,
           estado: this.plantaEnergiaForm.get('estado').value as EstadoPlanta
         }
-        const tipoEnergia = this.plantaEnergiaForm.get('tipoEnergia').value;
-        this.generadorContract.postGenerarPlantaEnergia(tempInfo, tipoEnergia).subscribe({
+
+        this.generadorContract.postGenerarPlantaEnergia(tempInfo).subscribe({
           next: () => {
             this.spinner.hide();
             this.toastr.success('Planta de energía creada con éxito');
