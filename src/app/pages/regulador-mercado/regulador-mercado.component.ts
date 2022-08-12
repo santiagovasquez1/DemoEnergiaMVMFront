@@ -16,6 +16,7 @@ export class ReguladorMercadoComponent implements OnInit, OnDestroy {
   infoRegulador: InfoReguladorMercado;
   timer$: Observable<any>;
   timerSubscription: Subscription;
+  showInfoContratos = false;
 
   constructor(private toastr: ToastrService,
     private regulardorMercado: ReguladorMercadoService,
@@ -64,6 +65,10 @@ export class ReguladorMercadoComponent implements OnInit, OnDestroy {
     this.dialog.open(InyectarTokensComponent, {
       width: '500px'
     });
+  }
+
+  showInfo(){
+    this.showInfoContratos = this.showInfoContratos == false ? true:false;
   }
 
 
