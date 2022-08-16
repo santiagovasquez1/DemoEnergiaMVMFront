@@ -1,3 +1,4 @@
+import { InfoEnergia } from 'src/app/models/InfoEnergia';
 import { EstadoPlanta, InfoPlantaEnergia } from './../models/InfoPlantaEnergia';
 import { Injectable } from '@angular/core';
 import Web3 from 'web3';
@@ -27,12 +28,12 @@ export class GeneradorContractService extends AgenteContractService {
     );
   }
 
-  postGenerarPlantaEnergia(infoPlanta: InfoPlantaEnergia, tipoEnergia: string) {
-    return from(this.contract?.methods.crearPlantaEnergia(infoPlanta, tipoEnergia).send({ from: this.account })).pipe(
+  postGenerarPlantaEnergia(infoPlanta: InfoPlantaEnergia) {
+    return from(this.contract?.methods.crearPlantaEnergia(infoPlanta).send({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
-    )
+    );
   }
 
   postInyectarEnergiaPlanta(dirPlanta: string, tipoEnergia: string, cantidad: number): Observable<any> {
@@ -47,7 +48,7 @@ export class GeneradorContractService extends AgenteContractService {
     return from(this.contract?.methods.getPlantasEnergia().call({ from: this.account })).pipe(
       map((data: any) => {
         const plantasEnergias = data.map((planta: any) => {
-          const [dirPlanta, nombre, departamento, ciudad, coordenadas, fechaInicio, tasaEmision, isRec, capacidadNominal, estado] = planta;
+          const [dirPlanta, nombre, departamento, ciudad, coordenadas, fechaInicio, tasaEmision, isRec, capacidadNominal, tecnologia, cantidadEnergia, estado] = planta;
           const infoPlanta: InfoPlantaEnergia = {
             dirPlanta: dirPlanta,
             nombre: nombre,
@@ -58,6 +59,8 @@ export class GeneradorContractService extends AgenteContractService {
             tasaEmision: parseInt(tasaEmision),
             isRec: isRec,
             capacidadNominal: parseInt(capacidadNominal),
+            tecnologia: tecnologia,
+            cantidadEnergia: parseInt(cantidadEnergia),
             estado: estado === 0 ? EstadoPlanta.activa : EstadoPlanta.inactiva
           }
           return infoPlanta as InfoPlantaEnergia;
@@ -75,9 +78,9 @@ export class GeneradorContractService extends AgenteContractService {
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
-    )
+    );
   }
-  
+
   getCantidadEnergia(tipoEnergia: string): Observable<number> {
     return from(this.contract?.methods.getCantidadEnergia(tipoEnergia).call({ from: this.account })).pipe(
       map((data: any) => {
@@ -87,7 +90,7 @@ export class GeneradorContractService extends AgenteContractService {
         console.error(error);
         return of(0);
       })
-    )
+    );
   }
 
   getCapacidadNominal(): Observable<number> {
@@ -99,7 +102,24 @@ export class GeneradorContractService extends AgenteContractService {
         console.error(error);
         return of(0);
       })
-    )
+    );
   }
 
+  getInfoEnergiaPlanta(dirPlanta: string): Observable<InfoEnergia> {
+    return from(this.contract?.methods.getInfoEnergiaPlanta(dirPlanta).call({ from: this.account })).pipe(
+      map((data: any) => {
+        const [nombre, cantidadEnergia, precio] = data;
+        const infoEnergia: InfoEnergia = {
+          nombre: nombre,
+          cantidadEnergia: parseInt(cantidadEnergia),
+          precio: parseInt(precio)
+        }
+        return infoEnergia as InfoEnergia;
+      }),
+      catchError((error) => {
+        console.error(error);
+        return of(null);
+      })
+    );
+  }
 }
