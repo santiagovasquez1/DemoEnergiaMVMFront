@@ -40,6 +40,7 @@ import { MapaColombiaComponent } from './generador/todos-generadores/mapa-colomb
 import { DevolverTokensComponent } from './devolver-tokens/devolver-tokens.component';
 import { PlantasEnergiaComponent } from './generador/plantas-energia/plantas-energia.component';
 import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.component';
+import { ComprasRealizadasComponent } from './comercializador/compras-realizadas/compras-realizadas.component';
 
 @NgModule({
     declarations: [
@@ -68,7 +69,8 @@ import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.c
         EthereumComponent,
         MapaColombiaComponent,
         PlantasEnergiaComponent,
-        ListaPlantasComponent
+        ListaPlantasComponent,
+        ComprasRealizadasComponent
     ],
     imports: [
         CommonModule,

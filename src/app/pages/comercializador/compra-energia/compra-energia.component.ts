@@ -28,12 +28,11 @@ export class CompraEnergiaComponent implements OnInit {
   dirContract: string
   generadoresDisponibles: InfoContrato[] = [];
   generadoresCompra: InfoGeneradorCompra[] = [];
-  cantidadEnergiasDisponibles: number[] = [];
-  energiaAComprar: number[] = [];
+  cantidadEnergiasDisponibles: number[][] = [];
+  energiaAComprar: number[][] = [];
   generadoresContracts: GeneradorContractService[] = [];
   emision: InfoEmisionCompra;
   index: number;
-  datasource: MatTreeNestedDataSource<InfoGeneradorCompra>
 
   constructor(public dialogRef: MatDialogRef<CompraEnergiaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -85,15 +84,20 @@ export class CompraEnergiaComponent implements OnInit {
                       tipoEneregia: tecnologia,
                       cantidadEnergia
                     }
+
                     return tempInfo;
                   })
 
                 }
+
                 if (tempInfoGeneradorCompra.plantasGenerador.length > 0) {
                   this.generadoresCompra.push(tempInfoGeneradorCompra);
+                  this.energiaAComprar.push(new Array(tempInfoGeneradorCompra.plantasGenerador.length).fill(0));
+                  this.cantidadEnergiasDisponibles
+                    .push(tempInfoGeneradorCompra.plantasGenerador.map(planta => planta.cantidadEnergia));
                 }
               }
-
+              console.log(this.cantidadEnergiasDisponibles);
               this.spinner.hide();
             }, error: (err) => {
               console.log(err);
@@ -109,15 +113,15 @@ export class CompraEnergiaComponent implements OnInit {
     })
   }
 
-  onAumentarCantidad(index: number): void {
-    if (this.energiaAComprar[index] < this.cantidadEnergiasDisponibles[index]) {
-      this.energiaAComprar[index]++;
+  onAumentarCantidad(i: number, j: number): void {
+    if (this.energiaAComprar[i][j] < this.cantidadEnergiasDisponibles[i][j]) {
+      this.energiaAComprar[i][j]++;
     }
   }
 
-  onDisminuirCantidad(index: number): void {
-    if (this.energiaAComprar[index] > 0) {
-      this.energiaAComprar[index]--;
+  onDisminuirCantidad(i: number, j: number): void {
+    if (this.energiaAComprar[i][j] > 0) {
+      this.energiaAComprar[i][j]--;
     }
   }
 
@@ -126,18 +130,35 @@ export class CompraEnergiaComponent implements OnInit {
     this.alert.confirmAlert('Confirmación', '¿Está seguro de que desea comprar esta energía?')
       .then(result => {
         if (result.isConfirmed) {
-          this.energiaAComprar.forEach((cantidad, index) => {
-            if (cantidad > 0) {
-              let compraRequest: CompraEnergiaRequest = {
-                ownerCliente: this.emision.ownerCliente,
-                dirContratoGenerador: this.generadoresDisponibles[index].dirContrato,
-                cantidadEnergia: cantidad,
-                tipoEnergia: this.emision.tipoEnergia,
-                index: this.emision.index
+          // this.energiaAComprar.forEach((cantidad, index) => {
+          //   if (cantidad > 0) {
+          //     let compraRequest: CompraEnergiaRequest = {
+          //       ownerCliente: this.emision.ownerCliente,
+          //       dirContratoGenerador: this.generadoresDisponibles[index].dirContrato,
+          //       cantidadEnergia: cantidad,
+          //       tipoEnergia: this.emision.tipoEnergia,
+          //       index: this.emision.index
+          //     }
+          //     observables.push(this.comercializador.ComprarEnergia(compraRequest));
+          //   }
+          // });
+
+          this.energiaAComprar.forEach((energiasGenerador, i) => {
+            energiasGenerador.forEach((cantidad, j) => {
+              if (cantidad > 0) {
+                let compraRequest: CompraEnergiaRequest = {
+                  dirContratoGenerador: this.generadoresCompra[i].dirGenerador,
+                  dirPlantaGenerador: this.generadoresCompra[i].plantasGenerador[j].dirPlanta,
+                  ownerCliente: this.emision.ownerCliente,
+                  cantidadEnergia: cantidad,
+                  tipoEnergia: this.emision.tipoEnergia,
+                  index: this.emision.index
+                }
+                observables.push(this.comercializador.ComprarEnergia(compraRequest));
               }
-              observables.push(this.comercializador.ComprarEnergia(compraRequest));
-            }
+            });
           });
+
           this.spinner.show();
           forkJoin(observables).subscribe({
             next: (data: any[]) => {
@@ -158,7 +179,7 @@ export class CompraEnergiaComponent implements OnInit {
   get isComprarValid(): boolean {
     let total = 0;
     this.energiaAComprar.forEach(cantidad => {
-      total += cantidad;
+      total += cantidad.reduce((a, b) => a + b, 0);
     });
 
     if (total == this.emision.cantidadDeEnergia) {
@@ -171,20 +192,20 @@ export class CompraEnergiaComponent implements OnInit {
   get totalEnergiaAComprar(): number {
     let total = 0;
     this.energiaAComprar.forEach(cantidad => {
-      total += cantidad;
+      total += cantidad.reduce((a, b) => a + b, 0);
     });
     return total;
   }
 
-  onCantidadChange(index: number, event: any) {
+  onCantidadChange(i: number, j: number, event: any) {
 
-    if (this.energiaAComprar[index] >= this.cantidadEnergiasDisponibles[index]) {
-      this.energiaAComprar[index] = this.cantidadEnergiasDisponibles[index];
-      event.target.value = this.cantidadEnergiasDisponibles[index];
+    if (this.energiaAComprar[i][j] >= this.cantidadEnergiasDisponibles[i][j]) {
+      this.energiaAComprar[i][j] = this.cantidadEnergiasDisponibles[i][j];
+      event.target.value = this.cantidadEnergiasDisponibles[i][j];
     }
 
-    if (this.energiaAComprar[index] <= 0) {
-      this.energiaAComprar[index] = 0;
+    if (this.energiaAComprar[i][j] <= 0) {
+      this.energiaAComprar[i][j] = 0;
       event.target.value = 0;
     }
   }
