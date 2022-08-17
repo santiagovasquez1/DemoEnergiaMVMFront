@@ -21,29 +21,31 @@
 <div class="container-generadores">
 
     <div class="pais-generadores">
+        <div class="buttons">
+            <button class="button-mvm-white">Generadores</button>
+            <button class="button-mvm-white">Clientes</button>
+            <button class="button-mvm-white">Mapa general</button>
+        </div>
         <app-mapa-colombia (departamento)="addItem($event)"></app-mapa-colombia>
     </div>
 
     <div class="energia-dpto">
-        <h1>Total de energía renovable generada en {{departamento || 'Colombia'}}</h1>
-        <app-line-chart></app-line-chart>
-    </div>
-    
-    <div class="tipo-energia-dpto">
-        <!--
-        <div>
-            <div>
-              <div class="chart">
-                <canvas baseChart
-                        [data]="pieChartData"
-                        [type]="pieChartType"
-                        [options]="pieChartOptions"
-                        [plugins]="pieChartPlugins">
-                </canvas>
-              </div>
-            </div>
-          </div>
-        -->
+        <div class="header">
+            <h1 class="title-xg">{{departamento || 'Colombia'}}</h1>
+            <p>En {{departamento || 'Colombia'}} se generan los siguientes tipos de energías renovables.</p>
+        </div>
+        <div class="energia-solar mt-10">
+            <img src="../../../../assets/images/panel-solar.png" alt="">
+            <span class="title-g-gris mt-10">Solar</span>
+        </div>
+        <div class="energia-eolica mt-10">
+            <img src="../../../../assets/images/energia-eolica.png" alt="">
+            <span class="title-g-gris mt-10">Eólica</span>
+        </div>
+        <div class="button-container">
+            <button class="button-mvm-white w50-h30">Ver mas</button>
+        </div>
+        
     </div>
     
 </div>

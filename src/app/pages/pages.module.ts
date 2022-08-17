@@ -40,6 +40,8 @@ import { MapaColombiaComponent } from './generador/todos-generadores/mapa-colomb
 import { DevolverTokensComponent } from './devolver-tokens/devolver-tokens.component';
 import { PlantasEnergiaComponent } from './generador/plantas-energia/plantas-energia.component';
 import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.component';
+import { MatIconModule } from '@angular/material/icon';
+import { RegistrosDetalleComponent } from './regulador-mercado/registros/registros-detalle/registros-detalle.component';
 
 @NgModule({
     declarations: [
@@ -68,7 +70,8 @@ import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.c
         EthereumComponent,
         MapaColombiaComponent,
         PlantasEnergiaComponent,
-        ListaPlantasComponent
+        ListaPlantasComponent,
+        RegistrosDetalleComponent
     ],
     imports: [
         CommonModule,
@@ -82,7 +85,8 @@ import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.c
         FlexModule,
         ToastrModule.forRoot(),
         BrowserAnimationsModule,
-        NgChartsModule
+        NgChartsModule,
+        MatIconModule
     ],
     providers: [WinRefService, Web3ConnectService],
     exports: [
@@ -104,7 +108,8 @@ import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.c
         GeneradorComponent,
         TodosGeneradoresComponent,
         EmisionesCompraComponent,
-        DelegarTokensComponent,
+        DelegarTokensComponent
     ]
+   
 })
 export class PagesModule { }
