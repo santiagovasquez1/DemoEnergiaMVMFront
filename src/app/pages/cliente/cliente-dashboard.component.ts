@@ -1,3 +1,4 @@
+import { CertificadorContractService } from './../../services/certificador-contract.service';
 import { BancoEnergiaService } from './../../services/banco-energia.service';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { InfoContrato } from './../../models/infoContrato';
@@ -14,6 +15,7 @@ import { DelegarTokensComponent } from './delegar-tokens/delegar-tokens.componen
 import { DevolverTokensComponent } from '../devolver-tokens/devolver-tokens.component';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
 import { ThemeService } from 'ng2-charts';
+import { InfoCertificadoAgenteComponent } from 'src/app/shared/info-certificado-agente/info-certificado-agente.component';
 
 @Component({
   selector: 'app-cliente-dashboard',
@@ -33,7 +35,8 @@ export class ClienteDashboardComponent implements OnInit {
     private toastr: ToastrService,
     public dialog: MatDialog,
     private reguladorMercado: ReguladorMercadoService,
-    private bancoEnergia: BancoEnergiaService) { }
+    private bancoEnergia: BancoEnergiaService,
+    private certificado: CertificadorContractService) { }
 
   async ngOnInit(): Promise<void> {
     let dirContract = localStorage.getItem('dirContract');
@@ -42,6 +45,7 @@ export class ClienteDashboardComponent implements OnInit {
       promises.push(this.reguladorMercado.loadBlockChainContractData());
       promises.push(this.bancoEnergia.loadBlockChainContractData());
       promises.push(this.clienteService.loadBlockChainContractData(dirContract));
+      promises.push(this.certificado.loadBlockChainContractData(''));
       await Promise.all(promises);
       this.clienteService.contract.events.compraEnergia({
         fromBlock: 'latest'
@@ -218,6 +222,15 @@ export class ClienteDashboardComponent implements OnInit {
           this.spinner.hide();
         }
       })
+    })
+  }
+
+  onVerCertificado() {
+    this.dialog.open(InfoCertificadoAgenteComponent, {
+      width: '800px',
+      data: {
+        dirContratoAgente: localStorage.getItem('dirContract'),
+      }
     })
   }
 
