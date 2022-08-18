@@ -15,6 +15,7 @@ import { FlexModule } from '@angular/flex-layout';
 import { LineChartComponent } from './charts/line-chart/line-chart.component';
 import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
 import { NgChartsModule } from 'ng2-charts';
+import { InfoCertificadoAgenteComponent } from './info-certificado-agente/info-certificado-agente.component';
 
 
 
@@ -25,7 +26,8 @@ import { NgChartsModule } from 'ng2-charts';
         AsideComponent,
         GenerarEnergiaComponent,
         LineChartComponent,
-        PieChartComponent
+        PieChartComponent,
+        InfoCertificadoAgenteComponent
     ],
     imports: [
         CommonModule,
@@ -45,7 +47,8 @@ import { NgChartsModule } from 'ng2-charts';
         AsideComponent,
         GenerarEnergiaComponent,
         LineChartComponent,
-        PieChartComponent
+        PieChartComponent,
+        InfoCertificadoAgenteComponent
     ]
 })
 export class SharedModule { }

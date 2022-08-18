@@ -13,6 +13,7 @@ import { Estado, NuevaEnergiaComponent } from './nueva-energia/nueva-energia.com
 import { ContratarComercializadorGComponent } from './contratar-comercializador-g/contratar-comercializador-g.component';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
 import { DevolverTokensComponent } from '../devolver-tokens/devolver-tokens.component';
+import { InfoCertificadoAgenteComponent } from 'src/app/shared/info-certificado-agente/info-certificado-agente.component';
 
 @Component({
   selector: 'app-generador',
@@ -106,9 +107,9 @@ export class GeneradorComponent implements OnInit {
   }
 
   onCrearPlanta() {
-    this.dialog.open(PlantasEnergiaComponent,{
+    this.dialog.open(PlantasEnergiaComponent, {
       width: '500px',
-      data:{
+      data: {
         dirContract: this.dirContract,
         energiasDisponibles: this.energiasDisponibles
       }
@@ -144,5 +145,13 @@ export class GeneradorComponent implements OnInit {
     });
   }
 
+  onVerCertificado() {
+    this.dialog.open(InfoCertificadoAgenteComponent, {
+      width: '800px',
+      data: {
+        dirContratoAgente: localStorage.getItem('dirContract'),
+      }
+    })
+  }
 
 }
