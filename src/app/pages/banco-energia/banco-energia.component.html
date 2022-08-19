@@ -1,4 +1,82 @@
-<div class="container">
+<div class="container tablero-principal">
+
+    <div class="box-chart agentes-registrados">
+        <div class="header">
+            <span class="title-gris">Agentes registrados</span>
+        </div>
+        
+        
+        <div class="chart-dona">
+            <canvas baseChart
+                [data]="doughnutChartData"
+                [type]="doughnutChartType">
+            </canvas>
+        </div>
+
+        <div class="container-indicadores">
+            <div class="box-indicador indicador-uno"></div>
+            <span>Generadores</span>
+            <div class="box-indicador indicador-dos"></div>
+            <span>Clientes</span>
+
+            <div class="box-label-comercializador">
+                <div class="box-indicador indicador-tres"></div>
+                <span>Comercializadores</span>
+            </div>
+        </div>
+
+    </div>
+    <div class="box-chart-no-labels variacion-precio">
+        <div class="header">
+            <span class="title-gris">Variación de precio</span>
+        </div>
+        <div class="chart-line">
+            <canvas baseChart
+                        [data]="lineChartData"
+                        [options]="lineChartOptions"
+                        [type]="lineChartType"
+                        (chartHover)="chartHovered($event)">
+            </canvas>
+        </div>
+    </div>
+    <div class="box-chart-no-labels transacciones">
+        <div class="header">
+            <span class="title-gris">Transacciones</span>
+        </div>
+        <div class="chart-bar">
+                <canvas baseChart
+                  [data]="barChartData"
+                  [options]="barChartOptions"
+                  
+                  [type]="barChartType"
+                  (chartHover)="chartHovered($event)">
+                </canvas>
+        </div>
+    </div>
+    <div class="box-chart total-energia">
+        <div class="header">
+            <span class="title-gris">Total Energía</span>
+        </div>
+
+        <div class="chart-pie">
+            <canvas baseChart 
+                    [data]="pieChartData" 
+                    [type]="pieChartType"
+                    [options]="pieChartOptions">
+            </canvas>
+        </div>
+
+        <div class="container-indicadores">
+            <div class="box-indicador indicador-uno"></div>
+            <span>Solar</span>
+            <div class="box-indicador indicador-dos"></div>
+            <span>Eólica</span>
+
+        </div>
+    </div>
+
+
+    <!--
     <h2 class="mt-20">Información Banco de energia</h2>
     <mat-card class="mb-20" *ngFor="let energia of energiasDisponibles">
         <mat-card-title>
@@ -13,4 +91,5 @@
             </p>
         </mat-card-content>
     </mat-card>
+    -->
 </div>

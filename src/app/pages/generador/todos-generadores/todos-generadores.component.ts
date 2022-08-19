@@ -13,11 +13,28 @@ import {default as Annotation} from '../../../../../node_modules/chartjs-plugin-
 import DatalabelsPlugin from '../../../../../node_modules/chartjs-plugin-datalabels';
 import { EthereumService } from 'src/app/services/dashboard/ethereum.service';
 
+export interface PeriodicElement {
+  nombre: string;
+  tipo: string;
+  cantidad: number;
+  precio: string;
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  {nombre: 'EPM', cantidad: 100, tipo: 'Solar',precio:'2,300.00'},
+  {nombre: 'ELECTROHUILA', cantidad: 400, tipo: 'Solar',precio:'2,600.00'},
+  {nombre: 'EMCALI', cantidad: 694, tipo: 'Eólica',precio:'1,300.00'},
+  {nombre: 'CELSIA', cantidad: 900, tipo: 'Solar',precio:'2,800.00'},
+  {nombre: 'AES', cantidad: 1000, tipo: 'Eólica',precio:'2,400.00'}
+];
+
+
 
 @Component({
   selector: 'app-todos-generadores',
   templateUrl: './todos-generadores.component.html'
 })
+
 export class TodosGeneradoresComponent implements OnInit {
 
   generadores: string[] = [];
@@ -30,11 +47,116 @@ export class TodosGeneradoresComponent implements OnInit {
   account: string;
   infoGenerador: SolicitudContrato = {} as SolicitudContrato;
   todoGeneradores: SolicitudContrato[] = [];
+  tipoMapa = 'Generadores';
   
   titlte = "titulo desde generadores";
   departamento;
+  panelOpenState = false;
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+
+  displayedColumns: string[] = ['nombre', 'cantidad', 'tipo','precio'];
+  dataSource = ELEMENT_DATA;
+
+  // Pie
+  public pieChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+      },
+      datalabels: {
+        formatter: (value, ctx) => {
+          if (ctx.chart.data.labels) {
+            return ctx.chart.data.labels[ctx.dataIndex];
+          }
+        },
+      },
+    }
+  };
+  public pieChartData: ChartData<'pie', number[], string | string[]> = {
+    //labels: [ 'Solar', 'Eólica' ],
+    datasets: [ {
+      data: [ 300, 500 ],
+      backgroundColor: ['#4C9C2E', '#C2D500'],
+      hoverBackgroundColor: ['#4C9C2E','#C2D500'],
+      hoverBorderColor: ['#4C9C2E','#C2D500']
+      
+    } ]
+  };
+
+  public pieChartData2: ChartData<'pie', number[], string | string[]> = {
+    //labels: [ 'Solar', 'Eólica' ],
+    datasets: [ {
+      data: [ 300, 500 ],
+      backgroundColor: ['#4C9C2E', '#C2D500'],
+      hoverBackgroundColor: ['#4C9C2E','#C2D500'],
+      hoverBorderColor: ['#4C9C2E','#C2D500']
+      
+    } ]
+  };
+
+
+
+  public pieChartType: ChartType = 'pie';
+  public pieChartPlugins = [ DatalabelsPlugin ];
+  // events
+  public chartClicked({ event, active }: { event: ChartEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
+
+  public chartHovered({ event, active }: { event: ChartEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
+
+  changeLabels(): void {
+    const words = [ 'hen', 'variable', 'embryo', 'instal', 'pleasant', 'physical', 'bomber', 'army', 'add', 'film',
+      'conductor', 'comfortable', 'flourish', 'establish', 'circumstance', 'chimney', 'crack', 'hall', 'energy',
+      'treat', 'window', 'shareholder', 'division', 'disk', 'temptation', 'chord', 'left', 'hospital', 'beef',
+      'patrol', 'satisfied', 'academy', 'acceptance', 'ivory', 'aquarium', 'building', 'store', 'replace', 'language',
+      'redeem', 'honest', 'intention', 'silk', 'opera', 'sleep', 'innocent', 'ignore', 'suite', 'applaud', 'funny' ];
+    const randomWord = () => words[Math.trunc(Math.random() * words.length)];
+    this.pieChartData.labels = new Array(3).map(_ => randomWord());
+
+    this.chart?.update();
+  }
+
+  addSlice(): void {
+    if (this.pieChartData.labels) {
+      this.pieChartData.labels.push([ 'Line 1', 'Line 2', 'Line 3' ]);
+    }
+
+    this.pieChartData.datasets[0].data.push(400);
+
+    this.chart?.update();
+  }
+
+  removeSlice(): void {
+    if (this.pieChartData.labels) {
+      this.pieChartData.labels.pop();
+    }
+
+    this.pieChartData.datasets[0].data.pop();
+
+    this.chart?.update();
+  }
+
+  changeLegendPosition(): void {
+    if (this.pieChartOptions?.plugins?.legend) {
+      this.pieChartOptions.plugins.legend.position = this.pieChartOptions.plugins.legend.position === 'left' ? 'top' : 'left';
+    }
+
+    this.chart?.render();
+  }
+
+  toggleLegend(): void {
+    if (this.pieChartOptions?.plugins?.legend) {
+      this.pieChartOptions.plugins.legend.display = !this.pieChartOptions.plugins.legend.display;
+    }
+
+    this.chart?.render();
+  }
 
   constructor(
     private toastr: ToastrService,
@@ -163,14 +285,6 @@ export class TodosGeneradoresComponent implements OnInit {
 
 
 
-
-  public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
-  }
 
   /*
   //Circular

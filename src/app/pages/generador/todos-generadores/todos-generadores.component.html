@@ -21,10 +21,8 @@
 <div class="container-generadores">
 
     <div class="pais-generadores">
-        <div class="buttons">
-            <button class="button-mvm-white">Generadores</button>
-            <button class="button-mvm-white">Clientes</button>
-            <button class="button-mvm-white">Mapa general</button>
+        <div class="tipo-mapa">
+            <span class="title">{{tipoMapa}}</span>
         </div>
         <app-mapa-colombia (departamento)="addItem($event)"></app-mapa-colombia>
     </div>
@@ -32,19 +30,90 @@
     <div class="energia-dpto">
         <div class="header">
             <h1 class="title-xg">{{departamento || 'Colombia'}}</h1>
-            <p>En {{departamento || 'Colombia'}} se generan los siguientes tipos de energías renovables.</p>
         </div>
-        <div class="energia-solar mt-10">
-            <img src="../../../../assets/images/panel-solar.png" alt="">
-            <span class="title-g-gris mt-10">Solar</span>
+
+        <div class="container-chart text-center" *ngIf="tipoMapa=='Generadores'">
+            <div>
+                <div>
+                  <div class="pie-generadores">
+                    <canvas baseChart 
+                            [data]="pieChartData" 
+                            [type]="pieChartType"
+                            [options]="pieChartOptions">
+                            [legend]="legends">
+                    </canvas>
+                  </div>
+                </div>
+              </div>
         </div>
-        <div class="energia-eolica mt-10">
-            <img src="../../../../assets/images/energia-eolica.png" alt="">
-            <span class="title-g-gris mt-10">Eólica</span>
+        
+        <div class="container-chart text-center" *ngIf="tipoMapa=='Clientes'">
+            <div>
+                <div>
+                  <div class="pie-clientes">
+                    <canvas baseChart 
+                            [data]="pieChartData2" 
+                            [type]="pieChartType"
+                            [options]="pieChartOptions">
+                    </canvas>
+                  </div>
+                </div>
+              </div>
         </div>
-        <div class="button-container">
-            <button class="button-mvm-white w50-h30">Ver mas</button>
+
+        <div class="container-acordeon-tabla">
+            <mat-accordion>
+                <mat-expansion-panel (opened)="panelOpenState = true"
+                                        (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                    <mat-panel-title class="text-gris-p">
+                        Detalle por región
+                    </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div class="buttons-acordeon text-gris-p">
+                    <a class="text-gris-p" (click)="tipoMapa='Generadores'">Generadores</a>
+                    <a class="text-gris-p" (click)="tipoMapa='Clientes'" >Clientes</a>
+                    </div>
+                    
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+              
+              
+                <!-- Name Column -->
+                <ng-container matColumnDef="nombre">
+                  <th mat-header-cell *matHeaderCellDef> Nombre Agente </th>
+                  <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                </ng-container>
+              
+                <!-- Weight Column -->
+                <ng-container matColumnDef="tipo">
+                  <th mat-header-cell *matHeaderCellDef> Tipo Energía </th>
+                  <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+                </ng-container>
+              
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="cantidad">
+                  <th mat-header-cell *matHeaderCellDef> Cantidad Generada MWh</th>
+                  <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="precio">
+                    <th mat-header-cell *matHeaderCellDef> Precio </th>
+                    <td mat-cell *matCellDef="let element"> {{element.precio}} </td>
+                  </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
         </div>
+        
         
     </div>
     

@@ -43,6 +43,7 @@ import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.c
 import { MatIconModule } from '@angular/material/icon';
 import { RegistrosDetalleComponent } from './regulador-mercado/registros/registros-detalle/registros-detalle.component';
 
+
 @NgModule({
     declarations: [
         DashboardComponent,
@@ -86,7 +87,8 @@ import { RegistrosDetalleComponent } from './regulador-mercado/registros/registr
         ToastrModule.forRoot(),
         BrowserAnimationsModule,
         NgChartsModule,
-        MatIconModule
+        MatIconModule,
+        
     ],
     providers: [WinRefService, Web3ConnectService],
     exports: [
@@ -109,6 +111,7 @@ import { RegistrosDetalleComponent } from './regulador-mercado/registros/registr
         TodosGeneradoresComponent,
         EmisionesCompraComponent,
         DelegarTokensComponent
+        
     ]
    
 })

@@ -26,15 +26,31 @@ body {
     font-weight: 400 !important;
 }
 
+.text-center{
+    text-align: center;
+}
 .title{
     font-size: 24px;
     font-weight: 700;
     color: var(--verde-oscuro);
 }
 
+
+.title-gris{
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--gris-claro);
+}
+
 .color-green{
     font-family: 'Montserrat',Roboto,"Helvetica Neue", sans-serif !important;
     color: var(--verde-oscuro);
+}
+
+.text-gris-p{
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    color: var(--gris-claro);
 }
 
 .title-g{
@@ -221,16 +237,15 @@ body {
     text-align: center;
 }
 
+.container-generadores .tipo-mapa{
+    text-align: center;
+}
+
+
 .container-generadores .custom h2 {
     text-align: center;
 }
 
-.button-container{
-    grid-column: 1/3;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
 
 .w50-h30{
     width: 50%;
@@ -323,14 +338,14 @@ body {
 .container-generadores .pais-generadores{
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 55px auto;
+    grid-template-rows: 55px auto auto;
     justify-content: center;
     align-items: center;
 }
 
 .container-generadores .pais-generadores .buttons{
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto;
     grid-column-gap: 10px;
     margin-left: 10px;
 }
@@ -342,30 +357,72 @@ body {
 
 .container-generadores .energia-dpto{
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 25% 75%;
+    align-items: center;
+    grid-template-rows: 60px auto;
+    justify-content: center;
 }
 
 .container-generadores .energia-dpto .header{
-    grid-column: 1/3;
+    grid-column: 2/3;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    width: 90%;
+}
+.container-generadores .energia-dpto .header h1{
+    margin: auto;
 }
 
-.container-generadores .energia-dpto .energia-solar{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.mat-header-row{    
+    border-radius: 8px !important;
+    overflow:hidden !important;
 }
 
-.container-generadores .energia-dpto .energia-eolica{
+
+.container-generadores .pie-generadores canvas{
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.container-generadores .pie-clientes canvas{
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.energia-dpto .buttons-acordeon{
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
+
+.energia-dpto .buttons-acordeon a{
+    text-decoration: none;
+    margin-bottom: 16px;
+    margin-left: 20px;
+}
+
+.energia-dpto .buttons-acordeon a:hover{
+    color: #636363;
+    cursor: pointer;
+}
+
+.energia-dpto .container-acordeon-tabla{
+    display: grid;
+    grid-template-columns: 100%;
+}
+
+.energia-dpto .container-acordeon-tabla mat-accordion{
+    width: 90%;
+    margin-bottom: 20px;
+}
+
+.energia-dpto .container-acordeon-tabla table{
+    width: 90%;
+    max-height: 90%;
+}
+
+
 
 .container-generadores .tipo-energia-dpto{
     /* background-color: #c77a1648; */
@@ -574,3 +631,156 @@ mat-dialog-container .mat-form-field-infix span label{
     position: relative;
     margin-left: 2px;
 }
+
+/* TABLERO PRINCIPAL */
+
+.tablero-principal{
+    display: grid;
+    grid-template-columns: repeat(10,9.1%);
+    grid-template-rows: calc(50vh - 42px) calc(50vh - 42px);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+}
+
+.tablero-principal .box-chart{
+    border: 1px solid rgba(146, 146, 146, 1);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 38px;
+    background-color: white;
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto 70% auto;
+    justify-items: center;
+}
+
+.tablero-principal .box-chart-no-labels{
+    border: 1px solid rgba(146, 146, 146, 1);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 38px;
+    background-color: white;
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto 80%;
+    justify-items: center;
+
+}
+
+.tablero-principal .box-chart .header{
+    display: flex;
+    align-items: center;
+}
+
+.tablero-principal .box-chart .header span{
+    font-weight: 600;
+}
+
+.tablero-principal .box-chart-no-labels .header span{
+    font-weight: 600;
+}
+
+.tablero-principal .agentes-registrados{
+    grid-column: 1/5;
+}
+
+.tablero-principal .variacion-precio{
+    grid-column: 5/11;
+}
+
+.tablero-principal .transacciones{
+    grid-column: 1/7;
+    grid-row: 2/3;
+}
+
+.tablero-principal .total-energia{
+    grid-column: 7/11;
+    grid-row: 2/3;
+}
+
+
+.tablero-principal .agentes-registrados canvas{
+    width: auto !important;
+    height: 90% !important;
+}
+
+.tablero-principal .variacion-precio canvas{
+    width: auto !important;
+    height: 100% !important;
+}
+
+.tablero-principal .variacion-precio .chart-line{
+    width: 100%;
+    height: 100%;
+}
+
+.tablero-principal .total-energia .chart-pie canvas{
+    width: auto !important;
+    height: 90% !important;
+}
+
+.tablero-principal .total-energia .chart-bar canvas{
+    width: auto !important;
+    height: 100% !important;
+}
+
+.tablero-principal .transacciones .chart-bar{
+    width: 90%;
+    height: 100%;
+}
+
+.box-chart .container-indicadores .box-indicador{
+    width: 30px;
+    height: 10px;
+}
+
+.box-chart .container-indicadores .indicador-uno{
+    background-color: var(--verde-oscuro);
+}
+
+.box-chart .container-indicadores .indicador-dos{
+    background-color: var(--verde-claro);
+}
+
+.box-chart .container-indicadores .indicador-tres{
+    background-color: var(--gris-claro);
+}
+
+.agentes-registrados .container-indicadores{
+    display: grid;
+    grid-template-columns: repeat(4,auto);
+    justify-content: center;
+    align-items: center;
+    grid-column-gap: 5px;
+    grid-template-rows: auto;
+}
+
+.container-indicadores .box-label-comercializador{
+    display: grid;
+    width: 100%;
+    grid-column: 1/5;
+    grid-row: 2/3;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: auto auto;
+    grid-column-gap: 5px;
+}
+
+
+.total-energia .container-indicadores{
+    display: grid;
+    grid-template-columns: repeat(4,auto);
+    justify-content: center;
+    align-items: center;
+    grid-column-gap: 5px;
+    grid-template-rows: auto;
+}
+
+
+
+
+
+
+
+
