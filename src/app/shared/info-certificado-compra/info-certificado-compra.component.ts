@@ -1,9 +1,9 @@
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { InfoCertificadoVentaEnergia, InfoMappingCertificado } from 'src/app/models/InfoCertificados';
-import { CertificadorContractService } from 'src/app/services/certificador-contract.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { CertificadorContractService } from 'src/app/services/certificador-contract.service';
 
 @Component({
   selector: 'app-info-certificado-compra',
