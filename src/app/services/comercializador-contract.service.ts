@@ -80,6 +80,59 @@ export class ComercializadorContractService extends AgenteContractService {
       );
   }
 
+<<<<<<< Updated upstream
+=======
+  getInfoComprasRealizadas():Observable<InfoCompraEnergia[]>{
+    return from(this.contract.methods.contadorCompras().call({ from: this.account })).pipe(
+      switchMap((data: string) => {
+        let numCompras = parseInt(data);
+        let observables: Observable<InfoCompraEnergia>[] = [];
+        for (let i = numCompras - 1; i >= 0; i--) {
+          let tempObs = from(this.contract.methods.getInfoComprasRealizadas(i).call({ from: this.account })).pipe(
+            map((data: any) => {
+              const [
+                ownerCliente,
+                dirContratoCliente,
+                empresaCliente,
+                dirContratoGerador,
+                empresaGerador,
+                dirPlanta,
+                nombrePlanta,
+                dirComercializador,
+                empresaComercializador,
+                tipoEnergia,
+                cantidadEnergia,
+                fechaAprobacion,
+                index
+              ] = data;
+
+              let tempInfo: InfoCompraEnergia = {
+                ownerCliente,
+                dirContratoCliente,
+                empresaCliente,
+                dirContratoGerador,
+                empresaGerador,
+                dirPlanta,
+                nombrePlanta,
+                dirComercializador,
+                empresaComercializador,
+                tipoEnergia,
+                cantidadEnergia,
+                fechaAprobacion: moment(parseInt(fechaAprobacion) * 1000).format('DD/MM/YYYY HH:mm:ss'),
+                fechaAprobacionNumber: parseInt(fechaAprobacion),
+                index
+              }
+              return tempInfo;
+            })
+          );
+          observables.push(tempObs);
+        }
+        return forkJoin(observables);
+      })
+    )
+  }
+
+>>>>>>> Stashed changes
   getEmisionesDeCompra(): Observable<InfoEmisionCompra[]> {
     return from(this.contract.methods.contadorEmisiones().call({ from: this.account })).pipe(
       switchMap((data: string) => {

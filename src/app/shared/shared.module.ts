@@ -15,6 +15,11 @@ import { FlexModule } from '@angular/flex-layout';
 import { LineChartComponent } from './charts/line-chart/line-chart.component';
 import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
 import { NgChartsModule } from 'ng2-charts';
+<<<<<<< Updated upstream
+=======
+import { InfoCertificadoAgenteComponent } from './info-certificado-agente/info-certificado-agente.component';
+import { InfoCertificadoCompraComponent } from './info-certificado-compra/info-certificado-compra.component';
+>>>>>>> Stashed changes
 
 
 
@@ -25,7 +30,13 @@ import { NgChartsModule } from 'ng2-charts';
         AsideComponent,
         GenerarEnergiaComponent,
         LineChartComponent,
+<<<<<<< Updated upstream
         PieChartComponent
+=======
+        PieChartComponent,
+        InfoCertificadoAgenteComponent,
+        InfoCertificadoCompraComponent
+>>>>>>> Stashed changes
     ],
     imports: [
         CommonModule,
@@ -45,7 +56,13 @@ import { NgChartsModule } from 'ng2-charts';
         AsideComponent,
         GenerarEnergiaComponent,
         LineChartComponent,
+<<<<<<< Updated upstream
         PieChartComponent
+=======
+        PieChartComponent,
+        InfoCertificadoAgenteComponent,
+        InfoCertificadoCompraComponent
+>>>>>>> Stashed changes
     ]
 })
 export class SharedModule { }
