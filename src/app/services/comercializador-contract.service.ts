@@ -7,6 +7,7 @@ import { AgenteContractService } from './agente-contract.service';
 import Comercializador from '../../../buildTruffle/contracts/Comercializador.json';
 import Web3 from 'web3';
 import moment from 'moment';
+import { InfoCompraEnergia } from '../models/InfoCompraEnergia';
 
 @Injectable({
   providedIn: 'root'
@@ -71,13 +72,63 @@ export class ComercializadorContractService extends AgenteContractService {
   }
 
   ComprarEnergia(compraEnergiaRequest: CompraEnergiaRequest): Observable<any> {
-    return from(this.contract.methods.ComprarEnergia(compraEnergiaRequest.dirContratoGenerador, compraEnergiaRequest.ownerCliente,
+    return from(this.contract.methods.ComprarEnergia(compraEnergiaRequest.dirContratoGenerador,
+      compraEnergiaRequest.dirPlantaGenerador, compraEnergiaRequest.ownerCliente,
       compraEnergiaRequest.cantidadEnergia, compraEnergiaRequest.tipoEnergia,
       compraEnergiaRequest.index).send({ from: this.account })).pipe(
         catchError((error) => {
           return throwError(() => new Error(error.message));
         })
       );
+  }
+
+  getInfoComprasRealizadas():Observable<InfoCompraEnergia[]>{
+    return from(this.contract.methods.contadorCompras().call({ from: this.account })).pipe(
+      switchMap((data: string) => {
+        let numCompras = parseInt(data);
+        let observables: Observable<InfoCompraEnergia>[] = [];
+        for (let i = numCompras - 1; i >= 0; i--) {
+          let tempObs = from(this.contract.methods.getInfoComprasRealizadas(i).call({ from: this.account })).pipe(
+            map((data: any) => {
+              const [
+                ownerCliente,
+                dirContratoCliente,
+                empresaCliente,
+                dirContratoGerador,
+                empresaGerador,
+                dirPlanta,
+                nombrePlanta,
+                dirComercializador,
+                empresaComercializador,
+                tipoEnergia,
+                cantidadEnergia,
+                fechaAprobacion,
+                index
+              ] = data;
+
+              let tempInfo: InfoCompraEnergia = {
+                ownerCliente,
+                dirContratoCliente,
+                empresaCliente,
+                dirContratoGerador,
+                empresaGerador,
+                dirPlanta,
+                nombrePlanta,
+                dirComercializador,
+                empresaComercializador,
+                tipoEnergia,
+                cantidadEnergia,
+                fechaAprobacion: moment(parseInt(fechaAprobacion) * 1000).format('DD/MM/YYYY HH:mm:ss'),
+                index
+              }
+              return tempInfo;
+            })
+          );
+          observables.push(tempObs);
+        }
+        return forkJoin(observables);
+      })
+    )
   }
 
   getEmisionesDeCompra(): Observable<InfoEmisionCompra[]> {

@@ -17,6 +17,7 @@ import { GeneradorComponent } from './generador/generador.component';
 import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-generadores.component';
 import { EthereumComponent } from './dashboard/ethereum/ethereum.component';
 import { RegistrosDetalleComponent } from './regulador-mercado/registros/registros-detalle/registros-detalle.component';
+import { ComprasRealizadasComponent } from './comercializador/compras-realizadas/compras-realizadas.component';
 
 
 const routes: Routes = [
@@ -66,6 +67,11 @@ const routes: Routes = [
             {
                 path:"comercializador/emisiones-de-compra/:tipo",
                 component: EmisionesCompraComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: "comercializador/compras-realizadas",
+                component:ComprasRealizadasComponent,
                 canActivate: [AuthGuard]
             },
             {

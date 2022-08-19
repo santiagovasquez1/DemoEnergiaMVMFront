@@ -40,8 +40,12 @@ import { MapaColombiaComponent } from './generador/todos-generadores/mapa-colomb
 import { DevolverTokensComponent } from './devolver-tokens/devolver-tokens.component';
 import { PlantasEnergiaComponent } from './generador/plantas-energia/plantas-energia.component';
 import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.component';
+
 import { MatIconModule } from '@angular/material/icon';
 import { RegistrosDetalleComponent } from './regulador-mercado/registros/registros-detalle/registros-detalle.component';
+
+
+import { ComprasRealizadasComponent } from './comercializador/compras-realizadas/compras-realizadas.component';
 
 
 @NgModule({
@@ -73,6 +77,9 @@ import { RegistrosDetalleComponent } from './regulador-mercado/registros/registr
         PlantasEnergiaComponent,
         ListaPlantasComponent,
         RegistrosDetalleComponent
+
+        ComprasRealizadasComponent
+
     ],
     imports: [
         CommonModule,
