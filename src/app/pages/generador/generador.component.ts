@@ -1,3 +1,4 @@
+import { PlantasEnergiaComponent } from './plantas-energia/plantas-energia.component';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { GeneradorContractService } from 'src/app/services/generador-contract.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,6 +13,7 @@ import { Estado, NuevaEnergiaComponent } from './nueva-energia/nueva-energia.com
 import { ContratarComercializadorGComponent } from './contratar-comercializador-g/contratar-comercializador-g.component';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
 import { DevolverTokensComponent } from '../devolver-tokens/devolver-tokens.component';
+import { InfoCertificadoAgenteComponent } from 'src/app/shared/info-certificado-agente/info-certificado-agente.component';
 
 @Component({
   selector: 'app-generador',
@@ -77,6 +79,7 @@ export class GeneradorComponent implements OnInit {
         const tiposEnergias = data[1] as InfoEnergia[];
         this.tokensGenerador = data[2] as number;
         this.energiasDisponibles = tiposEnergias.map(x => x.nombre);
+        this.spinner.hide();
         this.getCantidadesEnergiasDisponibles();
       }, error: (error) => {
         this.spinner.hide();
@@ -92,6 +95,7 @@ export class GeneradorComponent implements OnInit {
     });
     forkJoin(observablesEnergias).subscribe({
       next: (data: number[]) => {
+        debugger;
         this.cantidadesDisponibles = data;
         this.spinner.hide();
       }, error: (err) => {
@@ -102,34 +106,13 @@ export class GeneradorComponent implements OnInit {
     });
   }
 
-  onNuevaEnergia() {
-    let dialog = this.dialog.open(NuevaEnergiaComponent, {
+  onCrearPlanta() {
+    this.dialog.open(PlantasEnergiaComponent, {
       width: '500px',
       data: {
         dirContract: this.dirContract,
-        energiasDisponibles: this.energiasDisponibles,
-        estado: Estado.nuevaEnergia
+        energiasDisponibles: this.energiasDisponibles
       }
-    });
-
-    dialog.afterClosed().subscribe(result => {
-      this.spinner.show();
-      this.getCantidadesEnergiasDisponibles();
-    });
-  }
-
-  onInyectarEnergia() {
-    let dialog = this.dialog.open(NuevaEnergiaComponent, {
-      width: '500px',
-      data: {
-        dirContract: this.dirContract,
-        energiasDisponibles: this.energiasDisponibles,
-        estado: Estado.inyectarEnergia
-      }
-    });
-    dialog.afterClosed().subscribe(result => {
-      this.spinner.show();
-      this.getCantidadesEnergiasDisponibles();
     });
   }
 
@@ -162,5 +145,13 @@ export class GeneradorComponent implements OnInit {
     });
   }
 
+  onVerCertificado() {
+    this.dialog.open(InfoCertificadoAgenteComponent, {
+      width: '800px',
+      data: {
+        dirContratoAgente: localStorage.getItem('dirContract'),
+      }
+    })
+  }
 
 }

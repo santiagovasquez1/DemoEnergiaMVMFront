@@ -1,3 +1,4 @@
+import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.component';
 import { EmisionesCompraComponent } from './comercializador/emisiones-compra/emisiones-compra.component';
 import { BancoEnergiaComponent } from './banco-energia/banco-energia.component';
 import { SolicitudesComponent } from './regulador-mercado/solicitudes/solicitudes.component';
@@ -15,6 +16,8 @@ import { ListaClientesComponent } from './comercializador/lista-clientes/lista-c
 import { GeneradorComponent } from './generador/generador.component';
 import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-generadores.component';
 import { EthereumComponent } from './dashboard/ethereum/ethereum.component';
+import { RegistrosDetalleComponent } from './regulador-mercado/registros/registros-detalle/registros-detalle.component';
+import { ComprasRealizadasComponent } from './comercializador/compras-realizadas/compras-realizadas.component';
 
 
 const routes: Routes = [
@@ -42,6 +45,11 @@ const routes: Routes = [
                 canActivate: [AuthGuard]
             },
             {
+                path: "regulador-mercado/registros/detalle",
+                component: RegistrosDetalleComponent,
+                canActivate: [AuthGuard]
+            },
+            {
                 path: "cliente",
                 component: ClienteDashboardComponent,
                 canActivate: [AuthGuard]
@@ -62,8 +70,18 @@ const routes: Routes = [
                 canActivate: [AuthGuard]
             },
             {
+                path: "comercializador/compras-realizadas",
+                component:ComprasRealizadasComponent,
+                canActivate: [AuthGuard]
+            },
+            {
                 path: "generador",
                 component: GeneradorComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: "generador/lista-plantas-energia",
+                component:ListaPlantasComponent,
                 canActivate: [AuthGuard]
             },
             {

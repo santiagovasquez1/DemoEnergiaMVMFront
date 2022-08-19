@@ -7,6 +7,7 @@ import { AgenteContractService } from './agente-contract.service';
 import Comercializador from '../../../buildTruffle/contracts/Comercializador.json';
 import Web3 from 'web3';
 import moment from 'moment';
+import { InfoCompraEnergia } from '../models/InfoCompraEnergia';
 
 @Injectable({
   providedIn: 'root'
@@ -71,7 +72,8 @@ export class ComercializadorContractService extends AgenteContractService {
   }
 
   ComprarEnergia(compraEnergiaRequest: CompraEnergiaRequest): Observable<any> {
-    return from(this.contract.methods.ComprarEnergia(compraEnergiaRequest.dirContratoGenerador, compraEnergiaRequest.ownerCliente,
+    return from(this.contract.methods.ComprarEnergia(compraEnergiaRequest.dirContratoGenerador,
+      compraEnergiaRequest.dirPlantaGenerador, compraEnergiaRequest.ownerCliente,
       compraEnergiaRequest.cantidadEnergia, compraEnergiaRequest.tipoEnergia,
       compraEnergiaRequest.index).send({ from: this.account })).pipe(
         catchError((error) => {
@@ -80,8 +82,6 @@ export class ComercializadorContractService extends AgenteContractService {
       );
   }
 
-<<<<<<< Updated upstream
-=======
   getInfoComprasRealizadas():Observable<InfoCompraEnergia[]>{
     return from(this.contract.methods.contadorCompras().call({ from: this.account })).pipe(
       switchMap((data: string) => {
@@ -132,7 +132,6 @@ export class ComercializadorContractService extends AgenteContractService {
     )
   }
 
->>>>>>> Stashed changes
   getEmisionesDeCompra(): Observable<InfoEmisionCompra[]> {
     return from(this.contract.methods.contadorEmisiones().call({ from: this.account })).pipe(
       switchMap((data: string) => {

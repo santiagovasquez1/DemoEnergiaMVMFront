@@ -47,7 +47,6 @@ export class ComprasRealizadasComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
   }
 
   loadComprasRealizadas() {

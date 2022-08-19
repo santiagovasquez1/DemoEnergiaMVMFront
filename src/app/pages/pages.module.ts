@@ -38,6 +38,9 @@ import { EthereumComponent } from './dashboard/ethereum/ethereum.component';
 import { NgChartsModule } from 'ng2-charts';
 import { MapaColombiaComponent } from './generador/todos-generadores/mapa-colombia/mapa-colombia.component';
 import { DevolverTokensComponent } from './devolver-tokens/devolver-tokens.component';
+import { PlantasEnergiaComponent } from './generador/plantas-energia/plantas-energia.component';
+import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.component';
+import { ComprasRealizadasComponent } from './comercializador/compras-realizadas/compras-realizadas.component';
 
 @NgModule({
     declarations: [
@@ -64,7 +67,10 @@ import { DevolverTokensComponent } from './devolver-tokens/devolver-tokens.compo
         CompraEnergiaComponent,
         ContratarComercializadorGComponent,
         EthereumComponent,
-        MapaColombiaComponent
+        MapaColombiaComponent,
+        PlantasEnergiaComponent,
+        ListaPlantasComponent,
+        ComprasRealizadasComponent
     ],
     imports: [
         CommonModule,

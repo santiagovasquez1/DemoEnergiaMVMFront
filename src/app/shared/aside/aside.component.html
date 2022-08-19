@@ -1,14 +1,14 @@
 <div class="sidebar">
-    <div *ngIf="tipoContrato == 0">
-        <h3><b>Cliente</b></h3>
+    <div class="container-section" *ngIf="tipoContrato == 0">
+        <span class="title-section">Cliente</span>
         <a [routerLink]="['/dashboard/cliente']">
             <span>Información</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
     </div>
 
-    <div *ngIf="tipoContrato == 1">
-        <h3><b>Comercializador</b></h3>
+    <div class="container-section" *ngIf="tipoContrato == 1">
+        <span class="title-section">Comercializador</span>
         <a [routerLink]="['/dashboard/comercializador']">
             <span>Información</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
@@ -21,49 +21,55 @@
             <span>Emisiones de compra</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
-        <a [routerLink]="['comercializador/emisiones-de-compra','aprobadas']">
+        <a [routerLink]="['comercializador/compras-realizadas']">
             <span>Compras realizadas</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
     </div>
 
-    <div *ngIf="tipoContrato==2">
-        <h3><b>Generadores</b> </h3>
+    <div class="container-section" *ngIf="tipoContrato==2">
+        <span class="title-section">Generadores</span>
         <a [routerLink]="['/dashboard/generador']">
             <span>Información</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
+        <a [routerLink]="['generador/lista-plantas-energia']">
+            <span>Plantas de generación de energia</span>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </a>
     </div>
 
-    <div *ngIf="tipoContrato==3">
-        <h3><b>Administrador</b></h3>
+    <div class="container-section" *ngIf="tipoContrato==3">
+        <span class="title-section">Administrador</span>
         <a [routerLink]="['/dashboard/regulador-mercado']">
+            <mat-icon>info</mat-icon>
             <span>Información</span>
-            <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
         <a [routerLink]="['/dashboard/regulador-mercado/solicitudes']">
+            <mat-icon>assignment_turned_in</mat-icon>
             <span>Solicitudes pendientes</span>
-            <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
         <a [routerLink]="['/dashboard/regulador-mercado/registros']">
+            <mat-icon>book</mat-icon>
             <span>Registros</span>
-            <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
     </div>
 
-    <h3 id="energia"><b>Banco de energia</b> </h3>
-    <a [routerLink]="['/dashboard']">
-        <span>Información</span>
-        <mat-icon>keyboard_arrow_right</mat-icon>
-    </a>
-    <a [routerLink]="['/dashboard/todos-generadores']">
-        <span>Lista generadores</span>
-        <mat-icon>keyboard_arrow_right</mat-icon>
-    </a>
+    <div class="container-section">
+        <span id="energia" class="title-section">Dashboard</span>
+        <a [routerLink]="['/dashboard']">
+            <mat-icon>info</mat-icon>
+            <span>Información</span>
+        </a>
+        <a [routerLink]="['/dashboard/todos-generadores']">
+            <mat-icon>list</mat-icon>
+            <span>Lista generadores</span>
+        </a>
 
-    <h3><b>Dashboard</b> </h3>
-    <a [routerLink]="['/dashboard/ethereum']">
-        <span>Ethereum</span>
-        <mat-icon>keyboard_arrow_right</mat-icon>
-    </a>
+        <a [routerLink]="['/dashboard/ethereum']">
+            <mat-icon>payment</mat-icon>
+            <span>Ethereum</span>
+        </a>
+    </div>
+
 </div>
