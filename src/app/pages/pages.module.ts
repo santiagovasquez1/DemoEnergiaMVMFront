@@ -40,7 +40,13 @@ import { MapaColombiaComponent } from './generador/todos-generadores/mapa-colomb
 import { DevolverTokensComponent } from './devolver-tokens/devolver-tokens.component';
 import { PlantasEnergiaComponent } from './generador/plantas-energia/plantas-energia.component';
 import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.component';
+
+import { MatIconModule } from '@angular/material/icon';
+import { RegistrosDetalleComponent } from './regulador-mercado/registros/registros-detalle/registros-detalle.component';
+
+
 import { ComprasRealizadasComponent } from './comercializador/compras-realizadas/compras-realizadas.component';
+
 
 @NgModule({
     declarations: [
@@ -70,7 +76,10 @@ import { ComprasRealizadasComponent } from './comercializador/compras-realizadas
         MapaColombiaComponent,
         PlantasEnergiaComponent,
         ListaPlantasComponent,
+        RegistrosDetalleComponent
+
         ComprasRealizadasComponent
+
     ],
     imports: [
         CommonModule,
@@ -84,7 +93,9 @@ import { ComprasRealizadasComponent } from './comercializador/compras-realizadas
         FlexModule,
         ToastrModule.forRoot(),
         BrowserAnimationsModule,
-        NgChartsModule
+        NgChartsModule,
+        MatIconModule,
+        
     ],
     providers: [WinRefService, Web3ConnectService],
     exports: [
@@ -106,7 +117,9 @@ import { ComprasRealizadasComponent } from './comercializador/compras-realizadas
         GeneradorComponent,
         TodosGeneradoresComponent,
         EmisionesCompraComponent,
-        DelegarTokensComponent,
+        DelegarTokensComponent
+        
     ]
+   
 })
 export class PagesModule { }

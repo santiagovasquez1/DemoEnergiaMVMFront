@@ -4,6 +4,22 @@ import { BaseChartDirective } from 'ng2-charts';
 import {default as Annotation} from '../../../../../node_modules/chartjs-plugin-annotation';
 import { EthereumService } from 'src/app/services/dashboard/ethereum.service';
 
+export interface PeriodicElement {
+  nombre: string;
+  tipo: string;
+  cantidad: number;
+  precio: string;
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  {nombre: 'EPM', cantidad: 100, tipo: 'Solar',precio:'2,300.00'},
+  {nombre: 'ELECTROHUILA', cantidad: 400, tipo: 'Solar',precio:'2,600.00'},
+  {nombre: 'EMCALI', cantidad: 694, tipo: 'Eólica',precio:'1,300.00'},
+  {nombre: 'CELSIA', cantidad: 900, tipo: 'Solar',precio:'2,800.00'},
+  {nombre: 'AES', cantidad: 1000, tipo: 'Eólica',precio:'2,400.00'}
+];
+
+
 @Component({
   selector: 'app-ethereum',
   templateUrl: './ethereum.component.html'
@@ -11,7 +27,8 @@ import { EthereumService } from 'src/app/services/dashboard/ethereum.service';
 export class EthereumComponent implements OnInit {
 
   
-
+  displayedColumns: string[] = ['nombre', 'cantidad', 'tipo','precio'];
+  dataSource = ELEMENT_DATA;
 
   precio: string = '';
   constructor(private EthereumService: EthereumService ) { 

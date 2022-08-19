@@ -15,7 +15,11 @@ import { FlexModule } from '@angular/flex-layout';
 import { LineChartComponent } from './charts/line-chart/line-chart.component';
 import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
 import { NgChartsModule } from 'ng2-charts';
+
+import { MatIconModule } from '@angular/material/icon';
+
 import { InfoCertificadoAgenteComponent } from './info-certificado-agente/info-certificado-agente.component';
+
 
 
 
@@ -40,7 +44,8 @@ import { InfoCertificadoAgenteComponent } from './info-certificado-agente/info-c
         ReactiveFormsModule,
         FlexModule,
         RouterModule,
-        NgChartsModule 
+        NgChartsModule ,
+        MatIconModule
     ],
     exports: [
         ToolbarComponent,

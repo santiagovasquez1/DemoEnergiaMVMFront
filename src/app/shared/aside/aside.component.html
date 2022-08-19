@@ -40,7 +40,6 @@
     </div>
 
     <div class="container-section" *ngIf="tipoContrato==3">
-        <span class="title-section">Administrador</span>
         <a [routerLink]="['/dashboard/regulador-mercado']">
             <mat-icon>info</mat-icon>
             <span>Información</span>
@@ -56,19 +55,31 @@
     </div>
 
     <div class="container-section">
-        <span id="energia" class="title-section">Dashboard</span>
-        <a [routerLink]="['/dashboard']">
-            <mat-icon>info</mat-icon>
-            <span>Información</span>
+        <a (click)="showTableroPrincipal == false ? showTableroPrincipal = true: showTableroPrincipal=false">
+            <mat-icon>dashboard</mat-icon>
+            <span>Panel de control</span>
+            <mat-icon *ngIf="!showTableroPrincipal">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="showTableroPrincipal">keyboard_arrow_up</mat-icon>
         </a>
-        <a [routerLink]="['/dashboard/todos-generadores']">
-            <mat-icon>list</mat-icon>
-            <span>Lista generadores</span>
+        <a [routerLink]="['/dashboard']" *ngIf="showTableroPrincipal">
+            <!--<mat-icon>info</mat-icon>-->
+            <span>Tablero principal</span>
         </a>
+        <a [routerLink]="['/dashboard/todos-generadores']" *ngIf="showTableroPrincipal">
+            <!--<mat-icon>list</mat-icon>-->
+            <span>Georeferenciación</span>
+        </a>
+
+    
+        <a [routerLink]="['/dashboard/ethereum']" *ngIf="showTableroPrincipal">
+            <!--<mat-icon>payment</mat-icon>-->
+            <span>Transacciones</span>
+
 
         <a [routerLink]="['/dashboard/ethereum']">
             <mat-icon>payment</mat-icon>
             <span>Ethereum</span>
+
         </a>
     </div>
 

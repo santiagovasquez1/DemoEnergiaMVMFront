@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AsideComponent implements OnInit {
   tipoContrato: TiposContratos
+  showTableroPrincipal = false;
+
   constructor() { 
     this.tipoContrato = parseInt(localStorage.getItem('tipoAgente')) as TiposContratos;
     
