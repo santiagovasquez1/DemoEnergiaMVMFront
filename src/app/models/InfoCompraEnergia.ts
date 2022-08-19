@@ -11,5 +11,6 @@ export interface InfoCompraEnergia {
     tipoEnergia: string;
     cantidadEnergia: number;
     fechaAprobacion: string;
+    fechaAprobacionNumber: number;
     index: number;
 }

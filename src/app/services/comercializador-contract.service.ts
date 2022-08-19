@@ -119,6 +119,7 @@ export class ComercializadorContractService extends AgenteContractService {
                 tipoEnergia,
                 cantidadEnergia,
                 fechaAprobacion: moment(parseInt(fechaAprobacion) * 1000).format('DD/MM/YYYY HH:mm:ss'),
+                fechaAprobacionNumber: parseInt(fechaAprobacion),
                 index
               }
               return tempInfo;

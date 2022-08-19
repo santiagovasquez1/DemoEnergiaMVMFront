@@ -1,8 +1,12 @@
+import { InfoCertificadoCompraComponent } from './../../../shared/info-certificado-compra/info-certificado-compra.component';
+import { MatDialog } from '@angular/material/dialog';
 import { InfoCompraEnergia } from './../../../models/InfoCompraEnergia';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ComercializadorContractService } from 'src/app/services/comercializador-contract.service';
+import { InfoMappingCertificado } from 'src/app/models/InfoCertificados';
+import moment from 'moment';
 
 @Component({
   selector: 'app-compras-realizadas',
@@ -16,8 +20,8 @@ export class ComprasRealizadasComponent implements OnInit, OnDestroy {
 
   constructor(private comercializadorService: ComercializadorContractService,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService,) {
-
+    private spinner: NgxSpinnerService,
+    private dialog: MatDialog) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -43,7 +47,6 @@ export class ComprasRealizadasComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    
   }
 
   loadComprasRealizadas() {
@@ -59,4 +62,19 @@ export class ComprasRealizadasComponent implements OnInit, OnDestroy {
     });
   }
 
+  verCertificado(compra: InfoCompraEnergia) {
+    let requestCompra: InfoMappingCertificado = {
+      dirContratoCliente: compra.dirContratoCliente,
+      dirContratoGenerador: compra.dirContratoGerador,
+      dirContratoComercializador: compra.dirComercializador,
+      cantidadEnergia: compra.cantidadEnergia,
+      tipoEnergia: compra.tipoEnergia,
+      fechaCompra: compra.fechaAprobacionNumber,
+    }
+    debugger;
+    this.dialog.open(InfoCertificadoCompraComponent, {
+      width: '800px',
+      data: requestCompra
+    });
+  }
 }

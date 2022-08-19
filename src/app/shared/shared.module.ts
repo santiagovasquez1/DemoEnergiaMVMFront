@@ -19,6 +19,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { MatIconModule } from '@angular/material/icon';
 
 import { InfoCertificadoAgenteComponent } from './info-certificado-agente/info-certificado-agente.component';
+import { InfoCertificadoCompraComponent } from './info-certificado-compra/info-certificado-compra.component';
 
 
 

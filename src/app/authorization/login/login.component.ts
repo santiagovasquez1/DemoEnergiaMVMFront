@@ -1,3 +1,4 @@
+import { CertificadorContractService } from './../../services/certificador-contract.service';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -15,6 +16,7 @@ export class LoginComponent {
 
   constructor(private web3Service: Web3ConnectService,
     private regulardorMercado: ReguladorMercadoService,
+    private certificador:CertificadorContractService,
     private spinnerService: NgxSpinnerService,
     private toastr: ToastrService,
     private router: Router
@@ -25,6 +27,7 @@ export class LoginComponent {
       this.spinnerService.show();
       await this.web3Service.loadWeb3();
       await this.regulardorMercado.loadBlockChainContractData();
+      await this.certificador.loadBlockChainContractData('');
       this.regulardorMercado.validarUsuario().subscribe({
         next: (data) => {
            if (data[0]) {
