@@ -2,11 +2,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { ToastrService } from 'ngx-toastr';
 import { InfoEnergia } from './../../models/InfoEnergia';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Observable, Subscription, timer } from 'rxjs';
-import { ChartData, ChartEvent, ChartType,Chart, ChartConfiguration } from 'chart.js';
+import { ChartData, ChartEvent, ChartType, Chart, ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import {default as Annotation} from 'chartjs-plugin-annotation';
+import { default as Annotation } from 'chartjs-plugin-annotation';
 
 @Component({
   selector: 'app-banco-energia',
@@ -14,7 +14,7 @@ import {default as Annotation} from 'chartjs-plugin-annotation';
   styles: [
   ]
 })
-export class BancoEnergiaComponent implements OnInit {
+export class BancoEnergiaComponent implements OnInit, OnDestroy {
   energiasDisponibles: InfoEnergia[] = [];
   timer$: Observable<any>;
   timerSubscription: Subscription;
@@ -24,29 +24,30 @@ export class BancoEnergiaComponent implements OnInit {
 
   estadoAnterior: InfoEnergia[] = [];
   estadoActual: InfoEnergia[] = [];
+  eventoTransaccion: any;
 
-    // Doughnut
-    public doughnutChartLabels: string[] = [ 'Generadores', 'Clientes', 'Comercializadores' ];
-    public doughnutChartData: ChartData<'doughnut'> = {
-      //labels: this.doughnutChartLabels,
-      datasets: [{ 
-        data: [ 350, 450, 100 ],
-        backgroundColor: ['#4C9C2E', '#C2D500','rgba(146, 146, 146, 1)'],
-        hoverBackgroundColor: ['#4C9C2E','#C2D500','rgba(146, 146, 146, 1)'],
-        hoverBorderColor: ['#4C9C2E','#C2D500','rgba(146, 146, 146, 1)']
-      }
-      ]
-    };
-    public doughnutChartType: ChartType = 'doughnut';
-  
-    // events
-    public chartClicked({ event, active }: { event: ChartEvent, active: {}[] }): void {
-      console.log(event, active);
+  // Doughnut
+  public doughnutChartLabels: string[] = ['Generadores', 'Clientes', 'Comercializadores'];
+  public doughnutChartData: ChartData<'doughnut'> = {
+    //labels: this.doughnutChartLabels,
+    datasets: [{
+      data: [350, 450, 100],
+      backgroundColor: ['#4C9C2E', '#C2D500', 'rgba(146, 146, 146, 1)'],
+      hoverBackgroundColor: ['#4C9C2E', '#C2D500', 'rgba(146, 146, 146, 1)'],
+      hoverBorderColor: ['#4C9C2E', '#C2D500', 'rgba(146, 146, 146, 1)']
     }
-  
-    public chartHovered({ event, active }: { event: ChartEvent, active: {}[] }): void {
-      console.log(event, active);
-    }
+    ]
+  };
+  public doughnutChartType: ChartType = 'doughnut';
+
+  // events
+  public chartClicked({ event, active }: { event: ChartEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
+
+  public chartHovered({ event, active }: { event: ChartEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
 
   constructor(private toastr: ToastrService,
     private bancoEnergia: BancoEnergiaService,
@@ -55,11 +56,16 @@ export class BancoEnergiaComponent implements OnInit {
     Chart.register(Annotation)
   }
 
+  ngOnDestroy(): void {
+    this.eventoTransaccion.removeAllListeners('data');
+    this.timerSubscription.unsubscribe();
+  }
+
   //START LINE CHART
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
       {
-        data: [ 65, 59, 80, 81, 56, 55, 40, 70, 90, 100, 270, 150 ],
+        data: [65, 59, 80, 81, 56, 55, 40, 70, 90, 100, 270, 150],
         label: 'Solar',
         backgroundColor: 'rgba(76, 156, 46, 0.2)',
         borderColor: 'rgba(76, 156, 46, 1)',
@@ -68,10 +74,10 @@ export class BancoEnergiaComponent implements OnInit {
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: 'rgba(148,159,177,0.8)',
         fill: 'origin',
-        
+
       },
       {
-        data: [ 75, 39, 90, 91, 66, 55, 40, 70, 90, 10, 70, 40 ],
+        data: [75, 39, 90, 91, 66, 55, 40, 70, 90, 10, 70, 40],
         label: 'Eólica',
         backgroundColor: 'rgba(194, 213, 0, 0.2)',
         borderColor: 'rgba(194, 213, 0, 1)',
@@ -83,7 +89,7 @@ export class BancoEnergiaComponent implements OnInit {
       }
 
     ],
-    labels: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre' ]
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
   };
 
   public lineChartOptions: ChartConfiguration['options'] = {
@@ -92,20 +98,20 @@ export class BancoEnergiaComponent implements OnInit {
     elements: {
       line: {
         tension: 0.5,
-        
+
       }
-      
+
     },
     scales: {
       // We use this empty structure as a placeholder for dynamic theming.
-      
+
       x: {
         grid: {
           //display: false
         },
 
-        ticks:{
-        autoSkip: true
+        ticks: {
+          autoSkip: true
         },
         /*
         title:{
@@ -114,20 +120,20 @@ export class BancoEnergiaComponent implements OnInit {
         }*/
       },
       y:
-        {
-          beginAtZero: true,
-          grid: {
-            //display: false
-          },
-          position: 'left',
-          title:{
-            display: true,
-            text: '$/MWh'
-          },
-          ticks:{
-            autoSkip: true
-            },
-        }
+      {
+        beginAtZero: true,
+        grid: {
+          //display: false
+        },
+        position: 'left',
+        title: {
+          display: true,
+          text: '$/MWh'
+        },
+        ticks: {
+          autoSkip: true
+        },
+      }
     },
 
     plugins: {
@@ -161,13 +167,13 @@ export class BancoEnergiaComponent implements OnInit {
   };
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
     //labels: [ 'Solar', 'Eólica' ],
-    datasets: [ {
-      data: [ 300, 500 ],
+    datasets: [{
+      data: [300, 500],
       backgroundColor: ['#4C9C2E', '#C2D500'],
-      hoverBackgroundColor: ['#4C9C2E','#C2D500'],
-      hoverBorderColor: ['#4C9C2E','#C2D500']
-      
-    } ]
+      hoverBackgroundColor: ['#4C9C2E', '#C2D500'],
+      hoverBorderColor: ['#4C9C2E', '#C2D500']
+
+    }]
   };
   public pieChartType: ChartType = 'pie';
 
@@ -181,7 +187,7 @@ export class BancoEnergiaComponent implements OnInit {
     scales: {
       x: {},
       y: {
-        title:{
+        title: {
           display: true,
           text: 'Cantidad de transacciones'
         },
@@ -201,27 +207,30 @@ export class BancoEnergiaComponent implements OnInit {
 
 
   public barChartData: ChartData<'bar'> = {
-    labels: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'  ],
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
     datasets: [
-      { data: [ 65, 59, 80, 81, 56, 55, 40, 80, 81, 56, 55, 40 ], 
+      {
+        data: [65, 59, 80, 81, 56, 55, 40, 80, 81, 56, 55, 40],
         label: 'Compra',
         backgroundColor: ['#4C9C2E'],
         hoverBackgroundColor: ['#4C9C2E'],
         hoverBorderColor: ['#4C9C2E']
       },
-      { data: [ 28, 48, 40, 19, 86, 27, 28, 48, 40, 19, 86, 20 ], 
+      {
+        data: [28, 48, 40, 19, 86, 27, 28, 48, 40, 19, 86, 20],
         label: 'Venta',
         backgroundColor: ['rgba(194, 213, 0, 1)'],
         hoverBackgroundColor: ['rgba(194, 213, 0, 1)'],
-        hoverBorderColor: ['rgba(194, 213, 0, 1)'] 
+        hoverBorderColor: ['rgba(194, 213, 0, 1)']
       },
-      { data: [ 28, 48, 40, 19, 86, 27, 34, 56, 21, 40, 50, 30 ], 
+      {
+        data: [28, 48, 40, 19, 86, 27, 34, 56, 21, 40, 50, 30],
         label: 'Carga',
         backgroundColor: ['rgba(143, 211, 128, 1)'],
         hoverBackgroundColor: ['rgba(143, 211, 128, 1)'],
-        hoverBorderColor: ['rgba(143, 211, 128, 1)'] 
+        hoverBorderColor: ['rgba(143, 211, 128, 1)']
       },
-      
+
     ]
   };
 
@@ -231,6 +240,15 @@ export class BancoEnergiaComponent implements OnInit {
       this.isFromInit = true;
       this.spinner.show();
       await this.bancoEnergia.loadBlockChainContractData();
+      this.eventoTransaccion = this.bancoEnergia.contract.events.eventoTransaccion({
+        fromBlock: 'latest'
+      }, (error, event) => {
+        if (error) {
+          console.log(error);
+        }
+      }).on('data', (event) => {
+        console.log(event);
+      });
       this.spinner.hide();
 
       this.timerSubscription = this.timer$.subscribe(() => {
@@ -248,9 +266,9 @@ export class BancoEnergiaComponent implements OnInit {
                   let flag: boolean = false;
                   if (this.estadoActual[i].nombre !== data[i].nombre) {
                     flag = true;
-                  }else if (this.estadoActual[i].cantidadEnergia !== data[i].cantidadEnergia) {
+                  } else if (this.estadoActual[i].cantidadEnergia !== data[i].cantidadEnergia) {
                     flag = true;
-                  }else if(this.estadoActual[i].precio !== data[i].precio){
+                  } else if (this.estadoActual[i].precio !== data[i].precio) {
                     flag = true;
                   }
                   if (flag) {

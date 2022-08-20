@@ -15,9 +15,9 @@ import { AuthGuard } from '../guards/auth.guard';
 import { ListaClientesComponent } from './comercializador/lista-clientes/lista-clientes.component';
 import { GeneradorComponent } from './generador/generador.component';
 import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-generadores.component';
-import { EthereumComponent } from './dashboard/ethereum/ethereum.component';
 import { RegistrosDetalleComponent } from './regulador-mercado/registros/registros-detalle/registros-detalle.component';
 import { ComprasRealizadasComponent } from './comercializador/compras-realizadas/compras-realizadas.component';
+import { TransaccionesComponent } from './dashboard/transacciones/transacciones.component';
 
 
 const routes: Routes = [
@@ -65,13 +65,13 @@ const routes: Routes = [
                 canActivate: [AuthGuard]
             },
             {
-                path:"comercializador/emisiones-de-compra/:tipo",
+                path: "comercializador/emisiones-de-compra/:tipo",
                 component: EmisionesCompraComponent,
                 canActivate: [AuthGuard]
             },
             {
                 path: "comercializador/compras-realizadas",
-                component:ComprasRealizadasComponent,
+                component: ComprasRealizadasComponent,
                 canActivate: [AuthGuard]
             },
             {
@@ -81,7 +81,7 @@ const routes: Routes = [
             },
             {
                 path: "generador/lista-plantas-energia",
-                component:ListaPlantasComponent,
+                component: ListaPlantasComponent,
                 canActivate: [AuthGuard]
             },
             {
@@ -100,10 +100,9 @@ const routes: Routes = [
                 canActivate: [AuthGuard]
             },
             {
-                path: "ethereum",
-                component: EthereumComponent,
-                canActivate: [AuthGuard]
-            },
+                path: "transacciones",
+                component: TransaccionesComponent,
+            }
         ]
     }
 ]

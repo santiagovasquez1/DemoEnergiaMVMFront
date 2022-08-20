@@ -15,15 +15,9 @@ import { FlexModule } from '@angular/flex-layout';
 import { LineChartComponent } from './charts/line-chart/line-chart.component';
 import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
 import { NgChartsModule } from 'ng2-charts';
-
 import { MatIconModule } from '@angular/material/icon';
-
 import { InfoCertificadoAgenteComponent } from './info-certificado-agente/info-certificado-agente.component';
-import { InfoCertificadoCompraComponent } from './info-certificado-compra/info-certificado-compra.component';
-
-
-
-
+import { TipoTransaccionPipe } from './pipes/tipo-transaccion.pipe';
 
 @NgModule({
     declarations: [
@@ -32,7 +26,8 @@ import { InfoCertificadoCompraComponent } from './info-certificado-compra/info-c
         GenerarEnergiaComponent,
         LineChartComponent,
         PieChartComponent,
-        InfoCertificadoAgenteComponent
+        InfoCertificadoAgenteComponent,
+        TipoTransaccionPipe
     ],
     imports: [
         CommonModule,
@@ -54,7 +49,8 @@ import { InfoCertificadoCompraComponent } from './info-certificado-compra/info-c
         GenerarEnergiaComponent,
         LineChartComponent,
         PieChartComponent,
-        InfoCertificadoAgenteComponent
+        InfoCertificadoAgenteComponent,
+        TipoTransaccionPipe
     ]
 })
 export class SharedModule { }

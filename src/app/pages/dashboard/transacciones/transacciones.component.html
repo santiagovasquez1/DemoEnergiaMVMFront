@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="titulo">
+        <h1 class="title-xg">Transacciones del mercado</h1>
+    </div>
+
+    <div class="table-container">
+        <mat-table #table [dataSource]="dataSource" class="mvm-table">
+
+            <ng-container matColumnDef="Transaccion">
+                <mat-header-cell *matHeaderCellDef>Tipo de transacción</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.tipoTx | tipoTransaccion}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Fecha">
+                <mat-header-cell *matHeaderCellDef>Fecha</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.fechaTx}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="TipoEnergia">
+                <mat-header-cell *matHeaderCellDef>Tipo de Energía</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.tipoEnergia}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="CantidadEnergia">
+                <mat-header-cell *matHeaderCellDef>Cantidad</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.cantidadEnergia}} MWh</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="AgenteOrigen">
+                <mat-header-cell *matHeaderCellDef>Agente de origen</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.nombreAgenteOrigen}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="AgenteDestino">
+                <mat-header-cell *matHeaderCellDef>Agente de destino</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.nombreAgenteDestino}}</mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
+        </mat-table>
+    </div>
+    <mat-paginator class="mt-10" #paginator [pageSizeOptions]="[5, 10, 25, 100 ]" showFirstLastButtons></mat-paginator>
+</div>
