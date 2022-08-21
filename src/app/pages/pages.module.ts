@@ -76,7 +76,7 @@ import { ComprasRealizadasComponent } from './comercializador/compras-realizadas
         MapaColombiaComponent,
         PlantasEnergiaComponent,
         ListaPlantasComponent,
-        RegistrosDetalleComponent
+        RegistrosDetalleComponent,
 
         ComprasRealizadasComponent
 
