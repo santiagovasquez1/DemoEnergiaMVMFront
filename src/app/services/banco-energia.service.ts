@@ -7,6 +7,8 @@ import { WinRefService } from './win-ref.service';
 import bancoEnergia from '../../../buildTruffle/contracts/BancoEnergia.json';
 import { Contract } from 'web3-eth-contract';
 import { AbiItem } from 'web3-utils';
+import { InfoTx } from '../models/InfoTx';
+import moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +56,30 @@ export class BancoEnergiaService {
       }));
   }
 
+  getInfoTxs(): Observable<InfoTx[]> {
+    return from(this.contract.methods.getInfoTxs().call({ from: this.account })).pipe(
+      map((data: any) => {
+        let tempArray = data.map((infoTx) => {
+          const [tipoTx, fechaTx, tipoEnergia, cantidadEnergia, agenteOrigen, nombreAgenteOrigen, agenteDestino, nombreAgenteDestino, index] = infoTx;
+          const tempTx: InfoTx = {
+            tipoTx,
+            fechaTx: moment(parseInt(fechaTx) * 1000).format('DD/MM/YYYY HH:mm:ss'),
+            fechaTxNum: parseInt(fechaTx),
+            tipoEnergia,
+            cantidadEnergia,
+            agenteOrigen,
+            nombreAgenteOrigen,
+            agenteDestino,
+            nombreAgenteDestino,
+            index
+          }
+          return tempTx;
+        });
+        return tempArray as InfoTx[];
+      }),
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      }));
+  }
 
 }
