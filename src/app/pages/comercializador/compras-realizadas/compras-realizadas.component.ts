@@ -17,7 +17,7 @@ import moment from 'moment';
 export class ComprasRealizadasComponent implements OnInit, OnDestroy {
   title: string = "Compras realizadas";
   comprasRealizadas: InfoCompraEnergia[] = [];
-
+  compraRealizadaEvent: any;
   constructor(private comercializadorService: ComercializadorContractService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
@@ -29,16 +29,16 @@ export class ComprasRealizadasComponent implements OnInit, OnDestroy {
       const dirContract = localStorage.getItem('dirContract');
       await this.comercializadorService.loadBlockChainContractData(dirContract);
       this.loadComprasRealizadas();
-      this.comercializadorService.contract?.events.EmisionCompraExitosa({
+      this.compraRealizadaEvent = this.comercializadorService.contract?.events.EmisionCompraExitosa({
         fromBlock: 'latest'
       }, (err, event) => {
         if (err) {
           console.log(err);
           this.toastr.error(err.message, 'Error');
-        } else {
-          this.loadComprasRealizadas();
-          this.toastr.success('Compra realizada', 'Éxito');
         }
+      }).on('data', (event) => {
+        this.loadComprasRealizadas();
+        this.toastr.success('Compra realizada', 'Éxito');
       });
     } catch (error) {
       console.log(error);
@@ -47,6 +47,7 @@ export class ComprasRealizadasComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.compraRealizadaEvent.removeAllListeners('data');
   }
 
   loadComprasRealizadas() {

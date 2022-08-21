@@ -4,7 +4,7 @@ import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.serv
 import { InfoContrato } from './../../models/infoContrato';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ClienteContractService } from 'src/app/services/cliente-contract.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ComprarTokensComponent } from './comprar-tokens/comprar-tokens.component';
@@ -23,12 +23,13 @@ import { InfoCertificadoAgenteComponent } from 'src/app/shared/info-certificado-
   styles: [
   ]
 })
-export class ClienteDashboardComponent implements OnInit {
+export class ClienteDashboardComponent implements OnInit, OnDestroy {
   infoCliente: InfoContrato;
   tokensCliente: number = 0;
   tokensDelegados: number = 0;
   energiasDisponibles: string[] = [];
   cantidadesDisponibles: number[] = [];
+  compraEnergiaEvent: any;
 
   constructor(private clienteService: ClienteContractService,
     private spinner: NgxSpinnerService,
@@ -37,6 +38,10 @@ export class ClienteDashboardComponent implements OnInit {
     private reguladorMercado: ReguladorMercadoService,
     private bancoEnergia: BancoEnergiaService,
     private certificado: CertificadorContractService) { }
+    
+  ngOnDestroy(): void {
+   this.compraEnergiaEvent.removeAllListeners();
+  }
 
   async ngOnInit(): Promise<void> {
     let dirContract = localStorage.getItem('dirContract');
@@ -47,15 +52,15 @@ export class ClienteDashboardComponent implements OnInit {
       promises.push(this.clienteService.loadBlockChainContractData(dirContract));
       promises.push(this.certificado.loadBlockChainContractData(''));
       await Promise.all(promises);
-      this.clienteService.contract.events.compraEnergia({
+      this.compraEnergiaEvent = this.clienteService.contract.events.compraEnergia({
         fromBlock: 'latest'
       }, (error, event) => {
         if (error) {
           console.log(error);
-        } else {
-          this.toastr.success('Compra de energía realizada', 'Energía');
-          this.getInfoContrato();
         }
+      }).on('data', (event) => {
+        this.toastr.success('Compra de energía realizada', 'Energía');
+        this.getInfoContrato();
       });
       this.getInfoContrato();
     } catch (error) {

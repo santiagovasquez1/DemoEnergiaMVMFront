@@ -65,16 +65,16 @@
             <!--<mat-icon>info</mat-icon>-->
             <span>Tablero principal</span>
         </a>
+
         <a [routerLink]="['/dashboard/todos-generadores']" *ngIf="showTableroPrincipal">
             <!--<mat-icon>list</mat-icon>-->
             <span>Georeferenciación</span>
         </a>
 
-    
-        <a [routerLink]="['/dashboard/ethereum']" *ngIf="showTableroPrincipal">
+        <a [routerLink]="['/dashboard/transacciones']" *ngIf="showTableroPrincipal">
             <!--<mat-icon>payment</mat-icon>-->
             <span>Transacciones</span>
-
+        </a>
 
         <a [routerLink]="['/dashboard/ethereum']">
             <mat-icon>payment</mat-icon>

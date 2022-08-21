@@ -34,7 +34,6 @@ import { DelegarTokensComponent } from './cliente/delegar-tokens/delegar-tokens.
 import { NuevaEnergiaComponent } from './generador/nueva-energia/nueva-energia.component';
 import { CompraEnergiaComponent } from './comercializador/compra-energia/compra-energia.component';
 import { ContratarComercializadorGComponent } from './generador/contratar-comercializador-g/contratar-comercializador-g.component';
-import { EthereumComponent } from './dashboard/ethereum/ethereum.component';
 import { NgChartsModule } from 'ng2-charts';
 import { MapaColombiaComponent } from './generador/todos-generadores/mapa-colombia/mapa-colombia.component';
 import { DevolverTokensComponent } from './devolver-tokens/devolver-tokens.component';
@@ -46,6 +45,7 @@ import { RegistrosDetalleComponent } from './regulador-mercado/registros/registr
 
 
 import { ComprasRealizadasComponent } from './comercializador/compras-realizadas/compras-realizadas.component';
+import { TransaccionesComponent } from './dashboard/transacciones/transacciones.component';
 
 
 @NgModule({
@@ -72,13 +72,12 @@ import { ComprasRealizadasComponent } from './comercializador/compras-realizadas
         NuevaEnergiaComponent,
         CompraEnergiaComponent,
         ContratarComercializadorGComponent,
-        EthereumComponent,
         MapaColombiaComponent,
         PlantasEnergiaComponent,
         ListaPlantasComponent,
-        RegistrosDetalleComponent
-
-        ComprasRealizadasComponent
+        RegistrosDetalleComponent,
+        ComprasRealizadasComponent,
+        TransaccionesComponent
 
     ],
     imports: [

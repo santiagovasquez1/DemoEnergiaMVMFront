@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CompraEnergiaComponent } from './../compra-energia/compra-energia.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { EstadoCompra, InfoEmisionCompra } from './../../../models/InfoEmisionCompra';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { filter, Observable, Subscription } from 'rxjs';
@@ -16,17 +16,22 @@ import { CompraEnergiaRequest } from 'src/app/models/CompraEnergiaRequest';
   styles: [
   ]
 })
-export class EmisionesCompraComponent implements OnInit {
+export class EmisionesCompraComponent implements OnInit, OnDestroy {
   title: string;
   emisionesDeCompra: InfoEmisionCompra[] = [];
   isLoading: boolean = false;
   tipoEmision: EnumTipoEmision;
+  emisionCompraEvent: any
   constructor(private comercializadorService: ComercializadorContractService,
     private toastr: ToastrService,
     public dialog: MatDialog,
     private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute,
     private route: Router) { }
+
+  ngOnDestroy(): void {
+    this.emisionCompraEvent.removeAllListeners('data');
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe({
@@ -48,15 +53,16 @@ export class EmisionesCompraComponent implements OnInit {
         try {
           await this.comercializadorService.loadBlockChainContractData(dirContract);
           console.log('Contract loaded');
-          this.comercializadorService.contract.events.EmisionDeCompra({
+          this.emisionCompraEvent = this.comercializadorService.contract.events.EmisionDeCompra({
             fromBlock: 'latest'
           }, (err, event) => {
             if (err) {
               console.log(err);
               this.toastr.error(err.message, 'Error');
-            } else {
-              this.getEmisionesDeCompra();
-            }
+            } 
+          }).on('data', (event) => {
+            this.getEmisionesDeCompra();
+            this.toastr.success('Emisión de compra registrada', 'Éxito');
           });
           this.getEmisionesDeCompra();
         } catch (error) {
