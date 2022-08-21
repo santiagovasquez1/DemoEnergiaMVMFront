@@ -62,11 +62,11 @@ export class BancoEnergiaService {
         let tempArray = data.map((infoTx) => {
           const [tipoTx, fechaTx, tipoEnergia, cantidadEnergia, agenteOrigen, nombreAgenteOrigen, agenteDestino, nombreAgenteDestino, index] = infoTx;
           const tempTx: InfoTx = {
-            tipoTx,
+            tipoTx: parseInt(tipoTx),
             fechaTx: moment(parseInt(fechaTx) * 1000).format('DD/MM/YYYY HH:mm:ss'),
             fechaTxNum: parseInt(fechaTx),
             tipoEnergia,
-            cantidadEnergia,
+            cantidadEnergia: parseInt(cantidadEnergia),
             agenteOrigen,
             nombreAgenteOrigen,
             agenteDestino,
