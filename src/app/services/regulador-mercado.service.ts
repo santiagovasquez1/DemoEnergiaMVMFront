@@ -198,7 +198,7 @@ export class ReguladorMercadoService {
       empresa: data.infoContrato.empresa,
       tipoComercio: data.infoContrato.tipoComercio
     };
-    let tempTipo = data.tipoContrato;
+    let tempTipo = parseInt(data.tipoContrato) as TiposContratos;
     let solicitudDef: SolicitudContrato = {
       infoContrato: tempInfo,
       tipoContrato: tempTipo,
