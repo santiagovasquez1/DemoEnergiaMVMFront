@@ -42,7 +42,7 @@ import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.c
 
 import { MatIconModule } from '@angular/material/icon';
 import { RegistrosDetalleComponent } from './regulador-mercado/registros/registros-detalle/registros-detalle.component';
-
+import {MatTableModule} from '@angular/material/table';
 
 import { ComprasRealizadasComponent } from './comercializador/compras-realizadas/compras-realizadas.component';
 import { TransaccionesComponent } from './dashboard/transacciones/transacciones.component';
@@ -92,6 +92,8 @@ import { TransaccionesComponent } from './dashboard/transacciones/transacciones.
         BrowserAnimationsModule,
         NgChartsModule,
         MatIconModule,
+        MatTableModule
+
         
     ],
     providers: [WinRefService, Web3ConnectService],

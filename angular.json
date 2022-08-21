@@ -20,6 +20,9 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
+                        "allowedCommonJsDependencies": [
+                            "rxjs-compat"
+                         ],
                         "outputPath": "dist/demo-energia-mvm",
                         "index": "src/index.html",
                         "main": "src/main.ts",
