@@ -43,7 +43,7 @@ export class NuevaEnergiaComponent implements OnInit {
   }
 
   async ngOnInit() {
-    debugger;
+     
     try {
       await this.generadorContract.loadBlockChainContractData(this.data.dirContract);
     } catch (error) {

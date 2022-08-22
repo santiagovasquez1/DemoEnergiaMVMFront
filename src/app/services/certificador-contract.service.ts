@@ -18,7 +18,7 @@ export class CertificadorContractService extends AgenteContractService {
     const web3 = this.winRef.window.web3 as Web3;
     const networkId = await web3.eth.net.getId();
     const networkData = Certificador.networks[networkId];
-    debugger;
+     
     if (networkData) {
       const abi = Certificador.abi;
       this.dirContrato = networkData.address;

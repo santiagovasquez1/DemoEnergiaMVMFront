@@ -54,7 +54,7 @@ export class ContratarComercializadorComponent implements OnInit {
     this.alertDialog.confirmAlert('Confirmar contrato', '¿Está seguro de que desea contratar el comercializador?').then((result) => {
       if (result.isConfirmed) {
         this.spinner.show();
-        debugger;
+         
         this.clienteService.postContratarComercializador(this.comercializadorSeleccionado.dirContrato).subscribe({
           next: () => {
             this.toastr.success('Contrato contratado con éxito', 'Contrato');

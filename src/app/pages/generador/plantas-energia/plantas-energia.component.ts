@@ -76,7 +76,7 @@ export class PlantasEnergiaComponent implements OnInit {
     this.alertDialog.confirmAlert('Crear planta de energía', '¿Estás seguro de crear la planta de energía?').then(res => {
       if (res.isConfirmed) {
         this.spinner.show();
-        debugger;
+         
         const tempInfo: InfoPlantaEnergia = {
           dirPlanta: '0x0000000000000000000000000000000000000000',
           nombre: this.plantaEnergiaForm.get('nombre').value,

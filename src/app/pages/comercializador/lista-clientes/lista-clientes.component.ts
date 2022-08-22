@@ -49,12 +49,12 @@ export class ListaClientesComponent implements OnInit, OnDestroy {
                 this.clientesComercializador = data;
                 let delegacionesObs: Observable<number>[] = [];
                 this.clientesComercializador.forEach(cliente => {
-                  debugger;
+                   
                   delegacionesObs.push(this.reguladorMercado.getTokensDelegados(this.comercializador.dirContrato, cliente.owner));
                 });
                 forkJoin(delegacionesObs).subscribe({
                   next: (data) => {
-                    debugger;
+                     
                     this.tokensDelegados = data;
                   },error: (err) => {
                     console.log(err);

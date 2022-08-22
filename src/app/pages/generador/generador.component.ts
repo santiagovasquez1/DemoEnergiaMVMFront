@@ -95,7 +95,7 @@ export class GeneradorComponent implements OnInit {
     });
     forkJoin(observablesEnergias).subscribe({
       next: (data: number[]) => {
-        debugger;
+         
         this.cantidadesDisponibles = data;
         this.spinner.hide();
       }, error: (err) => {

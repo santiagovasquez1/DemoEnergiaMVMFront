@@ -72,7 +72,7 @@ export class ComprasRealizadasComponent implements OnInit, OnDestroy {
       tipoEnergia: compra.tipoEnergia,
       fechaCompra: compra.fechaAprobacionNumber,
     }
-    debugger;
+     
     this.dialog.open(InfoCertificadoCompraComponent, {
       width: '800px',
       data: requestCompra
