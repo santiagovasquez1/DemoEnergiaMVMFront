@@ -47,7 +47,6 @@ import {MatTableModule} from '@angular/material/table';
 import { ComprasRealizadasComponent } from './comercializador/compras-realizadas/compras-realizadas.component';
 import { TransaccionesComponent } from './dashboard/transacciones/transacciones.component';
 
-
 @NgModule({
     declarations: [
         DashboardComponent,
@@ -76,9 +75,8 @@ import { TransaccionesComponent } from './dashboard/transacciones/transacciones.
         PlantasEnergiaComponent,
         ListaPlantasComponent,
         RegistrosDetalleComponent,
+        ComprasRealizadasComponent,
         TransaccionesComponent,
-        ComprasRealizadasComponent
-
     ],
     imports: [
         CommonModule,
@@ -118,8 +116,16 @@ import { TransaccionesComponent } from './dashboard/transacciones/transacciones.
         GeneradorComponent,
         TodosGeneradoresComponent,
         EmisionesCompraComponent,
-        DelegarTokensComponent
-        
+        DelegarTokensComponent,
+        NuevaEnergiaComponent,
+        CompraEnergiaComponent,
+        ContratarComercializadorGComponent,
+        MapaColombiaComponent,
+        PlantasEnergiaComponent,
+        ListaPlantasComponent,
+        RegistrosDetalleComponent,
+        ComprasRealizadasComponent,
+        TransaccionesComponent,
     ]
    
 })

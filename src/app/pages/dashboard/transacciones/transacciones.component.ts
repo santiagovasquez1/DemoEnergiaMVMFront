@@ -1,3 +1,4 @@
+import { Observable, Subscription, timer } from 'rxjs';
 import { TableService } from './../../../services/shared/table-service.service';
 import { InfoTx } from './../../../models/InfoTx';
 import { ToastrService } from 'ngx-toastr';
@@ -15,10 +16,13 @@ import { MatSort } from '@angular/material/sort';
   ]
 })
 export class TransaccionesComponent implements OnInit, OnDestroy {
-  
+
   displayedColumns: string[] = ['Transaccion', 'Fecha', 'TipoEnergia', 'AgenteOrigen', 'AgenteDestino', 'CantidadEnergia']
-  private eventoTransacciones: any;
   dataSource: MatTableDataSource<InfoTx>
+  timer$: Observable<any>;
+  timerSubscription: Subscription;
+  contadorAnterior: number = 0;
+  contadorActual: number = 0;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('table', { static: true }) table: MatTable<any>;
   sort: MatSort;
@@ -28,18 +32,16 @@ export class TransaccionesComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private tableService: TableService) {
     this.dataSource = new MatTableDataSource();
+    this.timer$ = timer(0, 1000);
   }
 
   async ngOnInit(): Promise<void> {
     try {
       await this.bancoEnergia.loadBlockChainContractData();
-      this.eventoTransacciones = this.bancoEnergia.contract.events.eventoTransaccion({
-        fromBlock: 'latest'
-      }).on('data', (event) => {        
+      this.tableService.setPaginatorTable(this.paginator);
+      this.timerSubscription = this.timer$.subscribe(() => {
         this.getTransactions();
       });
-      this.getTransactions();
-      this.tableService.setPaginatorTable(this.paginator);
     } catch (error) {
       console.log(error);
       this.toastr.error(error.message, 'Error');
@@ -47,17 +49,21 @@ export class TransaccionesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.eventoTransacciones.removeAllListeners('data');
+    this.timerSubscription.unsubscribe();
   }
 
   getTransactions() {
-    this.dataSource.data = [];
     this.bancoEnergia.getInfoTxs().subscribe({
       next: (data) => {
-        this.dataSource.data = data.reverse();
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.table.renderRows();
+
+        this.contadorActual = data.length;
+        if(this.contadorActual !== this.contadorAnterior) {
+          this.dataSource.data = data.reverse();
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.table.renderRows();
+          this.contadorAnterior = this.contadorActual;
+        }
       }, error: (error) => {
         this.toastr.error(error.message, 'Error');
       }
