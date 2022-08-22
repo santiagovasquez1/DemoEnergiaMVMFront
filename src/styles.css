@@ -33,7 +33,7 @@ body {
     text-align: center;
 }
 
-.a-green{
+.a-green {
     text-decoration: none;
     color: var(--verde-oscuro);
 }
@@ -134,11 +134,11 @@ body {
     justify-items: center;
 }
 
-.loginContainer .imagen .banda-imagen #logo-blanco{
+.loginContainer .imagen .banda-imagen #logo-blanco {
     width: 75%;
 }
 
-.loginContainer .imagen .banda-imagen .mensaje{
+.loginContainer .imagen .banda-imagen .mensaje {
     font-size: 20px;
     font-weight: 700;
     text-align: right;
@@ -160,47 +160,42 @@ body {
     cursor: pointer;
 }
 
-.loginContainer .container-loginForm{
+.loginContainer .container-loginForm {
     display: grid;
     grid-template-rows: 80% 20%;
     justify-content: center;
     justify-items: center;
 }
 
-
-.loginContainer .container-loginForm .logo-plataforma{
+.loginContainer .container-loginForm .logo-plataforma {
     display: flex;
     justify-content: end;
     align-items: end;
     width: 100%;
 }
 
-.loginContainer .container-loginForm .loginForm .password{
+.loginContainer .container-loginForm .loginForm .password {
     display: flex;
     justify-content: space-between;
 }
 
-.loginContainer .container-loginForm .loginForm .no-cuenta{
+.loginContainer .container-loginForm .loginForm .no-cuenta {
     display: flex;
     justify-content: space-around;
 }
 
-.loginContainer .container-loginForm .loginForm #input{
+.loginContainer .container-loginForm .loginForm #input {
     width: 100%;
     height: 40px;
     border: 1px solid #CBD6E2;
     border-radius: 12px;
 }
 
-.loginContainer .container-loginForm .loginForm form{
+.loginContainer .container-loginForm .loginForm form {
     display: grid;
     justify-content: center;
     width: 70%;
 }
-
-
-
-
 
 .custom.mat-card {
     padding-top: 40px !important;
