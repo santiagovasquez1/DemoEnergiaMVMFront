@@ -38,6 +38,7 @@ body {
     background-color: var(--gris-fondo);
     align-items: center;
     justify-content: center;
+    padding-bottom: 20px;
 }
 
 .registro-header {
@@ -69,7 +70,8 @@ body {
 form input[type="text"],
 form input[type="number"],
 form input[type="email"],
-form select {
+form select,
+form .custom-select {
     width: 100%;
     display: block !important;
     height: 40px !important;
@@ -83,7 +85,8 @@ form select {
 form input[type="text"]:focus,
 form input[type="number"]:focus,
 form input[type="email"]:focus,
-form select:focus {
+form select:focus,
+form .customSelect:focus {
     outline: 1px solid var(--verde-oscuro);
 }
 
@@ -111,6 +114,7 @@ form .form-actions-row {
 
 form .form-actions-row {
     justify-content: flex-end;
+    margin-bottom: 20px;
 }
 
 .register-form {
@@ -119,6 +123,13 @@ form .form-actions-row {
     display: block;
     margin: 0px auto;
     margin-top: 37px;
+}
+
+.filter-form {
+    display: block;
+    margin: 0px auto;
+    margin-top: 57px;
+    max-width: 1025px;
 }
 
 .text-center {
@@ -185,6 +196,11 @@ form .form-actions-row {
     color: white;
     cursor: pointer;
     border: none;
+}
+
+.search-icon {
+    background: url(assets/images/buscar.svg) no-repeat;
+    float: left;
 }
 
 .button-mvm-white {
@@ -309,6 +325,10 @@ form .form-actions-row {
     width: 240px !important;
 }
 
+.w-250 {
+    width: 250px !important;
+}
+
 .w-290 {
     width: 290px !important;
 }
@@ -351,6 +371,10 @@ form .form-actions-row {
 
 .mt-30 {
     margin-top: 30px !important;
+}
+
+.mt-60 {
+    margin-top: 60px !important;
 }
 
 .mt-10 {
@@ -932,15 +956,18 @@ mat-dialog-container .mat-form-field-infix span label {
 
 .table-container {
     width: 100%;
+    max-width: 1025px;
     height: 100%;
     display: block;
     overflow: auto;
+    margin: 0px auto;
 }
 
 .mvm-table {
     width: 100%;
-    min-width: 1022px !important;
+    min-width: 1000px !important;
     max-height: 473px !important;
+    margin: 0px auto;
 }
 
 .mvm-table .mat-header-row,
@@ -970,6 +997,11 @@ mat-dialog-container .mat-form-field-infix span label {
 
 .mvm-table .mat-row:hover .mat-cell {
     background-color: #eee;
+}
+
+.mvm-paginator {
+    font-family: 'Montserrat' !important;
+    font-size: 14px !important;
 }
 
 .chart-dona {

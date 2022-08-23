@@ -3,7 +3,38 @@
         <h1 class="title-xg">Transacciones del mercado</h1>
     </div>
 
-    <div class="table-container">
+    <form [formGroup]="filterForm" class="filter-form fadeIn">
+        <div class="form-row">
+            <div class="form-field w-250">
+                <label>Tipo de transacción</label>
+                <select formControlName="tipoTx">
+                    <option [value]=""></option>
+                    <option *ngFor="let tipoTx of tiposTransaccion" [value]="tipoTx">{{tipoTx|tipoTransaccion}}</option>
+                </select>
+            </div>
+            <div class="form-field w-250">
+                <label>Fecha de transacción</label>
+                <input type="text" formControlName="fechaTx" [matDatepicker]="picker" (click)="picker.open()">
+                <mat-datepicker #picker></mat-datepicker>
+            </div>
+            <div class="form-field w-250">
+                <label>Tipo de Energía</label>
+                <select formControlName="tipoEnergia">
+                    <option [value]=""></option>
+                    <option *ngFor="let tipoEnergia of tiposEnergia" [value]="tipoEnergia.nombre">{{tipoEnergia.nombre}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-actions-row mt-30">
+            <div class="form-field">
+                <button class="button-mvm" mat-stroked-button (click)="onFilterClick()">
+                    <img src="../../../../assets/images/buscar.svg" alt="Buscar">
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="table-container mt-60 fadeIn">
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
 
             <ng-container matColumnDef="Transaccion">
@@ -40,5 +71,7 @@
             <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
         </mat-table>
     </div>
-    <mat-paginator class="mt-10" #paginator [pageSizeOptions]="[10, 25, 100 ]" showFirstLastButtons></mat-paginator>
+    <div class="table-container mt-10 fadeIn">
+        <mat-paginator class="mvm-paginator" #paginator [pageSizeOptions]="[5,10, 25, 100 ]" showFirstLastButtons></mat-paginator>
+    </div>
 </div>

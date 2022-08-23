@@ -18,6 +18,12 @@ export class SweetAlertService {
       showConfirmButton: true,
       showCancelButton: true,
       allowOutsideClick: false,
+      customClass:{
+        title:'',
+        htmlContainer: '',
+        confirmButton: '',
+        cancelButton: ''
+      }
     })
   }
 }
