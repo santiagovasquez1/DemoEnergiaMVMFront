@@ -9,6 +9,8 @@
     --gris-claro: #929292;
     --verde-claro: #AFD620;
     --gris-fuente: #696969;
+    --gris-borde: #CBD6E2;
+    --gris-fondo: #F9F9F9;
 }
 
 * {
@@ -27,6 +29,96 @@ body {
     padding: 0;
     font-family: 'Montserrat', Roboto, "Helvetica Neue", sans-serif !important;
     font-weight: 400 !important;
+}
+
+.registro-container {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: var(--gris-fondo);
+    align-items: center;
+    justify-content: center;
+}
+
+.registro-header {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.registro-header img {
+    margin-top: 40px;
+    margin-left: 45px;
+    width: 211px;
+    height: 87px;
+}
+
+.registro-title {
+    display: block;
+    color: var(--verde-oscuro);
+    font-weight: 600;
+    font-size: 24px !important;
+    line-height: 29px !important;
+    flex-basis: 60%;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="email"],
+form select {
+    width: 100%;
+    display: block !important;
+    height: 40px !important;
+    border: 1px solid var(--gris-borde) !important;
+    border-radius: 12px !important;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: 300ms all;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus,
+form input[type="email"]:focus,
+form select:focus {
+    outline: 1px solid var(--verde-oscuro);
+}
+
+form .form-label {
+    font-style: normal;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    line-height: 16px;
+    color: black;
+}
+
+form .form-field {
+    display: block;
+}
+
+form .form-row,
+form .form-actions-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+form .form-actions-row {
+    justify-content: flex-end;
+}
+
+.register-form {
+    width: calc(632px/1366px) *100%;
+    max-width: 632px;
+    display: block;
+    margin: 0px auto;
+    margin-top: 37px;
 }
 
 .text-center {
@@ -87,6 +179,7 @@ body {
 }
 
 .button-mvm {
+    width: 100%;
     background-color: var(--verde-oscuro);
     border-radius: 15px !important;
     color: white;
@@ -208,8 +301,16 @@ body {
     width: 60px !important;
 }
 
+.w-160 {
+    width: 160px !important;
+}
+
 .w-240 {
     width: 240px !important;
+}
+
+.w-290 {
+    width: 290px !important;
 }
 
 .w-450 {
@@ -248,8 +349,16 @@ body {
     margin-top: 20px !important;
 }
 
+.mt-30 {
+    margin-top: 30px !important;
+}
+
 .mt-10 {
     margin-top: 10px !important;
+}
+
+.mb-4 {
+    margin-bottom: 4px !important;
 }
 
 .mb-20 {
@@ -870,4 +979,19 @@ mat-dialog-container .mat-form-field-infix span label {
 .chart-dona canvas {
     width: 100% !important;
     height: 100% !important;
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

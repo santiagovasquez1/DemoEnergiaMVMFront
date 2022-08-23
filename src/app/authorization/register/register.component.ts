@@ -67,6 +67,7 @@ export class RegisterComponent implements OnInit {
   initRegistroForm() {
     this.registroForm = this.fb.group(
       {
+        tipoAgente: ['', Validators.required],
         nit: ['', Validators.required],
         empresa: ['', Validators.required],
         contacto: ['', Validators.required],
@@ -77,6 +78,18 @@ export class RegisterComponent implements OnInit {
         direccion: ['', Validators.required],
       }
     );
+
+    this.registroForm.get('tipoAgente').valueChanges.subscribe({
+      next: (tipoAgente) => {
+        this.agenteMercado = parseInt(tipoAgente);
+        if (this.agenteMercado == 1){
+          this.registroForm.addControl('tipoComercio', this.fb.control('', Validators.required));
+        }else{
+          this.registroForm.removeControl('tipoComercio');
+
+        }
+      }
+    })
 
     this.registroForm.get('departamento').valueChanges.subscribe(
       (departamento) => {
