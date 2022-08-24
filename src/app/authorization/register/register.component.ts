@@ -7,6 +7,7 @@ import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms
 import { Component, OnInit } from '@angular/core';
 import { TiposContratos } from 'src/app/models/EnumTiposContratos';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-register',
@@ -46,6 +47,7 @@ export class RegisterComponent implements OnInit {
     private reguladorMercado: ReguladorMercadoService,
     private toastr: ToastrService,
     private router: Router,
+    private spinnerService: NgxSpinnerService,
     private municipioService: MunicipiosService) {
     this.registroForm = this.fb.group({});
   }
@@ -67,6 +69,7 @@ export class RegisterComponent implements OnInit {
   initRegistroForm() {
     this.registroForm = this.fb.group(
       {
+        tipoAgente: ['', Validators.required],
         nit: ['', Validators.required],
         empresa: ['', Validators.required],
         contacto: ['', Validators.required],
@@ -77,6 +80,18 @@ export class RegisterComponent implements OnInit {
         direccion: ['', Validators.required],
       }
     );
+
+    this.registroForm.get('tipoAgente').valueChanges.subscribe({
+      next: (tipoAgente) => {
+        this.agenteMercado = parseInt(tipoAgente);
+        if (this.agenteMercado == 1){
+          this.registroForm.addControl('tipoComercio', this.fb.control('', Validators.required));
+        }else{
+          this.registroForm.removeControl('tipoComercio');
+
+        }
+      }
+    })
 
     this.registroForm.get('departamento').valueChanges.subscribe(
       (departamento) => {
@@ -96,6 +111,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    this.spinnerService.show();
     let solicitudContrato: SolicitudContrato = {
       tipoContrato: this.agenteMercado as TiposContratos,
       infoContrato: {
@@ -116,9 +132,11 @@ export class RegisterComponent implements OnInit {
 
     this.reguladorMercado.postRegistrarSolicitud(solicitudContrato.infoContrato, solicitudContrato.tipoContrato).subscribe({
       next: (res) => {
+        this.spinnerService.hide();
         this.toastr.success('Solicitud enviada correctamente');
         this.router.navigate(['/login']);
       }, error: (err) => {
+        this.spinnerService.hide();
         console.log(err);
         this.toastr.error('Error al enviar la solicitud');
         this.router.navigate(['/register']);

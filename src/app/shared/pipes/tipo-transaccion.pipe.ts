@@ -6,8 +6,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TipoTransaccionPipe implements PipeTransform {
 
-  transform(value: string): string {
-    const tipoTx = parseInt(value) as TipoTx;
+  transform(value: string | TipoTx): string {
+
+    let tipoTx: TipoTx;
+
+    if (typeof (value) === 'string') {
+      tipoTx = parseInt(value) as TipoTx;
+    } else {
+      tipoTx = value;
+    }
 
     switch (tipoTx) {
       case TipoTx.inyeccion:

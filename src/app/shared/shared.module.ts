@@ -18,6 +18,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { MatIconModule } from '@angular/material/icon';
 import { InfoCertificadoAgenteComponent } from './info-certificado-agente/info-certificado-agente.component';
 import { TipoTransaccionPipe } from './pipes/tipo-transaccion.pipe';
+import { TipoContratoPipe } from './pipes/tipo-contrato.pipe';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import { TipoTransaccionPipe } from './pipes/tipo-transaccion.pipe';
         LineChartComponent,
         PieChartComponent,
         InfoCertificadoAgenteComponent,
-        TipoTransaccionPipe
+        TipoTransaccionPipe,
+        TipoContratoPipe
     ],
     imports: [
         CommonModule,
@@ -50,7 +52,8 @@ import { TipoTransaccionPipe } from './pipes/tipo-transaccion.pipe';
         LineChartComponent,
         PieChartComponent,
         InfoCertificadoAgenteComponent,
-        TipoTransaccionPipe
+        TipoTransaccionPipe,
+        TipoContratoPipe
     ]
 })
 export class SharedModule { }
