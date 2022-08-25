@@ -61,6 +61,12 @@
             <mat-icon *ngIf="!showTableroPrincipal">keyboard_arrow_down</mat-icon>
             <mat-icon *ngIf="showTableroPrincipal">keyboard_arrow_up</mat-icon>
         </a>
+
+        <a [routerLink]="['/dashboard/informacion']" *ngIf="showTableroPrincipal">
+            <!--<mat-icon>info</mat-icon>-->
+            <span>Banco de energía</span>
+        </a>
+
         <a [routerLink]="['/dashboard']" *ngIf="showTableroPrincipal">
             <!--<mat-icon>info</mat-icon>-->
             <span>Tablero principal</span>

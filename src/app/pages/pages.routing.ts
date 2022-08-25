@@ -18,6 +18,7 @@ import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-g
 import { RegistrosDetalleComponent } from './regulador-mercado/registros/registros-detalle/registros-detalle.component';
 import { ComprasRealizadasComponent } from './comercializador/compras-realizadas/compras-realizadas.component';
 import { TransaccionesComponent } from './dashboard/transacciones/transacciones.component';
+import { BancoEnergiaInformacionComponent } from './banco-energia/banco-energia-informacion/banco-energia-informacion.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,11 @@ const routes: Routes = [
             {
                 path: "",
                 component: BancoEnergiaComponent
+            },
+            {
+                path: "informacion",
+                component: BancoEnergiaInformacionComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: "regulador-mercado",

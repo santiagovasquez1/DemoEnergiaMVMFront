@@ -328,6 +328,7 @@ export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
       next: (data) => {
 
         this.energiasDisponibles = data;
+        console.log("energias disponibles: ",data);
         this.pieChartData = {
           labels: this.getPieChartLabels(data),
           datasets: [{
@@ -380,7 +381,6 @@ export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
   private getBarChartLables(data: InfoTx[]): string[] {
     const startDate = moment(data[0].fechaTx, 'DD/MM/YYYY');
     const endDate = moment(data[data.length - 1].fechaTx, 'DD/MM/YYYY');
-    debugger;
     const range = momentExtended.range(startDate, endDate);
     const days = Array.from(range.by('day'));
     return days.map(day => day.format('DD/MM/YYYY'));

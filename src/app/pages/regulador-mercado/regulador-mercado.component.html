@@ -1,47 +1,39 @@
 <div class="container" *ngIf="infoRegulador">
-    <h2 class="mt-20 title-xg">Administrador</h2>
+    <h2 class="mt-20 title-xg">Información</h2>
     <div class="subtitulo">
         <a class="color-green">Administrador</a><mat-icon>keyboard_arrow_right</mat-icon><a class="color-green">Información</a>
     </div>
     <div class="container-cards">
         <div class="caja1 box">
-            <div class="sub-box">
-                <img src="../../../assets/images/nft2.png" alt="">
-                <span class="text-content-card">{{infoRegulador.nombreToken}}</span>
-            </div>
-            <span class="text-white-16">Nombre del token</span>
+            <img src="../../../assets/images/nombre_token.svg" alt="">
+            <span class="text-green-16 text-start w-700">Nombre del token</span>
+            <span class="text-content-card text-start">{{infoRegulador.nombreToken}}</span>
         </div>
         <div class="caja3 box">
-            <div class="sub-box">
-                <img src="../../../assets/images/logoMonedaMano.png" alt="">
-                <span class="text-content-card">{{infoRegulador.cantidadTokens}}</span>
-            </div>
-            <span class="text-white-16">Cantidad de tokens Disponibles</span>
+            <img src="../../../assets/images/tokens_disponibles.svg" alt="">
+            <span class="text-green-16 text-start w-700">Tokens Disponibles</span>
+            <span class="text-content-card text-start">{{infoRegulador.cantidadTokens}}</span>
         </div>
         <div class="caja2 box">
-            <div class="sub-box">
-                <img src="../../../assets/images/monedas.png" alt="">
-                <span class="text-content-card">{{infoRegulador.simboloToken}}</span>
-            </div>
-            <span class="text-white-16">Simbolo del token</span>
+            <img src="../../../assets/images/mvm_coin.svg" alt="">
+            <span class="text-green-16 text-start w-700">Simbolo del token</span>
+            <span class="text-content-card text-start">{{infoRegulador.simboloToken}}</span>
         </div>
          
         <div class="caja4 box">
-            <div class="sub-box">
-                <img src="../../../assets/images/logoEther.png" alt="">
-                <span class="text-content-card">{{infoRegulador.valorToken}} ethers</span>
-            </div>
-            <span class="text-white-16">Precio del token</span>
+            <img src="../../../assets/images/ether.svg" alt="">
+            <span class="text-green-16 text-start w-700">Precio del token</span>
+            <span class="text-content-card text-start">{{infoRegulador.valorToken}} ethers</span>
         </div>
     </div>
 
     <div class="info-contrato" *ngIf="showInfoContratos">
-        <p>Dueño del contrato: {{infoRegulador.owner}}</p>
-        <p>Dirección del contrato: {{infoRegulador.dirContrato}}</p>
+        <p id="owner">Dueño del contrato: {{infoRegulador.owner}}</p>
+        <p id="direccion">Dirección del contrato: {{infoRegulador.dirContrato}}</p>
     </div>
 
     <div class="container-buttons">
-        <button class="button-mvm-white" mat-button (click)="showInfo()">
+        <button class="button-mvm-white btn-show-info" mat-button (click)="showInfo()">
             <mat-icon *ngIf="!showInfoContratos">visibility_off</mat-icon>
             <mat-icon *ngIf="showInfoContratos">visibility</mat-icon>
             Información del contrato
