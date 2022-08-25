@@ -664,7 +664,7 @@ form .form-actions-row {
 }
 
 .energia-dpto .buttons-acordeon {
-    margin-top: 20px;
+    margin-top: 5px;
     display: flex;
     flex-direction: column;
     font-family: 'Montserrat', Roboto, "Helvetica Neue", sans-serif !important;
@@ -672,7 +672,7 @@ form .form-actions-row {
 
 .energia-dpto .buttons-acordeon a {
     text-decoration: none;
-    margin-bottom: 16px;
+    margin-bottom: 5px;
     margin-left: 20px;
 }
 
@@ -689,6 +689,10 @@ form .form-actions-row {
 .energia-dpto .container-acordeon mat-accordion {
     width: 90%;
     margin-bottom: 20px;
+}
+
+.mat-expansion-panel{
+    max-height: 90% !important;
 }
 
 .mat-content {
