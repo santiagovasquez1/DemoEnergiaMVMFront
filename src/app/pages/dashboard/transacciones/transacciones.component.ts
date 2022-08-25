@@ -1,6 +1,9 @@
+import { SolicitudContrato } from './../../../models/solicitudContrato';
+import { ReguladorMercadoService } from './../../../services/regulador-mercado.service';
+import { InfoContrato } from './../../../models/infoContrato';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Observable, Subscription, timer } from 'rxjs';
+import { Observable, Subscription, timer, forkJoin } from 'rxjs';
 import { TableService } from './../../../services/shared/table-service.service';
 import { InfoTx, TipoTx } from './../../../models/InfoTx';
 import { ToastrService } from 'ngx-toastr';
@@ -22,8 +25,9 @@ import moment from 'moment';
 export class TransaccionesComponent implements OnInit, OnDestroy {
 
   filterForm: FormGroup;
-  tiposTransaccion: TipoTx[];
-  tiposEnergia: InfoEnergia[];
+  tiposTransaccion: TipoTx[] = [];
+  tiposEnergia: InfoEnergia[] = [];
+  agentesRegistrados: InfoContrato[] = [];
   displayedColumns: string[] = ['Transaccion', 'Fecha', 'TipoEnergia', 'AgenteOrigen', 'AgenteDestino', 'CantidadEnergia']
   dataSource: MatTableDataSource<InfoTx>
   timer$: Observable<any>;
@@ -35,14 +39,17 @@ export class TransaccionesComponent implements OnInit, OnDestroy {
   private tipoTx: number | string = '';
   private fechaTx: string = 'Invalid date';
   private tipoEnergia: string = '';
+  private agenteOrigen: string = '';
+  private agenteDestino: string = '';
   private filterFlag: Boolean = false;
 
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('table', { static: true }) table: MatTable<any>;
-  @ViewChild('picker', { static: true }) datePicker: MatDatepicker<any>;
   sort: MatSort;
+  @ViewChild('picker', { static: true }) datePicker: MatDatepicker<any>;
 
   constructor(private bancoEnergia: BancoEnergiaService,
+    private reguladorMercado: ReguladorMercadoService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
     private tableService: TableService,
@@ -56,12 +63,17 @@ export class TransaccionesComponent implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     try {
       this.initFilterForm();
-      await this.bancoEnergia.loadBlockChainContractData();
+      let promises: Promise<void>[] = [];
+      promises.push(this.bancoEnergia.loadBlockChainContractData());
+      promises.push(this.reguladorMercado.loadBlockChainContractData());
+      await Promise.all(promises);
+
       this.tableService.setPaginatorTable(this.paginator);
       this.timerSubscription = this.timer$.subscribe(() => {
         this.getTransactions();
       });
-      this.getEnergiasDisponibles();
+
+      this.getInfoFiltros();
     } catch (error) {
       console.log(error);
       this.toastr.error(error.message, 'Error');
@@ -76,7 +88,9 @@ export class TransaccionesComponent implements OnInit, OnDestroy {
     this.filterForm = this.fb.group({
       tipoTx: [''],
       fechaTx: [''],
-      tipoEnergia: ['']
+      tipoEnergia: [''],
+      agenteOrigen: [''],
+      agenteDestino: ['']
     });
 
 
@@ -100,12 +114,25 @@ export class TransaccionesComponent implements OnInit, OnDestroy {
         this.getTransactions();
       }
     });
+
+    this.filterForm.get('agenteOrigen').valueChanges.subscribe({
+      next: (data: string) => {
+        this.agenteOrigen = data;
+        this.getTransactions();
+      }
+    });
+
+    this.filterForm.get('agenteDestino').valueChanges.subscribe({
+      next: (data: string) => {
+        this.agenteDestino = data;
+        this.getTransactions();
+      }
+    });
   }
 
   getTransactions() {
     this.bancoEnergia.getInfoTxs().subscribe({
       next: (data) => {
-
         let filterArray = data;
         filterArray = this.tipoTx !== '' ? filterArray.filter(item => item.tipoTx === this.tipoTx) : filterArray;
         filterArray = this.fechaTx !== 'Invalid date' ? filterArray.filter(item => {
@@ -118,6 +145,8 @@ export class TransaccionesComponent implements OnInit, OnDestroy {
           }
         }) : filterArray;
         filterArray = this.tipoEnergia !== '' ? filterArray.filter(item => item.tipoEnergia === this.tipoEnergia) : filterArray;
+        filterArray = this.agenteOrigen !== '' ? filterArray.filter(item => item.nombreAgenteOrigen === this.agenteOrigen) : filterArray;
+        filterArray = this.agenteDestino !== '' ? filterArray.filter(item => item.nombreAgenteDestino === this.agenteDestino) : filterArray;
 
         this.contadorActual = filterArray.length;
         if (this.contadorActual !== this.contadorAnterior) {
@@ -140,18 +169,25 @@ export class TransaccionesComponent implements OnInit, OnDestroy {
     return tempTipos;
   }
 
-  getEnergiasDisponibles() {
+  getInfoFiltros() {
     this.spinner.show();
-    this.bancoEnergia.getTiposEnergiasDisponibles().subscribe({
-      next: (data) => {
-        this.tiposEnergia = data;
-        this.spinner.hide()
-      }, error: (error) => {
+    let observables: Observable<any>[] = []
+    observables.push(this.bancoEnergia.getTiposEnergiasDisponibles());
+    observables.push(this.reguladorMercado.getContratosRegistrados());
+
+    forkJoin(observables).subscribe({
+      next: (data: any[]) => {
+        this.tiposEnergia = data[0];
+        const tempRegistros = data[1] as SolicitudContrato[];
+        this.agentesRegistrados = tempRegistros.map(solicitud => solicitud.infoContrato);
+        this.spinner.hide();
+      },
+      error: (error) => {
         this.toastr.error(error.message, 'Error');
         console.log(error);
         this.spinner.hide();
       }
-    })
+    });
   }
 
   onFilterClick() {
