@@ -4,37 +4,60 @@
     </div>
 
     <form [formGroup]="filterForm" class="filter-form fadeIn">
-        <div class="form-row">
-            <div class="form-field w-250">
-                <label>Tipo de transacción</label>
-                <select formControlName="tipoTx">
-                    <option [value]=""></option>
-                    <option *ngFor="let tipoTx of tiposTransaccion" [value]="tipoTx">{{tipoTx|tipoTransaccion}}</option>
-                </select>
+        <h3>Filtros</h3>
+        <div class="row mt-20">
+            <div class="col">
+                <div class="form-field">
+                    <label>Tipo de transacción</label>
+                    <select class="custom-select" formControlName="tipoTx">
+                        <option [value]=""></option>
+                        <option *ngFor="let tipoTx of tiposTransaccion" [value]="tipoTx">{{tipoTx|tipoTransaccion}}</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-field w-250">
-                <label>Fecha de transacción</label>
-                <input type="text" formControlName="fechaTx" [matDatepicker]="picker" (click)="picker.open()">
-                <mat-datepicker #picker></mat-datepicker>
+            <div class="col">
+                <div class="form-field">
+                    <label>Fecha de transacción</label>
+                    <input type="text" formControlName="fechaTx" [matDatepicker]="picker" (click)="picker.open()">
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
             </div>
-            <div class="form-field w-250">
-                <label>Tipo de Energía</label>
-                <select formControlName="tipoEnergia">
-                    <option [value]=""></option>
-                    <option *ngFor="let tipoEnergia of tiposEnergia" [value]="tipoEnergia.nombre">{{tipoEnergia.nombre}}</option>
-                </select>
+            <div class="col">
+                <div class="form-field">
+                    <label>Tipo de Energía</label>
+                    <select class="custom-select" formControlName="tipoEnergia">
+                        <option [value]=""></option>
+                        <option *ngFor="let tipoEnergia of tiposEnergia" [value]="tipoEnergia.nombre">{{tipoEnergia.nombre}}</option>
+                    </select>
+                </div>
             </div>
         </div>
-        <div class="form-actions-row mt-30">
-            <div class="form-field">
-                <button class="button-mvm" mat-stroked-button (click)="onFilterClick()">
-                    <img src="../../../../assets/images/buscar.svg" alt="Buscar">
-                </button>
+
+        <div class="row mt-20">
+            <div class="col">
+                <div class="form-field ">
+                    <label>Agente de origen</label>
+                    <select class="custom-select" formControlName="agenteOrigen">
+                        <option [value]=""></option>
+                        <option *ngFor="let agenteOrigen of agentesRegistrados" [value]="agenteOrigen.empresa">{{agenteOrigen.empresa}}</option>
+                    </select>
+                </div>
             </div>
+
+            <div class="col">
+                <div class="form-field ">
+                    <label>Agente de destino</label>
+                    <select class="custom-select" formControlName="agenteDestino">
+                        <option [value]=""></option>
+                        <option *ngFor="let agenteOrigen of agentesRegistrados" [value]="agenteOrigen.empresa">{{agenteOrigen.empresa}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col"></div>
         </div>
     </form>
 
-    <div class="table-container mt-60 fadeIn">
+    <div class="table-container mt-30 fadeIn">
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
 
             <ng-container matColumnDef="Transaccion">

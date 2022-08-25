@@ -1,7 +1,7 @@
 import { InfoReguladorMercado } from './../models/infoReguladorMercado';
 import { TiposContratos } from './../models/EnumTiposContratos';
 import { InfoContrato } from './../models/infoContrato';
-import { SolicitudContrato } from './../models/solicitudContrato';
+import { SolicitudContrato, EstadoSolicitud } from './../models/solicitudContrato';
 import { Web3ConnectService } from 'src/app/services/web3-connect.service';
 import { Injectable } from '@angular/core';
 import Web3 from 'web3';
@@ -10,6 +10,7 @@ import { AbiItem } from 'web3-utils';
 import reguladorMercado from "../../../buildTruffle/contracts/ReguladorMercado.json";
 import { WinRefService } from './win-ref.service';
 import { catchError, from, map, Observable, Subscription, throwError } from 'rxjs';
+import moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -183,26 +184,38 @@ export class ReguladorMercadoService {
       }));
   }
 
+  diligenciarSolicitud(index: number, infoContrato: InfoContrato, estado: EstadoSolicitud): Observable<any> {
+    return from(this.contract?.methods.diligenciarSolicitud(index, infoContrato, estado).call({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      }));
+  }
+
   private mappingSolicitud(data: any): SolicitudContrato {
-    let tempInfo: InfoContrato = {
-      owner: data.infoContrato.owner,
-      ciudad: data.infoContrato.ciudad,
-      direccion: data.infoContrato.direccion,
-      telefono: data.infoContrato.telefono,
-      comercializador: data.infoContrato.comercializador,
-      contacto: data.infoContrato.contacto,
-      correo: data.infoContrato.correo,
-      departamento: data.infoContrato.departamento,
-      nit: data.infoContrato.nit,
-      dirContrato: data.infoContrato.dirContrato,
-      empresa: data.infoContrato.empresa,
-      tipoComercio: data.infoContrato.tipoComercio
-    };
-    let tempTipo = parseInt(data.tipoContrato) as TiposContratos;
+    const [infoContrato, tipoContrato, estadoSolicitud, fechaSolicitud, fechaAprobacion] = data;
+    const [dirContrato, owner, nit, empresa, contacto, telefono, correo, departamento, ciudad, direccion, comercializador, tipoComercio] = infoContrato;
+
     let solicitudDef: SolicitudContrato = {
-      infoContrato: tempInfo,
-      tipoContrato: tempTipo,
+      infoContrato: {
+        owner,
+        ciudad,
+        direccion,
+        telefono,
+        comercializador,
+        contacto,
+        correo,
+        departamento,
+        nit,
+        dirContrato,
+        empresa,
+        tipoComercio: parseInt(tipoComercio)
+      },
+      tipoContrato: parseInt(tipoContrato) as TiposContratos,
+      estadoSolicitud: parseInt(estadoSolicitud) as EstadoSolicitud,
+      fechaSolicitud: moment(parseInt(fechaSolicitud) * 1000).format('DD/MM/YYYY HH:mm:ss'),
+      fechaAprobacion: moment(parseInt(fechaAprobacion) * 1000).format('DD/MM/YYYY HH:mm:ss')
     }
     return solicitudDef;
   }
+
 }

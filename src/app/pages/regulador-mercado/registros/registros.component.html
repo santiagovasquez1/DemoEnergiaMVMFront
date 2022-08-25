@@ -1,83 +1,108 @@
-<!-- <div class="container container-registros">
-    <div class="titulo">
-        <h1 class="title-xg">Registros</h1>
-    </div>
-    <div class="subtitulo">
-        <a class="color-green">Administrador</a><mat-icon>keyboard_arrow_right</mat-icon><a class="color-green">Registros</a>
-    </div>
-    <div class="container-card-registros">
-        <div class="card-registros">
-            <img src="../../../../assets/logoEmpresas/Logo_EPM.png" alt="">
-            <span class="linea-gradiente"></span>
-            <div class="ver-detalles">
-                <span class="title">Generador</span>
-                <button class="button-mvm" mat-raised-button [routerLink]="['/dashboard/regulador-mercado/registros/detalle']">Ver detalles</button>
-            </div>
-        </div>
-        <div class="card-registros">
-            <img src="../../../../assets/logoEmpresas/Logo_CELSIA.png" alt="">
-            <span class="linea-gradiente"></span>
-            <div class="ver-detalles">
-                <span class="title">Generador</span>
-                <button class="button-mvm" mat-raised-button [routerLink]="['/dashboard/regulador-mercado/registros/detalle']">Ver detalles</button>
-            </div>
-        </div>
-        <div class="card-registros">
-            <img src="../../../../assets/logoEmpresas/Logo_electrohuila.png" alt="">
-            <span class="linea-gradiente"></span>
-            <div class="ver-detalles">
-                <span class="title">Cliente</span>
-                <button class="button-mvm" mat-raised-button [routerLink]="['/dashboard/regulador-mercado/registros/detalle']">Ver detalles</button>
-            </div>
-        </div>
-        <div class="card-registros">
-            <img src="../../../../assets/logoEmpresas/Logo_emcali.png" alt="">
-            <span class="linea-gradiente"></span>
-            <div class="ver-detalles">
-                <span class="title">Cliente</span>
-                <button class="button-mvm" mat-raised-button [routerLink]="['/dashboard/regulador-mercado/registros/detalle']">Ver detalles</button>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-
 <div class="container">
-    <h2 class="mt-20 title-g">Contratos Registrados</h2>
-    <mat-card class="custom mb-20" *ngFor="let registro of registrosContratos; let index = index">
-        <mat-card-title>Empresa: {{registro.infoContrato.empresa}}</mat-card-title>
-        <mat-card-subtitle>Nit: {{registro.infoContrato.nit}}</mat-card-subtitle>
-        <mat-card-content>
-            <p>
-                Dueño del contrato: {{registro.infoContrato.owner}}
-            </p>
-            <p>
-                Contrato: {{registro.infoContrato.dirContrato}}
-            </p>
-            <p>
-                Contacto: {{registro.infoContrato.contacto}}
-            </p>
-            <p>
-                Teléfono: {{registro.infoContrato.telefono}}
-            </p>
-            <p>
-                Correo: {{registro.infoContrato.correo}}
-            </p>
-            <p>
-                Departamento: {{registro.infoContrato.departamento}}
-            </p>
-            <p>
-                Ciudad: {{registro.infoContrato.ciudad}}
-            </p>
-            <p>
-                Dirección: {{registro.infoContrato.direccion}}
-            </p>
-            <p>
-                Tipo de contrato :
-                <span *ngIf="registro.tipoContrato == 0"> Cliente</span>
-                <span *ngIf="registro.tipoContrato == 1"> Comercializador</span>
-                <span *ngIf="registro.tipoContrato == 2"> Generador</span>
-            </p>
-        </mat-card-content>
-    </mat-card>
+    <div class="titulo">
+        <div class="h2 title-xg">Agentes del mercado</div>
+    </div>
+
+    <form [formGroup]="filterForm" class="filter-form fadeIn">
+        <h3>Filtros</h3>
+        <div class="row mt-20">
+            <div class="col">
+                <div class="form-field">
+                    <label>Empresa</label>
+                    <input type="text" formControlName="empresa"></div>
+            </div>
+            <div class="col">
+                <div class="form-field">
+                    <label>Contacto</label>
+                    <input type="text" formControlName="contacto">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-field">
+                    <label>Ubicación</label>
+                    <input type="text" formControlName="ubicacion">
+                </div>
+            </div>
+        </div>
+        <div class="row mt-20">
+            <div class="col">
+                <div class="form-field">
+                    <label>Correo</label>
+                    <input type="text" formControlName="correo">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-field">
+                    <label>Tipo de agente</label>
+                    <select class="custom-select" formControlName="tipoAgente">
+                        <option [value]=""></option>
+                        <option *ngFor="let tipo of tiposDeAgentes" [value]="tipo">{{tipo|tipoContrato}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-field">
+                    <label>Estado</label>
+                    <select class="custom-select" formControlName="estado">
+                        <option [value]=""></option>
+                        <option *ngFor="let estado of estadosSolicitud" [value]="estado">{{estado|estadoRegistro}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="table-container mt-30 fadeIn">
+        <mat-table #table [dataSource]="dataSource" class="mvm-table">
+
+            <ng-container matColumnDef="empresa">
+                <mat-header-cell *matHeaderCellDef>Empresa</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.infoContrato.empresa}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="contacto">
+                <mat-header-cell *matHeaderCellDef>Contacto</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.infoContrato.contacto}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="ubicacion">
+                <mat-header-cell *matHeaderCellDef>ubicación</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.infoContrato.ciudad}} {{element.infoContrato.departamento}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="correo">
+                <mat-header-cell *matHeaderCellDef>Correo</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.infoContrato.correo | limitText:15}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="tipoAgente">
+                <mat-header-cell *matHeaderCellDef>Tipo de agente</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.tipoContrato | tipoContrato}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="estado">
+                <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p [ngClass]="{'approve-text': element.estadoSolicitud==0, 'reject-text:': element.estadoSolicitud==1}">
+                        {{element.estadoSolicitud | estadoRegistro}}
+                    </p>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="acciones">
+                <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                <mat-cell *matCellDef="let element; let index = index">
+                    <button matRipple class="mvm-action-button approve" (click)="onApprove(index,element)" [disabled]="element.estadoSolicitud == 0 || element.estadoSolicitud == 1">
+                        <mat-icon>done</mat-icon>
+                    </button>
+                    <button matRipple class="mvm-action-button reject" (click)="onReject(index,element.infoContrato)" [disabled]="element.estadoSolicitud == 0 || element.estadoSolicitud == 1">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns:displayedColumns">
+
+            </mat-row>
+        </mat-table>
+    </div>
+
+    <div class="table-container mt-10 fadeIn">
+        <mat-paginator class="mvm-paginator" #paginator [pageSizeOptions]="[5,10, 25, 100 ]" showFirstLastButtons></mat-paginator>
+    </div>
 </div>

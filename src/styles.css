@@ -11,6 +11,7 @@
     --gris-fuente: #696969;
     --gris-borde: #CBD6E2;
     --gris-fondo: #F9F9F9;
+    --rojo: #FF0000;
 }
 
 * {
@@ -70,8 +71,7 @@ body {
 form input[type="text"],
 form input[type="number"],
 form input[type="email"],
-form select,
-form .custom-select {
+form select {
     width: 100%;
     display: block !important;
     height: 40px !important;
@@ -80,14 +80,22 @@ form .custom-select {
     padding-left: 10px;
     padding-right: 10px;
     transition: 300ms all;
+    font-size: 14px !important;
+}
+
+.custom-select {
+    display: block;
+    background-image: url(assets/images/form-select-indicator.svg);
+    background-repeat: no-repeat;
+    background-position: right .75rem center !important;
+    appearance: none;
 }
 
 form input[type="text"]:focus,
 form input[type="number"]:focus,
 form input[type="email"]:focus,
-form select:focus,
-form .customSelect:focus {
-    outline: 1px solid var(--verde-oscuro);
+form select:focus {
+    outline: 1.5px solid var(--verde-oscuro);
 }
 
 form .form-label {
@@ -130,6 +138,19 @@ form .form-actions-row {
     margin: 0px auto;
     margin-top: 57px;
     max-width: 1025px;
+    background-color: #F0F0F0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    gap: 16px;
+}
+
+.filter-form h3 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px !important;
+    line-height: 29px !important;
+    color: var(--verde-oscuro);
 }
 
 .text-center {
@@ -196,6 +217,12 @@ form .form-actions-row {
     color: white;
     cursor: pointer;
     border: none;
+}
+
+.button-mvm:disabled,
+.mvm-action-button:disabled {
+    background-color: #B9B9B9;
+    color: #484848;
 }
 
 .search-icon {
@@ -961,6 +988,7 @@ mat-dialog-container .mat-form-field-infix span label {
     display: block;
     overflow: auto;
     margin: 0px auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .mvm-table {
@@ -974,7 +1002,6 @@ mat-dialog-container .mat-form-field-infix span label {
 .mvm-table .mat-row {
     height: 32px !important;
     border-bottom: none;
-    cursor: pointer;
     transition: 300ms all !important;
 }
 
@@ -995,13 +1022,68 @@ mat-dialog-container .mat-form-field-infix span label {
     font-family: 'Montserrat';
 }
 
+.mvm-table .mat-cell .action-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.mvm-action-button {
+    width: 30px !important;
+    height: 30px !important;
+    border: none;
+    border-radius: 50% !important;
+    margin-right: 8px !important;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    line-height: 15px !important;
+}
+
+.approve {
+    background-color: var(--verde-claro);
+}
+
+.reject {
+    background-color: var(--rojo);
+}
+
 .mvm-table .mat-row:hover .mat-cell {
     background-color: #eee;
+}
+
+.mvm-table .mat-row:nth-child(even) {
+    background-color: white;
+}
+
+.mvm-table .mat-row:nth-child(even) {
+    background-color: white;
+}
+
+.mvm-table .mat-row:nth-child(odd) {
+    background-color: #F8F8F8;
+}
+
+.mvm-table .mat-column-CantidadEnergia,
+.mvm-table .mat-column-acciones,
+.mvm-table .mat-column-estado {
+    flex: 0 0 100px !important;
 }
 
 .mvm-paginator {
     font-family: 'Montserrat' !important;
     font-size: 14px !important;
+}
+
+.approve-text {
+    color: var(--verde-oscuro)
+}
+
+.reject-text {
+    color: var(--rojo);
 }
 
 .chart-dona {
