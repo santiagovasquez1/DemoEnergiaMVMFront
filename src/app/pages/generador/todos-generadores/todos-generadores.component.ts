@@ -1,17 +1,24 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, Subscription, timer } from 'rxjs';
+import { forkJoin, Observable, Subscription, timer } from 'rxjs';
 import { SolicitudContrato } from 'src/app/models/solicitudContrato';
 import { FactoryService } from 'src/app/services/factory.service';
-import { GeneradorFactoryService } from 'src/app/services/generador-factory.service';
+
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { Chart, ChartConfiguration, ChartEvent, ChartType,ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import {default as Annotation} from '../../../../../node_modules/chartjs-plugin-annotation';
-
 import DatalabelsPlugin from '../../../../../node_modules/chartjs-plugin-datalabels';
 import { EthereumService } from 'src/app/services/dashboard/ethereum.service';
+
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+
+import { MatSort } from '@angular/material/sort';
+import { InfoEnergia } from '../../../models/InfoEnergia'
+import { InfoPlantaEnergia } from 'src/app/models/InfoPlantaEnergia';
+import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
+import { GeneradorContractService } from 'src/app/services/generador-contract.service';
 
 export interface PeriodicElement {
   nombre: string;
@@ -49,14 +56,25 @@ export class TodosGeneradoresComponent implements OnInit {
   todoGeneradores: SolicitudContrato[] = [];
   tipoMapa = 'Generadores';
   
+  plantasDeEnergia: InfoPlantaEnergia[] = [];
+  dirContract: string;
+  energiasDisponibles: string[] = [];
+  
   titlte = "titulo desde generadores";
   departamento;
   panelOpenState = false;
 
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  displayedColumns: string[] = ['Tipo agente', 'Nombre', 'TipoEnergia', 'Cantidad', 'Precio']
+  dataSource: MatTableDataSource<InfoEnergia>
+  @ViewChild('table', { static: true }) table: MatTable<any>;
+  sort: MatSort;
 
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  
+  /*
   displayedColumns: string[] = ['nombre', 'cantidad', 'tipo','precio'];
   dataSource = ELEMENT_DATA;
+  */
 
   // Pie
   public pieChartOptions: ChartConfiguration['options'] = {
@@ -160,37 +178,34 @@ export class TodosGeneradoresComponent implements OnInit {
 
   constructor(
     private toastr: ToastrService,
-    private generadorService: GeneradorFactoryService,
+    private bancoEnergia: BancoEnergiaService,
+    private generadorService: GeneradorContractService,
     private regulardorMercado: ReguladorMercadoService,
     private ethereumService: EthereumService ) { 
     this.timer$ = timer(0, 1000);
   }
 
   async ngOnInit(): Promise<void> {
-    
-    /*
-    this.account = localStorage.getItem('account');
     try {
-        await this.generadorService.loadBlockChainContractData();
-        //this.timerSubscription = this.timer$.subscribe(() => {
-          this.regulardorMercado.getContratosRegistrados().subscribe({
-          next: data => {
-            this.registros = data;
-            console.log(data);
-            this.dataGenerador();
-          },
-          error: err => {
+      //this.isFromInit = true;
+      //this.spinner.show();
+      await this.regulardorMercado.loadBlockChainContractData();
+      //this.spinner.hide();
+      this.timerSubscription = this.timer$.subscribe(() => {
+        this.regulardorMercado.getContratosRegistrados().subscribe({
+          next: (data) => {
+
+            console.log("data desde todos generadores: ",data)
+          }, error: (err) => {
             console.log(err);
-            this.toastr.error('Error al cargar los generadores', 'Error');
+            this.toastr.error(err.message, 'Error');
           }
         });
-      //});
-      }
-      catch (error) {
-        console.log(error);
-        this.toastr.error('Error al cargar el contrato', 'Error');
-      }
-      */
+      });      
+    } catch (error) {
+      console.log(error);
+      this.toastr.error(error.message, 'Error');
+    }
   }
 
   ngAfterViewInit(): void{
