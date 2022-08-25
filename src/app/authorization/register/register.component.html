@@ -102,9 +102,44 @@
             <div class="col"></div>
         </div>
 
+        <div class="row mt-30 ">
+            <div class="col text-danger">
+                <p class="fadeIn" *ngIf="formfieldValidator.fieldValidator(registroForm,'tipoAgente')">
+                    El tipo de agente es obligatorio
+                </p>
+                <p class="fadeIn" *ngIf="formfieldValidator.fieldValidator(registroForm,'nit')">
+                    El nit de la empresa es obligatorio
+                </p>
+                <p class="fadeIn" *ngIf="formfieldValidator.fieldValidator(registroForm,'empresa')">
+                    El nombre de la empresa es obligatorio
+                </p>
+                <p class="fadeIn" *ngIf="formfieldValidator.fieldValidator(registroForm,'contacto')">
+                    El contacto de la empresa es obligatorio
+                </p>
+                <p class="fadeIn" *ngIf="formfieldValidator.fieldValidator(registroForm,'telefono')">
+                    El telefono de la empresa es obligatorio
+                </p>
+                <p class="fadeIn" *ngIf="formfieldValidator.fieldValidator(registroForm,'correo')">
+                    El correo de la empresa es obligatorio ó no es un tipo de correo valido
+                </p>
+                <p class="fadeIn" *ngIf="formfieldValidator.fieldValidator(registroForm,'departamento')">
+                    El departamento donde se encuentra la empresa es obligatorio
+                </p>
+                <p class="fadeIn" *ngIf="formfieldValidator.fieldValidator(registroForm,'ciudad')">
+                    La ciudad donde se encuentra la empresa es obligatorio
+                </p>
+                <p class="fadeIn" *ngIf="formfieldValidator.fieldValidator(registroForm,'direccion')">
+                    la dirección de la empresa es obligatorio
+                </p>
+                <p class="fadeIn" *ngIf="agenteMercado==1 && formfieldValidator.fieldValidator(registroForm,'tipoComercio')">
+                    El tipo de comercializador es obligatorio
+                </p>
+            </div>
+        </div>
+
         <div class="form-actions-row mt-30">
             <div class="form-field w-160">
-                <button class="button-mvm" mat-stroked-button (click)="onSubmit()">Registrarme</button>
+                <button class="button-mvm" mat-stroked-button (click)="onSubmit()" [disabled]="!registroForm.valid">Registrarme</button>
             </div>
         </div>
     </form>
