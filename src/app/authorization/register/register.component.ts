@@ -1,3 +1,4 @@
+import { FormfieldValidatorService } from '../../services/shared/formfield-validator.service';
 import { MunicipioInfo } from './../../models/municipioInfo';
 import { MunicipiosService } from './../../services/municipios.service';
 import { EstadoSolicitud, SolicitudContrato } from './../../models/solicitudContrato';
@@ -48,7 +49,8 @@ export class RegisterComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private spinnerService: NgxSpinnerService,
-    private municipioService: MunicipiosService) {
+    private municipioService: MunicipiosService,
+    public formfieldValidator:FormfieldValidatorService) {
     this.registroForm = this.fb.group({});
   }
 

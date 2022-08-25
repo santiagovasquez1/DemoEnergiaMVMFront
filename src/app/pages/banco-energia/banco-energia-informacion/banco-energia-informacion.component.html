@@ -1,4 +1,4 @@
-<div class="container container-banco-informacion">
+<div class="container container-banco-informacion" *ngIf="energiasDisponibles.length>0">
     <div class="card card-solar">
         <div class="header-card">
             <img src="../../../../assets/images/panel-solar.svg" alt="">
@@ -9,15 +9,15 @@
             <div>
                 <label class="w-500">Cantidad de energía disponible</label>
                 <div class="input-text div-text">
-                    <span>{{energiasDisponibles[0]?.cantidadEnergia}} <b>MWh</b></span>
+                    <span>{{energiasDisponibles[0].cantidadEnergia}} <b>MWh</b></span>
                 </div>
-                
+
             </div>
 
             <div>
                 <label class="w-500">Precio de la energía</label>
                 <div class="input-text div-text">
-                    <span>{{energiasDisponibles[0]?.precio}} <b>Tokens/MWh</b></span>
+                    <span>{{energiasDisponibles[0].precio}} <b>Tokens/MWh</b></span>
                 </div>
             </div>
         </form>
@@ -28,24 +28,24 @@
             <img src="../../../../assets/images/energia-eolica.svg" alt="">
             <span class="title-xg-gris">Eólica</span>
         </div>
-        
+
         <form class="mt-40">
             <div>
                 <label class="w-500">Cantidad de energía disponible</label>
                 <div class="input-text div-text">
-                    <span>{{energiasDisponibles[1]?.cantidadEnergia}} <b>MWh</b></span>
+                    <span>{{energiasDisponibles[1].cantidadEnergia}} <b>MWh</b></span>
                 </div>
             </div>
 
             <div>
                 <label class="w-500">Precio de la energía</label>
                 <div class="input-text div-text">
-                    <span>{{energiasDisponibles[1]?.precio}} <b>Tokens/MWh</b></span>
+                    <span>{{energiasDisponibles[1].precio}} <b>Tokens/MWh</b></span>
                 </div>
             </div>
-            
-            
+
+
         </form>
-        
+
     </div>
 </div>

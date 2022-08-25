@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
 /* You can add global styles to this file, and also import other style files */
 
 :root {
@@ -157,7 +158,7 @@ form .form-actions-row {
     text-align: center;
 }
 
-.a-green{
+.a-green {
     text-decoration: none;
     color: var(--verde-oscuro);
 }
@@ -218,7 +219,7 @@ form .form-actions-row {
     color: var(--gris-claro);
 }
 
-.input-text{
+.input-text {
     width: 100%;
     height: 40px;
     border: 1px solid #CBD6E2;
@@ -226,7 +227,7 @@ form .form-actions-row {
     outline: none;
 }
 
-.div-text{
+.div-text {
     justify-items: center;
     display: flex;
     justify-content: center;
@@ -612,14 +613,14 @@ form .form-actions-row {
     text-align: center;
 }
 
-.container-generadores .energia-dpto  .content-card{
+.container-generadores .energia-dpto .content-card {
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 30% 70%;
     justify-items: center;
 }
 
-.container-generadores .energia-dpto  .content-card .container-pie{
+.container-generadores .energia-dpto .content-card .container-pie {
     display: grid;
     justify-items: center;
     width: 70%;
@@ -633,31 +634,31 @@ form .form-actions-row {
     border-radius: 20px;
 }
 
-.energia-dpto  .content-card .container-pie #title-pie{
+.energia-dpto .content-card .container-pie #title-pie {
     grid-column: 1/4;
 }
 
-.energia-dpto  .content-card .container-pie .img-aerogenerador{
+.energia-dpto .content-card .container-pie .img-aerogenerador {
     width: 100%;
     display: grid;
     justify-items: start;
     align-items: end;
 }
 
-.energia-dpto  .content-card .container-pie .img-panel{
+.energia-dpto .content-card .container-pie .img-panel {
     width: 100%;
     display: grid;
     justify-items: end;
 }
 
-.container-generadores .energia-dpto  .content-card .table-container{
+.container-generadores .energia-dpto .content-card .table-container {
     grid-column: 1/3;
     grid-row: 2/3;
     width: 99%;
     height: 90%
 }
 
-.container-generadores .energia-dpto  .content-card .table-container mat-table{
+.container-generadores .energia-dpto .content-card .table-container mat-table {
     min-width: 650px !important;
 }
 
@@ -803,9 +804,6 @@ form .form-actions-row {
     animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
-
-
-
 .container .subtitulo {
     display: flex;
     margin-top: 30px;
@@ -817,7 +815,6 @@ form .form-actions-row {
     cursor: pointer;
     transform: scale(1.02);
 }
-
 
 .text-content-card {
     font-size: 20px;
@@ -834,7 +831,7 @@ form .form-actions-row {
     justify-content: end;
 }
 
-.container .container-buttons .btn-show-info{
+.container .container-buttons .btn-show-info {
     grid-column: 2/3;
 }
 
@@ -845,12 +842,12 @@ form .form-actions-row {
     grid-column-gap: 3%;
 }
 
-.container .info-contrato #owner{
+.container .info-contrato #owner {
     grid-column: 2/3;
     grid-row: 1/2;
 }
 
-.container .info-contrato #direccion{
+.container .info-contrato #direccion {
     grid-column: 2/3;
     grid-row: 2/3;
 }
@@ -1185,9 +1182,9 @@ mat-dialog-container .mat-form-field-infix span label {
 }
 
 
-
 /*Banco de energía*/
-.container-banco-informacion{
+
+.container-banco-informacion {
     width: 100%;
     height: 100%;
     display: grid;
@@ -1196,7 +1193,7 @@ mat-dialog-container .mat-form-field-infix span label {
     align-items: center;
 }
 
-.container-banco-informacion .card{
+.container-banco-informacion .card {
     width: 388px;
     height: 391px;
     background: #FFFFFF;
@@ -1209,12 +1206,12 @@ mat-dialog-container .mat-form-field-infix span label {
     padding: 10px 40px 40px 40px;
 }
 
-.container-banco-informacion .card form{
+.container-banco-informacion .card form {
     display: grid;
     grid-template-rows: 50% 50%;
 }
 
-.container-banco-informacion .card .header-card{
+.container-banco-informacion .card .header-card {
     display: flex;
     align-items: end;
 }

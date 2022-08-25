@@ -227,6 +227,7 @@ export class RegistrosComponent implements OnInit, OnDestroy {
     this.filterForm.get('empresa').valueChanges.subscribe({
       next: (data: string) => {
         this.empresa = data;
+        this.reloadData = true;
         this.getInfoAgentes();
       }
     });
@@ -234,6 +235,7 @@ export class RegistrosComponent implements OnInit, OnDestroy {
     this.filterForm.get('contacto').valueChanges.subscribe({
       next: (data: string) => {
         this.contacto = data;
+        this.reloadData = true;
         this.getInfoAgentes();
       }
     });
@@ -241,6 +243,7 @@ export class RegistrosComponent implements OnInit, OnDestroy {
     this.filterForm.get('ubicacion').valueChanges.subscribe({
       next: (data: string) => {
         this.ubicacion = data;
+        this.reloadData = true;
         this.getInfoAgentes();
       }
     });
@@ -248,6 +251,7 @@ export class RegistrosComponent implements OnInit, OnDestroy {
     this.filterForm.get('correo').valueChanges.subscribe({
       next: (data: string) => {
         this.correo = data;
+        this.reloadData = true;
         this.getInfoAgentes();
       }
     });
@@ -255,6 +259,7 @@ export class RegistrosComponent implements OnInit, OnDestroy {
     this.filterForm.get('tipoAgente').valueChanges.subscribe({
       next: (data: string) => {
         this.tipoAgente = data !== '' ? parseInt(data) : data;
+        this.reloadData = true;
         this.getInfoAgentes();
       }
     });
@@ -262,6 +267,7 @@ export class RegistrosComponent implements OnInit, OnDestroy {
     this.filterForm.get('estado').valueChanges.subscribe({
       next: (data: string) => {
         this.estado = data !== '' ? parseInt(data) : data;
+        this.reloadData = true;
         this.getInfoAgentes();
       }
     });
