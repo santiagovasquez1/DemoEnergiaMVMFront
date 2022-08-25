@@ -328,6 +328,7 @@ export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
       next: (data) => {
 
         this.energiasDisponibles = data;
+        console.log("energias disponibles: ",data);
         this.pieChartData = {
           labels: this.getPieChartLabels(data),
           datasets: [{

@@ -59,6 +59,7 @@ export class ListaPlantasComponent implements OnInit {
         const tiposEnergias = data[0];
         this.energiasDisponibles = tiposEnergias.map(tipo => tipo.nombre);
         this.plantasDeEnergia = data[1];
+        console.log("lista plantas:",this.plantasDeEnergia)
         this.spinner.hide();
       },
       error: (err) => {
@@ -67,7 +68,6 @@ export class ListaPlantasComponent implements OnInit {
         this.spinner.hide();
       }
     });
-
   }
 
   onInyectarEnergia(hashPlanta: string) {
