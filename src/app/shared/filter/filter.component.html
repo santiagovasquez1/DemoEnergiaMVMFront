@@ -7,9 +7,17 @@
                 <input *ngIf="control.controlType == 'input'" type="text" [formControlName]="control.formControlName" />
                 <select class="custom-select" *ngIf="control.controlType == 'select'" [formControlName]="control.formControlName">
                     <option [value]=""></option>
-                    <option *ngFor="let optionValue of control.optionValues" [value]="optionValue">{{optionValue}}</option>
+                    <option *ngFor="let optionValue of control.optionValues" [value]="optionValue">
+                        <p *ngIf="control.pipe === ''">{{optionValue}}</p>
+                        <p *ngIf="control.pipe === 'estadoRegistro'">{{optionValue|estadoRegistro}}</p>
+                        <p *ngIf="control.pipe === 'tipoContrato'">{{optionValue|tipoContrato}}</p>
+                        <p *ngIf="control.pipe === 'tipoTransaccion'">{{optionValue|tipoTransaccion}}</p>
+                    </option>
                 </select>
+                <input *ngIf="control.controlType == 'datePicker' && pickers" type="text" [matDatepicker]="pickers.get(control.pickerIndex)" (click)="pickers.get(control.pickerIndex).open()">
+                <mat-datepicker *ngIf="control.controlType == 'datePicker' && pickers"></mat-datepicker>
             </div>
         </div>
+        <div *ngIf="row.fields.length < 3" class="col"></div>
     </div>
 </form>

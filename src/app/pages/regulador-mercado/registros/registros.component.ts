@@ -16,6 +16,7 @@ import { TiposContratos } from 'src/app/models/EnumTiposContratos';
 import { ClienteFactoryService } from 'src/app/services/cliente-factory.service';
 import { ComercializadorFactoryService } from 'src/app/services/comercializador-factory.service';
 import { GeneradorFactoryService } from 'src/app/services/generador-factory.service';
+import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
 
 @Component({
   selector: 'app-registros',
@@ -42,15 +43,18 @@ export class RegistrosComponent implements OnInit, OnDestroy {
   @ViewChild('table', { static: true }) table: MatTable<any>;
   sort: MatSort;
 
-  filterForm: FormGroup;
+  filterFormProperties: RowFilterForm[] = [];
 
   //Filtros:
-  empresa: string = '';
-  contacto: string = '';
-  ubicacion: string = '';
-  correo: string = '';
-  tipoAgente: TiposContratos | string = '';
-  estado: EstadoSolicitud | string = '';
+  filters = {
+    empresa: '',
+    contacto: '',
+    ubicacion: '',
+    correo: '',
+    tipoAgente: undefined,
+    estado: undefined
+  }
+
 
   constructor(private toastr: ToastrService,
     private regulardorMercado: ReguladorMercadoService,
@@ -63,8 +67,45 @@ export class RegistrosComponent implements OnInit, OnDestroy {
     private fb: FormBuilder) {
     this.timer$ = timer(0, 5000);
     this.dataSource = new MatTableDataSource();
-    this.filterForm = this.fb.group({});
-    this.getArraysEnums()
+    this.getArraysEnums();
+
+    this.filterFormProperties = [{
+      fields: [{
+        label: 'Empresa',
+        formControlName: 'empresa',
+        controlType: 'input',
+        pipe: ''
+      }, {
+        label: 'Contacto',
+        formControlName: 'contacto',
+        controlType: 'input',
+        pipe: ''
+      }, {
+        label: 'Correo',
+        formControlName: 'correo',
+        controlType: 'input',
+        pipe: ''
+      }]
+    }, {
+      fields: [{
+        label: 'Ubicación',
+        formControlName: 'ubicacion',
+        controlType: 'input',
+        pipe: ''
+      }, {
+        label: 'Tipo de agente',
+        formControlName: 'tipoAgente',
+        controlType: 'select',
+        optionValues: this.tiposDeAgentes,
+        pipe: 'tipoContrato'
+      }, {
+        label: 'Estado',
+        formControlName: 'estado',
+        controlType: 'select',
+        optionValues: this.estadosSolicitud,
+        pipe: 'estadoRegistro'
+      }]
+    }]
   }
 
   ngOnDestroy(): void {
@@ -75,7 +116,6 @@ export class RegistrosComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     try {
-      this.initForm();
       this.isFromInit = true;
       this.spinner.show();
       await this.regulardorMercado.loadBlockChainContractData();
@@ -212,65 +252,14 @@ export class RegistrosComponent implements OnInit, OnDestroy {
       })
   }
 
-  private initForm() {
-    this.filterForm = this.fb.group({
-      empresa: [''],
-      contacto: [''],
-      ubicacion: [''],
-      correo: [''],
-      tipoAgente: [''],
-      estado: ['']
-    })
-
-    this.filterForm.get('empresa').valueChanges.subscribe({
-      next: (data: string) => {
-        this.empresa = data;
-        this.reloadData = true;
-        this.getInfoAgentes();
-      }
-    });
-
-    this.filterForm.get('contacto').valueChanges.subscribe({
-      next: (data: string) => {
-        this.contacto = data;
-        this.reloadData = true;
-        this.getInfoAgentes();
-      }
-    });
-
-    this.filterForm.get('ubicacion').valueChanges.subscribe({
-      next: (data: string) => {
-        this.ubicacion = data;
-        this.reloadData = true;
-        this.getInfoAgentes();
-      }
-    });
-
-    this.filterForm.get('correo').valueChanges.subscribe({
-      next: (data: string) => {
-        this.correo = data;
-        this.reloadData = true;
-        this.getInfoAgentes();
-      }
-    });
-
-    this.filterForm.get('tipoAgente').valueChanges.subscribe({
-      next: (data: string) => {
-        this.tipoAgente = data !== '' ? parseInt(data) : data;
-        this.reloadData = true;
-        this.getInfoAgentes();
-      }
-    });
-
-    this.filterForm.get('estado').valueChanges.subscribe({
-      next: (data: string) => {
-        this.estado = data !== '' ? parseInt(data) : data;
-        this.reloadData = true;
-        this.getInfoAgentes();
-      }
-    });
-
-
+  onfieldValueChange(event: FieldValueChange) {
+    if (event.controlName === 'tipoAgente' || event.controlName === 'estado') {
+      this.filters[event.controlName] = event.data !== '' ? parseInt(event.data) : event.data;
+    } else {
+      this.filters[event.controlName] = event.data;
+    }
+    this.reloadData = true;
+    this.getInfoAgentes();
   }
 
   private getArraysEnums() {
@@ -279,14 +268,13 @@ export class RegistrosComponent implements OnInit, OnDestroy {
   }
 
   private filterData(data: SolicitudContrato[]): SolicitudContrato[] {
-
     let filterArray = data
-    filterArray = this.empresa !== '' ? filterArray.filter(item => item.infoContrato.empresa.toLowerCase().includes(this.empresa)) : filterArray;
-    filterArray = this.contacto !== '' ? filterArray.filter(item => item.infoContrato.contacto.toLowerCase().includes(this.contacto.toLowerCase())) : filterArray;
-    filterArray = this.ubicacion !== '' ? filterArray.filter(item => item.infoContrato.departamento.toLowerCase().includes(this.ubicacion.toLowerCase())) : filterArray;
-    filterArray = this.correo !== '' ? filterArray.filter(item => item.infoContrato.correo.toLowerCase().includes(this.correo.toLowerCase())) : filterArray;
-    filterArray = this.tipoAgente !== '' ? filterArray.filter(item => item.tipoContrato == this.tipoAgente) : filterArray;
-    filterArray = this.estado !== '' ? filterArray.filter(item => item.estadoSolicitud == this.estado) : filterArray;
+    filterArray = this.filters.empresa !== '' ? filterArray.filter(item => item.infoContrato.empresa.toLowerCase().includes(this.filters.empresa)) : filterArray;
+    filterArray = this.filters.contacto !== '' ? filterArray.filter(item => item.infoContrato.contacto.toLowerCase().includes(this.filters.contacto.toLowerCase())) : filterArray;
+    filterArray = this.filters.ubicacion !== '' ? filterArray.filter(item => item.infoContrato.departamento.toLowerCase().includes(this.filters.ubicacion.toLowerCase())) : filterArray;
+    filterArray = this.filters.correo !== '' ? filterArray.filter(item => item.infoContrato.correo.toLowerCase().includes(this.filters.correo.toLowerCase())) : filterArray;
+    filterArray = this.filters.tipoAgente !== '' && this.filters.tipoAgente !== undefined ? filterArray.filter(item => item.tipoContrato == this.filters.tipoAgente) : filterArray;
+    filterArray = this.filters.estado !== '' && this.filters.estado !== undefined ? filterArray.filter(item => item.estadoSolicitud == this.filters.estado) : filterArray;
 
     return filterArray;
   }

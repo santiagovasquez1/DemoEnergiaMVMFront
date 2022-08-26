@@ -3,54 +3,7 @@
         <div class="h2 title-xg">Agentes del mercado</div>
     </div>
 
-    <form [formGroup]="filterForm" class="filter-form fadeIn">
-        <h3>Filtros</h3>
-        <div class="row mt-20">
-            <div class="col">
-                <div class="form-field">
-                    <label>Empresa</label>
-                    <input type="text" formControlName="empresa"></div>
-            </div>
-            <div class="col">
-                <div class="form-field">
-                    <label>Contacto</label>
-                    <input type="text" formControlName="contacto">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-field">
-                    <label>Ubicación</label>
-                    <input type="text" formControlName="ubicacion">
-                </div>
-            </div>
-        </div>
-        <div class="row mt-20">
-            <div class="col">
-                <div class="form-field">
-                    <label>Correo</label>
-                    <input type="text" formControlName="correo">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-field">
-                    <label>Tipo de agente</label>
-                    <select class="custom-select" formControlName="tipoAgente">
-                        <option [value]=""></option>
-                        <option *ngFor="let tipo of tiposDeAgentes" [value]="tipo">{{tipo|tipoContrato}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-field">
-                    <label>Estado</label>
-                    <select class="custom-select" formControlName="estado">
-                        <option [value]=""></option>
-                        <option *ngFor="let estado of estadosSolicitud" [value]="estado">{{estado|estadoRegistro}}</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </form>
+    <app-filter [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
 
     <div class="table-container mt-30 fadeIn">
         <mat-table #table [dataSource]="dataSource" class="mvm-table">

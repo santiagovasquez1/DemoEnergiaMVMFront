@@ -6,7 +6,7 @@ import { InfoContrato } from './../../../models/infoContrato';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { forkJoin, Observable, Subscription, timer } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { FieldValueChange, RowFilterForm } from 'src/app/models/filterFormParameter';
+import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -50,19 +50,23 @@ export class ListaClientesComponent implements OnInit, OnDestroy {
       fields: [{
         label: 'Empresa',
         formControlName: 'empresa',
-        controlType: 'input'
+        controlType: 'input',
+        pipe: ''
       }, {
         label: 'Contacto',
         formControlName: 'contacto',
-        controlType: 'input'
+        controlType: 'input',
+        pipe: ''
       }, {
         label: 'Correo',
         formControlName: 'correo',
-        controlType: 'input'
+        controlType: 'input',
+        pipe: ''
       }, {
         label: 'Ubicación',
         formControlName: 'ubicacion',
-        controlType: 'input'
+        controlType: 'input',
+        pipe: ''
       }]
     }];
     this.dataSource = new MatTableDataSource();
