@@ -29,7 +29,6 @@ export class RegistrosComponent implements OnInit, OnDestroy {
   tiposDeAgentes: TiposContratos[];
 
   displayedColumns: string[] = ['empresa', 'contacto', 'ubicacion', 'correo', 'tipoAgente', 'estado', 'acciones'];
-  registrosContratos: SolicitudContrato[] = [];
   timer$: Observable<any>;
   timerSubscription: Subscription;
   contadorAnterior = 0;
@@ -100,13 +99,12 @@ export class RegistrosComponent implements OnInit, OnDestroy {
         if ((this.contadorActual !== this.contadorAnterior && !this.diligenciandoSolicitud) || this.reloadData) {
           this.dataSource.data = filterData;
           this.dataSource.paginator = this.paginator;
-          this.registrosContratos = filterData;
           this.dataSource.sort = this.sort;
-          this.reloadData = false;
-          this.table.renderRows();
           if (this.contadorActual > this.contadorAnterior && !this.isFromInit) {
             this.toastr.success('Nueva solicitud registrada', 'Registro');
           }
+          this.reloadData = false;
+          this.table.renderRows();
           this.contadorAnterior = this.contadorActual;
         }
       }, error: (err) => {

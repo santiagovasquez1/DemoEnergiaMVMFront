@@ -1,0 +1,15 @@
+<form [formGroup]="filterForm" class="filter-form fadeIn">
+    <h3>Filtros</h3>
+    <div class="row mt-20" *ngFor="let row of rowsForm">
+        <div class="col" *ngFor="let control of row.fields">
+            <div class="form-field">
+                <label for="">{{control.label}}</label>
+                <input *ngIf="control.controlType == 'input'" type="text" [formControlName]="control.formControlName" />
+                <select class="custom-select" *ngIf="control.controlType == 'select'" [formControlName]="control.formControlName">
+                    <option [value]=""></option>
+                    <option *ngFor="let optionValue of control.optionValues" [value]="optionValue">{{optionValue}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</form>
