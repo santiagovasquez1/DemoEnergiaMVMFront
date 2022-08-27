@@ -14,6 +14,7 @@ import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 })
 export class DevolverTokensComponent implements OnInit {
   devolucionTokensForm: FormGroup;
+  cantidadTokensDevolver: number = 0;
 
   constructor(public dialogRef: MatDialogRef<DevolverTokensComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -25,7 +26,7 @@ export class DevolverTokensComponent implements OnInit {
     this.initForm();
   }
 
-  async ngOnInit()  {
+  async ngOnInit() {
     try {
       this.devolucionTokensForm.get('tokensDisponibles').setValue(this.data.tokensDisponibles);
       await this.reguladorMercado.loadBlockChainContractData();
@@ -40,6 +41,10 @@ export class DevolverTokensComponent implements OnInit {
       tokensDisponibles: [{ value: '', disabled: true }],
       cantidadTokensDevolver: ['', Validators.required]
     });
+
+    this.devolucionTokensForm.get('cantidadTokensDevolver').valueChanges.subscribe(data => {
+      this.cantidadTokensDevolver = data !== '' ? parseInt(data) : 0;
+    })
   }
 
   onDevolverTokens() {
@@ -64,7 +69,7 @@ export class DevolverTokensComponent implements OnInit {
   }
 
   get isValid(): boolean {
-    if (this.devolucionTokensForm.get('cantidadTokensDevolver').value > this.data.tokensDisponibles && this.devolucionTokensForm.get('cantidadTokensDevolver').value > 0 && this.devolucionTokensForm.valid) {
+    if (this.cantidadTokensDevolver <= this.data.tokensDisponibles && this.cantidadTokensDevolver > 0 && this.devolucionTokensForm.valid) {
       return true;
     } else {
       return false;

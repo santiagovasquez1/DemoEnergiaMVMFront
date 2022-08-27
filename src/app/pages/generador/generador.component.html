@@ -1,5 +1,7 @@
 <div class="container" *ngIf="infoContrato">
-    <h2 class="mt-20">Información del generador</h2>
+    <div class="titulo">
+        <h2 class="title-xg">Información del generador</h2>
+    </div>
     <mat-card class="custom mb-20">
         <mat-card-title>
             {{infoContrato.empresa}}
@@ -26,10 +28,20 @@
         </div>
 
         <mat-card-actions>
-            <button class="button-mvm" mat-stroked-button (click)="onVerCertificado()">Ver Certificado</button>
-            <button class="button-mvm" mat-stroked-button (click)="onCrearPlanta()">Crear nueva planta de energia</button>
-            <button class="button-mvm" mat-stroked-button (click)="onDevolverTokens()">Devolver Tokens</button>
-            <button class="button-mvm" mat-stroked-button (click)="onContratarComerciliazador()">Contratar comercializador</button>
+            <div class="row">
+                <div class="col">
+                    <button class="button-mvm" mat-stroked-button (click)="onVerCertificado()">Ver Certificado</button>
+                </div>
+                <div class="col">
+                    <button class="button-mvm" mat-stroked-button (click)="onCrearPlanta()">Crear nueva planta de energia</button>
+                </div>
+                <div class="col">
+                    <button class="button-mvm" mat-stroked-button (click)="onDevolverTokens()">Devolver Tokens</button>
+                </div>
+                <!-- <div class="col">
+                    <button class="button-mvm" mat-stroked-button (click)="onContratarComerciliazador()">Contratar comercializador</button>
+                </div> -->
+            </div>
         </mat-card-actions>
     </mat-card>
 </div>

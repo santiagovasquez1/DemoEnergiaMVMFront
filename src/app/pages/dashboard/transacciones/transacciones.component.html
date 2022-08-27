@@ -1,6 +1,6 @@
 <div class="container">
     <div class="titulo">
-        <h1 class="title-xg">Transacciones del mercado</h1>
+        <h2 class="title-xg">Transacciones del mercado</h2>
     </div>
 
     <form [formGroup]="filterForm" class="filter-form fadeIn">
@@ -18,8 +18,9 @@
             <div class="col">
                 <div class="form-field">
                     <label>Fecha de transacción</label>
-                    <input type="text" formControlName="fechaTx" [matDatepicker]="picker" (click)="picker.open()">
-                    <mat-datepicker #picker></mat-datepicker>
+                    <!-- <input type="text" formControlName="fechaTx" [matDatepicker]="picker" (click)="picker.open()">
+                    <mat-datepicker #picker></mat-datepicker> -->
+                    <input type="date" formControlName="fechaTx">
                 </div>
             </div>
             <div class="col">
@@ -91,7 +92,7 @@
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-            <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
+            <mat-row class="fadeIn" *matRowDef="let row; columns:displayedColumns"></mat-row>
         </mat-table>
     </div>
     <div class="table-container mt-10 fadeIn">

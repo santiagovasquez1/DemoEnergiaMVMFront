@@ -47,6 +47,7 @@ import {MatTableModule} from '@angular/material/table';
 import { ComprasRealizadasComponent } from './comercializador/compras-realizadas/compras-realizadas.component';
 import { TransaccionesComponent } from './dashboard/transacciones/transacciones.component';
 import { BancoEnergiaInformacionComponent } from './banco-energia/banco-energia-informacion/banco-energia-informacion.component';
+import { ConsumirEnergiaComponent } from './cliente/consumir-energia/consumir-energia.component';
 
 @NgModule({
     declarations: [
@@ -79,6 +80,7 @@ import { BancoEnergiaInformacionComponent } from './banco-energia/banco-energia-
         ComprasRealizadasComponent,
         TransaccionesComponent,
         BancoEnergiaInformacionComponent,
+        ConsumirEnergiaComponent,
     ],
     imports: [
         CommonModule,

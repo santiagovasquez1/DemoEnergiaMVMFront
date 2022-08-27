@@ -81,23 +81,24 @@ export class ComprarEnergiaComponent implements OnInit {
   }
 
   onComprarEnergia() {
-    this.alertDialog.confirmAlert('Confirmar', '¿Está seguro de que desea comprar energía?').then((result) => {
-      if (result.isConfirmed) {
-        this.spinner.show();
-        let infoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
-        let cantidadEnergia = this.comprarEnergiaForm.get('cantidadEnergia').value;
-        this.clienteService.postComprarEnergia(infoEnergia.nombre, cantidadEnergia).subscribe({
-          next: () => {
-            this.spinner.hide();
-            this.toastr.success('Emision de compra de energia', 'Éxito');
-            this.dialogRef.close();
-          }, error: (error) => {
-            this.spinner.hide();
-            this.toastr.error(error.message, 'Error');
-          }
-        });
-      }
-    });
+    this.alertDialog.confirmAlert('Confirmar', '¿Está seguro de que desea comprar energía?')
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.spinner.show();
+          let infoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
+          let cantidadEnergia = this.comprarEnergiaForm.get('cantidadEnergia').value;
+          this.clienteService.postComprarEnergia(infoEnergia.nombre, cantidadEnergia).subscribe({
+            next: () => {
+              this.spinner.hide();
+              this.toastr.success('Emision de compra de energia', 'Éxito');
+              this.dialogRef.close();
+            }, error: (error) => {
+              this.spinner.hide();
+              this.toastr.error(error.message, 'Error');
+            }
+          });
+        }
+      });
   }
 
   get isComprarValid(): boolean {

@@ -22,11 +22,19 @@ export class ClienteContractService extends AgenteContractService {
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
-    )
+    );
   }
 
   postComprarEnergia(tipoEnergia: string, cantidad: number): Observable<any> {
     return from(this.contract?.methods.comprarEnergia(tipoEnergia, cantidad).send({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+  postConsumirEnergia (tipoEnergia: string, cantidad: number):Observable<any>{
+    return from(this.contract?.methods.gastoEnergia(tipoEnergia, cantidad).send({from: this.account})).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })

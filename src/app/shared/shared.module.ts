@@ -21,6 +21,7 @@ import { TipoTransaccionPipe } from './pipes/tipo-transaccion.pipe';
 import { TipoContratoPipe } from './pipes/tipo-contrato.pipe';
 import { EstadoRegistroPipe } from './pipes/estado-registro.pipe';
 import { LimitTextPipe } from './pipes/limit-text.pipe';
+import { FilterComponent } from './filter/filter.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { LimitTextPipe } from './pipes/limit-text.pipe';
         TipoTransaccionPipe,
         TipoContratoPipe,
         EstadoRegistroPipe,
-        LimitTextPipe
+        LimitTextPipe,
+        FilterComponent
     ],
     imports: [
         CommonModule,
@@ -59,7 +61,8 @@ import { LimitTextPipe } from './pipes/limit-text.pipe';
         TipoTransaccionPipe,
         TipoContratoPipe,
         EstadoRegistroPipe,
-        LimitTextPipe
+        LimitTextPipe,
+        FilterComponent
     ]
 })
 export class SharedModule { }

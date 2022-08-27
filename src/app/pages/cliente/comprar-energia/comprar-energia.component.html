@@ -1,20 +1,34 @@
 <h2 class="mt-20">Comprar energia</h2>
 <form [formGroup]="comprarEnergiaForm">
-    <mat-form-field class="w-100p">
-        <mat-label>Tipo de energia</mat-label>
-        <mat-select formControlName="tipoEnergia">
-            <mat-option *ngFor="let tipoEnergia of tiposEnergia" [value]="tipoEnergia">
-                {{tipoEnergia.nombre}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field class="w-100p">
-        <mat-label>Cantidad de energia</mat-label>
-        <input matInput formControlName="cantidadEnergia" type="number" placeholder="Cantidad de energia">
-    </mat-form-field>
-    <mat-form-field class="w-100p">
-        <mat-label>Precio de energia</mat-label>
-        <input matInput formControlName="valorCompra" type="number" placeholder="Precio de energia">
-    </mat-form-field>
-    <button class="button-mvm" mat-raised-button [disabled]="!isComprarValid" (click)="onComprarEnergia()">Comprar</button>
+    <div class="row">
+        <div class="col">
+            <div class="form-field">
+                <label>Tipo de energia</label>
+                <select class="custom-select" formControlName="tipoEnergia">
+                    <option [value]=""></option>
+                    <option *ngFor="let tipoEnergia of tiposEnergia" [ngValue]="tipoEnergia">
+                        {{tipoEnergia.nombre}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-20">
+        <div class="col">
+            <div class="form-field">
+                <label>Cantidad de energia</label>
+                <input formControlName="cantidadEnergia" type="number" placeholder="Cantidad de energia">
+            </div>
+        </div>
+    </div>
+    <div class="row mt-20">
+        <div class="col">
+            <div class="form-field">
+                <label>Precio de energia</label>
+                <input formControlName="valorCompra" type="number" placeholder="Precio de energia">
+            </div>
+        </div>
+    </div>
+
+    <button class="button-mvm mt-20" mat-raised-button [disabled]="!isComprarValid" (click)="onComprarEnergia()">Comprar</button>
 </form>
