@@ -1,5 +1,8 @@
 <div class="container" *ngIf="infoCliente">
-    <h2 class="mt-20">Información del cliente</h2>
+    <div class="titulo">
+        <h2 class="title-xg">Información del cliente</h2>
+    </div>
+
     <mat-card class="custom mb-20">
         <mat-card-title>Empresa: {{infoCliente.empresa}}</mat-card-title>
         <mat-card-subtitle>Nit: {{infoCliente.nit}}</mat-card-subtitle>
@@ -43,12 +46,34 @@
             </div>
         </mat-card-content>
         <mat-card-actions>
-            <button class="button-mvm" mat-stroked-button (click)="onVerCertificado()">Ver Certificado</button>
-            <button class="button-mvm" mat-stroked-button (click)="onComprarTokens()">Comprar tokens</button>
-            <button class="button-mvm" mat-stroked-button (click)="onDevolverTokens()">Devolver tokens</button>
-            <button class="button-mvm" mat-stroked-button (click)="onContratarComercializador()">Contratar Comercializador</button>
-            <button class="button-mvm" mat-stroked-button (click)="onDelegarTokens()" [disabled]="!isDelegarValid">Delegar tokens</button>
-            <button class="button-mvm" mat-stroked-button (click)="onComprarEnergia()" [disabled]="!ComprarIsValid">Emitir compra de energia</button>
+            <div class="row">
+                <div class="col">
+                    <button class="button-mvm" mat-stroked-button (click)="onVerCertificado()">Ver Certificado</button>
+                </div>
+                <div class="col">
+                    <button class="button-mvm" mat-stroked-button (click)="onComprarTokens()">Comprar tokens</button>
+                </div>
+                <div class="col">
+                    <button class="button-mvm" mat-stroked-button (click)="onDevolverTokens()">Devolver tokens</button>
+                </div>
+                <div class="col">
+                    <button class="button-mvm" mat-stroked-button (click)="onContratarComercializador()">Contratar Comercializador</button>
+                </div>
+            </div>
+            <div class="row mt-20">
+                <div class="col">
+                    <button class="button-mvm" mat-stroked-button (click)="onDelegarTokens()" [disabled]="!isDelegarValid">Delegar tokens</button>
+                </div>
+                <div class="col">
+                    <button class="button-mvm" mat-stroked-button (click)="onComprarEnergia()" [disabled]="!ComprarIsValid">Emitir compra de energia</button>
+                </div>
+                <div class="col">
+                    <button class="button-mvm" mat-stroked-button (click)="onConsumirEnergia()">Consumir energia</button>
+                </div>
+                <div class="col">
+
+                </div>
+            </div>
         </mat-card-actions>
     </mat-card>
 </div>

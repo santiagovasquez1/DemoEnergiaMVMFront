@@ -10,23 +10,17 @@ import { MatDatepicker } from '@angular/material/datepicker';
   styles: [
   ]
 })
-export class FilterComponent implements OnInit, AfterContentChecked {
+export class FilterComponent implements OnInit {
 
   @Input() rowsForm: RowFilterForm[] = [];
   @Output() onfieldValueChange: EventEmitter<FieldValueChange>
-  @ViewChildren(MatDatepicker) pickers: QueryList<MatDatepicker<any>>
   filterForm: FormGroup
   controlsNames: string[] = [];
 
-  constructor(private fb: FormBuilder,
-    private changeDetector: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder) {
     this.onfieldValueChange = new EventEmitter();
     this.filterForm = fb.group({});
 
-  }
-
-  ngAfterContentChecked(): void {
-    this.changeDetector.detectChanges()
   }
 
   ngOnInit(): void {

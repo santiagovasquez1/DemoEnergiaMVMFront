@@ -50,22 +50,22 @@ export class ListaClientesComponent implements OnInit, OnDestroy {
       fields: [{
         label: 'Empresa',
         formControlName: 'empresa',
-        controlType: 'input',
+        controlType: 'text',
         pipe: ''
       }, {
         label: 'Contacto',
         formControlName: 'contacto',
-        controlType: 'input',
+        controlType: 'text',
         pipe: ''
       }, {
         label: 'Correo',
         formControlName: 'correo',
-        controlType: 'input',
+        controlType: 'text',
         pipe: ''
       }, {
         label: 'Ubicación',
         formControlName: 'ubicacion',
-        controlType: 'input',
+        controlType: 'text',
         pipe: ''
       }]
     }];

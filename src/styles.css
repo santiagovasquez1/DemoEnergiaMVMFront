@@ -72,6 +72,7 @@ body {
 form input[type="text"],
 form input[type="number"],
 form input[type="email"],
+form input[type="date"],
 form select {
     width: 100%;
     display: block !important;
@@ -95,6 +96,7 @@ form select {
 form input[type="text"]:focus,
 form input[type="number"]:focus,
 form input[type="email"]:focus,
+form input[type="date"]:focus,
 form select:focus {
     outline: 1.5px solid var(--verde-oscuro);
 }
@@ -358,6 +360,7 @@ form .form-actions-row {
 }
 
 .custom.mat-card {
+    font-family: 'Montserrat' !important;
     padding-top: 40px !important;
     padding-bottom: 40px !important;
     padding-left: 47px !important;

@@ -1,3 +1,4 @@
+import { ConsumirEnergiaComponent } from './consumir-energia/consumir-energia.component';
 import { CertificadorContractService } from './../../services/certificador-contract.service';
 import { BancoEnergiaService } from './../../services/banco-energia.service';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
@@ -38,9 +39,9 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
     private reguladorMercado: ReguladorMercadoService,
     private bancoEnergia: BancoEnergiaService,
     private certificado: CertificadorContractService) { }
-    
+
   ngOnDestroy(): void {
-   this.compraEnergiaEvent.removeAllListeners();
+    this.compraEnergiaEvent.removeAllListeners();
   }
 
   async ngOnInit(): Promise<void> {
@@ -236,6 +237,21 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
       data: {
         dirContratoAgente: localStorage.getItem('dirContract'),
       }
+    })
+  }
+
+  onConsumirEnergia() {
+    let dialogRef = this.dialog.open(ConsumirEnergiaComponent, {
+      width: '500px',
+      data: {
+        dirContrato: localStorage.getItem('dirContract'),
+        energiasDisponibles: this.energiasDisponibles,
+        cantidadesDisponibles: this.cantidadesDisponibles,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getCantidadesEnergiasDisponibles();
     })
   }
 

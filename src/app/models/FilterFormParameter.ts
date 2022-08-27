@@ -1,10 +1,9 @@
 export interface FilterFormParameter {
     label: string;
     formControlName: string;
-    controlType: 'input' | 'select' | 'datePicker';
+    controlType: 'text' | 'number' | 'select' | 'date';
     optionValues?: any[];
     pipe: '' | 'estadoRegistro' | 'tipoContrato' | 'tipoTransaccion';
-    pickerIndex?: number;
 }
 
 export interface RowFilterForm {

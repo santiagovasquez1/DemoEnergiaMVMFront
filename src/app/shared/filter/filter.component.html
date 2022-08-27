@@ -4,7 +4,9 @@
         <div class="col" *ngFor="let control of row.fields">
             <div class="form-field">
                 <label for="">{{control.label}}</label>
-                <input *ngIf="control.controlType == 'input'" type="text" [formControlName]="control.formControlName" />
+                <input *ngIf="control.controlType == 'text'" type="text" [formControlName]="control.formControlName" />
+                <input *ngIf="control.controlType == 'date'" type="date" [formControlName]="control.formControlName">
+                <input *ngIf="control.controlType == 'number'" type="number" [formControlName]="control.formControlName">
                 <select class="custom-select" *ngIf="control.controlType == 'select'" [formControlName]="control.formControlName">
                     <option [value]=""></option>
                     <option *ngFor="let optionValue of control.optionValues" [value]="optionValue">
@@ -14,8 +16,6 @@
                         <p *ngIf="control.pipe === 'tipoTransaccion'">{{optionValue|tipoTransaccion}}</p>
                     </option>
                 </select>
-                <input *ngIf="control.controlType == 'datePicker' && pickers" type="text" [matDatepicker]="pickers.get(control.pickerIndex)" (click)="pickers.get(control.pickerIndex).open()">
-                <mat-datepicker *ngIf="control.controlType == 'datePicker' && pickers"></mat-datepicker>
             </div>
         </div>
         <div *ngIf="row.fields.length < 3" class="col"></div>

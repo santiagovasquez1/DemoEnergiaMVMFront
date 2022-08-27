@@ -14,6 +14,7 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
+import moment from 'moment';
 
 @Component({
   selector: 'app-emisiones-compra',
@@ -36,7 +37,7 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
   sort: MatSort;
 
   filterFormProperties: RowFilterForm[] = [];
-  
+
   filters = {
     empresa: '',
     fechaSolicitud: '',
@@ -51,7 +52,7 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
     private spinner: NgxSpinnerService,
     private ngZone: NgZone,
     private bancoEnergia: BancoEnergiaService) {
-      this.dataSource = new MatTableDataSource();
+    this.dataSource = new MatTableDataSource();
   }
 
   private setFilterFormData() {
@@ -59,20 +60,18 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
       fields: [{
         label: 'Empresa',
         formControlName: 'empresa',
-        controlType: 'input',
+        controlType: 'text',
         pipe: ''
       }, {
         label: 'Fecha de solicitud',
         formControlName: 'fechaSolicitud',
-        controlType: 'datePicker',
-        pipe: '',
-        pickerIndex: 0
+        controlType: 'date',
+        pipe: ''
       }, {
         label: 'Fecha de compra',
         formControlName: 'fechaCompra',
-        controlType: 'datePicker',
-        pipe: '',
-        pickerIndex: 1
+        controlType: 'date',
+        pipe: ''
       }]
     }, {
       fields: [{
@@ -171,15 +170,45 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
   }
 
   onfieldValueChange(event: FieldValueChange) {
-
+    if (event.controlName === 'fechaCompra' || event.controlName === 'fechaSolicitud') {
+      if (event.controlName == 'fechaCompra') {
+        this.filters.fechaCompra = event.data !== '' ? moment(event.data).format('DD/MM/YYYY') : 'Invalid date';
+      } else {
+        this.filters.fechaSolicitud = event.data !== '' ? moment(event.data).format('DD/MM/YYYY') : 'Invalid date';
+      }
+    } else if (event.controlName === 'estado') {
+      this.filters.estado = event.data !== '' ? parseInt(event.data) : '';
+    } else {
+      this.filters[event.controlName] = event.data
+    }
+    this.getEmisionesDeCompra();
   }
 
   private filterData(data: InfoEmisionCompra[]): InfoEmisionCompra[] {
     let filterArray = data;
-
+    debugger;
     filterArray = this.filters.empresa !== '' ? filterArray.filter(item => item.empresaCliente.toLowerCase().includes(this.filters.empresa)) : filterArray;
     filterArray = this.filters.tipoEnergia !== '' ? filterArray.filter(item => item.tipoEnergia.toLowerCase().includes(this.filters.tipoEnergia)) : filterArray;
-
+    filterArray = this.filters.fechaSolicitud !== 'Invalid date' && this.filters.fechaSolicitud !== '' ? filterArray.filter(item => {
+      let temp = moment(item.fechaEmision, 'DD/MM/YYYY');
+      let isSame = temp.isSame(moment(this.filters.fechaSolicitud, 'DD/MM/YYYY'), 'day');
+      if (isSame) {
+        return true;
+      } else {
+        return false;
+      }
+    }) : filterArray;
+    filterArray = this.filters.fechaCompra !== 'Invalid date' && this.filters.fechaCompra !== '' ? filterArray.filter(item => {
+      let temp = moment(item.fechaAprobacion, 'DD/MM/YYYY');
+      let isSame = temp.isSame(moment(this.filters.fechaCompra, 'DD/MM/YYYY'), 'day');
+      if (isSame) {
+        return true;
+      } else {
+        return false;
+      }
+    }) : filterArray;
+    filterArray = this.filters.estado !== undefined && this.filters.estado !== '' ? filterArray.filter(item => item.estado == this.filters.estado) : filterArray;
+    filterArray = this.filters.tipoEnergia !== '' ? filterArray.filter(item => item.tipoEnergia == this.filters.tipoEnergia) : filterArray;
     return filterArray;
   }
 }

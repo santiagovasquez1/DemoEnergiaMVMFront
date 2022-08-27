@@ -1,6 +1,6 @@
 <div class="container">
     <div class="titulo">
-        <div class="h2 title-xg">Agentes del mercado</div>
+        <h2 class="title-xg">Agentes del mercado</h2>
     </div>
 
     <app-filter [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
@@ -48,7 +48,7 @@
                 </mat-cell>
             </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-header-row class="fadeIn" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
             <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
         </mat-table>
     </div>
