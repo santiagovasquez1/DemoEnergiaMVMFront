@@ -85,7 +85,7 @@ export class PlantasEnergiaComponent implements OnInit {
           coordenadas: this.plantaEnergiaForm.get('coordenadas').value,
           fechaInicio: '0',
           tasaEmision: this.plantaEnergiaForm.get('tasaEmision').value,
-          isRec: this.plantaEnergiaForm.get('isRec').value,
+          isRec: true,
           capacidadNominal: this.plantaEnergiaForm.get('capacidadNominal').value,
           tecnologia: this.plantaEnergiaForm.get('tipoEnergia').value,
           cantidadEnergia: 0,

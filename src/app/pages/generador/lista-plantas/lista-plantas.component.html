@@ -32,12 +32,12 @@
                 Cantidad de energia (Mwh): {{planta.cantidadEnergia}}
             </p>
             <p>
-                Estado de la planta: {{planta.estado}}
+                Estado de la planta: {{planta.estado|estadoPlanta}}
             </p>
         </mat-card-content>
 
         <mat-card-actions>
-            <button class="button-mvm" mat-stroked-button (click)="onInyectarEnergia(planta.dirPlanta)">Inyectar Energia</button>
+            <button class="button-mvm" mat-stroked-button (click)="onInyectarEnergia(planta)">Inyectar Energia</button>
         </mat-card-actions>
     </mat-card>
 </div>

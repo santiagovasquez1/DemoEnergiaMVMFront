@@ -61,7 +61,7 @@ export class GeneradorContractService extends AgenteContractService {
             capacidadNominal: parseInt(capacidadNominal),
             tecnologia: tecnologia,
             cantidadEnergia: parseInt(cantidadEnergia),
-            estado: estado === 0 ? EstadoPlanta.activa : EstadoPlanta.inactiva
+            estado: parseInt(estado) as EstadoPlanta
           }
           return infoPlanta as InfoPlantaEnergia;
         })

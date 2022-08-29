@@ -70,13 +70,15 @@ export class ListaPlantasComponent implements OnInit {
     });
   }
 
-  onInyectarEnergia(hashPlanta: string) {
+  onInyectarEnergia(planta:InfoPlantaEnergia) {
     let dialogRef = this.dialog.open(NuevaEnergiaComponent, {
       width: '500px',
       data: {
         dirContract: this.dirContract,
-        hashPlanta: hashPlanta,
-        energiasDisponibles: this.energiasDisponibles,
+        hashPlanta: planta.dirPlanta,
+        tecnologia: planta.tecnologia,
+        capacidadNominal: planta.capacidadNominal,
+        cantidadActual:planta.cantidadEnergia,
         estado: Estado.inyectarEnergia
       }
     });
