@@ -1,20 +1,30 @@
-<h2 class="mt-20">{{title}}</h2>
+<div mat-dialog-content>
+    <h2 class="mt-20">{{title}}</h2>
 
-<form [formGroup]="nuevaEnergiaForm">
-    <mat-form-field class="w-100p">
-        <mat-label>Nombre energía</mat-label>
-        <mat-select formControlName="nombreEnergia">
-            <mat-option *ngFor="let energia of energiasDisponibles" [value]="energia">
-                {{energia}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field class="w-100p">
-        <mat-label>Cantidad de energía</mat-label>
-        <input matInput formControlName="cantidadEnergia" type="number" autocomplete="off">
-    </mat-form-field>
-</form>
+    <form [formGroup]="nuevaEnergiaForm">
+        <div class="row">
+            <div class="col">
+                <div class="form-field">
+                    <label>Nombre energía</label>
+                    <input type="text" formControlName="nombreEnergia">
+                </div>
+            </div>
+        </div>
 
+        <div class="row mt-20">
+            <div class="col">
+                <div class="form-field">
+                    <label>Cantidad de energía</label>
+                    <input formControlName="cantidadEnergia" type="number" autocomplete="off">
+                </div>
+            </div>
+        </div>
 
-<button class="button-mvm" mat-raised-button (click)="onCrearNuevaEnergia()" [disabled]="!nuevaEnergiaForm.valid" *ngIf="estado == 0">Crear energía</button>
-<button class="button-mvm" mat-raised-button (click)="onInyectarEnergia()" [disabled]="!nuevaEnergiaForm.valid" *ngIf="estado == 1">Inyectar energía</button>
+        <div class="row mt-20">
+            <div class="col">
+                <button class="button-mvm" mat-raised-button (click)="onCrearNuevaEnergia()" [disabled]="!isValid" *ngIf="estado == 0">Crear energía</button>
+                <button class="button-mvm" mat-raised-button (click)="onInyectarEnergia()" [disabled]="!isValid" *ngIf="estado == 1">Inyectar energía</button>
+            </div>
+        </div>
+    </form>
+</div>

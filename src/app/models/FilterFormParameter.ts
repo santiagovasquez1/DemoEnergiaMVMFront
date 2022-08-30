@@ -3,7 +3,7 @@ export interface FilterFormParameter {
     formControlName: string;
     controlType: 'text' | 'number' | 'select' | 'date';
     optionValues?: any[];
-    pipe: '' | 'estadoRegistro' | 'tipoContrato' | 'tipoTransaccion';
+    pipe: '' | 'estadoRegistro' | 'tipoContrato' | 'tipoTransaccion' | 'estadoPlanta' | 'estadoCompra';
 }
 
 export interface RowFilterForm {

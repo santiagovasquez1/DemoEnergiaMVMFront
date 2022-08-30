@@ -1158,13 +1158,38 @@ mat-dialog-container .mat-form-field-infix span label {
 
 .mvm-table .mat-column-CantidadEnergia,
 .mvm-table .mat-column-acciones,
-.mvm-table .mat-column-estado {
+.mvm-table .mat-column-estado,
+.mvm-table .mat-column-cantidad,
+.mvm-table .mat-column-certificado,
+.mvm-table .mat-column-planta,
+.mvm-table .mat-column-generador,
+.mvm-table .mat-column-tecnologia {
     flex: 0 0 100px !important;
+}
+
+.mvm-table .mat-column-id {
+    flex: 0 0 50px !important;
+}
+
+.mvm-table .mat-column-fechaCompra {
+    flex: 0 0 150px !important;
+}
+
+.mvm-table .mat-column-valorCompra {
+    flex: 0 0 130px !important;
 }
 
 .mvm-paginator {
     font-family: 'Montserrat' !important;
     font-size: 14px !important;
+}
+
+.mvm-column-widht-100 {
+    flex: 0 0 100px !important;
+}
+
+.mvm-column-widht-50 {
+    flex: 0 0 50px !important;
 }
 
 .approve-text {
@@ -1217,6 +1242,12 @@ mat-dialog-container .mat-form-field-infix span label {
 .container-banco-informacion .card .header-card {
     display: flex;
     align-items: end;
+}
+
+.info-certificado {
+    color: var(--verde-oscuro);
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .fadeIn {

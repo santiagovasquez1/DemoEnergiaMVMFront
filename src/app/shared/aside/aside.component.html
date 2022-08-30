@@ -1,27 +1,31 @@
 <div class="sidebar">
     <div class="container-section" *ngIf="tipoContrato == 0">
         <span class="title-section">Cliente</span>
-        <a [routerLink]="['/dashboard/cliente']">
+        <a routerLinkActive="active" [routerLink]="['/dashboard/cliente']">
             <span>Información</span>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </a>
+        <a routerLinkActive="active" [routerLink]="['/dashboard/cliente/lista-compras']">
+            <span>Compras realizadas</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
     </div>
 
     <div class="container-section" *ngIf="tipoContrato == 1">
         <span class="title-section">Comercializador</span>
-        <a [routerLink]="['/dashboard/comercializador']">
+        <a routerLinkActive="active" [routerLink]="['/dashboard/comercializador']">
             <span>Información</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
-        <a [routerLink]="['/dashboard/comercializador/lista-clientes']">
+        <a routerLinkActive="active" [routerLink]="['/dashboard/comercializador/lista-clientes']">
             <span>Lista de clientes</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
-        <a [routerLink]="['comercializador/emisiones-de-compra','pendientes']">
+        <a routerLinkActive="active" [routerLink]="['comercializador/emisiones-de-compra','pendientes']">
             <span>Emisiones de compra</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
-        <a [routerLink]="['comercializador/compras-realizadas']">
+        <a routerLinkActive="active" [routerLink]="['comercializador/compras-realizadas']">
             <span>Compras realizadas</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
@@ -29,51 +33,51 @@
 
     <div class="container-section" *ngIf="tipoContrato==2">
         <span class="title-section">Generadores</span>
-        <a [routerLink]="['/dashboard/generador']">
+        <a routerLinkActive="active" [routerLink]="['/dashboard/generador']">
             <span>Información</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
-        <a [routerLink]="['generador/lista-plantas-energia']">
+        <a routerLinkActive="active" [routerLink]="['generador/lista-plantas-energia']">
             <span>Plantas de generación de energia</span>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </a>
     </div>
 
     <div class="container-section" *ngIf="tipoContrato==3">
-        <a [routerLink]="['/dashboard/regulador-mercado']">
+        <a routerLinkActive="active" [routerLink]="['/dashboard/regulador-mercado']">
             <mat-icon>info</mat-icon>
             <span>Información</span>
         </a>
-        <a [routerLink]="['/dashboard/regulador-mercado/registros']">
+        <a routerLinkActive="active" [routerLink]="['/dashboard/regulador-mercado/registros']">
             <mat-icon>book</mat-icon>
             <span>Agentes del mercado</span>
         </a>
     </div>
 
     <div class="container-section">
-        <a (click)="showTableroPrincipal == false ? showTableroPrincipal = true: showTableroPrincipal=false">
+        <a routerLinkActive="active" (click)="showTableroPrincipal == false ? showTableroPrincipal = true: showTableroPrincipal=false">
             <mat-icon>dashboard</mat-icon>
             <span>Panel de control</span>
             <mat-icon *ngIf="!showTableroPrincipal">keyboard_arrow_down</mat-icon>
             <mat-icon *ngIf="showTableroPrincipal">keyboard_arrow_up</mat-icon>
         </a>
 
-        <a [routerLink]="['/dashboard/informacion']" *ngIf="showTableroPrincipal">
+        <a routerLinkActive="active" [routerLink]="['/dashboard/informacion']" *ngIf="showTableroPrincipal">
             <!--<mat-icon>info</mat-icon>-->
             <span>Banco de energía</span>
         </a>
 
-        <a [routerLink]="['/dashboard']" *ngIf="showTableroPrincipal">
+        <a routerLinkActive="active" [routerLink]="['/dashboard']" *ngIf="showTableroPrincipal">
             <!--<mat-icon>info</mat-icon>-->
             <span>Tablero principal</span>
         </a>
 
-        <a [routerLink]="['/dashboard/todos-generadores']" *ngIf="showTableroPrincipal">
+        <a routerLinkActive="active" [routerLink]="['/dashboard/todos-generadores']" *ngIf="showTableroPrincipal">
             <!--<mat-icon>list</mat-icon>-->
             <span>Georeferenciación</span>
         </a>
 
-        <a [routerLink]="['/dashboard/transacciones']" *ngIf="showTableroPrincipal">
+        <a routerLinkActive="active" [routerLink]="['/dashboard/transacciones']" *ngIf="showTableroPrincipal">
             <!--<mat-icon>payment</mat-icon>-->
             <span>Transacciones</span>
         </a>

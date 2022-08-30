@@ -55,13 +55,13 @@ export class GeneradorContractService extends AgenteContractService {
             departamento: departamento,
             ciudad: ciudad,
             coordenadas: coordenadas,
-            fechaInicio: moment(parseInt(fechaInicio) * 1000).format('DD/MM/YYYY HH:mm:ss'),
+            fechaInicio: moment(parseInt(fechaInicio) * 1000).format('DD/MM/YYYY'),
             tasaEmision: parseInt(tasaEmision),
             isRec: isRec,
             capacidadNominal: parseInt(capacidadNominal),
             tecnologia: tecnologia,
             cantidadEnergia: parseInt(cantidadEnergia),
-            estado: estado === 0 ? EstadoPlanta.activa : EstadoPlanta.inactiva
+            estado: parseInt(estado) as EstadoPlanta
           }
           return infoPlanta as InfoPlantaEnergia;
         })

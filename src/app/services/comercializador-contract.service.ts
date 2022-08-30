@@ -82,7 +82,7 @@ export class ComercializadorContractService extends AgenteContractService {
       );
   }
 
-  getInfoComprasRealizadas():Observable<InfoCompraEnergia[]>{
+  getInfoComprasRealizadas(): Observable<InfoCompraEnergia[]> {
     return from(this.contract.methods.contadorCompras().call({ from: this.account })).pipe(
       switchMap((data: string) => {
         let numCompras = parseInt(data);
@@ -169,6 +169,51 @@ export class ComercializadorContractService extends AgenteContractService {
           observables.push(tempObs);
         }
         return forkJoin(observables);
+      })
+    );
+  }
+
+  rechazarCompra(dirContratoCliente: string, index: number): Observable<any> {
+    return from(this.contract.methods.rechazarCompra(dirContratoCliente, index).send({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+  getInfoCompraByEmision(index:number):Observable<InfoEmisionCompra[]>{
+    return from(this.contract.methods.getInfoCompraByEmision(index).call({ from: this.account })).pipe(
+      map((data: any[]) => {
+        const tempInfoCompra = data.map(item=>{
+          const [
+            ownerCliente,
+            dirContratoCliente,
+            empresaCliente,
+            tipoEnergia,
+            cantidadDeEnergia,
+            estado,
+            fechaEmision,
+            fechaAprobacion,
+            index
+          ] = item;
+  
+          let tempInfo: InfoEmisionCompra = {
+            ownerCliente,
+            dirContratoCliente,
+            empresaCliente,
+            tipoEnergia,
+            cantidadDeEnergia,
+            estado,
+            fechaEmision: moment(parseInt(fechaEmision) * 1000).format('DD/MM/YYYY HH:mm:ss'),
+            fechaAprobacion: moment(parseInt(fechaAprobacion) * 1000).format('DD/MM/YYYY HH:mm:ss'),
+            index
+          }
+          return tempInfo;
+        })
+        return tempInfoCompra;
+      }),
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
       })
     )
   }

@@ -1,7 +1,7 @@
 <div class="container">
 
     <div class="titulo">
-        <div class="h2 title-xg">Información Compras</div>
+        <h2 class="title-xg">Información Compras</h2>
     </div>
 
     <app-filter *ngIf="filterFormProperties.length>0" [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
@@ -33,15 +33,15 @@
             </ng-container>
             <ng-container matColumnDef="estado">
                 <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.estado}}</mat-cell>
+                <mat-cell *matCellDef="let element">{{element.estado|estadoCompra}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="acciones">
                 <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
-                <mat-cell *matCellDef="let element; let index = index">
-                    <button matRipple class="mvm-action-button approve" [disabled]="element.estado == 1" (click)="onRealizarCompra(element,index)">
+                <mat-cell *matCellDef="let element">
+                    <button matRipple class="mvm-action-button approve" [disabled]="element.estado == 1" (click)="onRealizarCompra(element,element.index)">
                         <mat-icon>done</mat-icon>
                     </button>
-                    <button matRipple class="mvm-action-button reject" [disabled]="element.estado == 1">
+                    <button matRipple class="mvm-action-button reject" [disabled]="element.estado == 1" (click)="onRechazarCompra(element.ownerCliente,element.index)">
                         <mat-icon>close</mat-icon>
                     </button>
                 </mat-cell>

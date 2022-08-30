@@ -1,9 +1,12 @@
+import { InfoCompraEnergia } from './../models/InfoCompraEnergia';
+import { InfoEmisionCompra } from 'src/app/models/InfoEmisionCompra';
 import { InfoEnergia } from './../models/InfoEnergia';
 import { Observable, catchError, throwError, map, from, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import Web3 from 'web3';
 import { AgenteContractService } from './agente-contract.service';
 import Cliente from '../../../buildTruffle/contracts/Cliente.json';
+import moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +36,8 @@ export class ClienteContractService extends AgenteContractService {
     );
   }
 
-  postConsumirEnergia (tipoEnergia: string, cantidad: number):Observable<any>{
-    return from(this.contract?.methods.gastoEnergia(tipoEnergia, cantidad).send({from: this.account})).pipe(
+  postConsumirEnergia(tipoEnergia: string, cantidad: number): Observable<any> {
+    return from(this.contract?.methods.gastoEnergia(tipoEnergia, cantidad).send({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
@@ -62,5 +65,51 @@ export class ClienteContractService extends AgenteContractService {
         return of(tempInfo);
       })
     );
+  }
+
+  getComprasRealizadas(): Observable<InfoCompraEnergia[]> {
+    return from(this.contract.methods.getComprasRealizadas().call({ from: this.account })).pipe(
+      map((data: any[]) => {
+        const tempInfoCompra = data.map(item => {
+          const [
+            ownerCliente,
+            dirContratoCliente,
+            empresaCliente,
+            dirContratoGerador,
+            empresaGerador,
+            dirPlanta,
+            nombrePlanta,
+            dirComercializador,
+            empresaComercializador,
+            tipoEnergia,
+            cantidadEnergia,
+            fechaAprobacion,
+            index
+          ] = item;
+
+          let tempInfo: InfoCompraEnergia = {
+            ownerCliente,
+            dirContratoCliente,
+            empresaCliente,
+            dirContratoGerador,
+            empresaGerador,
+            dirPlanta,
+            nombrePlanta,
+            dirComercializador,
+            empresaComercializador,
+            tipoEnergia,
+            cantidadEnergia,
+            fechaAprobacion: moment(parseInt(fechaAprobacion) * 1000).format('DD/MM/YYYY HH:mm:ss'),
+            fechaAprobacionNumber: parseInt(fechaAprobacion),
+            index
+          }
+          return tempInfo;
+        })
+        return tempInfoCompra;
+      }),
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    )
   }
 }

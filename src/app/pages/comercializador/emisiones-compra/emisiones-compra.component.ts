@@ -1,3 +1,5 @@
+import { SweetAlertService } from 'src/app/services/sweet-alert.service';
+import { TableService } from 'src/app/services/shared/table-service.service';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { EnumTipoEmision } from './../../../models/EnumTipoEmision';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,6 +26,7 @@ import moment from 'moment';
 })
 export class EmisionesCompraComponent implements OnInit, OnDestroy {
 
+  estadosCompra: EstadoCompra[];
   energiasDisponibles: string[];
   displayedColumns: string[] = ['empresaCliente', 'fechaEmision', 'fechaAprobacion', 'tipoEnergia', 'cantidadEnergia', 'estado', 'acciones']
   title: string;
@@ -51,7 +54,9 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private spinner: NgxSpinnerService,
     private ngZone: NgZone,
-    private bancoEnergia: BancoEnergiaService) {
+    private bancoEnergia: BancoEnergiaService,
+    private tableService: TableService,
+    private alertService: SweetAlertService) {
     this.dataSource = new MatTableDataSource();
   }
 
@@ -84,8 +89,8 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
         label: 'Estado de compra',
         formControlName: 'estado',
         controlType: 'select',
-        optionValues: [],
-        pipe: 'estadoRegistro'
+        optionValues: Object.values(EstadoCompra).filter(item=>typeof item == 'number'),
+        pipe: 'estadoCompra'
       }]
     }];
   }
@@ -102,7 +107,7 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
       promises.push(this.bancoEnergia.loadBlockChainContractData());
       promises.push(this.comercializadorService.loadBlockChainContractData(dirContract));
       await Promise.all(promises);
-
+      this.tableService.setPaginatorTable(this.paginator);
       this.spinner.show()
       this.bancoEnergia.getTiposEnergiasDisponibles().subscribe({
         next: (data) => {
@@ -167,6 +172,28 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
     dialog.afterClosed().subscribe(result => {
       this.getEmisionesDeCompra();
     });
+  }
+
+  public onRechazarCompra(dirContrato: string, index: number) {
+    debugger;
+    this.alertService.confirmAlert('Rechazar', '¿Desea rechazar la solicitud de compra?')
+      .then(result => {
+        if (result.isConfirmed) {
+          this.spinner.show();
+          this.comercializadorService.rechazarCompra(dirContrato, index).subscribe({
+            next: () => {
+              this.toastr.info('Solicitud rechazada', 'Info');
+              this.spinner.hide();
+              this.getEmisionesDeCompra();
+            },
+            error: (error) => {
+              console.log(error);
+              this.spinner.hide();
+              this.toastr.error(error.message, 'Error');
+            }
+          })
+        }
+      })
   }
 
   onfieldValueChange(event: FieldValueChange) {

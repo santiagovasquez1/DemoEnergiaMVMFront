@@ -191,17 +191,17 @@ export class TodosGeneradoresComponent implements OnInit {
       //this.spinner.show();
       await this.regulardorMercado.loadBlockChainContractData();
       //this.spinner.hide();
-      this.timerSubscription = this.timer$.subscribe(() => {
-        this.regulardorMercado.getContratosRegistrados().subscribe({
-          next: (data) => {
+      // this.timerSubscription = this.timer$.subscribe(() => {
+      //   this.regulardorMercado.getContratosRegistrados().subscribe({
+      //     next: (data) => {
 
-            console.log("data desde todos generadores: ",data)
-          }, error: (err) => {
-            console.log(err);
-            this.toastr.error(err.message, 'Error');
-          }
-        });
-      });      
+      //       console.log("data desde todos generadores: ",data)
+      //     }, error: (err) => {
+      //       console.log(err);
+      //       this.toastr.error(err.message, 'Error');
+      //     }
+      //   });
+      // });      
     } catch (error) {
       console.log(error);
       this.toastr.error(error.message, 'Error');

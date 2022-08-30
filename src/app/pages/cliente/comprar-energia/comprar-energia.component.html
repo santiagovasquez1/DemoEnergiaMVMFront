@@ -1,34 +1,36 @@
-<h2 class="mt-20">Comprar energia</h2>
-<form [formGroup]="comprarEnergiaForm">
-    <div class="row">
-        <div class="col">
-            <div class="form-field">
-                <label>Tipo de energia</label>
-                <select class="custom-select" formControlName="tipoEnergia">
-                    <option [value]=""></option>
-                    <option *ngFor="let tipoEnergia of tiposEnergia" [ngValue]="tipoEnergia">
-                        {{tipoEnergia.nombre}}
-                    </option>
-                </select>
+<div mat-dialog-content>
+    <h2 class="mt-20">Comprar energia</h2>
+    <form [formGroup]="comprarEnergiaForm">
+        <div class="row">
+            <div class="col">
+                <div class="form-field">
+                    <label>Tipo de energia</label>
+                    <select class="custom-select" formControlName="tipoEnergia">
+                        <option [value]=""></option>
+                        <option *ngFor="let tipoEnergia of tiposEnergia" [ngValue]="tipoEnergia">
+                            {{tipoEnergia.nombre}}
+                        </option>
+                    </select>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-20">
-        <div class="col">
-            <div class="form-field">
-                <label>Cantidad de energia</label>
-                <input formControlName="cantidadEnergia" type="number" placeholder="Cantidad de energia">
+        <div class="row mt-20">
+            <div class="col">
+                <div class="form-field">
+                    <label>Cantidad de energia</label>
+                    <input formControlName="cantidadEnergia" type="number" placeholder="Cantidad de energia">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-20">
-        <div class="col">
-            <div class="form-field">
-                <label>Precio de energia</label>
-                <input formControlName="valorCompra" type="number" placeholder="Precio de energia">
+        <div class="row mt-20">
+            <div class="col">
+                <div class="form-field">
+                    <label>Precio de energia</label>
+                    <input formControlName="valorCompra" type="number" placeholder="Precio de energia">
+                </div>
             </div>
         </div>
-    </div>
 
-    <button class="button-mvm mt-20" mat-raised-button [disabled]="!isComprarValid" (click)="onComprarEnergia()">Comprar</button>
-</form>
+        <button class="button-mvm mt-20" mat-raised-button [disabled]="!isComprarValid" (click)="onComprarEnergia()">Comprar</button>
+    </form>
+</div>
