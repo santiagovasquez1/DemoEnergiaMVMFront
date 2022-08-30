@@ -9,16 +9,16 @@
 
     <div class="energia-dpto">
         <div class="header">
-            <span class="title">{{departamento || 'Colombia'}}</span>
+            <span class="title">{{departamento}}</span>
         </div>
         <div class="content-card">
 
-            <div class="container-pie" *ngIf="tipoMapa=='Generadores'">
+            <div class="container-pie" *ngIf="tipoMapa=='Plantas de energía'">
               <span class="text-gris-p w-500" id="title-pie">Total de energía</span>
-              <div class="img-panel">
-                <img src="../../../../assets/images/panel.svg" alt="">
-              </div>
               
+              <div class="img-aerogenerador">
+                <img src="../../../../assets/images/aerogenerador.svg" alt="">
+              </div>
               <div class="pie-generadores pie" >
                 <canvas baseChart
                         [data]="pieChartData"
@@ -27,17 +27,19 @@
                         [legend]="legends">
                 </canvas>
               </div>
-              <div class="img-aerogenerador">
-                <img src="../../../../assets/images/aerogenerador.svg" alt="">
-              </div>
-            </div>
-
-            <div class="container-pie" *ngIf="tipoMapa=='Clientes'">
-              <span class="text-gris-p w-500" id="title-pie">Total de energía</span>
               <div class="img-panel">
                 <img src="../../../../assets/images/panel.svg" alt="">
               </div>
               
+            </div>
+
+            <div class="container-pie" *ngIf="tipoMapa=='Clientes'">
+              <span class="text-gris-p w-500" id="title-pie">Total de energía</span>
+
+              <div class="img-aerogenerador">
+                <img class="svg-aerogenerador" src="../../../../assets/images/aerogenerador.svg" alt="">
+              </div>
+
               <div class="pie-clientes pie" >
                 <canvas baseChart 
                         [data]="pieChartData2" 
@@ -46,8 +48,8 @@
                 </canvas>
               </div>
 
-              <div class="img-aerogenerador">
-                <img src="../../../../assets/images/aerogenerador.svg" alt="">
+              <div class="img-panel">
+                <img class="svg-panel" src="../../../../assets/images/panel.svg" alt="">
               </div>
             </div>
 
@@ -61,45 +63,54 @@
                     </mat-expansion-panel-header>
 
                     <div class="buttons-acordeon text-gris-p">
-                    <a class="text-gris-p" (click)="tipoMapa='Generadores'">Generadores</a>
+                    <a class="text-gris-p" (click)="tipoMapa='Plantas de energía'">Plantas de energía</a>
                     <a class="text-gris-p" (click)="tipoMapa='Clientes'" >Clientes</a>
                     </div>
                     
                 </mat-expansion-panel>
             </mat-accordion>
             
-
+          
           <div class="table-container"> 
-            <mat-table #table [dataSource]="dataSource" class="mvm-table">
-    
-              <ng-container matColumnDef="Tipo agente">
-                <mat-header-cell *matHeaderCellDef>Tipo agente</mat-header-cell>
+            <mat-table  #table [dataSource]="dataSource" class="mvm-table">
+            
+              <ng-container matColumnDef="nombre">
+                <mat-header-cell *matHeaderCellDef>Nombre de planta</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.nombre}}</mat-cell>
+              </ng-container>
 
-            </ng-container>
+              <ng-container matColumnDef="ciudad">
+                <mat-header-cell *matHeaderCellDef>Ciudad</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.ciudad}}</mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="Nombre">
-                <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+              <ng-container matColumnDef="tecnologia">
+                  <mat-header-cell *matHeaderCellDef>Tipo de energía</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.tecnologia}}</mat-cell>
+              </ng-container>
+            
+              <ng-container matColumnDef="cantidadEnergia">
+                  <mat-header-cell *matHeaderCellDef>Cantidad de Energía</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.cantidadEnergia}}</mat-cell>
+              </ng-container>
+            
+              <ng-container matColumnDef="capacidadNominal">
+                  <mat-header-cell *matHeaderCellDef>Capacidad nominal</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.capacidadNominal}}</mat-cell>
+              </ng-container>
 
-            </ng-container>
-
-            <ng-container matColumnDef="TipoEnergia">
-                <mat-header-cell *matHeaderCellDef>Tipo de Energía</mat-header-cell>
-
-            </ng-container>
-
-            <ng-container matColumnDef="Cantidad">
-                <mat-header-cell *matHeaderCellDef>Cantidad</mat-header-cell>
-
-            </ng-container>
-
-            <ng-container matColumnDef="Precio">
-                <mat-header-cell *matHeaderCellDef>Precio</mat-header-cell>
-
-            </ng-container>
-                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-
+              <ng-container matColumnDef="tasaEmision">
+                  <mat-header-cell *matHeaderCellDef>Tasa de emision</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.tasaEmision}}</mat-cell>
+              </ng-container>
+            
+              <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
+            
             </mat-table>
-            <mat-paginator class="mt-10" #paginator [pageSizeOptions]="[5, 10, 25, 100 ]" showFirstLastButtons></mat-paginator>
+            <div class="table-container mt-10 fadeIn">
+              <mat-paginator class="mvm-paginator" #paginator [pageSizeOptions]="[5,10, 25, 100 ]" showFirstLastButtons></mat-paginator>
+          </div>
           </div>
           
 

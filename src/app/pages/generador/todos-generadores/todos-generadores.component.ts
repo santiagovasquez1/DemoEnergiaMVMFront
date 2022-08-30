@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { forkJoin, Observable, Subscription, timer } from 'rxjs';
+import { delay, elementAt, forkJoin, Observable, Subscription, timer } from 'rxjs';
 import { SolicitudContrato } from 'src/app/models/solicitudContrato';
 import { FactoryService } from 'src/app/services/factory.service';
 
@@ -19,20 +19,22 @@ import { InfoEnergia } from '../../../models/InfoEnergia'
 import { InfoPlantaEnergia } from 'src/app/models/InfoPlantaEnergia';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { GeneradorContractService } from 'src/app/services/generador-contract.service';
+import { TableService } from 'src/app/services/shared/table-service.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { ClienteContractService } from 'src/app/services/cliente-contract.service';
+import { InfoContrato } from 'src/app/models/infoContrato';
 
 export interface PeriodicElement {
   nombre: string;
-  tipo: string;
-  cantidad: number;
-  precio: string;
+
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {nombre: 'EPM', cantidad: 100, tipo: 'Solar',precio:'2,300.00'},
-  {nombre: 'ELECTROHUILA', cantidad: 400, tipo: 'Solar',precio:'2,600.00'},
-  {nombre: 'EMCALI', cantidad: 694, tipo: 'Eólica',precio:'1,300.00'},
-  {nombre: 'CELSIA', cantidad: 900, tipo: 'Solar',precio:'2,800.00'},
-  {nombre: 'AES', cantidad: 1000, tipo: 'Eólica',precio:'2,400.00'}
+  {nombre: 'EPM'},
+  {nombre: 'ELECTROHUILA'},
+  {nombre: 'EMCALI'},
+  {nombre: 'CELSIA'},
+  {nombre: 'AES'}
 ];
 
 
@@ -54,27 +56,36 @@ export class TodosGeneradoresComponent implements OnInit {
   account: string;
   infoGenerador: SolicitudContrato = {} as SolicitudContrato;
   todoGeneradores: SolicitudContrato[] = [];
-  tipoMapa = 'Generadores';
+  todoClientes: SolicitudContrato[] = [];
+  tipoMapa = 'Plantas de energía';
+  agentes = [];
+  plantasAux = [];
+  flag = true;
+  loadPlantas = false;
+  plantasFiltro= [];
+  infoCliente: InfoContrato;
   
   plantasDeEnergia: InfoPlantaEnergia[] = [];
   dirContract: string;
   energiasDisponibles: string[] = [];
   
   titlte = "titulo desde generadores";
-  departamento;
+  departamento = "Antioquia";
   panelOpenState = false;
 
-  displayedColumns: string[] = ['Tipo agente', 'Nombre', 'TipoEnergia', 'Cantidad', 'Precio']
-  dataSource: MatTableDataSource<InfoEnergia>
-  @ViewChild('table', { static: true }) table: MatTable<any>;
+  displayedColumns: string[] = ['nombre','ciudad','tecnologia','cantidadEnergia','capacidadNominal','tasaEmision']
+  dataSource: MatTableDataSource<InfoPlantaEnergia>
+  @ViewChild('table', { static: true }) table: MatTable<PeriodicElement>;
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   sort: MatSort;
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   
-  /*
-  displayedColumns: string[] = ['nombre', 'cantidad', 'tipo','precio'];
-  dataSource = ELEMENT_DATA;
-  */
+  
+  // displayedColumns: string[] = ['nombre'];
+  // // dataSource = ELEMENT_DATA;
+  // dataSource:any;
+  
 
   // Pie
   public pieChartOptions: ChartConfiguration['options'] = {
@@ -93,10 +104,43 @@ export class TodosGeneradoresComponent implements OnInit {
       },
     }
   };
+
+  getData(): Array<number>{
+    var data = []
+    var cantidadSolar = 0;
+    var cantidadEolica = 0;
+    for (let i = 0; i < this.plantasFiltro.length; i++) {
+
+      switch(this.plantasFiltro[i].tecnologia){
+        case 'Solar':
+          cantidadSolar = cantidadSolar + this.plantasFiltro[i].cantidadEnergia;
+          break;
+        case 'Eólica':
+          cantidadEolica = cantidadEolica + this.plantasFiltro[i].cantidadEnergia;
+      }
+      
+    }
+    data.push(cantidadSolar)
+    data.push(cantidadEolica)
+    console.log("data de energias: ",data)
+    return data;
+  }
+
+  setCantidadEnergia(){
+    this.pieChartData = {
+      datasets: [{
+        data: this.getData(),
+        backgroundColor: ['#4C9C2E', '#C2D500'],
+      hoverBackgroundColor: ['#4C9C2E','#C2D500'],
+      hoverBorderColor: ['#4C9C2E','#C2D500']
+      }]
+    }
+  }
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
     //labels: [ 'Solar', 'Eólica' ],
     datasets: [ {
-      data: [ 300, 500 ],
+      //data: [ 300, 500 ],
+      data: this.getData(),
       backgroundColor: ['#4C9C2E', '#C2D500'],
       hoverBackgroundColor: ['#4C9C2E','#C2D500'],
       hoverBorderColor: ['#4C9C2E','#C2D500']
@@ -181,21 +225,43 @@ export class TodosGeneradoresComponent implements OnInit {
     private bancoEnergia: BancoEnergiaService,
     private generadorService: GeneradorContractService,
     private regulardorMercado: ReguladorMercadoService,
-    private ethereumService: EthereumService ) { 
-    this.timer$ = timer(0, 1000);
+    private ethereumService: EthereumService,
+    private tableService: TableService,
+    private clienteService: ClienteContractService,
+    ) { 
+
+      this.dataSource = new MatTableDataSource(); 
+      this.timer$ = timer(0, 1000);
+    
+  }
+
+  ngOnDestroy(): void {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
   }
 
   async ngOnInit(): Promise<void> {
     try {
+      // this.dataSource = new MatTableDataSource(ELEMENT_DATA); 
       //this.isFromInit = true;
       //this.spinner.show();
+      this.tableService.setPaginatorTable(this.paginator);
+      
       await this.regulardorMercado.loadBlockChainContractData();
       //this.spinner.hide();
       this.timerSubscription = this.timer$.subscribe(() => {
         this.regulardorMercado.getContratosRegistrados().subscribe({
           next: (data) => {
 
-            console.log("data desde todos generadores: ",data)
+            if(this.flag){
+              this.registros = data;
+              console.log("contratos registrados: ",this.registros)
+              this.dataGenerador();
+              
+            }
+            this.flag = false;
+            
           }, error: (err) => {
             console.log(err);
             this.toastr.error(err.message, 'Error');
@@ -230,24 +296,174 @@ export class TodosGeneradoresComponent implements OnInit {
     })
   }
 
-  dataGenerador(): void {
+
+  async dataGenerador() {
     //this.registros.filter();
     this.infoGenerador = this.registros.find(element => element.tipoContrato == 2)
-    console.log(this.infoGenerador.infoContrato);
 
     this.registros.forEach(element => {
-      if(element.tipoContrato == 2){
-        this.todoGeneradores.push(element);
-        console.log(this.todoGeneradores);
-      } 
+
+      switch (element.tipoContrato){
+
+        case 0:
+          this.todoClientes.push(element);
+          break;
+
+        case 2:
+          this.todoGeneradores.push(element);
+          break;
+      }
+
     });
+
+    console.log("todoCliente:",this.todoClientes)
+
+    switch (this.tipoMapa){
+
+      case 'Plantas de energía':
+        break;
+    }
+
+
+    let promises: Promise<void>[] = [];
+    for (let index = 0; index < this.todoGeneradores.length; index++) {
+      promises.push(this.loadContract(this.todoGeneradores[index].infoContrato.dirContrato));
+      await Promise.all(promises);
+    }
+    this.loadPlantas = true;
     
+    
+  }
+
+  loadContractClientes() {
+    let observables: Observable<any>[] = [];
+    observables.push(this.clienteService.getInfoContrato());
+    observables.push(this.bancoEnergia.getTiposEnergiasDisponibles())
+
+    // this.spinner.show();
+    forkJoin(observables).subscribe({
+      next: (data) => {
+        this.infoCliente = data[0];
+        const tiposEnergias = data[1] as InfoEnergia[];
+        console.log("clientes tipo de energias",tiposEnergias)
+        this.energiasDisponibles = tiposEnergias.map(x => x.nombre);
+        console.log("energias disponibles: ",this.energiasDisponibles)
+        // this.getTokensCliente().subscribe({
+        //   next: (tokens) => {
+        //     this.tokensCliente = tokens[0];
+        //     this.tokensDelegados = tokens[1];
+        //     this.getCantidadesEnergiasDisponibles();
+        //   }, error: (error) => {
+        //     console.log(error);
+        //     this.toastr.error(error.message, 'Error');
+        //     this.spinner.hide();
+        //   }
+        // });
+      }, error: (error) => {
+        console.log(error);
+        this.toastr.error(error.message, 'Error');
+        // this.spinner.hide();
+      }
+    });
+  }
+
+  async loadContract(contract): Promise<void> {
+    try {
+      this.dirContract = contract;
+      let promises: Promise<void>[] = [];
+
+      promises.push(this.bancoEnergia.loadBlockChainContractData());
+      promises.push(this.generadorService.loadBlockChainContractData(this.dirContract));
+      await Promise.all(promises).then(() => {
+        this.loadInfoGeneral()
+
+      });
+
+      
+    } catch (error) {
+      console.log(error);
+      this.toastr.error('Error al cargar las plantas de energía', 'Error');
+    }
+    
+  }
+
+  async loadInfoGeneral():Promise<void> {
+    //this.spinner.show();
+    let observables: Observable<any>[] = [];
+    observables.push(this.bancoEnergia.getTiposEnergiasDisponibles());
+    observables.push(this.generadorService.getPlantasEnergia());
+
+    forkJoin(observables).subscribe({
+      next: async (data: any[]) => {
+        const tiposEnergias = data[0];
+        this.energiasDisponibles = tiposEnergias.map(tipo => tipo.nombre);
+        this.plantasDeEnergia = data[1];
+        this.plantasAux.push(data[1]);
+        this.addItem(this.departamento);
+        this.setCantidadEnergia();
+        //this.spinner.hide();
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error(err.message, 'Error');
+        //this.spinner.hide();
+      },
+      
+      
+    });
   }
 
   //Gráfica
   addItem(newItem: string) {
+    console.log("entrando a addItem")
     this.departamento = newItem;
-    console.log("desde todos: ",this.departamento)
+
+    this.plantasFiltro= [];
+    
+    console.log("this.loadplantas",this.loadPlantas)
+    console.log("this.plantyasAux",this.plantasAux)
+    if(this.loadPlantas){
+  
+      for (let i = 0; i < this.plantasAux.length; i++) {
+        
+        if(this.plantasAux[i].find(element => element.departamento == this.departamento) != undefined){
+          
+          let sizePlantasVector = this.plantasAux[i].filter(element => element.departamento == this.departamento).length;
+
+          if(sizePlantasVector > 1){
+
+            for (let j = 0; j < sizePlantasVector; j++) {
+              this.plantasFiltro.push(this.plantasAux[i].filter(element => element.departamento == this.departamento)[j])
+              
+            }
+          }
+          else{
+            this.plantasFiltro.push(this.plantasAux[i].filter(element => element.departamento == this.departamento)[0])
+          }
+          
+          this.plantasFiltro.map((element) => {
+            if(element.tecnologia == 'solar'){
+              element.tecnologia = 'Solar'
+            }
+            else if(element.tecnologia == 'eolica'){
+              element.tecnologia = 'Eólica'
+            }
+          })
+        }
+      }
+
+      console.log("plantas filtro: ",this.plantasFiltro)
+
+
+      this.dataSource.data = this.plantasFiltro;
+      this.table.renderRows();
+
+      this.setCantidadEnergia();
+
+      
+    }
+
+    
   }
 
   public lineChartData: ChartConfiguration['data'] = {

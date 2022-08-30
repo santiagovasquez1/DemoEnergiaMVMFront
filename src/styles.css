@@ -31,6 +31,14 @@ body {
     font-weight: 400 !important;
 }
 
+.img-panel img{
+    filter: invert(49%) sepia(12%) saturate(2661%) hue-rotate(59deg) brightness(102%) contrast(79%);
+}
+
+.img-aerogenerador img{
+    filter: invert(65%) sepia(96%) saturate(361%) hue-rotate(27deg) brightness(99%) contrast(98%);
+}
+
 .registro-container {
     display: block;
     width: 100%;
@@ -613,14 +621,16 @@ form .form-actions-row {
 .energia-dpto  .content-card .container-pie .img-aerogenerador{
     width: 100%;
     display: grid;
-    justify-items: start;
-    align-items: end;
+    justify-items: end;
+    align-items: start;
+    
 }
 
 .energia-dpto  .content-card .container-pie .img-panel{
     width: 100%;
     display: grid;
-    justify-items: end;
+    justify-items: start;
+    align-items: end;
 }
 
 .container-generadores .energia-dpto  .content-card .table-container{
@@ -1086,6 +1096,7 @@ mat-dialog-container .mat-form-field-infix span label {
     color: var(--gris-fuente);
     font-size: 14px !important;
     font-family: 'Montserrat';
+    padding-right: 10px;
 }
 
 .mvm-table .mat-row:hover .mat-cell {
