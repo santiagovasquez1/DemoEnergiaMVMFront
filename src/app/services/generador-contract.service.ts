@@ -55,7 +55,7 @@ export class GeneradorContractService extends AgenteContractService {
             departamento: departamento,
             ciudad: ciudad,
             coordenadas: coordenadas,
-            fechaInicio: moment(parseInt(fechaInicio) * 1000).format('DD/MM/YYYY HH:mm:ss'),
+            fechaInicio: moment(parseInt(fechaInicio) * 1000).format('DD/MM/YYYY'),
             tasaEmision: parseInt(tasaEmision),
             isRec: isRec,
             capacidadNominal: parseInt(capacidadNominal),

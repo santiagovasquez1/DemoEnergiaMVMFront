@@ -5,7 +5,7 @@ import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.serv
 import { InfoContrato } from './../../models/infoContrato';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, NgZone } from '@angular/core';
 import { ClienteContractService } from 'src/app/services/cliente-contract.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ComprarTokensComponent } from './comprar-tokens/comprar-tokens.component';
@@ -38,7 +38,8 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private reguladorMercado: ReguladorMercadoService,
     private bancoEnergia: BancoEnergiaService,
-    private certificado: CertificadorContractService) { }
+    private certificado: CertificadorContractService,
+    private ngZone: NgZone) { }
 
   ngOnDestroy(): void {
     this.compraEnergiaEvent.removeAllListeners();
@@ -58,10 +59,13 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
       }, (error, event) => {
         if (error) {
           console.log(error);
+          this.toastr.error(error.message, 'Error');
         }
       }).on('data', (event) => {
-        this.toastr.success('Compra de energía realizada', 'Energía');
-        this.getInfoContrato();
+        this.ngZone.run(() => {
+          this.toastr.success('Compra de energía realizada', 'Energía');
+          this.getInfoContrato();
+        });
       });
       this.getInfoContrato();
     } catch (error) {

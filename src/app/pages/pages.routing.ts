@@ -1,3 +1,4 @@
+import { ListaComprasComponent } from './cliente/lista-compras/lista-compras.component';
 import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.component';
 import { EmisionesCompraComponent } from './comercializador/emisiones-compra/emisiones-compra.component';
 import { BancoEnergiaComponent } from './banco-energia/banco-energia.component';
@@ -58,6 +59,11 @@ const routes: Routes = [
             {
                 path: "cliente",
                 component: ClienteDashboardComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: "cliente/lista-compras",
+                component:ListaComprasComponent,
                 canActivate: [AuthGuard]
             },
             {
