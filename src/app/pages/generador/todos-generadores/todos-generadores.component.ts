@@ -23,6 +23,8 @@ import { TableService } from 'src/app/services/shared/table-service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { ClienteContractService } from 'src/app/services/cliente-contract.service';
 import { InfoContrato } from 'src/app/models/infoContrato';
+import { ColsTablaGeoreferencia } from 'src/app/models/ColsTablaGeoreferencia';
+import { BREAKPOINT } from '@angular/flex-layout';
 
 export interface PeriodicElement {
   nombre: string;
@@ -56,14 +58,20 @@ export class TodosGeneradoresComponent implements OnInit {
   account: string;
   infoGenerador: SolicitudContrato = {} as SolicitudContrato;
   todoGeneradores: SolicitudContrato[] = [];
-  todoClientes: SolicitudContrato[] = [];
+  todoClientes: any[] = [];
   tipoMapa = 'Plantas de energía';
   agentes = [];
   plantasAux = [];
   flag = true;
+  flagClientesLoad = true;
+  flagGeneradoresLoad = true;
   loadPlantas = false;
   plantasFiltro= [];
   infoCliente: InfoContrato;
+  cantidadesDisponibles: number[] = [];
+  totalEnergiasClientes = [];
+  cantEnergiaClientesTorta = [];
+
   
   plantasDeEnergia: InfoPlantaEnergia[] = [];
   dirContract: string;
@@ -74,7 +82,7 @@ export class TodosGeneradoresComponent implements OnInit {
   panelOpenState = false;
 
   displayedColumns: string[] = ['nombre','ciudad','tecnologia','cantidadEnergia','capacidadNominal','tasaEmision']
-  dataSource: MatTableDataSource<InfoPlantaEnergia>
+  dataSource: MatTableDataSource<ColsTablaGeoreferencia>
   @ViewChild('table', { static: true }) table: MatTable<PeriodicElement>;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   sort: MatSort;
@@ -122,11 +130,11 @@ export class TodosGeneradoresComponent implements OnInit {
     }
     data.push(cantidadSolar)
     data.push(cantidadEolica)
-    console.log("data de energias: ",data)
     return data;
   }
 
   setCantidadEnergia(){
+    
     this.pieChartData = {
       datasets: [{
         data: this.getData(),
@@ -135,7 +143,23 @@ export class TodosGeneradoresComponent implements OnInit {
       hoverBorderColor: ['#4C9C2E','#C2D500']
       }]
     }
+
+
   }
+
+  setCantEnergiaClientes(vec: number[]){
+    console.log("vector en setenergia: ",vec)
+    this.pieChartData2 = {
+      datasets: [{
+        data: vec,
+        backgroundColor: ['#4C9C2E', '#C2D500'],
+      hoverBackgroundColor: ['#4C9C2E','#C2D500'],
+      hoverBorderColor: ['#4C9C2E','#C2D500']
+      }]
+    }
+  }
+
+
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
     //labels: [ 'Solar', 'Eólica' ],
     datasets: [ {
@@ -275,7 +299,6 @@ export class TodosGeneradoresComponent implements OnInit {
   }
 
   ngAfterViewInit(): void{
-    console.log("Todos generadores emitiendo: ",this.titlte);
     this.ethereumService.TriggerDataChartLine.emit({
       data: {
         datasets: [
@@ -298,84 +321,64 @@ export class TodosGeneradoresComponent implements OnInit {
 
 
   async dataGenerador() {
-    //this.registros.filter();
-    this.infoGenerador = this.registros.find(element => element.tipoContrato == 2)
-
     this.registros.forEach(element => {
 
       switch (element.tipoContrato){
 
         case 0:
-          this.todoClientes.push(element);
+          if(this.flagGeneradoresLoad){
+            this.todoClientes.push(element);
+            // this.flagClientesLoad = false;
+          }
           break;
 
         case 2:
-          this.todoGeneradores.push(element);
+          if(this.flagGeneradoresLoad){
+            this.todoGeneradores.push(element);
+            // this.flagGeneradoresLoad = false;
+          }
           break;
       }
-
     });
 
-    console.log("todoCliente:",this.todoClientes)
-
     switch (this.tipoMapa){
-
       case 'Plantas de energía':
+
+        if(this.flagGeneradoresLoad){
+          let promises: Promise<void>[] = [];
+          for (let index = 0; index < this.todoGeneradores.length; index++) {
+            promises.push(this.loadContract(this.todoGeneradores[index].infoContrato.dirContrato));
+            await Promise.all(promises);
+          }
+          this.flagGeneradoresLoad = false;
+        }
+        break;
+
+      case 'Clientes':
+
+        if(this.flagClientesLoad){
+          let promisesClientes: Promise<void>[] = [];
+          for (let index = 0; index < this.todoClientes.length; index++) {
+            promisesClientes.push(this.loadContractClientes(this.todoClientes[index].infoContrato.dirContrato));
+            await Promise.all(promisesClientes);
+          }
+          this.flagClientesLoad = false; 
+        }
         break;
     }
 
-
-    let promises: Promise<void>[] = [];
-    for (let index = 0; index < this.todoGeneradores.length; index++) {
-      promises.push(this.loadContract(this.todoGeneradores[index].infoContrato.dirContrato));
-      await Promise.all(promises);
-    }
     this.loadPlantas = true;
-    
-    
   }
 
-  loadContractClientes() {
-    let observables: Observable<any>[] = [];
-    observables.push(this.clienteService.getInfoContrato());
-    observables.push(this.bancoEnergia.getTiposEnergiasDisponibles())
-
-    // this.spinner.show();
-    forkJoin(observables).subscribe({
-      next: (data) => {
-        this.infoCliente = data[0];
-        const tiposEnergias = data[1] as InfoEnergia[];
-        console.log("clientes tipo de energias",tiposEnergias)
-        this.energiasDisponibles = tiposEnergias.map(x => x.nombre);
-        console.log("energias disponibles: ",this.energiasDisponibles)
-        // this.getTokensCliente().subscribe({
-        //   next: (tokens) => {
-        //     this.tokensCliente = tokens[0];
-        //     this.tokensDelegados = tokens[1];
-        //     this.getCantidadesEnergiasDisponibles();
-        //   }, error: (error) => {
-        //     console.log(error);
-        //     this.toastr.error(error.message, 'Error');
-        //     this.spinner.hide();
-        //   }
-        // });
-      }, error: (error) => {
-        console.log(error);
-        this.toastr.error(error.message, 'Error');
-        // this.spinner.hide();
-      }
-    });
-  }
-
-  async loadContract(contract): Promise<void> {
+  async loadContractClientes(contract): Promise<void> {
     try {
       this.dirContract = contract;
       let promises: Promise<void>[] = [];
 
       promises.push(this.bancoEnergia.loadBlockChainContractData());
-      promises.push(this.generadorService.loadBlockChainContractData(this.dirContract));
+      promises.push(this.clienteService.loadBlockChainContractData(this.dirContract));
       await Promise.all(promises).then(() => {
-        this.loadInfoGeneral()
+        this.getContractClientes();
 
       });
 
@@ -385,6 +388,95 @@ export class TodosGeneradoresComponent implements OnInit {
       this.toastr.error('Error al cargar las plantas de energía', 'Error');
     }
     
+  }
+
+  changeMapa(mapa){
+
+    this.dataSource.data = []
+    this.plantasFiltro = []
+    this.table.renderRows();
+    this.setCantidadEnergia();
+    this.tipoMapa = mapa;
+
+    switch(this.tipoMapa){
+
+      case 'Plantas de energía':
+        this.displayedColumns = ['nombre','ciudad','tecnologia','cantidadEnergia','capacidadNominal','tasaEmision']
+        break;
+      case 'Clientes':
+        this.displayedColumns = ['nombre','ciudad','cantidadSolar','cantidadEolica']
+        break;
+    }
+    this.dataGenerador();
+    this.addItem(this.departamento);
+  }
+
+
+
+  getContractClientes() {
+    let observables: Observable<any>[] = [];
+    observables.push(this.clienteService.getInfoContrato());
+    observables.push(this.bancoEnergia.getTiposEnergiasDisponibles())
+
+    // this.spinner.show();
+    forkJoin(observables).subscribe({
+      next: (data) => {
+        this.infoCliente = data[0];
+        const tiposEnergias = data[1] as InfoEnergia[];
+        this.energiasDisponibles = tiposEnergias.map(x => x.nombre);
+        console.log("energias disponibles: ",this.energiasDisponibles)
+        this.getCantidadesEnergiasDisponibles();
+      }, error: (error) => {
+        console.log(error);
+        this.toastr.error(error.message, 'Error');
+        // this.spinner.hide();
+      }
+    });
+  }
+
+  private getCantidadesEnergiasDisponibles() {
+    let observables: Observable<InfoEnergia>[] = [];
+    this.energiasDisponibles.forEach(energia => {
+      observables.push(this.clienteService.getEnergiaCliente(energia));
+    });
+    forkJoin(observables).subscribe({
+      next: (data) => {
+        this.cantidadesDisponibles = data.map(x => x.cantidadEnergia);
+        this.cantidadesDisponibles = this.cantidadesDisponibles.map(x => Number(x))
+        this.totalEnergiasClientes.push(this.cantidadesDisponibles);
+
+        if(this.totalEnergiasClientes.length == this.todoClientes.length){
+          for (let i = 0; i < this.todoClientes.length; i++) {
+            this.todoClientes[i].infoContrato.cantidadSolar = this.totalEnergiasClientes[i][0]
+            this.todoClientes[i].infoContrato.cantidadEolica = this.totalEnergiasClientes[i][1]
+          }
+          this.addItem(this.departamento);
+        }
+
+        // this.spinner.hide();
+      },
+      error: (error) => {
+        console.log(error);
+        this.toastr.error(error.message, 'Error');
+        // this.spinner.hide();
+      }
+    })
+  }
+
+  async loadContract(contract): Promise<void> {
+    try {
+      this.dirContract = contract;
+      let promises: Promise<void>[] = [];
+      promises.push(this.bancoEnergia.loadBlockChainContractData());
+      promises.push(this.generadorService.loadBlockChainContractData(this.dirContract));
+      await Promise.all(promises).then(() => {
+        this.loadInfoGeneral()
+      });
+      
+    } catch (error) {
+      console.log(error);
+      this.toastr.error('Error al cargar las plantas de energía', 'Error');
+    }
   }
 
   async loadInfoGeneral():Promise<void> {
@@ -408,62 +500,75 @@ export class TodosGeneradoresComponent implements OnInit {
         this.toastr.error(err.message, 'Error');
         //this.spinner.hide();
       },
-      
-      
     });
   }
-
-  //Gráfica
+  
   addItem(newItem: string) {
-    console.log("entrando a addItem")
     this.departamento = newItem;
-
     this.plantasFiltro= [];
     
-    console.log("this.loadplantas",this.loadPlantas)
-    console.log("this.plantyasAux",this.plantasAux)
     if(this.loadPlantas){
   
-      for (let i = 0; i < this.plantasAux.length; i++) {
+      switch(this.tipoMapa){
+        case 'Plantas de energía':
+          for (let i = 0; i < this.plantasAux.length; i++) {
         
-        if(this.plantasAux[i].find(element => element.departamento == this.departamento) != undefined){
-          
-          let sizePlantasVector = this.plantasAux[i].filter(element => element.departamento == this.departamento).length;
-
-          if(sizePlantasVector > 1){
-
-            for (let j = 0; j < sizePlantasVector; j++) {
-              this.plantasFiltro.push(this.plantasAux[i].filter(element => element.departamento == this.departamento)[j])
+            if(this.plantasAux[i].find(element => element.departamento == this.departamento) != undefined){
               
+              let sizePlantasVector = this.plantasAux[i].filter(element => element.departamento == this.departamento).length;
+    
+              if(sizePlantasVector > 1){
+    
+                for (let j = 0; j < sizePlantasVector; j++) {
+                  this.plantasFiltro.push(this.plantasAux[i].filter(element => element.departamento == this.departamento)[j])
+                  
+                }
+              }
+              else{
+                this.plantasFiltro.push(this.plantasAux[i].filter(element => element.departamento == this.departamento)[0])
+              }
+              
+              this.plantasFiltro.map((element) => {
+                if(element.tecnologia == 'solar'){
+                  element.tecnologia = 'Solar'
+                }
+                else if(element.tecnologia == 'eolica'){
+                  element.tecnologia = 'Eólica'
+                }
+              })
             }
           }
-          else{
-            this.plantasFiltro.push(this.plantasAux[i].filter(element => element.departamento == this.departamento)[0])
+          this.dataSource.data = this.plantasFiltro;
+
+          if(this.dataSource.data.length == 0 || this.dataSource.data.length == undefined){
+            this.toastr.info('No hay Plantas registradas en este departamento.','Datos no encontrados.');
           }
+          break;
+
+        case 'Clientes':
+          this.plantasFiltro = this.todoClientes.map(x => x.infoContrato);
+          this.dataSource.data = this.plantasFiltro.filter(element => element.departamento == this.departamento);
           
-          this.plantasFiltro.map((element) => {
-            if(element.tecnologia == 'solar'){
-              element.tecnologia = 'Solar'
-            }
-            else if(element.tecnologia == 'eolica'){
-              element.tecnologia = 'Eólica'
-            }
-          })
-        }
+          var vecTotalEnergiaClientes: number[] = [0,0];
+          
+          for (let i = 0; i < this.dataSource.data.length; i++) {
+
+          //  this.vecTotalEnergiaClientes[0] = this.vecTotalEnergiaClientes[0] + this.dataSource.data[i].cantidadSolar;
+          //  this.vecTotalEnergiaClientes[1] = this.vecTotalEnergiaClientes[1] + this.dataSource.data[i].cantidadEolica;
+            vecTotalEnergiaClientes[0] = vecTotalEnergiaClientes[0] + this.dataSource.data[i].cantidadSolar;
+            vecTotalEnergiaClientes[1] = vecTotalEnergiaClientes[1] + this.dataSource.data[i].cantidadEolica;
+          }
+          this.setCantEnergiaClientes(vecTotalEnergiaClientes)
+
+          if(this.dataSource.data.length == 0 || this.dataSource.data.length == undefined){
+            this.toastr.info('No hay Clientes registrados en este departamento.','Datos no encontrados.');
+          }
+          break;
       }
 
-      console.log("plantas filtro: ",this.plantasFiltro)
-
-
-      this.dataSource.data = this.plantasFiltro;
       this.table.renderRows();
-
       this.setCantidadEnergia();
-
-      
     }
-
-    
   }
 
   public lineChartData: ChartConfiguration['data'] = {
@@ -513,93 +618,4 @@ export class TodosGeneradoresComponent implements OnInit {
   };
 
   public lineChartType: ChartType = 'line';
-
-
-
-
-  /*
-  //Circular
-  public pieChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: true,
-        position: 'top',
-      },
-      datalabels: {
-        
-        formatter: (value, ctx) => {
-          if (ctx.chart.data.labels) {
-            return ctx.chart.data.labels[ctx.dataIndex];
-          }
-        },
-      },
-    }
-  };
-  public pieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: [ [ 'Download', 'Sales' ], [ 'In', 'Store', 'Sales' ], 'Mail Sales' ],
-    datasets: [ {
-      data: [ 300, 500, 100 ]
-    } ]
-  };
-  public pieChartType: ChartType = 'pie';
-  public pieChartPlugins = [ DatalabelsPlugin ];
-
-  // events
-  public chartClicked2({ event, active }: { event: ChartEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered2({ event, active }: { event: ChartEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  changeLabels(): void {
-    const words = [ 'hen', 'variable', 'embryo', 'instal', 'pleasant', 'physical', 'bomber', 'army', 'add', 'film',
-      'conductor', 'comfortable', 'flourish', 'establish', 'circumstance', 'chimney', 'crack', 'hall', 'energy',
-      'treat', 'window', 'shareholder', 'division', 'disk', 'temptation', 'chord', 'left', 'hospital', 'beef',
-      'patrol', 'satisfied', 'academy', 'acceptance', 'ivory', 'aquarium', 'building', 'store', 'replace', 'language',
-      'redeem', 'honest', 'intention', 'silk', 'opera', 'sleep', 'innocent', 'ignore', 'suite', 'applaud', 'funny' ];
-    const randomWord = () => words[Math.trunc(Math.random() * words.length)];
-    this.pieChartData.labels = new Array(3).map(_ => randomWord());
-
-    this.chart?.update();
-  }
-
-  addSlice(): void {
-    if (this.pieChartData.labels) {
-      this.pieChartData.labels.push([ 'Line 1', 'Line 2', 'Line 3' ]);
-    }
-
-    this.pieChartData.datasets[0].data.push(400);
-
-    this.chart?.update();
-  }
-
-  removeSlice(): void {
-    if (this.pieChartData.labels) {
-      this.pieChartData.labels.pop();
-    }
-
-    this.pieChartData.datasets[0].data.pop();
-
-    this.chart?.update();
-  }
-
-  changeLegendPosition(): void {
-    if (this.pieChartOptions?.plugins?.legend) {
-      this.pieChartOptions.plugins.legend.position = this.pieChartOptions.plugins.legend.position === 'left' ? 'top' : 'left';
-    }
-
-    this.chart?.render();
-  }
-
-  toggleLegend(): void {
-    if (this.pieChartOptions?.plugins?.legend) {
-      this.pieChartOptions.plugins.legend.display = !this.pieChartOptions.plugins.legend.display;
-    }
-
-    this.chart?.render();
-  }
-  */
 }
