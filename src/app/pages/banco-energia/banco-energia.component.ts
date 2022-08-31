@@ -4,7 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { ToastrService } from 'ngx-toastr';
 import { InfoEnergia } from './../../models/InfoEnergia';
-import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit, ElementRef, ViewChildren, QueryList, NgZone } from '@angular/core';
 import { Observable, Subscription, timer } from 'rxjs';
 import { ChartData, ChartEvent, ChartType, Chart, ChartConfiguration, ChartOptions } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
@@ -24,8 +24,6 @@ const momentExtended = extendMoment(moment);
 })
 export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
   energiasDisponibles: InfoEnergia[] = [];
-  timer$: Observable<any>;
-  timerSubscription: Subscription;
   isFromInit: boolean = false;
   contadorAnterior: number = 0;
   contadorActual: number = 0;
@@ -196,8 +194,8 @@ export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private toastr: ToastrService,
     private bancoEnergia: BancoEnergiaService,
     private reguladorMercado: ReguladorMercadoService,
-    private spinner: NgxSpinnerService) {
-    this.timer$ = timer(0, 1000);
+    private spinner: NgxSpinnerService,
+    private ngZone: NgZone) {
     Chart.register(Annotation)
   }
 
@@ -209,7 +207,6 @@ export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
     this.eventoTransaccion.removeAllListeners('data');
     this.SolicitudDeRegistroEvent.removeAllListeners('data');
     this.CambioDeEnergiaEvent.removeAllListeners('data');
-    //this.timerSubscription.unsubscribe();
   }
 
   async ngOnInit(): Promise<void> {
@@ -242,20 +239,25 @@ export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log(error);
       }
     }).on('data', (event) => {
-      console.log(event);
+      this.ngZone.run(()=>{
+        this.setTransactionsInfo();
+      })
     });
 
     this.SolicitudDeRegistroEvent = this.reguladorMercado.contract.events.ContratoDiligenciado({
       fromBlock: 'latest'
     }).on('data', (event) => {
-      this.setDoughnutInfo();
+      this.ngZone.run(() => {
+        this.setDoughnutInfo();
+      });
     });
 
     this.CambioDeEnergiaEvent = this.bancoEnergia.contract.events.cambioDeEnergia({
       fromBlock: 'latest'
     }).on('data', (event) => {
-      console.log(event);
-      this.setCantidadEnergiaInfo();
+      this.ngZone.run(() => {
+        this.setCantidadEnergiaInfo();
+      });
     });
 
   }
@@ -328,7 +330,7 @@ export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
       next: (data) => {
 
         this.energiasDisponibles = data;
-        console.log("energias disponibles: ",data);
+        console.log("energias disponibles: ", data);
         this.pieChartData = {
           labels: this.getPieChartLabels(data),
           datasets: [{

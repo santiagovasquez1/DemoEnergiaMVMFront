@@ -1,0 +1,36 @@
+<div mat-dialog-content>
+    <h2 class="mt-20">Comprar energia</h2>
+    <form [formGroup]="consumoForm">
+        <div class="row">
+            <div class="col">
+                <div class="form-field">
+                    <label>Tipo de energia</label>
+                    <select class="custom-select" formControlName="energia">
+                        <option [ngValue]=""></option>
+                        <option *ngFor="let energia of energiasDisponibles" [ngValue]="energia">{{energia}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-20">
+            <div class="col">
+                <div class="form-field">
+                    <label>Cantidad de energia disponible (MWh)</label>
+                    <input type="number" formControlName="cantidadDisponible"></div>
+            </div>
+        </div>
+        <div class="row mt-20">
+            <div class="col">
+                <div class="form-field">
+                    <label>Cantiad de energia a consumir (MWh)</label>
+                    <input type="number" formControlName="cantidad">
+                </div>
+            </div>
+        </div>
+        <div class="row mt-20 mb-20">
+            <div class="col">
+                <button class="button-mvm" mat-raised-button (click)="onConsumirEnergia()" [disabled]="!isValid"> Consumir energia</button>
+            </div>
+        </div>
+    </form>
+</div>

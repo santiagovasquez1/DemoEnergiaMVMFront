@@ -1,13 +1,21 @@
 <h2 class="mt-20">Compra de tokens</h2>
 <form [formGroup]="compraTokensForm">
-    <mat-form-field class="w-100p">
-        <mat-label>Tokens Disponibles en el mercado:</mat-label>
-        <input matInput formControlName="tokensRegulador" type="text" placeholder="Tokens Disponibles en el mercado">
-    </mat-form-field>
-    <mat-form-field class="w-100p">
-        <mat-label>Tokens a comprar:</mat-label>
-        <input matInput formControlName="cantidadTokensComprar" type="number" placeholder="Tokens a comprar">
-    </mat-form-field>
-    <button class="button-mvm" mat-raised-button [disabled]="!compraTokensForm.valid" (click)="onSubmit()">Comprar</button>
+    <div class="row">
+        <div class="col">
+            <div class="form-field">
+                <label>Tokens Disponibles en el mercado:</label>
+                <input formControlName="tokensRegulador" type="text" placeholder="Tokens Disponibles en el mercado">
+            </div>
+        </div>
+    </div>
+    <div class="row mt-20">
+        <div class="col">
+            <div class="form-field">
+                <label>Tokens a comprar:</label>
+                <input formControlName="cantidadTokensComprar" type="number" placeholder="Tokens a comprar">
+            </div>
+        </div>
+    </div>
 
+    <button class="button-mvm mt-20" mat-raised-button [disabled]="!compraTokensForm.valid" (click)="onSubmit()">Comprar</button>
 </form>

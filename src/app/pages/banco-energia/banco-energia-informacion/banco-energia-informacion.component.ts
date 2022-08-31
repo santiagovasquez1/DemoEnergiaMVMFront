@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription, timer } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
@@ -7,38 +9,55 @@ import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
   selector: 'app-banco-energia-informacion',
   templateUrl: './banco-energia-informacion.component.html'
 })
-export class BancoEnergiaInformacionComponent implements OnInit {
+export class BancoEnergiaInformacionComponent implements OnInit, OnDestroy {
 
   energiasDisponibles: InfoEnergia[] = [];
-  
-  constructor(private bancoEnergia: BancoEnergiaService) {}
+  energiaChangeEvent: any
 
-  
+  constructor(private bancoEnergia: BancoEnergiaService,
+    private toastr: ToastrService,
+    private ngZone: NgZone) {
+
+  }
+
   async ngOnInit(): Promise<void> {
     try {
       let promises: Promise<void>[] = [];
       promises.push(this.bancoEnergia.loadBlockChainContractData());
-      //promises.push(this.bancoEnergia.loadBlockChainContractData());
       await Promise.all(promises);
-
+      
+      this.energiaChangeEvent = this.bancoEnergia.contract.events.cambioDeEnergia({
+        fromBlock: 'latest'
+      }, (error, event) => {
+        if (error) {
+          console.log(error);
+          this.toastr.error(error.message, 'Error')
+        }
+      }).on('data', (event) => {
+        this.ngZone.run(() => {
+          this.setCantidadEnergiaInfo();
+        })
+      });
       this.setCantidadEnergiaInfo();
-
     } catch (error) {
       console.log(error);
-
+      this.toastr.error(error.message, 'Error');
     }
+  }
+
+  ngOnDestroy(): void {
+
+      this.energiaChangeEvent.removeAllListeners('data');
   }
 
   private setCantidadEnergiaInfo() {
     this.bancoEnergia.getTiposEnergiasDisponibles().subscribe({
       next: (data) => {
-
         this.energiasDisponibles = data;
-        console.log("energias disponibles: ",data);
-
       },
       error: (error) => {
         console.log(error);
+        this.toastr.error(error.message, 'Error');
       }
     });
   }

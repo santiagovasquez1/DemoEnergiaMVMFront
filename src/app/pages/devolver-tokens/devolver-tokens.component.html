@@ -1,12 +1,21 @@
 <h2 class="mt-20">Devolución de tokens</h2>
 <form [formGroup]="devolucionTokensForm">
-    <mat-form-field class="w-100p">
-        <mat-label>Tokens Disponibles :</mat-label>
-        <input matInput formControlName="tokensDisponibles" type="number" placeholder="Tokens Disponibles en el mercado">
-    </mat-form-field>
-    <mat-form-field class="w-100p">
-        <mat-label>Tokens a devolver:</mat-label>
-        <input matInput formControlName="cantidadTokensDevolver" type="number" placeholder="Tokens a comprar">
-    </mat-form-field>
-    <button class="button-mvm" mat-raised-button (click)="onDevolverTokens()">Devolver</button>
+    <div class="row">
+        <div class="col">
+            <div class="form-field">
+                <label>Tokens Disponibles :</label>
+                <input formControlName="tokensDisponibles" type="number" placeholder="Tokens Disponibles en el mercado">
+            </div>
+        </div>
+    </div>
+    <div class="row mt-20">
+        <div class="col">
+            <div class="form-field">
+                <label>Tokens a devolver:</label>
+                <input formControlName="cantidadTokensDevolver" type="number" placeholder="Tokens a comprar">
+            </div>
+        </div>
+    </div>
+
+    <button class="button-mvm mt-20" mat-raised-button (click)="onDevolverTokens()" [disabled]="!isValid">Devolver</button>
 </form>

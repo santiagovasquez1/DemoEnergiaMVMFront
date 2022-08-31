@@ -1,39 +1,48 @@
-<h2 class="mt-20">Contratar comercializador del cliente</h2>
-<mat-form-field class="w-100p">
-    <mat-label>Comercializadores disponibles</mat-label>
-    <mat-select [(ngModel)]="comercializadorSeleccionado">
-        <mat-option *ngFor="let comercializador of comercializadores" [value]="comercializador">
-            {{comercializador.empresa}}
-        </mat-option>
-    </mat-select>
-</mat-form-field>
+<div mat-dialog-content *ngIf="comercializadores">
+    <h2 class="mt-20">Contratar comercializador del cliente</h2>
+    <form [formGroup]="contratarForm">
+        <div class="row">
+            <div class="col">
+                <div class="form-field">
+                    <label>Comercializadores disponibles</label>
+                    <select class="custom-select" formControlName="comercializador">
+                        <option [value]=""></option>
+                        <option *ngFor="let comercializador of comercializadores, let index=index" [ngValue]="comercializador">
+                            {{comercializador.empresa}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
 
-<mat-card class="custom mb-20" *ngIf="comercializadorSeleccionado">
-    <mat-card-title>Empresa: {{comercializadorSeleccionado.empresa}}</mat-card-title>
-    <mat-card-subtitle>Nit: {{comercializadorSeleccionado.nit}}</mat-card-subtitle>
-    <mat-card-content>
-        <p>
-            Dueño del contrato: {{comercializadorSeleccionado.owner}}
-        </p>
-        <p>
-            Contacto: {{comercializadorSeleccionado.contacto}}
-        </p>
-        <p>
-            Teléfono: {{comercializadorSeleccionado.telefono}}
-        </p>
-        <p>
-            Correo: {{comercializadorSeleccionado.correo}}
-        </p>
-        <p>
-            Departamento: {{comercializadorSeleccionado.departamento}}
-        </p>
-        <p>
-            Ciudad: {{comercializadorSeleccionado.ciudad}}
-        </p>
-        <p>
-            Dirección: {{comercializadorSeleccionado.direccion}}
-        </p>
-    </mat-card-content>
-</mat-card>
+    <mat-card class="custom mt-20 mb-20 fadeIn" *ngIf="comercializadorSeleccionado">
+        <mat-card-title>Empresa: {{comercializadorSeleccionado.empresa}}</mat-card-title>
+        <mat-card-subtitle>Nit: {{comercializadorSeleccionado.nit}}</mat-card-subtitle>
+        <mat-card-content>
+            <p>
+                Dueño del contrato: {{comercializadorSeleccionado.owner}}
+            </p>
+            <p>
+                Contacto: {{comercializadorSeleccionado.contacto}}
+            </p>
+            <p>
+                Teléfono: {{comercializadorSeleccionado.telefono}}
+            </p>
+            <p>
+                Correo: {{comercializadorSeleccionado.correo}}
+            </p>
+            <p>
+                Departamento: {{comercializadorSeleccionado.departamento}}
+            </p>
+            <p>
+                Ciudad: {{comercializadorSeleccionado.ciudad}}
+            </p>
+            <p>
+                Dirección: {{comercializadorSeleccionado.direccion}}
+            </p>
+        </mat-card-content>
+    </mat-card>
 
-<button class="button-mvm" mat-raised-button [disabled]="!validForm" (click)="onContratar()">Contratar</button>
+    <button class="button-mvm mt-20" mat-raised-button [disabled]="!validForm" (click)="onContratar()">Contratar</button>
+</div>

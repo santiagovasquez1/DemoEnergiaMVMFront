@@ -19,6 +19,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { InfoCertificadoAgenteComponent } from './info-certificado-agente/info-certificado-agente.component';
 import { TipoTransaccionPipe } from './pipes/tipo-transaccion.pipe';
 import { TipoContratoPipe } from './pipes/tipo-contrato.pipe';
+import { EstadoRegistroPipe } from './pipes/estado-registro.pipe';
+import { LimitTextPipe } from './pipes/limit-text.pipe';
+import { FilterComponent } from './filter/filter.component';
+import { EstadoPlantaPipe } from './pipes/estado-planta.pipe';
+import { EstadoCompraPipe } from './pipes/estado-compra.pipe';
 
 @NgModule({
     declarations: [
@@ -29,7 +34,12 @@ import { TipoContratoPipe } from './pipes/tipo-contrato.pipe';
         PieChartComponent,
         InfoCertificadoAgenteComponent,
         TipoTransaccionPipe,
-        TipoContratoPipe
+        TipoContratoPipe,
+        EstadoRegistroPipe,
+        LimitTextPipe,
+        FilterComponent,
+        EstadoPlantaPipe,
+        EstadoCompraPipe
     ],
     imports: [
         CommonModule,
@@ -53,7 +63,12 @@ import { TipoContratoPipe } from './pipes/tipo-contrato.pipe';
         PieChartComponent,
         InfoCertificadoAgenteComponent,
         TipoTransaccionPipe,
-        TipoContratoPipe
+        TipoContratoPipe,
+        EstadoRegistroPipe,
+        LimitTextPipe,
+        FilterComponent,
+        EstadoPlantaPipe,
+        EstadoCompraPipe
     ]
 })
 export class SharedModule { }

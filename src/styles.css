@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
 /* You can add global styles to this file, and also import other style files */
 
 :root {
@@ -11,6 +12,7 @@
     --gris-fuente: #696969;
     --gris-borde: #CBD6E2;
     --gris-fondo: #F9F9F9;
+    --rojo: #FF0000;
 }
 
 * {
@@ -78,8 +80,8 @@ body {
 form input[type="text"],
 form input[type="number"],
 form input[type="email"],
-form select,
-form .custom-select {
+form input[type="date"],
+form select {
     width: 100%;
     display: block !important;
     height: 40px !important;
@@ -88,14 +90,23 @@ form .custom-select {
     padding-left: 10px;
     padding-right: 10px;
     transition: 300ms all;
+    font-size: 14px !important;
+}
+
+.custom-select {
+    display: block;
+    background-image: url(assets/images/form-select-indicator.svg);
+    background-repeat: no-repeat;
+    background-position: right .75rem center !important;
+    appearance: none;
 }
 
 form input[type="text"]:focus,
 form input[type="number"]:focus,
 form input[type="email"]:focus,
-form select:focus,
-form .customSelect:focus {
-    outline: 1px solid var(--verde-oscuro);
+form input[type="date"]:focus,
+form select:focus {
+    outline: 1.5px solid var(--verde-oscuro);
 }
 
 form .form-label {
@@ -138,13 +149,26 @@ form .form-actions-row {
     margin: 0px auto;
     margin-top: 57px;
     max-width: 1025px;
+    background-color: #F0F0F0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    gap: 16px;
+}
+
+.filter-form h3 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px !important;
+    line-height: 29px !important;
+    color: var(--verde-oscuro);
 }
 
 .text-center {
     text-align: center;
 }
 
-.a-green{
+.a-green {
     text-decoration: none;
     color: var(--verde-oscuro);
 }
@@ -205,7 +229,7 @@ form .form-actions-row {
     color: var(--gris-claro);
 }
 
-.input-text{
+.input-text {
     width: 100%;
     height: 40px;
     border: 1px solid #CBD6E2;
@@ -213,7 +237,7 @@ form .form-actions-row {
     outline: none;
 }
 
-.div-text{
+.div-text {
     justify-items: center;
     display: flex;
     justify-content: center;
@@ -227,6 +251,12 @@ form .form-actions-row {
     color: white;
     cursor: pointer;
     border: none;
+}
+
+.button-mvm:disabled,
+.mvm-action-button:disabled {
+    background-color: #B9B9B9;
+    color: #484848;
 }
 
 .search-icon {
@@ -338,6 +368,7 @@ form .form-actions-row {
 }
 
 .custom.mat-card {
+    font-family: 'Montserrat' !important;
     padding-top: 40px !important;
     padding-bottom: 40px !important;
     padding-left: 47px !important;
@@ -593,14 +624,14 @@ form .form-actions-row {
     text-align: center;
 }
 
-.container-generadores .energia-dpto  .content-card{
+.container-generadores .energia-dpto .content-card {
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 30% 70%;
     justify-items: center;
 }
 
-.container-generadores .energia-dpto  .content-card .container-pie{
+.container-generadores .energia-dpto .content-card .container-pie {
     display: grid;
     justify-items: center;
     width: 70%;
@@ -614,11 +645,11 @@ form .form-actions-row {
     border-radius: 20px;
 }
 
-.energia-dpto  .content-card .container-pie #title-pie{
+.energia-dpto .content-card .container-pie #title-pie {
     grid-column: 1/4;
 }
 
-.energia-dpto  .content-card .container-pie .img-aerogenerador{
+.energia-dpto .content-card .container-pie .img-aerogenerador {
     width: 100%;
     display: grid;
     justify-items: end;
@@ -626,21 +657,21 @@ form .form-actions-row {
     
 }
 
-.energia-dpto  .content-card .container-pie .img-panel{
+.energia-dpto .content-card .container-pie .img-panel {
     width: 100%;
     display: grid;
     justify-items: start;
     align-items: end;
 }
 
-.container-generadores .energia-dpto  .content-card .table-container{
+.container-generadores .energia-dpto .content-card .table-container {
     grid-column: 1/3;
     grid-row: 2/3;
     width: 99%;
     height: 90%
 }
 
-.container-generadores .energia-dpto  .content-card .table-container mat-table{
+.container-generadores .energia-dpto .content-card .table-container mat-table {
     min-width: 650px !important;
 }
 
@@ -790,9 +821,6 @@ form .form-actions-row {
     animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
-
-
-
 .container .subtitulo {
     display: flex;
     margin-top: 30px;
@@ -804,7 +832,6 @@ form .form-actions-row {
     cursor: pointer;
     transform: scale(1.02);
 }
-
 
 .text-content-card {
     font-size: 20px;
@@ -821,7 +848,7 @@ form .form-actions-row {
     justify-content: end;
 }
 
-.container .container-buttons .btn-show-info{
+.container .container-buttons .btn-show-info {
     grid-column: 2/3;
 }
 
@@ -832,12 +859,12 @@ form .form-actions-row {
     grid-column-gap: 3%;
 }
 
-.container .info-contrato #owner{
+.container .info-contrato #owner {
     grid-column: 2/3;
     grid-row: 1/2;
 }
 
-.container .info-contrato #direccion{
+.container .info-contrato #direccion {
     grid-column: 2/3;
     grid-row: 2/3;
 }
@@ -1064,6 +1091,7 @@ mat-dialog-container .mat-form-field-infix span label {
     display: block;
     overflow: auto;
     margin: 0px auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .mvm-table {
@@ -1077,7 +1105,6 @@ mat-dialog-container .mat-form-field-infix span label {
 .mvm-table .mat-row {
     height: 32px !important;
     border-bottom: none;
-    cursor: pointer;
     transition: 300ms all !important;
 }
 
@@ -1099,13 +1126,93 @@ mat-dialog-container .mat-form-field-infix span label {
     padding-right: 10px;
 }
 
+.mvm-table .mat-cell .action-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.mvm-action-button {
+    width: 30px !important;
+    height: 30px !important;
+    border: none;
+    border-radius: 50% !important;
+    margin-right: 8px !important;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    line-height: 15px !important;
+}
+
+.approve {
+    background-color: var(--verde-claro);
+}
+
+.reject {
+    background-color: var(--rojo);
+}
+
 .mvm-table .mat-row:hover .mat-cell {
     background-color: #eee;
+}
+
+.mvm-table .mat-row:nth-child(even) {
+    background-color: white;
+}
+
+.mvm-table .mat-row:nth-child(even) {
+    background-color: white;
+}
+
+.mvm-table .mat-row:nth-child(odd) {
+    background-color: #F8F8F8;
+}
+
+.mvm-table .mat-column-CantidadEnergia,
+.mvm-table .mat-column-acciones,
+.mvm-table .mat-column-estado,
+.mvm-table .mat-column-cantidad,
+.mvm-table .mat-column-certificado,
+.mvm-table .mat-column-planta,
+.mvm-table .mat-column-generador,
+.mvm-table .mat-column-tecnologia {
+    flex: 0 0 100px !important;
+}
+
+.mvm-table .mat-column-id {
+    flex: 0 0 50px !important;
+}
+
+.mvm-table .mat-column-fechaCompra {
+    flex: 0 0 150px !important;
+}
+
+.mvm-table .mat-column-valorCompra {
+    flex: 0 0 130px !important;
 }
 
 .mvm-paginator {
     font-family: 'Montserrat' !important;
     font-size: 14px !important;
+}
+
+.mvm-column-widht-100 {
+    flex: 0 0 100px !important;
+}
+
+.mvm-column-widht-50 {
+    flex: 0 0 50px !important;
+}
+
+.approve-text {
+    color: var(--verde-oscuro)
+}
+
+.reject-text {
+    color: var(--rojo);
 }
 
 .chart-dona {
@@ -1118,9 +1225,9 @@ mat-dialog-container .mat-form-field-infix span label {
 }
 
 
-
 /*Banco de energía*/
-.container-banco-informacion{
+
+.container-banco-informacion {
     width: 100%;
     height: 100%;
     display: grid;
@@ -1129,7 +1236,7 @@ mat-dialog-container .mat-form-field-infix span label {
     align-items: center;
 }
 
-.container-banco-informacion .card{
+.container-banco-informacion .card {
     width: 388px;
     height: 391px;
     background: #FFFFFF;
@@ -1142,12 +1249,33 @@ mat-dialog-container .mat-form-field-infix span label {
     padding: 10px 40px 40px 40px;
 }
 
-.container-banco-informacion .card form{
+.container-banco-informacion .card form {
     display: grid;
     grid-template-rows: 50% 50%;
 }
 
-.container-banco-informacion .card .header-card{
+.container-banco-informacion .card .header-card {
     display: flex;
     align-items: end;
+}
+
+.info-certificado {
+    color: var(--verde-oscuro);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

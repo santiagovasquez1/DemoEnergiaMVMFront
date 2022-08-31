@@ -1,4 +1,4 @@
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -17,8 +17,11 @@ export enum Estado {
 })
 export class NuevaEnergiaComponent implements OnInit {
 
-  energiasDisponibles: string[] = [];
-  nuevaEnergiaForm: UntypedFormGroup;
+  tipoEnergia: string = '';
+  capacidadNominal: number;
+  cantidadActual: number;
+  cantidadEnergia: number;
+  nuevaEnergiaForm: FormGroup;
   estado: Estado;
   title: string
 
@@ -28,8 +31,12 @@ export class NuevaEnergiaComponent implements OnInit {
     private alertDialog: SweetAlertService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private fb: UntypedFormBuilder) {
-    this.energiasDisponibles = this.data.energiasDisponibles;
+    private fb: FormBuilder) {
+
+    this.tipoEnergia = this.data.tecnologia;
+    this.capacidadNominal = parseInt(this.data.capacidadNominal);
+    this.cantidadActual = parseInt(this.data.cantidadActual);
+
     this.estado = this.data.estado;
     switch (this.estado) {
       case Estado.nuevaEnergia:
@@ -43,7 +50,7 @@ export class NuevaEnergiaComponent implements OnInit {
   }
 
   async ngOnInit() {
-     
+
     try {
       await this.generadorContract.loadBlockChainContractData(this.data.dirContract);
     } catch (error) {
@@ -54,9 +61,13 @@ export class NuevaEnergiaComponent implements OnInit {
 
   initForm() {
     this.nuevaEnergiaForm = this.fb.group({
-      nombreEnergia: ['', Validators.required],
+      nombreEnergia: [{ value: this.tipoEnergia, disabled: true }, Validators.required],
       cantidadEnergia: ['', Validators.required]
     });
+
+    this.nuevaEnergiaForm.get('cantidadEnergia').valueChanges.subscribe(data => {
+      this.cantidadEnergia = data !== '' ? parseInt(data) : 0;
+    })
   }
 
   onCrearNuevaEnergia() {
@@ -91,19 +102,27 @@ export class NuevaEnergiaComponent implements OnInit {
         let nombreEnergia = this.nuevaEnergiaForm.get('nombreEnergia').value;
         let cantidadEnergia = this.nuevaEnergiaForm.get('cantidadEnergia').value;
         const dirPlanta = this.data.hashPlanta;
-        this.generadorContract.postInyectarEnergiaPlanta(dirPlanta,nombreEnergia, cantidadEnergia).subscribe({
+        this.generadorContract.postInyectarEnergiaPlanta(dirPlanta, nombreEnergia, cantidadEnergia).subscribe({
           next: () => {
             this.spinner.hide();
             this.dialogRef.close();
             this.toastr.success('¡Energía agregada con éxito!');
-          },error: (err) => {
+          }, error: (err) => {
             this.spinner.hide();
             console.log(err);
             this.toastr.error(err.message, 'Error');
             this.dialogRef.close();
           }
-        });       
+        });
       }
     });
+  }
+
+  get isValid(): boolean {
+    if (this.cantidadActual + this.cantidadEnergia <= this.capacidadNominal && this.cantidadEnergia > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

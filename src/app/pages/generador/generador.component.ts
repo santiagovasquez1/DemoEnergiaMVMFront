@@ -108,7 +108,7 @@ export class GeneradorComponent implements OnInit {
 
   onCrearPlanta() {
     this.dialog.open(PlantasEnergiaComponent, {
-      width: '500px',
+      width: '800px',
       data: {
         dirContract: this.dirContract,
         energiasDisponibles: this.energiasDisponibles

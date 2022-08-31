@@ -1,6 +1,7 @@
 export enum EstadoCompra {
     pendiente,
-    aprobada
+    aprobada,
+    rechazada
 }
 
 export interface InfoEmisionCompra {

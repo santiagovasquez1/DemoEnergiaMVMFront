@@ -1,6 +1,7 @@
+import { FormfieldValidatorService } from '../../services/shared/formfield-validator.service';
 import { MunicipioInfo } from './../../models/municipioInfo';
 import { MunicipiosService } from './../../services/municipios.service';
-import { SolicitudContrato } from './../../models/solicitudContrato';
+import { EstadoSolicitud, SolicitudContrato } from './../../models/solicitudContrato';
 import { ToastrService } from 'ngx-toastr';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
@@ -48,7 +49,8 @@ export class RegisterComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private spinnerService: NgxSpinnerService,
-    private municipioService: MunicipiosService) {
+    private municipioService: MunicipiosService,
+    public formfieldValidator:FormfieldValidatorService) {
     this.registroForm = this.fb.group({});
   }
 
@@ -84,9 +86,9 @@ export class RegisterComponent implements OnInit {
     this.registroForm.get('tipoAgente').valueChanges.subscribe({
       next: (tipoAgente) => {
         this.agenteMercado = parseInt(tipoAgente);
-        if (this.agenteMercado == 1){
+        if (this.agenteMercado == 1) {
           this.registroForm.addControl('tipoComercio', this.fb.control('', Validators.required));
-        }else{
+        } else {
           this.registroForm.removeControl('tipoComercio');
 
         }
@@ -127,7 +129,10 @@ export class RegisterComponent implements OnInit {
         owner: localStorage.getItem('account'),
         comercializador: '0x0000000000000000000000000000000000000000',
         dirContrato: '0x0000000000000000000000000000000000000000'
-      }
+      },
+      estadoSolicitud: EstadoSolicitud.pendiente,
+      fechaAprobacion: '',
+      fechaSolicitud: ''
     }
 
     this.reguladorMercado.postRegistrarSolicitud(solicitudContrato.infoContrato, solicitudContrato.tipoContrato).subscribe({
