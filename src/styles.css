@@ -33,6 +33,14 @@ body {
     font-weight: 400 !important;
 }
 
+.img-panel img{
+    filter: invert(49%) sepia(12%) saturate(2661%) hue-rotate(59deg) brightness(102%) contrast(79%);
+}
+
+.img-aerogenerador img{
+    filter: invert(65%) sepia(96%) saturate(361%) hue-rotate(27deg) brightness(99%) contrast(98%);
+}
+
 .registro-container {
     display: block;
     width: 100%;
@@ -644,14 +652,16 @@ form .form-actions-row {
 .energia-dpto .content-card .container-pie .img-aerogenerador {
     width: 100%;
     display: grid;
-    justify-items: start;
-    align-items: end;
+    justify-items: end;
+    align-items: start;
+    
 }
 
 .energia-dpto .content-card .container-pie .img-panel {
     width: 100%;
     display: grid;
-    justify-items: end;
+    justify-items: start;
+    align-items: end;
 }
 
 .container-generadores .energia-dpto .content-card .table-container {
@@ -695,7 +705,7 @@ form .form-actions-row {
 }
 
 .energia-dpto .buttons-acordeon {
-    margin-top: 20px;
+    margin-top: 5px;
     display: flex;
     flex-direction: column;
     font-family: 'Montserrat', Roboto, "Helvetica Neue", sans-serif !important;
@@ -703,7 +713,7 @@ form .form-actions-row {
 
 .energia-dpto .buttons-acordeon a {
     text-decoration: none;
-    margin-bottom: 16px;
+    margin-bottom: 5px;
     margin-left: 20px;
 }
 
@@ -720,6 +730,10 @@ form .form-actions-row {
 .energia-dpto .container-acordeon mat-accordion {
     width: 90%;
     margin-bottom: 20px;
+}
+
+.mat-expansion-panel{
+    max-height: 90% !important;
 }
 
 .mat-content {
@@ -1110,6 +1124,7 @@ mat-dialog-container .mat-form-field-infix span label {
     color: var(--gris-fuente);
     font-size: 14px !important;
     font-family: 'Montserrat';
+    padding-right: 10px;
 }
 
 .mvm-table .mat-cell .action-container {
