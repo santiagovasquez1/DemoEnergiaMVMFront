@@ -744,7 +744,8 @@ form .form-actions-row {
     text-align: center;
 }
 
-.swal2-styled.swal2-cancel {
+
+/* .swal2-styled.swal2-cancel {
     border: 1px solid var(--verde-oscuro) !important;
     border-radius: 15px !important;
     background-color: white !important;
@@ -764,7 +765,7 @@ form .form-actions-row {
 
 .swal2-styled.swal2-confirm:focus {
     box-shadow: none;
-}
+} */
 
 .container-cards {
     display: grid;
@@ -1254,6 +1255,40 @@ mat-dialog-container .mat-form-field-infix span label {
     animation-name: fadeIn;
     animation-duration: 0.5s;
     animation-timing-function: linear;
+}
+
+.alert-confirm-button,
+.alert-cancel-button {
+    width: 100px !important;
+    border-radius: 15px !important;
+    font-family: 'Montserrat' !important;
+    cursor: pointer !important;
+    border: none !important;
+    transition: 3ms all;
+}
+
+.alert-confirm-button {
+    background-color: var(--verde-oscuro) !important;
+    color: white !important;
+}
+
+.alert-cancel-button {
+    background-color: white !important;
+    color: var(--gris-fuente) !important;
+    border: 2px solid var(--gris-borde) !important;
+}
+
+.alert-confirm-button:focus {
+    box-shadow: 0 0 0 3px var(--verde-claro) !important;
+}
+
+.alert-icon {
+    border-color: var(--verde-oscuro) !important;
+    color: var(--gris-claro) !important;
+}
+
+.alert-htmlContainer {
+    font-family: 'Montserrat' !important;
 }
 
 @keyframes fadeIn {
