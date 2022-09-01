@@ -110,7 +110,6 @@ export class ListaPlantasComponent implements OnInit {
   loadPlantasEnergia() {
     this.generadorService.getPlantasEnergia().subscribe({
       next: (data: InfoPlantaEnergia[]) => {
-        debugger;
         const filterData = this.filterData(data);
         this.dataSource.data = filterData;
         this.ubicaciones = filterData.map(item => {
