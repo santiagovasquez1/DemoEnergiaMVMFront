@@ -1,4 +1,4 @@
-import { UntypedFormGroup, UntypedFormBuilder, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,8 +16,7 @@ import { InfoEnergia } from 'src/app/models/InfoEnergia';
 })
 export class ComprarEnergiaComponent implements OnInit {
 
-  tokensDelegados: number;
-  comprarEnergiaForm: FormGroup
+  comprarEnergiaForm: UntypedFormGroup
   tiposEnergia: InfoEnergia[] = [];
 
   constructor(public dialogRef: MatDialogRef<ComprarEnergiaComponent>,
@@ -26,9 +25,8 @@ export class ComprarEnergiaComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private clienteService: ClienteContractService,
     private toastr: ToastrService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private bancoEnergia: BancoEnergiaService) {
-    this.tokensDelegados = this.data.tokensDelegados;
     this.initForm();
   }
 
@@ -79,7 +77,6 @@ export class ComprarEnergiaComponent implements OnInit {
       tipoEnergia: ['', Validators.required],
       cantidadEnergia: ['', Validators.required],
       valorCompra: [{ value: '', disabled: true }, Validators.required],
-      tokensDelegados: [{ value: this.tokensDelegados, disabled: true }, Validators.required],
     });
   }
 
@@ -102,10 +99,6 @@ export class ComprarEnergiaComponent implements OnInit {
           });
         }
       });
-  }
-
-  onCancelar() {
-    this.dialogRef.close();
   }
 
   get isComprarValid(): boolean {
