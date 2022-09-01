@@ -175,7 +175,7 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
   }
 
   public onRechazarCompra(dirContrato: string, index: number) {
-    debugger;
+
     this.alertService.confirmAlert('Rechazar', '¿Desea rechazar la solicitud de compra?')
       .then(result => {
         if (result.isConfirmed) {
@@ -213,7 +213,6 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
 
   private filterData(data: InfoEmisionCompra[]): InfoEmisionCompra[] {
     let filterArray = data;
-    debugger;
     filterArray = this.filters.empresa !== '' ? filterArray.filter(item => item.empresaCliente.toLowerCase().includes(this.filters.empresa)) : filterArray;
     filterArray = this.filters.tipoEnergia !== '' ? filterArray.filter(item => item.tipoEnergia.toLowerCase().includes(this.filters.tipoEnergia)) : filterArray;
     filterArray = this.filters.fechaSolicitud !== 'Invalid date' && this.filters.fechaSolicitud !== '' ? filterArray.filter(item => {

@@ -581,6 +581,8 @@ export class TodosGeneradoresComponent implements OnInit {
       }
 
       this.table.renderRows();
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       this.setCantidadEnergia();
     }
   }

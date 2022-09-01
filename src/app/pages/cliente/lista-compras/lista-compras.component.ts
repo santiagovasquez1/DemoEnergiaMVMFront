@@ -86,7 +86,7 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
   private getComprasCliente() {
     this.cliente.getComprasRealizadas().subscribe({
       next: (data) => {
-        debugger;
+
         const filterData = this.filterData(data);
         this.dataSource.data = filterData;
         this.dataSource.paginator = this.paginator;
@@ -94,7 +94,7 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
         this.table.renderRows();
       },
       error: (err) => {
-        debugger;
+
         console.log(err);
         this.toastr.error(err.message, 'Error');
       }
