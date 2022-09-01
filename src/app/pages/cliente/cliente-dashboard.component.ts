@@ -198,16 +198,6 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
     })
   }
 
-  onComprarEnergia() {
-    let dialogRef = this.dialog.open(ComprarEnergiaComponent, {
-      width: '500px',
-      data: {
-        dirContrato: localStorage.getItem('dirContract'),
-        tokensDelegados: this.tokensDelegados
-      }
-    });
-  }
-
   onDelegarTokens() {
 
     let dialogRef = this.dialog.open(DelegarTokensComponent, {

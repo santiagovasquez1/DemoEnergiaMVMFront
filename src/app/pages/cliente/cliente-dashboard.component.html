@@ -91,22 +91,16 @@
                 <div class="col">
                     <button class="button-mvm" mat-stroked-button (click)="onDevolverTokens()">Devolver tokens</button>
                 </div>
+            </div>
+            <div class="row mt-20">
                 <div class="col">
                     <button class="button-mvm" mat-stroked-button (click)="onContratarComercializador()">Contratar Comercializador</button>
                 </div>
-            </div>
-            <div class="row mt-20">
                 <div class="col">
                     <button class="button-mvm" mat-stroked-button (click)="onDelegarTokens()" [disabled]="!isDelegarValid">Delegar tokens</button>
                 </div>
                 <div class="col">
-                    <button class="button-mvm" mat-stroked-button (click)="onComprarEnergia()" [disabled]="!ComprarIsValid">Emitir compra de energia</button>
-                </div>
-                <div class="col">
                     <button class="button-mvm" mat-stroked-button (click)="onConsumirEnergia()">Consumir energia</button>
-                </div>
-                <div class="col">
-
                 </div>
             </div>
         </mat-card-actions>
