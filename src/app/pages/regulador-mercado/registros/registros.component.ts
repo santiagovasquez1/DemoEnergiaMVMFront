@@ -133,7 +133,6 @@ export class RegistrosComponent implements OnInit, OnDestroy {
   private getInfoAgentes() {
     this.regulardorMercado.getSolicitudesRegistro().subscribe({
       next: (data) => {
-        debugger;
         const filterData = this.filterData(data);
 
         this.contadorActual = filterData.length;

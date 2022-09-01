@@ -9,7 +9,6 @@ export class EstadoCompraPipe implements PipeTransform {
   transform(value: string | EstadoCompra): string {
     let estadoCompra: EstadoCompra;
     if (typeof value == 'string') {
-      debugger;
       estadoCompra = parseInt(value) as EstadoCompra;
     } else {
       estadoCompra = value as EstadoCompra;
@@ -23,7 +22,6 @@ export class EstadoCompraPipe implements PipeTransform {
       case EstadoCompra.rechazada:
         return 'Rechazada';
       default:
-        debugger
         return 'Desconocido';
     }
   }

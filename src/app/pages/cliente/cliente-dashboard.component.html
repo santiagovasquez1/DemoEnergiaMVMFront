@@ -1,3 +1,38 @@
+<div class="container container-info">
+
+    <div class="informacion">
+        <span class="title">{{infoCliente.empresa}}</span>
+        <span class="text-gris-p">Nit: {{infoCliente.nit}}</span>
+        <span class="text-black-p fw-600">Dueño del contrato:</span>
+        <span class="text-black-p">{{infoCliente.owner}}</span>
+        <span class="text-black-p fw-600">Departamento:</span>
+        <span class="text-black-p">{{infoCliente.departamento}}</span>
+        <span class="text-black-p fw-600">Ciudad:</span>
+        <span class="text-black-p">{{infoCliente.ciudad}}</span>
+        <span class="text-black-p fw-600">Dirección:</span>
+        <span class="text-black-p">{{infoCliente.direccion}}</span>
+        <span class="text-black-p fw-600">Telefono:</span>
+        <span class="text-black-p">{{infoCliente.telefono}}</span>
+        <span class="text-black-p fw-600">Tokens Disponibles:</span>
+        <span class="text-black-p">{{tokensCliente}}</span>
+        <span class="text-black-p fw-600">Tokens Delegados:</span>
+        <span class="text-black-p">{{tokensDelegados}}</span>
+    </div>
+
+    <div class="botones">
+        <button class="button-mvm" mat-stroked-button (click)="onVerCertificado()">Ver Certificado</button>
+        <button class="button-mvm" mat-stroked-button (click)="onComprarTokens()">Comprar tokens</button>
+        <button class="button-mvm" mat-stroked-button (click)="onDevolverTokens()">Devolver tokens</button>
+        <button class="button-mvm" mat-stroked-button (click)="onContratarComercializador()">Contratar Comercializador</button>
+        <button class="button-mvm" mat-stroked-button (click)="onDelegarTokens()" [disabled]="!isDelegarValid">Delegar tokens</button>
+        <button class="button-mvm" mat-stroked-button (click)="onComprarEnergia()" [disabled]="!ComprarIsValid">Emitir compra de energia</button>
+        <button class="button-mvm" mat-stroked-button (click)="onConsumirEnergia()">Consumir energia</button>
+
+    </div>
+</div>
+
+
+<!--
 <div class="container" *ngIf="infoCliente">
     <div class="titulo">
         <h2 class="title-xg">Información del cliente</h2>
@@ -77,3 +112,4 @@
         </mat-card-actions>
     </mat-card>
 </div>
+-->
