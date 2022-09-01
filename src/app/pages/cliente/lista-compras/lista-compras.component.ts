@@ -1,3 +1,4 @@
+import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { TableService } from 'src/app/services/shared/table-service.service';
 import { InfoCompraEnergia } from './../../../models/InfoCompraEnergia';
 import { ClienteContractService } from 'src/app/services/cliente-contract.service';
@@ -13,6 +14,10 @@ import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParame
 import { InfoCertificadoCompraComponent } from 'src/app/shared/info-certificado-compra/info-certificado-compra.component';
 import { InfoMappingCertificado } from 'src/app/models/InfoCertificados';
 import moment from 'moment';
+import { ComprarEnergiaComponent } from '../comprar-energia/comprar-energia.component';
+import { forkJoin, Observable } from 'rxjs';
+import { InfoContrato } from 'src/app/models/infoContrato';
+import { InfoEnergia } from 'src/app/models/InfoEnergia';
 
 @Component({
   selector: 'app-lista-compras',
@@ -39,13 +44,18 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
     planta: ''
   }
 
+  tokensDelegados: number = 0;
+  infoCliente: InfoContrato;
+
   constructor(private bancoEnergia: BancoEnergiaService,
     private cliente: ClienteContractService,
+    private reguladorMercado: ReguladorMercadoService,
     public dialog: MatDialog,
     private spinner: NgxSpinnerService,
     private ngZone: NgZone,
     private toastr: ToastrService,
-    private tableService: TableService
+    private tableService: TableService,
+
   ) {
     this.dataSource = new MatTableDataSource();
   }
@@ -59,10 +69,13 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
     try {
       let promises: Promise<void>[] = [];
       this.tableService.setPaginatorTable(this.paginator);
+
+      promises.push(this.reguladorMercado.loadBlockChainContractData());
       promises.push(this.bancoEnergia.loadBlockChainContractData());
       promises.push(this.cliente.loadBlockChainContractData(dirContract));
       await Promise.all(promises);
-      this.getEnergiasDisponibles();
+
+      this.getInfoContrato();
       this.compraEnergiaEvent = this.cliente.contract.events.compraEnergia({
         fromBlock: 'latest'
       }, (error, data) => {
@@ -73,7 +86,8 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
       }).on('data', () => {
         this.ngZone.run(() => {
           this.toastr.success('Compra de energía realizada', 'Energía');
-          this.getComprasCliente()
+          this.getComprasCliente();
+          this.getInfoContrato();
         });
       });
       this.getComprasCliente();
@@ -137,21 +151,6 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
     this.getComprasCliente();
   }
 
-  private getEnergiasDisponibles() {
-    this.spinner.show()
-    this.bancoEnergia.getTiposEnergiasDisponibles().subscribe({
-      next: (data) => {
-        this.energiasDisponibles = data.map(item => item.nombre);
-        this.setFilterForm();
-        this.spinner.hide();
-      },
-      error: (error) => {
-        console.log(error);
-        this.spinner.hide();
-        this.toastr.error(error.message, 'Error');
-      }
-    })
-  }
 
   private filterData(data: InfoCompraEnergia[]): InfoCompraEnergia[] {
     let filterArray = data;
@@ -164,7 +163,7 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
         return false;
       }
     }) : filterArray;
-    
+
     filterArray = this.filters.generador !== '' ? filterArray.filter(item => item.empresaGerador.toLocaleLowerCase().includes(this.filters.generador.toLowerCase())) : filterArray;
     filterArray = this.filters.planta !== '' ? filterArray.filter(item => item.nombrePlanta.toLocaleLowerCase().includes(this.filters.planta)) : filterArray;
     filterArray = this.filters.tecnologia !== '' ? filterArray.filter(item => item.tipoEnergia == this.filters.tecnologia) : filterArray;
@@ -185,6 +184,46 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
     this.dialog.open(InfoCertificadoCompraComponent, {
       width: '800px',
       data: requestCompra
+    });
+  }
+
+  onSolicitarCompra() {
+    let dialogRef = this.dialog.open(ComprarEnergiaComponent, {
+      width: '500px',
+      data: {
+        dirContrato: localStorage.getItem('dirContract'),
+        tokensDelegados: this.tokensDelegados
+      }
+    });
+  }
+
+  private getInfoContrato() {
+    let observables: Observable<any>[] = [];
+    observables.push(this.cliente.getInfoContrato());
+    observables.push(this.bancoEnergia.getTiposEnergiasDisponibles())
+
+    forkJoin(observables).subscribe({
+      next: (data) => {
+        this.infoCliente = data[0];
+        const tiposEnergias = data[1] as InfoEnergia[];
+        this.energiasDisponibles = tiposEnergias.map(x => x.nombre);
+        if (this.infoCliente.comercializador !== '0x0000000000000000000000000000000000000000') {
+          this.reguladorMercado.getTokensDelegados(this.infoCliente.comercializador, this.infoCliente.owner).subscribe({
+            next: (data) => {
+              this.tokensDelegados = data;
+              this.setFilterForm();
+            },
+            error:(error)=>{
+              this.toastr.error (error.message,'Error');
+              console.log(error);
+            }
+          })
+        }
+      }, error: (error) => {
+        console.log(error);
+        this.toastr.error(error.message, 'Error');
+        this.spinner.hide();
+      }
     });
   }
 }
