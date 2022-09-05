@@ -306,6 +306,7 @@ form .form-actions-row {
 .mvm-action-button:disabled {
     background-color: #B9B9B9;
     color: #484848;
+    cursor: default;
 }
 
 .search-icon {
@@ -436,6 +437,10 @@ form .form-actions-row {
     width: 160px !important;
 }
 
+.w-200px {
+    width: 200px !important;
+}
+
 .w-240 {
     width: 240px !important;
 }
@@ -518,6 +523,10 @@ form .form-actions-row {
 
 .mr-20 {
     margin-right: 20px !important;
+}
+
+.mr-30 {
+    margin-right: 30px !important;
 }
 
 .main {
@@ -1121,13 +1130,18 @@ mat-dialog-container .mat-form-field-infix span label {
     grid-template-rows: auto;
 }
 
-.table-container {
+.table-container,
+.actions-container {
     width: 100%;
     max-width: var(--max-width);
     height: 100%;
     display: block;
     overflow: auto;
     margin: 0px auto;
+}
+
+.table-container {
+    overflow: auto;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -1442,4 +1456,82 @@ mat-dialog-container .mat-form-field-infix span label {
     flex-direction: column;
     align-items: flex-end;
     margin-top: 8px;
+}
+
+.tokens-generador {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 16px;
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0px auto;
+    margin-top: 95px;
+    height: 210px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+
+.tokens-generador img {
+    width: 227px;
+    height: 161px;
+}
+
+.tokens-generador .info-tokens,
+.tokens-generador .equivalencia {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: 50px;
+}
+
+.tokens-generador .info-tokens {
+    width: 282px;
+}
+
+.tokens-generador .equivalencia {
+    width: 358px;
+}
+
+.tokens-generador .info-tokens .label {
+    display: block;
+    width: 100%;
+    justify-content: left;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    color: var(--gris-fuente);
+}
+
+.tokens-generador .equivalencia .label {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.tokens-generador .equivalencia .label img {
+    width: 32px;
+    height: 32px;
+}
+
+.tokens-generador .equivalencia .label p {
+    display: block;
+    justify-content: left;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    color: var(--verde-oscuro);
+}
+
+.tokens-generador .info-tokens .cantidad,
+.tokens-generador .equivalencia .cantidad {
+    display: block;
+    width: 100%;
+    justify-content: left;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 59px;
+    color: var(--gris-fuente);
 }

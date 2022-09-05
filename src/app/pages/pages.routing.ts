@@ -1,4 +1,4 @@
-import { TokensClienteComponent } from './cliente/tokens-cliente/tokens-cliente.component';
+import { TokensGeneradorComponent } from './generador/tokens-generador/tokens-generador.component';
 import { ListaComprasComponent } from './cliente/lista-compras/lista-compras.component';
 import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.component';
 import { EmisionesCompraComponent } from './comercializador/emisiones-compra/emisiones-compra.component';
@@ -21,6 +21,7 @@ import { RegistrosDetalleComponent } from './regulador-mercado/registros/registr
 import { ComprasRealizadasComponent } from './comercializador/compras-realizadas/compras-realizadas.component';
 import { TransaccionesComponent } from './dashboard/transacciones/transacciones.component';
 import { BancoEnergiaInformacionComponent } from './banco-energia/banco-energia-informacion/banco-energia-informacion.component';
+import { TokensClienteComponent } from './cliente/tokens-cliente/tokens-cliente.component';
 
 
 const routes: Routes = [
@@ -95,6 +96,11 @@ const routes: Routes = [
             {
                 path: "generador",
                 component: GeneradorComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: "generador/tokens",
+                component: TokensGeneradorComponent,
                 canActivate: [AuthGuard]
             },
             {
