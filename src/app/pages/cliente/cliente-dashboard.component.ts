@@ -1,22 +1,20 @@
-import { ConsumirEnergiaComponent } from './consumir-energia/consumir-energia.component';
-import { CertificadorContractService } from './../../services/certificador-contract.service';
-import { BancoEnergiaService } from './../../services/banco-energia.service';
-import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
-import { InfoContrato } from './../../models/infoContrato';
-import { ToastrService } from 'ngx-toastr';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { Component, OnDestroy, OnInit, NgZone } from '@angular/core';
-import { ClienteContractService } from 'src/app/services/cliente-contract.service';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ComprarTokensComponent } from './comprar-tokens/comprar-tokens.component';
-import { ContratarComercializadorComponent } from './contratar-comercializador/contratar-comercializador.component';
-import { ComprarEnergiaComponent } from './comprar-energia/comprar-energia.component';
-import { Observable, forkJoin } from 'rxjs';
-import { DelegarTokensComponent } from './delegar-tokens/delegar-tokens.component';
-import { DevolverTokensComponent } from '../devolver-tokens/devolver-tokens.component';
-import { InfoEnergia } from 'src/app/models/InfoEnergia';
 import { ThemeService } from 'ng2-charts';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { forkJoin, Observable } from 'rxjs';
+import { InfoEnergia } from 'src/app/models/InfoEnergia';
+import { ClienteContractService } from 'src/app/services/cliente-contract.service';
+import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { InfoCertificadoAgenteComponent } from 'src/app/shared/info-certificado-agente/info-certificado-agente.component';
+import { DevolverTokensComponent } from '../devolver-tokens/devolver-tokens.component';
+import { InfoContrato } from './../../models/infoContrato';
+import { BancoEnergiaService } from './../../services/banco-energia.service';
+import { CertificadorContractService } from './../../services/certificador-contract.service';
+import { ComprarEnergiaComponent } from './comprar-energia/comprar-energia.component';
+import { ConsumirEnergiaComponent } from './consumir-energia/consumir-energia.component';
+import { ContratarComercializadorComponent } from './contratar-comercializador/contratar-comercializador.component';
 
 @Component({
   selector: 'app-cliente-dashboard',
@@ -132,49 +130,6 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
     return forkJoin(observables)
   }
 
-  onComprarTokens() {
-    let dialogRef = this.dialog.open(ComprarTokensComponent, {
-      width: '500px'
-    })
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.spinner.show();
-      this.clienteService.getMisTokens().subscribe({
-        next: (data) => {
-          this.tokensCliente = data;
-          this.spinner.hide();
-        }, error: (error) => {
-          console.log(error);
-          this.toastr.error(error.message, 'Error');
-          this.spinner.hide();
-        }
-      });
-    })
-  }
-
-  onDevolverTokens() {
-    let dialogRef = this.dialog.open(DevolverTokensComponent, {
-      width: '500px',
-      data: {
-        tokensDisponibles: this.tokensCliente
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.spinner.show();
-      this.clienteService.getMisTokens().subscribe({
-        next: (data) => {
-          this.tokensCliente = data;
-          this.spinner.hide();
-        }, error: (error) => {
-          console.log(error);
-          this.toastr.error(error.message, 'Error');
-          this.spinner.hide();
-        }
-      });
-    })
-  }
-
   onContratarComercializador() {
     let dialogRef = this.dialog.open(ContratarComercializadorComponent, {
       width: '500px',
@@ -198,42 +153,6 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
     })
   }
 
-  onComprarEnergia() {
-    let dialogRef = this.dialog.open(ComprarEnergiaComponent, {
-      width: '500px',
-      data: {
-        dirContrato: localStorage.getItem('dirContract'),
-        tokensDelegados: this.tokensDelegados
-      }
-    });
-  }
-
-  onDelegarTokens() {
-
-    let dialogRef = this.dialog.open(DelegarTokensComponent, {
-      width: '500px',
-      data: {
-        tokensCliente: this.tokensCliente,
-        tokensDelegados: this.tokensDelegados,
-        delegateAddress: this.infoCliente.comercializador
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.spinner.show();
-      this.getTokensCliente().subscribe({
-        next: (data) => {
-          this.tokensCliente = data[0];
-          this.tokensDelegados = data[1];
-          this.spinner.hide();
-        }, error: (error) => {
-          console.log(error);
-          this.toastr.error(error.message, 'Error');
-          this.spinner.hide();
-        }
-      })
-    })
-  }
 
   onVerCertificado() {
     this.dialog.open(InfoCertificadoAgenteComponent, {
