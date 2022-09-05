@@ -100,7 +100,7 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
   private getComprasCliente() {
     this.cliente.getComprasRealizadas().subscribe({
       next: (data) => {
-
+        debugger;
         const filterData = this.filterData(data);
         this.dataSource.data = filterData;
         this.dataSource.paginator = this.paginator;
@@ -108,7 +108,7 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
         this.table.renderRows();
       },
       error: (err) => {
-
+        debugger;
         console.log(err);
         this.toastr.error(err.message, 'Error');
       }
@@ -195,6 +195,12 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
         tokensDelegados: this.tokensDelegados
       }
     });
+
+    dialogRef.afterClosed().subscribe({
+      next:()=>{
+        this.getInfoContrato();
+      }
+    })
   }
 
   private getInfoContrato() {
@@ -208,13 +214,13 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
         const tiposEnergias = data[1] as InfoEnergia[];
         this.energiasDisponibles = tiposEnergias.map(x => x.nombre);
         if (this.infoCliente.comercializador !== '0x0000000000000000000000000000000000000000') {
-          this.reguladorMercado.getTokensDelegados(this.infoCliente.comercializador, this.infoCliente.owner).subscribe({
+          this.cliente.getTokensDelegados().subscribe({
             next: (data) => {
               this.tokensDelegados = data;
               this.setFilterForm();
             },
-            error:(error)=>{
-              this.toastr.error (error.message,'Error');
+            error: (error) => {
+              this.toastr.error(error.message, 'Error');
               console.log(error);
             }
           })

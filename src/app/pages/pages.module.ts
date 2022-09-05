@@ -48,6 +48,7 @@ import { BancoEnergiaInformacionComponent } from './banco-energia/banco-energia-
 import { ConsumirEnergiaComponent } from './cliente/consumir-energia/consumir-energia.component';
 import { ListaComprasComponent } from './cliente/lista-compras/lista-compras.component';
 import { TokensClienteComponent } from './cliente/tokens-cliente/tokens-cliente.component';
+import { TokensGeneradorComponent } from './generador/tokens-generador/tokens-generador.component';
 
 @NgModule({
     declarations: [
@@ -81,6 +82,7 @@ import { TokensClienteComponent } from './cliente/tokens-cliente/tokens-cliente.
         ConsumirEnergiaComponent,
         ListaComprasComponent,
         TokensClienteComponent,
+        TokensGeneradorComponent,
     ],
     imports: [
         CommonModule,

@@ -17,6 +17,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
 import moment from 'moment';
+import { PlantasEnergiaComponent } from '../plantas-energia/plantas-energia.component';
 
 @Component({
   selector: 'app-lista-plantas',
@@ -26,7 +27,7 @@ import moment from 'moment';
 })
 export class ListaPlantasComponent implements OnInit {
 
-  displayedColumns: string[] = ['nombre', 'ubicacion', 'coordenadas', 'fechaOperacion', 'tasaEmision', 'capacidad', 'tecnologia', 'cantidad', 'estado','acciones'];
+  displayedColumns: string[] = ['nombre', 'ubicacion', 'coordenadas', 'fechaOperacion', 'tasaEmision', 'capacidad', 'tecnologia', 'cantidad', 'estado', 'acciones'];
   ubicaciones: string[] = []
   estadosPlantas: EstadoPlanta[];
   dirContract: string;
@@ -195,5 +196,21 @@ export class ListaPlantasComponent implements OnInit {
       }
     }) : filterArray;
     return filterArray;
+  }
+
+  onCrearPlanta() {
+    const dialogRef = this.dialog.open(PlantasEnergiaComponent, {
+      width: '800px',
+      data: {
+        dirContract: this.dirContract,
+        energiasDisponibles: this.energiasDisponibles
+      }
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next:()=>{
+        this.loadPlantasEnergia()
+      }
+    })
   }
 }

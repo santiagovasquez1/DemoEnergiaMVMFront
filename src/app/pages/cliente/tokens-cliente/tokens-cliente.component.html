@@ -1,6 +1,6 @@
 <div class="container">
     <div class="titulo">
-        <div class="h2 title-xg">Tokens</div>
+        <h2 class="h2 title-xg">Tokens</h2>
     </div>
 
     <div class="tokens-cliente fadeIn">
@@ -18,7 +18,7 @@
                         <input type="number" [(ngModel)]="tokensCambiar">
                     </div>
                     <div class="actions-container">
-                        <button class="button-mvm w-100-px" mat-ripple [disabled]="!isDevolverValid">Cambiar</button>
+                        <button class="button-mvm w-100-px" mat-ripple [disabled]="!isDevolverValid" (click)="onCambiar()">Cambiar</button>
                     </div>
                 </div>
                 <p class="tokens-text">Cambiar tus tokens disponibles por Ethers para posteriormente enviarlos a tu cuenta empresarial asignada.</p>

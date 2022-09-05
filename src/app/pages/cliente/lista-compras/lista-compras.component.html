@@ -4,14 +4,11 @@
     </div>
 
     <app-filter *ngIf="filterFormProperties.length>0" [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
-
     <div class="actions-container fadeIn mt-30">
         <div class="d-flex flex-row-reverse">
             <button class="button-mvm w-160" mat-ripple (click)="onSolicitarCompra()">Solicitar compra</button>
         </div>
     </div>
-
-
     <div class="table-container mt-30 fadeIn">
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
 
