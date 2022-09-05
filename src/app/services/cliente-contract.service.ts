@@ -112,4 +112,13 @@ export class ClienteContractService extends AgenteContractService {
       })
     )
   }
+
+  getTokensDelegados(): Observable<number> {
+    return from(this.contract.methods.getTokensDelegados().call({ from: this.account })).pipe(
+      map(data => data as number),
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
 }

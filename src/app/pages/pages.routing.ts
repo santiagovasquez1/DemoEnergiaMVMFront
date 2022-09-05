@@ -1,3 +1,4 @@
+import { TokensClienteComponent } from './cliente/tokens-cliente/tokens-cliente.component';
 import { ListaComprasComponent } from './cliente/lista-compras/lista-compras.component';
 import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.component';
 import { EmisionesCompraComponent } from './comercializador/emisiones-compra/emisiones-compra.component';
@@ -63,7 +64,12 @@ const routes: Routes = [
             },
             {
                 path: "cliente/lista-compras",
-                component:ListaComprasComponent,
+                component: ListaComprasComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: "cliente/tokens",
+                component: TokensClienteComponent,
                 canActivate: [AuthGuard]
             },
             {

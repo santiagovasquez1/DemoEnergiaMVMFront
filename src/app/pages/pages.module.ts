@@ -18,7 +18,6 @@ import { GenerarEnergiaComponent } from '../shared/generar-energia/generar-energ
 import { WinRefService } from '../services/win-ref.service';
 import { ReguladorMercadoService } from '../services/regulador-mercado.service';
 import { ReguladorMercadoComponent } from './regulador-mercado/regulador-mercado.component';
-import { ComprarTokensComponent } from './cliente/comprar-tokens/comprar-tokens.component';
 import { ContratarComercializadorComponent } from './cliente/contratar-comercializador/contratar-comercializador.component';
 import { ComprarEnergiaComponent } from './cliente/comprar-energia/comprar-energia.component';
 import { ComercializadorComponent } from './comercializador/comercializador.component';
@@ -30,7 +29,6 @@ import { BancoEnergiaComponent } from './banco-energia/banco-energia.component';
 import { GeneradorComponent } from './generador/generador.component';
 import { TodosGeneradoresComponent } from './generador/todos-generadores/todos-generadores.component';
 import { EmisionesCompraComponent } from './comercializador/emisiones-compra/emisiones-compra.component';
-import { DelegarTokensComponent } from './cliente/delegar-tokens/delegar-tokens.component';
 import { NuevaEnergiaComponent } from './generador/nueva-energia/nueva-energia.component';
 import { CompraEnergiaComponent } from './comercializador/compra-energia/compra-energia.component';
 import { ContratarComercializadorGComponent } from './generador/contratar-comercializador-g/contratar-comercializador-g.component';
@@ -49,6 +47,7 @@ import { TransaccionesComponent } from './dashboard/transacciones/transacciones.
 import { BancoEnergiaInformacionComponent } from './banco-energia/banco-energia-informacion/banco-energia-informacion.component';
 import { ConsumirEnergiaComponent } from './cliente/consumir-energia/consumir-energia.component';
 import { ListaComprasComponent } from './cliente/lista-compras/lista-compras.component';
+import { TokensClienteComponent } from './cliente/tokens-cliente/tokens-cliente.component';
 
 @NgModule({
     declarations: [
@@ -57,7 +56,6 @@ import { ListaComprasComponent } from './cliente/lista-compras/lista-compras.com
         VerGeneradoresComponent,
         ReguladorMercadoComponent,
         ClienteDashboardComponent,
-        ComprarTokensComponent,
         ContratarComercializadorComponent,
         ComprarEnergiaComponent,
         ComercializadorComponent,
@@ -70,7 +68,6 @@ import { ListaComprasComponent } from './cliente/lista-compras/lista-compras.com
         GeneradorComponent,
         TodosGeneradoresComponent,
         EmisionesCompraComponent,
-        DelegarTokensComponent,
         NuevaEnergiaComponent,
         CompraEnergiaComponent,
         ContratarComercializadorGComponent,
@@ -83,6 +80,7 @@ import { ListaComprasComponent } from './cliente/lista-compras/lista-compras.com
         BancoEnergiaInformacionComponent,
         ConsumirEnergiaComponent,
         ListaComprasComponent,
+        TokensClienteComponent,
     ],
     imports: [
         CommonModule,
@@ -109,7 +107,6 @@ import { ListaComprasComponent } from './cliente/lista-compras/lista-compras.com
         VerGeneradoresComponent,
         ReguladorMercadoComponent,
         ClienteDashboardComponent,
-        ComprarTokensComponent,
         ContratarComercializadorComponent,
         ComprarEnergiaComponent,
         ComercializadorComponent,
@@ -122,7 +119,6 @@ import { ListaComprasComponent } from './cliente/lista-compras/lista-compras.com
         GeneradorComponent,
         TodosGeneradoresComponent,
         EmisionesCompraComponent,
-        DelegarTokensComponent,
         NuevaEnergiaComponent,
         CompraEnergiaComponent,
         ContratarComercializadorGComponent,
