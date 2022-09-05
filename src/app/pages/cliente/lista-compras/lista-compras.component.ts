@@ -195,6 +195,12 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
         tokensDelegados: this.tokensDelegados
       }
     });
+
+    dialogRef.afterClosed().subscribe({
+      next:()=>{
+        this.getInfoContrato();
+      }
+    })
   }
 
   private getInfoContrato() {
