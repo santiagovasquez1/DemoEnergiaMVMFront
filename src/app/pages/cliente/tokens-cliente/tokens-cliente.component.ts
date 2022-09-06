@@ -85,7 +85,7 @@ export class TokensClienteComponent implements OnInit, OnDestroy {
 
         forkJoin(observables).subscribe({
           next: (data: number[]) => {
-            this.tokensCliente = data[0];
+            this.tokensCliente = data[0] - data[1];
             this.tokensDelegados = data[1];
             this.tokensMercado = data[2];
           },

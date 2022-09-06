@@ -125,4 +125,8 @@ export class NuevaEnergiaComponent implements OnInit {
       return false;
     }
   }
+
+  onCancelar(){
+    this.dialogRef.close();
+  }
 }
