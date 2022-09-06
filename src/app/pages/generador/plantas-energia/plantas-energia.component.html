@@ -1,5 +1,8 @@
 <div mat-dialog-content>
-    <h2 class="mt-20">{{title}}</h2>
+    <div class="modal-header-mvm">
+        <img src="../../../../assets/images/carbon_energy-renewable-green.svg" alt="planta">
+        <h2 class="modal-title-mvm mt-20">{{title}}</h2>
+    </div>
 
     <form [formGroup]="plantaEnergiaForm">
 
@@ -79,10 +82,9 @@
             </div>
         </div>
 
-        <div class="row mt-20">
-            <div class="col">
-                <button class="button-mvm" mat-raised-button (click)="onCreatePlantaEnergia()" [disabled]="!plantaEnergiaForm.valid">Crear planta</button>
-            </div>
+        <div class="d-flex flex-row-reverse mt-20">
+            <button class="button-mvm w-160" mat-ripple (click)="onCreatePlantaEnergia()" [disabled]="!plantaEnergiaForm.valid">Crear planta</button>
+            <button class="cancel-button-mvm w-160 mr-30" mat-ripple (click)="dialogRef.close()">Cancelar</button>
         </div>
     </form>
 </div>

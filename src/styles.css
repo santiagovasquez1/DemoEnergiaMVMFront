@@ -1190,7 +1190,8 @@ mat-dialog-container .mat-form-field-infix span label {
     border: none;
     border-radius: 50% !important;
     margin-right: 8px !important;
-    display: block;
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -1534,4 +1535,34 @@ mat-dialog-container .mat-form-field-infix span label {
     font-size: 48px;
     line-height: 59px;
     color: var(--gris-fuente);
+}
+
+.crear-planta-logo {
+    width: 20px;
+    height: 20px;
+    margin-right: 11.5px;
+}
+
+.modal-header-mvm {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.modal-header-mvm img {
+    width: 40px;
+    height: 40px;
+    margin-right: 18px;
+    fill: var(--verde-oscuro);
+}
+
+.modal-title-mvm {
+    display: block !important;
+    justify-content: flex-start !important;
+    font-weight: 600 !important;
+    font-size: 24px !important;
+    line-height: 29px !important;
+    color: var(--verde-oscuro);
 }
