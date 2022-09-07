@@ -5,9 +5,23 @@
     width: 100%;
     background-color: white;
     padding-left: 5px;
-    height: calc(100vh - 64px);
+    height: 100vh;
     font-size: 16px;
 }
+
+.sidebar .avatar-container{
+    width: 100%;
+    display: flex;
+    padding-top: 27px;
+    padding-bottom: 27px;
+}
+
+.sidebar .avatar-container img{
+    width: 70%;
+    margin: auto;
+}
+
+
 
 .sidebar a {
     color: var(--gris-claro);
