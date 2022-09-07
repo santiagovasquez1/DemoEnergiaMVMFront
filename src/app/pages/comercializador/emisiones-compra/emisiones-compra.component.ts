@@ -161,7 +161,7 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
 
   public onRealizarCompra(emisionCompra: InfoEmisionCompra, index: number) {
     let dialog = this.dialog.open(CompraEnergiaComponent, {
-      width: '800px',
+      width: '610px',
       data: {
         emision: emisionCompra,
         index: index,

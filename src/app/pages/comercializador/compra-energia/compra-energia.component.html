@@ -1,49 +1,42 @@
-<!-- <div *ngFor="let generador of generadoresDisponibles; let i = index">
-    <div class="infoGeneradorContainer">
-        <div class="column-1">
-            <p>
-                <strong>{{generador.empresa}}</strong>
-                <span> Cantidad de energia {{emision.tipoEnergia}} disponible: {{cantidadEnergiasDisponibles[i]}}</span>
-            </p>
-        </div>
-        <div class="column-1">
-            <button class="w-60 mr-20" mat-raised-button color="warn" (click)="onDisminuirCantidad(i)">-</button>
-            <input class="w-60 mr-20" type="number" matInput [(ngModel)]="energiaAComprar[i]" (change)="onCantidadChange(index,$event)">
-            <button class="w-60" mat-raised-button color="primary" (click)="onAumentarCantidad(i)">+</button>
-        </div>
+<div mat-dialog-content>
+    <div class="dialgo-close-brand">
+        <img src="../../../assets/images/cerrar.svg" alt="cerrar" (click)="dialogRef.close()">
     </div>
-</div>
-<div class="totalEnergia">
-    <p>
-        <strong>Total:</strong>
-        <span> {{totalEnergiaAComprar}}</span>
-    </p>
-</div>
-<button mat-raised-button color="primary" (click)="onComprarEnergia()" [disabled]="!isComprarValid">Comprar</button> -->
+    <div class="modal-header-mvm">
+        <img src="../../../../assets/images/Energia-green.svg" alt="energia">
+        <h2 class="modal-title-mvm mt-20">Compra energia</h2>
+    </div>
+    <div class="generador-info-container" *ngFor="let generador of generadoresCompra; let i = index">
+        <div class="generador-title">
+            <h3>
+                {{generador.nombre}}
+            </h3>
+        </div>
+        <div class="info" *ngFor="let planta of generador.plantasGenerador; let j = index">
+            <div class="planta-info">
+                <p class="nombrePlanta">{{planta.nombre}}</p>
+                <p class="text">Cantidad de energia {{planta.tipoEneregia}} disponible</p>
+                <p class="cantidad">{{planta.cantidadEnergia}} MWh</p>
+            </div>
 
-<div *ngFor="let generador of generadoresCompra; let i = index">
-    <h3>
-        {{generador.nombre}}
-    </h3>
-    <hr>
-    <div class="infoGeneradorContainer" *ngFor="let planta of generador.plantasGenerador; let j = index">
-        <div class="column-1">
-            <p>
-                <strong>{{planta.nombre}}</strong>
-                <span> Cantidad de energia {{planta.tipoEneregia}} disponible: {{planta.cantidadEnergia}}</span>
-            </p>
-        </div>
-        <div class="column-1">
-            <button class="w-60 mr-20" mat-raised-button color="warn" (click)="onDisminuirCantidad(i,j)">-</button>
-            <input class="w-60 mr-20" type="number" matInput [(ngModel)]="energiaAComprar[i][j]" (change)="onCantidadChange(i,j,$event)">
-            <button class="w-60" mat-raised-button (click)="onAumentarCantidad(i,j)">+</button>
+            <div class="compra-info">
+                <p class="cargar">Cargar</p>
+                <div class="input-container">
+                    <input type="number" [(ngModel)]="energiaAComprar[i][j]" (change)="onCantidadChange(i,j,$event)">
+                    <p class="mega-wats">MWh</p>
+                </div>
+            </div>
         </div>
     </div>
+
+    <div class="total-Energia">
+        <p class="text">Total</p>
+        <p class="cantidad">{{totalEnergiaAComprar}} MWh</p>
+    </div>
+
+
+    <div class="d-flex justify-content-center flex-row-reverse mt-20">
+        <button class="button-mvm w-160" (click)="onComprarEnergia()" [disabled]="!isComprarValid">Comprar</button>
+        <button class="cancel-button-mvm w-160 mr-30" mat-ripple (click)="dialogRef.close()">Cancelar</button>
+    </div>
 </div>
-<div class="totalEnergia">
-    <p>
-        <strong>Total:</strong>
-        <span> {{totalEnergiaAComprar}}</span>
-    </p>
-</div>
-<button mat-raised-button color="primary" (click)="onComprarEnergia()" [disabled]="!isComprarValid">Comprar</button>

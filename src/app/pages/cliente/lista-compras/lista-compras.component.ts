@@ -1,3 +1,4 @@
+import { ComercializadorContractService } from 'src/app/services/comercializador-contract.service';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { TableService } from 'src/app/services/shared/table-service.service';
 import { InfoCompraEnergia } from './../../../models/InfoCompraEnergia';
@@ -18,6 +19,7 @@ import { ComprarEnergiaComponent } from '../comprar-energia/comprar-energia.comp
 import { forkJoin, Observable } from 'rxjs';
 import { InfoContrato } from 'src/app/models/infoContrato';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
+import { ContratarComercializadorComponent } from '../contratar-comercializador/contratar-comercializador.component';
 
 @Component({
   selector: 'app-lista-compras',
@@ -46,10 +48,12 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
 
   tokensDelegados: number = 0;
   infoCliente: InfoContrato;
+  nombreComercializador;
 
   constructor(private bancoEnergia: BancoEnergiaService,
     private cliente: ClienteContractService,
     private reguladorMercado: ReguladorMercadoService,
+    private comercializador: ComercializadorContractService,
     public dialog: MatDialog,
     private spinner: NgxSpinnerService,
     private ngZone: NgZone,
@@ -98,21 +102,30 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
   }
 
   private getComprasCliente() {
-    this.cliente.getComprasRealizadas().subscribe({
+    this.cliente.getInfoContrato().subscribe({
       next: (data) => {
-        debugger;
-        const filterData = this.filterData(data);
-        this.dataSource.data = filterData;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.table.renderRows();
+        if (data.comercializador !== '0x0000000000000000000000000000000000000000') {
+          this.cliente.getComprasRealizadas().subscribe({
+            next: (data) => {
+              const filterData = this.filterData(data);
+              this.dataSource.data = filterData;
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+              this.table.renderRows();
+            },
+            error: (err) => {
+              console.log(err);
+              this.toastr.error(err.message, 'Error');
+            }
+          });
+        }
       },
-      error: (err) => {
-        debugger;
-        console.log(err);
-        this.toastr.error(err.message, 'Error');
+      error: (error) => {
+        console.log(error);
+        this.toastr.error(error.message, 'Error');
       }
     })
+
   }
 
   private setFilterForm() {
@@ -182,7 +195,7 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
     }
 
     this.dialog.open(InfoCertificadoCompraComponent, {
-      width: '800px',
+      width: '540px',
       data: requestCompra
     });
   }
@@ -197,10 +210,34 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe({
-      next:()=>{
+      next: () => {
         this.getInfoContrato();
       }
     })
+  }
+
+  onContratar() {
+    let dialogRef = this.dialog.open(ContratarComercializadorComponent, {
+      width: '500px',
+      data: {
+        dirContrato: localStorage.getItem('dirContract'),
+        comercializador: this.infoCliente.comercializador
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.spinner.show();
+      this.cliente.getInfoContrato().subscribe({
+        next: (data) => {
+          this.infoCliente = data;
+          this.spinner.hide();
+        }, error: (error) => {
+          console.log(error);
+          this.toastr.error(error.message, 'Error');
+          this.spinner.hide();
+        }
+      })
+    });
   }
 
   private getInfoContrato() {
@@ -209,21 +246,23 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
     observables.push(this.bancoEnergia.getTiposEnergiasDisponibles())
 
     forkJoin(observables).subscribe({
-      next: (data) => {
+      next: async (data) => {
         this.infoCliente = data[0];
         const tiposEnergias = data[1] as InfoEnergia[];
         this.energiasDisponibles = tiposEnergias.map(x => x.nombre);
+        this.setFilterForm();
         if (this.infoCliente.comercializador !== '0x0000000000000000000000000000000000000000') {
-          this.cliente.getTokensDelegados().subscribe({
-            next: (data) => {
-              this.tokensDelegados = data;
-              this.setFilterForm();
+          await this.comercializador.loadBlockChainContractData(this.infoCliente.comercializador);
+          forkJoin([this.cliente.getTokensDelegados(), this.comercializador.getInfoContrato()]).subscribe({
+            next: (data: any[]) => {
+              this.tokensDelegados = data[0];
+              this.nombreComercializador = (data[1] as InfoContrato).empresa;
             },
             error: (error) => {
               this.toastr.error(error.message, 'Error');
               console.log(error);
             }
-          })
+          });
         }
       }, error: (error) => {
         console.log(error);

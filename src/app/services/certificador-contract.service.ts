@@ -48,7 +48,7 @@ export class CertificadorContractService extends AgenteContractService {
           dirContratoCertificador: dirContratoCertificador,
           nombreCertificador: nombreCertificador,
           hashCertificado: hashCertificado,
-          fechaCertificado: moment(parseInt(fechaCertificado) * 1000).format('DD/MM/YYYY HH:mm:ss')
+          fechaCertificado: moment(parseInt(fechaCertificado) * 1000).format('DD/MM/YYYY')
         };
 
         return infoCertificado as InfoCertificadoAgente;
@@ -93,7 +93,7 @@ export class CertificadorContractService extends AgenteContractService {
           tipoEnergia: tipoEnergia,
           cantidadEnergia: cantidadEnergia,
           hashCertificado: hashCertificado,
-          fechaCertificado: moment(parseInt(fechaCertificado) * 1000).format('DD/MM/YYYY HH:mm:ss')
+          fechaCertificado: moment(parseInt(fechaCertificado) * 1000).format('DD/MM/YYYY')
         };
 
         return infoCertificado as InfoCertificadoVentaEnergia;

@@ -1,5 +1,11 @@
 <div mat-dialog-content *ngIf="comercializadores">
-    <h2 class="mt-20">Contratar comercializador del cliente</h2>
+    <div class="dialgo-close-brand">
+        <img src="../../../assets/images/cerrar.svg" alt="cerrar" (click)="dialogRef.close()">
+    </div>
+    <div class="modal-header-mvm">
+        <img src="../../../../assets/images/contratar-green.svg" alt="contratar">
+        <h2 class="modal-title-mvm mt-20">Contratar comercializador</h2>
+    </div>
     <form [formGroup]="contratarForm">
         <div class="row">
             <div class="col">
@@ -44,5 +50,8 @@
         </mat-card-content>
     </mat-card>
 
-    <button class="button-mvm mt-20" mat-raised-button [disabled]="!validForm" (click)="onContratar()">Contratar</button>
+    <div class="d-flex justify-content-center flex-row-reverse mt-20">
+        <button class="button-mvm w-160" mat-ripple [disabled]="!validForm" (click)="onContratar()">Contratar</button>
+        <button class="cancel-button-mvm w-160 mr-30" mat-ripple (click)="dialogRef.close()">Cancelar</button>
+    </div>
 </div>

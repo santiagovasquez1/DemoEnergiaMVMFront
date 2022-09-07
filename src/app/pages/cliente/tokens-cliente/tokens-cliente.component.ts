@@ -75,7 +75,6 @@ export class TokensClienteComponent implements OnInit, OnDestroy {
         this.infoCliente = data;
         let observables: Observable<number>[] = [];
         observables.push(this.clienteService.getMisTokens());
-        debugger;
         if (this.infoCliente.comercializador !== '0x0000000000000000000000000000000000000000') {
           observables.push(this.clienteService.getTokensDelegados());
         } else {
