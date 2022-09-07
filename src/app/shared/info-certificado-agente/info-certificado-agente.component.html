@@ -1,28 +1,44 @@
 <div mat-dialog-content *ngIf="infoCertificadoAgente">
-    <h2 class="mt-20">Certificado Agente</h2>
-    <hr>
-    <p>
-        <strong>Contrato Agente: </strong>
-        <span>{{infoCertificadoAgente.dirContratoAgente}}</span>
-    </p>
-    <p>
-        <strong>Nombre del agente: </strong>
-        <span>{{infoCertificadoAgente.nombreEmpresa}}</span>
-    </p>
-    <p>
-        <strong>Contrato certificador: </strong>
-        <span>{{infoCertificadoAgente.dirContratoCertificador}}</span>
-    </p>
-    <p>
-        <strong>Nombre del certificador: </strong>
-        <span>{{infoCertificadoAgente.nombreCertificador}}</span>
-    </p>
-    <p>
-        <strong>Hash del certificado: </strong>
-        <span>{{infoCertificadoAgente.hashCertificado}}</span>
-    </p>
-    <p>
-        <strong>Fecha de certificación: </strong>
-        <span>{{infoCertificadoAgente.fechaCertificado}}</span>
-    </p>
+
+    <div class="dialgo-close-brand">
+        <img src="../../../assets/images/cerrar.svg" alt="cerrar" (click)="dialogRef.close()">
+    </div>
+
+    <div class="certificado-container">
+        <div class="header-certificado">
+            <img src="../../../assets/images/certificado.svg" alt="certificado">
+            <h2>Certificado de agente del mercado</h2>
+        </div>
+
+        <div class="info">
+            <div class="column">
+                <div class="field">
+                    <p class="label">Nombre del Agente</p>
+                    <p class="text">{{infoCertificadoAgente.nombreEmpresa}}</p>
+                </div>
+                <div class="field">
+                    <p class="label">Contrato certificador</p>
+                    <p class="text">{{infoCertificadoAgente.dirContratoCertificador|limitText:40}}</p>
+                </div>
+            </div>
+            <div class="column">
+                <div class="field">
+                    <p class="label">Contrato agente</p>
+                    <p class="text">{{infoCertificadoAgente.dirContratoAgente|limitText:40}}</p>
+                </div>
+                <div class="field">
+                    <p class="label">Hash</p>
+                    <p class="text">{{infoCertificadoAgente.hashCertificado|limitText:40}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="certificador">
+            <img src="../../../assets/images/logoMVM.png" alt="logoMVM">
+            <div class="fecha">
+                <p class="label">Fecha</p>
+                <p class="text">{{infoCertificadoAgente.fechaCertificado}}</p>
+            </div>
+        </div>
+    </div>
 </div>

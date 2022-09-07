@@ -150,13 +150,13 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
           this.spinner.hide();
         }
       })
-    })
+    });
   }
 
 
   onVerCertificado() {
     this.dialog.open(InfoCertificadoAgenteComponent, {
-      width: '800px',
+      width: '720px',
       data: {
         dirContratoAgente: localStorage.getItem('dirContract'),
       }

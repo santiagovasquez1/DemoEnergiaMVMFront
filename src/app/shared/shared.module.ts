@@ -24,6 +24,7 @@ import { LimitTextPipe } from './pipes/limit-text.pipe';
 import { FilterComponent } from './filter/filter.component';
 import { EstadoPlantaPipe } from './pipes/estado-planta.pipe';
 import { EstadoCompraPipe } from './pipes/estado-compra.pipe';
+import { InfoCertificadoCompraComponent } from './info-certificado-compra/info-certificado-compra.component';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import { EstadoCompraPipe } from './pipes/estado-compra.pipe';
         LimitTextPipe,
         FilterComponent,
         EstadoPlantaPipe,
-        EstadoCompraPipe
+        EstadoCompraPipe,
+        InfoCertificadoCompraComponent
     ],
     imports: [
         CommonModule,
@@ -68,7 +70,8 @@ import { EstadoCompraPipe } from './pipes/estado-compra.pipe';
         LimitTextPipe,
         FilterComponent,
         EstadoPlantaPipe,
-        EstadoCompraPipe
+        EstadoCompraPipe,
+        InfoCertificadoCompraComponent
     ]
 })
 export class SharedModule { }

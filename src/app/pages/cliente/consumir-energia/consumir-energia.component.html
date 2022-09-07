@@ -1,4 +1,7 @@
 <div mat-dialog-content>
+    <div class="dialgo-close-brand">
+        <img src="../../../assets/images/cerrar.svg" alt="cerrar" (click)="dialogRef.close()">
+    </div>
     <h2 class="mt-20">Comprar energia</h2>
     <form [formGroup]="consumoForm">
         <div class="row">

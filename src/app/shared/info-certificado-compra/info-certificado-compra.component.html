@@ -1,48 +1,51 @@
 <div mat-dialog-content>
-    <h2 class="mt-20">Certificado Ventas Energia</h2>
-    <hr>
-    <p>
-        <strong>Contrato Cliente: </strong>
-        <span>{{infoCertificadoCompra.dirContratoCliente}}</span>
-    </p>
-    <p>
-        <strong>Nombre del cliente: </strong>
-        <span>{{infoCertificadoCompra.empresaCliente}}</span>
-    </p>
-    <p>
-        <strong>Contrato Generador: </strong>
-        <span>{{infoCertificadoCompra.dirContratoGenerador}}</span>
-    </p>
-    <p>
-        <strong>Nombre del generador: </strong>
-        <span>{{infoCertificadoCompra.empresaGenerador}}</span>
-    </p>
-    <p>
-        <strong>Nombre de la planta de energia: </strong>
-        <span>{{infoCertificadoCompra.nombrePlanta}}</span>
-    </p>
-    <p>
-        <strong>Contrato del comercializador: </strong>
-        <span>{{infoCertificadoCompra.dirComercializador}}</span>
-    </p>
-    <p>
-        <strong>Nombre del comercializador: </strong>
-        <span>{{infoCertificadoCompra.empresaComercializador}}</span>
-    </p>
-    <p>
-        <strong>Tipo de energia: </strong>
-        <span>{{infoCertificadoCompra.tipoEnergia}}</span>
-    </p>
-    <p>
-        <strong>Cantidad de energia: </strong>
-        <span>{{infoCertificadoCompra.cantidadEnergia}} MWh</span>
-    </p>
-    <p>
-        <strong>Hash del certificado: </strong>
-        <span>{{infoCertificadoCompra.hashCertificado}}</span>
-    </p>
-    <p>
-        <strong>Fecha de certificación: </strong>
-        <span>{{infoCertificadoCompra.fechaCertificado}}</span>
-    </p>
+    <div class="dialgo-close-brand">
+        <img src="../../../assets/images/cerrar.svg" alt="cerrar" (click)="dialogRef.close()">
+    </div>
+    <div class="certificado-container">
+        <div class="header-certificado">
+            <img src="../../../assets/images/certificado.svg" alt="certificado">
+            <h2>Certificado de compra de energía</h2>
+        </div>
+        <div class="info">
+            <div class="column">
+                <div class="field">
+                    <p class="label">Nombre del cliente</p>
+                    <p class="text">{{infoCertificadoCompra.empresaCliente}}</p>
+                </div>
+                <div class="field">
+                    <p class="label">Generador</p>
+                    <p class="text">{{infoCertificadoCompra.empresaGenerador}}</p>
+                </div>
+                <div class="field">
+                    <p class="label">Planta</p>
+                    <p class="text">{{infoCertificadoCompra.nombrePlanta}}</p>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="field">
+                    <p class="label">Tecnología</p>
+                    <p class="text">{{infoCertificadoCompra.tipoEnergia}}</p>
+                </div>
+                <div class="field">
+                    <p class="label">Cantidad</p>
+                    <p class="text">{{infoCertificadoCompra.cantidadEnergia}} MWh</p>
+                </div>
+                <div class="field">
+                    <p class="label">Hash</p>
+                    <p class="text">{{infoCertificadoCompra.hashCertificado|limitText:40}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="certificador">
+            <img src="../../../assets/images/logoMVM.png" alt="logoMVM">
+            <div class="fecha">
+                <p class="label">Fecha</p>
+                <p class="text">{{infoCertificadoCompra.fechaCertificado}}</p>
+            </div>
+        </div>
+    </div>
+
 </div>
