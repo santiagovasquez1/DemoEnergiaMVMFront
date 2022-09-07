@@ -1,66 +1,53 @@
-<mat-toolbar class="toolbar">
-    <div *ngIf="tipoContrato == 0" class="avatar-container" [routerLink]="['/dashboard/cliente']">
-        <img src="../../../assets/images/logoMVM.png" alt="">
-    </div>
-    <div *ngIf="tipoContrato == 1" class="avatar-container" [routerLink]="['/dashboard/comercializador']">
-        <img src="../../../assets/images/logoMVM.png" alt="">
-    </div>
-    <div *ngIf="tipoContrato == 2" class="avatar-container" [routerLink]="['/dashboard/generador']">
-        <img src="../../../assets/images/logoMVM.png" alt="">
-    </div>
-    <div *ngIf="tipoContrato == 3" class="avatar-container" [routerLink]="['/dashboard/regulador-mercado']">
-        <img src="../../../assets/images/logoMVM.png" alt="">
-    </div>
+<div class="container-toolbar">
+    <mat-toolbar class="toolbar">
+        <span class="title fw-600">Blockchain MVM</span>
+        <div class="spacer"></div>
 
-    <div class="spacer"></div>
+        <a class="a-gris fs-16 flex-alg-center" *ngIf="tipoContrato==3">
+            <mat-icon class="cursor-unset">person_pin</mat-icon>
+            Administrador</a>
+        
+        <a class="a-gris fs-16 flex-alg-center" *ngIf="tipoContrato==2">
+            <mat-icon class="cursor-unset">person_pin</mat-icon>
+            Generador</a>
+    
+        <a class="a-gris fs-16 flex-alg-center" *ngIf="tipoContrato==1">
+            <mat-icon class="cursor-unset">person_pin</mat-icon>
+            Comercializador</a>
+    
+        <a class="a-gris fs-16 flex-alg-center" *ngIf="tipoContrato==0">
+            <mat-icon class="cursor-unset">person_pin</mat-icon>
+            Cliente</a>
+        <!--
+        <button mat-button [matMenuTriggerFor]="beforeMenu" *ngIf="tipoContrato==0">
+            <mat-icon>person_pin</mat-icon>
+            Cliente</button>
+        
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item>Item 1</button>
+            <button mat-menu-item>Item 2</button>
+        </mat-menu>
+        -->
 
-    <button class="btn-rol" mat-button [matMenuTriggerFor]="aboveMenu" *ngIf="tipoContrato==3">
-        <mat-icon>person_pin</mat-icon>
-        <span class="rol">Administrador</span></button>
-    <mat-menu #aboveMenu="matMenu" yPosition="above">
-        <button mat-menu-item>Crear planta</button>
-        <button mat-menu-item>Agregar energía</button>
-    </mat-menu>
-
-    <button mat-button [matMenuTriggerFor]="aboveMenu" *ngIf="tipoContrato==2">
-        <mat-icon>person_pin</mat-icon>
-        Generador</button>
-    <mat-menu #aboveMenu="matMenu" yPosition="above">
-        <button mat-menu-item>Crear planta</button>
-        <button mat-menu-item>Agregar energía</button>
-    </mat-menu>
-
-    <button mat-button [matMenuTriggerFor]="belowMenu" *ngIf="tipoContrato==1">
-        <mat-icon>person_pin</mat-icon>
-        Comercializador</button>
-    <mat-menu #belowMenu="matMenu" yPosition="below">
-        <button mat-menu-item>Plantas disponibles</button>
-        <button mat-menu-item>Tipos de energía</button>
-    </mat-menu>
-
-    <button mat-button [matMenuTriggerFor]="beforeMenu" *ngIf="tipoContrato==0">
-        <mat-icon>person_pin</mat-icon>
-        Cliente</button>
-    <mat-menu #beforeMenu="matMenu" xPosition="before">
-        <button mat-menu-item>Item 1</button>
-        <button mat-menu-item>Item 2</button>
-    </mat-menu>
-
-
-
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-            
-            <mat-icon>wallet</mat-icon>
-            <span>Wallet</span>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>arrow_drop_down</mat-icon>
         </button>
-        <button mat-menu-item>
-        <mat-icon>dialpad</mat-icon>
-            <span>Cerrar sesión</span>
-        </button>
-    </mat-menu>
-
-</mat-toolbar>
+        <mat-menu #menu="matMenu">
+            <div class="container-mat-menu">
+                <span class="fw-700">Perfil</span>
+                <span *ngIf="tipoContrato==0">Cliente</span>
+                <span *ngIf="tipoContrato==1">Comercializador</span>
+                <span *ngIf="tipoContrato==2">Generador</span>
+                <span *ngIf="tipoContrato==3">Administrador</span>
+                <hr>
+                <div class="buttons">
+                    <mat-icon class="a-green">edit</mat-icon>
+                    <span class="a-green">Editar perfil</span>
+                    <mat-icon class="a-green">logout</mat-icon>
+                    <span class="a-green">Salir</span>
+                </div>
+            </div>
+        </mat-menu>
+    
+    </mat-toolbar>
+</div>
