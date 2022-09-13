@@ -1,7 +1,6 @@
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, Input, OnInit, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, AfterContentChecked, ChangeDetectorRef } from '@angular/core';
 import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
-import { MatDatepicker } from '@angular/material/datepicker';
 
 
 @Component({
@@ -9,8 +8,7 @@ import { MatDatepicker } from '@angular/material/datepicker';
   templateUrl: './filter.component.html',
   styles: [
   ]
-})
-export class FilterComponent implements OnInit {
+}) export class FilterComponent implements OnInit {
 
   @Input() rowsForm: RowFilterForm[] = [];
   @Output() onfieldValueChange: EventEmitter<FieldValueChange>

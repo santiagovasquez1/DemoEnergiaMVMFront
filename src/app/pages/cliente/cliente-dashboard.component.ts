@@ -156,7 +156,8 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
 
   onVerCertificado() {
     this.dialog.open(InfoCertificadoAgenteComponent, {
-      width: '720px',
+      width: '791px',
+      height: '671px',      
       data: {
         dirContratoAgente: localStorage.getItem('dirContract'),
       }

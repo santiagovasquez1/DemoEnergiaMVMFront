@@ -1,4 +1,4 @@
-<div mat-dialog-content *ngIf="infoCertificadoAgente">
+<!-- <div mat-dialog-content *ngIf="infoCertificadoAgente">
 
     <div class="dialgo-close-brand">
         <img src="../../../assets/images/cerrar.svg" alt="cerrar" (click)="dialogRef.close()">
@@ -38,6 +38,53 @@
             <div class="fecha">
                 <p class="label">Fecha</p>
                 <p class="text">{{infoCertificadoAgente.fechaCertificado}}</p>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div *ngIf="infoCertificadoAgente">
+    <div class="dialgo-close-brand">
+        <img src="../../../assets/images/cerrar.svg" alt="cerrar" (click)="dialogRef.close()">
+    </div>
+    <div class="certificado-container">
+        <div class="header-certificado">
+            <div class="logo-mvm">
+                <img src="../../../assets/images/logoMVM.png" alt="logo-mvm">
+            </div>
+            <div class="logo-energy">
+                <img src="../../../assets/images/logo-energy.png" alt="logo-energy">
+            </div>
+        </div>
+        <div class="info">
+            <div class="intro">
+                <p>
+                    <span>{{infoCertificador.empresa}}</span> y su plataforma de intercambio comercial de energía verde <span>EnergyChain</span> certifican que
+                </p>
+            </div>
+            <div class="agente-name">
+                <p>{{infoCertificadoAgente.nombreEmpresa}}</p>
+            </div>
+            <div class="info-text">
+                <p>
+                    Ha colocado en el mercado de energía renovable hasta el día de hoy, 7 de septiembre de 2022, un total de
+                </p>
+            </div>
+            <div class="cantidad-energia">
+                <p>50 MW de energía verde</p>
+            </div>
+            <div class="info-text">
+                <p>
+                    Para conocer el detalle consultar en
+                    <a>echain.com/#34FG%)Aa</a>
+                </p>
+            </div>
+            <div class="firma">
+                <img src="../../../assets/images/firma.svg" alt="firma">
+            </div>
+            <div class="info-text mb-20">
+                <p>Ricardo Gallego</p>
+                <p>Director técnico y comercial</p>
             </div>
         </div>
     </div>
