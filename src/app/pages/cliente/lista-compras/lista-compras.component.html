@@ -54,12 +54,12 @@
                     <mat-header-cell *matHeaderCellDef>Planta</mat-header-cell>
                     <mat-cell *matCellDef="let element">{{element.nombrePlanta}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="certificado">
+                <!-- <ng-container matColumnDef="certificado">
                     <mat-header-cell *matHeaderCellDef>Ver certificado</mat-header-cell>
                     <mat-cell *matCellDef="let element">
                         <span class="info-certificado" (click)="verCertificado(element)">Certificado</span>
                     </mat-cell>
-                </ng-container>
+                </ng-container> -->
 
                 <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
                 <mat-row class="fadeIn" *matRowDef="let row; columns:displayedColumns"></mat-row>

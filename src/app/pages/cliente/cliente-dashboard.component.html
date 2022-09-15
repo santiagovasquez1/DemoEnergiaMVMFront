@@ -1,11 +1,11 @@
-<div class="container container-agente">
+<div class="container container-agente fadeIn" *ngIf="infoCliente">
     <div class="mt-30">
         <span class="title-xg">Información del Cliente</span>
     </div>
     <div class="container-info">
         <div class="title-info">
             <span class="title">{{infoCliente.empresa}}</span>
-            <span class="text-gris-p">Nit: {{infoCliente.nit}}</span>  
+            <span class="text-gris-p">Nit: {{infoCliente.nit}}</span>
         </div>
         <div class="informacion">
             <div class="hr">
@@ -41,112 +41,9 @@
                     <button class="button-mvm" mat-stroked-button (click)="onVerCertificado()">Ver Certificado</button>
                 </div>
                 <div class="col">
-                    <button class="button-mvm" mat-stroked-button (click)="onContratarComercializador()">Contratar Comercializador</button>
-                </div>
-                <div class="col">
                     <button class="button-mvm" mat-stroked-button (click)="onConsumirEnergia()">Consumir energia</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-<!-- <div class="container container-info">
-
-    <div class="informacion">
-        <span class="title">{{infoCliente.empresa}}</span>
-        <span class="text-gris-p">Nit: {{infoCliente.nit}}</span>
-        <span class="text-black-p fw-600">Dueño del contrato:</span>
-        <span class="text-black-p">{{infoCliente.owner}}</span>
-        <span class="text-black-p fw-600">Departamento:</span>
-        <span class="text-black-p">{{infoCliente.departamento}}</span>
-        <span class="text-black-p fw-600">Ciudad:</span>
-        <span class="text-black-p">{{infoCliente.ciudad}}</span>
-        <span class="text-black-p fw-600">Dirección:</span>
-        <span class="text-black-p">{{infoCliente.direccion}}</span>
-        <span class="text-black-p fw-600">Telefono:</span>
-        <span class="text-black-p">{{infoCliente.telefono}}</span>
-        <span class="text-black-p fw-600">Tokens Disponibles:</span>
-        <span class="text-black-p">{{tokensCliente}}</span>
-        <span class="text-black-p fw-600">Tokens Delegados:</span>
-        <span class="text-black-p">{{tokensDelegados}}</span>
-    </div>
-
-    <div class="botones">
-        <button class="button-mvm" mat-stroked-button (click)="onVerCertificado()">Ver Certificado</button>
-        <button class="button-mvm" mat-stroked-button (click)="onComprarTokens()">Comprar tokens</button>
-        <button class="button-mvm" mat-stroked-button (click)="onDevolverTokens()">Devolver tokens</button>
-        <button class="button-mvm" mat-stroked-button (click)="onContratarComercializador()">Contratar Comercializador</button>
-        <button class="button-mvm" mat-stroked-button (click)="onDelegarTokens()" [disabled]="!isDelegarValid">Delegar tokens</button>
-        <button class="button-mvm" mat-stroked-button (click)="onConsumirEnergia()">Consumir energia</button>
-
-    </div>
-</div> -->
-
-
-<!--
-<div class="container" *ngIf="infoCliente">
-    <div class="titulo">
-        <h2 class="title-xg">Información del cliente</h2>
-    </div>
-
-    <mat-card class="custom mb-20">
-        <mat-card-title>Empresa: {{infoCliente.empresa}}</mat-card-title>
-        <mat-card-subtitle>Nit: {{infoCliente.nit}}</mat-card-subtitle>
-        <mat-card-content>
-            <p>
-                Dueño del contrato: {{infoCliente.owner}}
-            </p>
-            <p>
-                Contacto: {{infoCliente.contacto}}
-            </p>
-            <p>
-                Teléfono: {{infoCliente.telefono}}
-            </p>
-            <p>
-                Correo: {{infoCliente.correo}}
-            </p>
-            <p>
-                Departamento: {{infoCliente.departamento}}
-            </p>
-            <p>
-                Ciudad: {{infoCliente.ciudad}}
-            </p>
-            <p>
-                Dirección: {{infoCliente.direccion}}
-            </p>
-            <p>
-                Tokens Disponibles: {{tokensCliente}}
-            </p>
-            <p>
-                Tokens Delegados: {{tokensDelegados}}
-            </p>
-            <hr>
-            <div *ngFor="let energia of energiasDisponibles; let index = index">
-                <mat-card-subtitle>
-                    <h3>Energia {{energia}}</h3>
-                </mat-card-subtitle>
-                <mat-card-content>
-                    cantidad : {{cantidadesDisponibles[index]}}
-                </mat-card-content>
-                <hr>
-            </div>
-        </mat-card-content>
-        <mat-card-actions>
-            <div class="row">
-                <div class="col">
-                    <button class="button-mvm" mat-stroked-button (click)="onVerCertificado()">Ver Certificado</button>
-                </div>
-                <div class="col">
-                    <button class="button-mvm" mat-stroked-button (click)="onContratarComercializador()">Contratar Comercializador</button>
-                </div>
-                <div class="col">
-                    <button class="button-mvm" mat-stroked-button (click)="onConsumirEnergia()">Consumir energia</button>
-                </div>
-            </div>
-        </mat-card-actions>
-    </mat-card>
-</div>
--->

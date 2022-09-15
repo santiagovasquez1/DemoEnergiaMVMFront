@@ -1220,7 +1220,6 @@ mat-dialog-container .mat-form-field-infix span label {
     width: 100%;
     max-width: var(--max-width);
     height: 100%;
-    overflow: auto;
     margin: 0px auto;
 }
 
@@ -1931,7 +1930,7 @@ mat-dialog-container .mat-form-field-infix span label {
 .certificado-container .info {
     position: relative;
     left: 125px;
-    top: 35px;
+    top: 50px;
     width: 500px;
     height: 248px;
     display: flex;
