@@ -98,7 +98,7 @@ export class ClienteContractService extends AgenteContractService {
             dirComercializador,
             empresaComercializador,
             tipoEnergia,
-            cantidadEnergia,
+            cantidadEnergia: parseInt(cantidadEnergia),
             fechaAprobacion: moment(parseInt(fechaAprobacion) * 1000).format('DD/MM/YYYY HH:mm:ss'),
             fechaAprobacionNumber: parseInt(fechaAprobacion),
             index
@@ -115,6 +115,15 @@ export class ClienteContractService extends AgenteContractService {
 
   getTokensDelegados(): Observable<number> {
     return from(this.contract.methods.getTokensDelegados().call({ from: this.account })).pipe(
+      map(data => data as number),
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+  getAcumuladoVenta(): Observable<number> {
+    return from(this.contract.methods.getAcumuladoVenta().call({ from: this.account })).pipe(
       map(data => data as number),
       catchError((error) => {
         return throwError(() => new Error(error.message));

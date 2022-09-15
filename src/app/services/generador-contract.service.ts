@@ -122,4 +122,13 @@ export class GeneradorContractService extends AgenteContractService {
       })
     );
   }
+
+  getAcumuladoVenta(): Observable<number> {
+    return from(this.contract.methods.getAcumuladoVenta().call({ from: this.account })).pipe(
+      map(data => data as number),
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
 }
