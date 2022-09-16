@@ -406,7 +406,6 @@ form .form-actions-row {
 }
 
 .loginContainer {
-    display: block;
     height: 100%;
     background-color: white;
     display: grid;
@@ -2158,5 +2157,53 @@ mat-dialog-container .mat-form-field-infix span label {
     }
     .container-generadores .energia-dpto .content-card .table-container {
         order: 3;
+        margin-bottom: 10px;
+    }
+    .loginContainer {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .loginContainer .imagen {
+        height: 450px;
+        width: 100%;
+    }
+    .loginContainer .imagen #fondo {
+        border-radius: 0px;
+    }
+    .loginContainer .imagen .banda-imagen {
+        position: relative;
+        width: 100%;
+        top: -380px;
+    }
+    .registro-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+    }
+    .registro-container .registro-header {
+        justify-content: center;
+        align-items: center;
+    }
+    .registro-container .registro-header .registro-title {
+        text-align: center;
+    }
+    .registro-container .register-form {
+        margin-top: 80px;
+        padding: 16px;
+    }
+    .registro-container .register-form .row .col {
+        flex: none;
+        margin-bottom: 20px;
+    }
+    .registro-container .register-form .mt-30 {
+        margin-top: 0px !important;
+    }
+    .form-actions-row .w-160 {
+        width: 100% !important;
     }
 }
