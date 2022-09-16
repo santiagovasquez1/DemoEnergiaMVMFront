@@ -2029,3 +2029,134 @@ mat-dialog-container .mat-form-field-infix span label {
     width: 82.42px;
     height: 60.44px;
 }
+
+
+/* Mobile size */
+
+@media (max-width: 767.98px) {
+    .main,
+    .container-cards {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    .container-cards .box {
+        margin-bottom: 20px;
+    }
+    .info-contrato {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .container-info .botones,
+    .container-buttons {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .container-info .botones button,
+    .container-buttons button {
+        margin-bottom: 20px !important;
+    }
+    .container-banco-informacion {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .container-banco-informacion .card {
+        width: 90%;
+        margin: 0px auto;
+        margin-bottom: 20px;
+    }
+    .container-banco-informacion .card:first-child {
+        margin-top: 20px;
+    }
+    .tablero-principal {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        overflow: auto;
+    }
+    .tablero-principal .box-chart,
+    .tablero-principal .box-chart-no-labels {
+        width: 90%;
+        height: 450px!important;
+    }
+    .tablero-principal .box-chart-no-labels .header {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+    .filter-form .row .col,
+    .container-agente .botones .row .col {
+        flex: none;
+        margin-bottom: 20px;
+    }
+    .filter-form .mt-20 {
+        margin-top: 0px !important;
+    }
+    .container-agente {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .container-info .botones button {
+        width: 100% !important;
+        position: unset;
+        margin-bottom: 0px !important;
+    }
+    .tokens-generador {
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        margin: 0px auto;
+        margin-bottom: 10px;
+    }
+    .tokens-generador .w-200px {
+        width: 100% !important;
+    }
+    .tokens-generador .info-tokens,
+    .tokens-generador .equivalencia {
+        margin-left: 0px;
+    }
+    .planta-energia-form .row .col {
+        flex: none;
+        margin-bottom: 20px;
+    }
+    .planta-energia-form .mt-20 {
+        margin-top: 0px !important;
+    }
+    .container-generadores {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .container-generadores .energia-dpto,
+    .container-generadores .energia-dpto .content-card {
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .container-generadores .energia-dpto .content-card mat-accordion {
+        order: 1;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .container-generadores .energia-dpto .content-card .container-pie {
+        height: 250px!important;
+        order: 2;
+        margin-bottom: 20px;
+    }
+    .container-generadores .energia-dpto .content-card .table-container {
+        order: 3;
+    }
+}

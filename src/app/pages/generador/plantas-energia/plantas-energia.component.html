@@ -7,7 +7,7 @@
         <h2 class="modal-title-mvm mt-20">{{title}}</h2>
     </div>
 
-    <form [formGroup]="plantaEnergiaForm">
+    <form [formGroup]="plantaEnergiaForm" class="planta-energia-form">
 
         <div class="row">
             <div class="col">
@@ -61,7 +61,7 @@
             </div>
             <div class="col">
                 <div class="form-field">
-                    <label>Tasa de emisión (Mwh):</label>
+                    <label>Tasa de emisión (Ton Co2/MWh):</label>
                     <input formControlName="tasaEmision" type="number" autocomplete="off">
                 </div>
             </div>
@@ -69,7 +69,7 @@
         <div class="row mt-20">
             <div class="col">
                 <div class="form-field">
-                    <label>Capacidad Nominal (Mwh)</label>
+                    <label>Capacidad Nominal (MW)</label>
                     <input formControlName="capacidadNominal" type="number" autocomplete="off">
                 </div>
             </div>
