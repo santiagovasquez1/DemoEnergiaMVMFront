@@ -1,8 +1,17 @@
-
-<div class="main">
+<!-- <div class="main">
     <app-aside></app-aside>
     <div class="content-wrapper">
         <app-toolbar></app-toolbar>
         <router-outlet></router-outlet>
     </div>
-</div>
+</div> -->
+
+<mat-drawer-container class="main-container" autosize>
+    <mat-drawer #drawer [mode]="drawerMode" [opened]="isDraweOpened" (closed)="onClose()">
+        <app-aside (onLinkClickEvent)="onClose()"></app-aside>
+    </mat-drawer>
+    <mat-drawer-content>
+        <app-toolbar (onOpenEvent)="onOpenClick()"></app-toolbar>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
