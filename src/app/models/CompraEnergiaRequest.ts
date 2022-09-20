@@ -1,8 +1,8 @@
 export interface CompraEnergiaRequest {
-    dirContratoGenerador: string;
-    dirPlantaGenerador: string;
-    ownerCliente: string;
-    cantidadEnergia: number;
-    tipoEnergia: string;
-    index:number;
+    _dirContrato: string;
+    _dirPlanta: string;
+    _ownerCliente: string;
+    _cantidadEnergia: number;
+    _nombreTipoEnergia: string;
+    _index:number;
 }

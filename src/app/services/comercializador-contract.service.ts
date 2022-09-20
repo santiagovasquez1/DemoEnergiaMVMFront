@@ -71,11 +71,8 @@ export class ComercializadorContractService extends AgenteContractService {
     );
   }
 
-  ComprarEnergia(compraEnergiaRequest: CompraEnergiaRequest): Observable<any> {
-    return from(this.contract.methods.ComprarEnergia(compraEnergiaRequest.dirContratoGenerador,
-      compraEnergiaRequest.dirPlantaGenerador, compraEnergiaRequest.ownerCliente,
-      compraEnergiaRequest.cantidadEnergia, compraEnergiaRequest.tipoEnergia,
-      compraEnergiaRequest.index).send({ from: this.account })).pipe(
+  ComprarEnergia(compraEnergiaRequest: CompraEnergiaRequest[]): Observable<any> {
+    return from(this.contract.methods.ComprarEnergia(compraEnergiaRequest).send({ from: this.account })).pipe(
         catchError((error) => {
           return throwError(() => new Error(error.message));
         })

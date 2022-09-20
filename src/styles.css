@@ -2227,4 +2227,12 @@ mat-dialog-container .mat-form-field-infix span label {
     .container-toolbar .toolbar .tipo-Agente {
         display: none;
     }
+    .actions-container {
+        display: flex;
+        flex-direction: column !important;
+    }
+    .actions-container .contratar-agente {
+        width: 100%;
+        margin-bottom: 20px;
+    }
 }

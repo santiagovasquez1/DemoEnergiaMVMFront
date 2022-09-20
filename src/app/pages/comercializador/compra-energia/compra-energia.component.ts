@@ -126,41 +126,28 @@ export class CompraEnergiaComponent implements OnInit {
   }
 
   onComprarEnergia(): void {
-    let observables: Observable<any>[] = [];
+    let comprasEnergias: CompraEnergiaRequest[] = [];
     this.alert.confirmAlert('Confirmación', '¿Está seguro de que desea comprar esta energía?')
       .then(result => {
         if (result.isConfirmed) {
-          // this.energiaAComprar.forEach((cantidad, index) => {
-          //   if (cantidad > 0) {
-          //     let compraRequest: CompraEnergiaRequest = {
-          //       ownerCliente: this.emision.ownerCliente,
-          //       dirContratoGenerador: this.generadoresDisponibles[index].dirContrato,
-          //       cantidadEnergia: cantidad,
-          //       tipoEnergia: this.emision.tipoEnergia,
-          //       index: this.emision.index
-          //     }
-          //     observables.push(this.comercializador.ComprarEnergia(compraRequest));
-          //   }
-          // });
-
           this.energiaAComprar.forEach((energiasGenerador, i) => {
             energiasGenerador.forEach((cantidad, j) => {
               if (cantidad > 0) {
                 let compraRequest: CompraEnergiaRequest = {
-                  dirContratoGenerador: this.generadoresCompra[i].dirGenerador,
-                  dirPlantaGenerador: this.generadoresCompra[i].plantasGenerador[j].dirPlanta,
-                  ownerCliente: this.emision.ownerCliente,
-                  cantidadEnergia: cantidad,
-                  tipoEnergia: this.emision.tipoEnergia,
-                  index: this.emision.index
+                  _dirContrato: this.generadoresCompra[i].dirGenerador,
+                  _dirPlanta: this.generadoresCompra[i].plantasGenerador[j].dirPlanta,
+                  _ownerCliente: this.emision.ownerCliente,
+                  _cantidadEnergia: cantidad,
+                  _nombreTipoEnergia: this.emision.tipoEnergia,
+                  _index: this.emision.index
                 }
-                observables.push(this.comercializador.ComprarEnergia(compraRequest));
+                comprasEnergias.push(compraRequest);
               }
             });
           });
 
           this.spinner.show();
-          forkJoin(observables).subscribe({
+          this.comercializador.ComprarEnergia(comprasEnergias).subscribe({
             next: (data: any[]) => {
               this.toastr.success('Energía comprada con éxito', 'Éxito');
               this.spinner.hide();
