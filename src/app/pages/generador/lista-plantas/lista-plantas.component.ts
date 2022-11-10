@@ -18,6 +18,8 @@ import { MatSort } from '@angular/material/sort';
 import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
 import moment from 'moment';
 import { PlantasEnergiaComponent } from '../plantas-energia/plantas-energia.component';
+import { ComprarEnergiaBolsaComponent } from '../comprar-energia-bolsa/comprar-energia-bolsa.component';
+
 
 @Component({
   selector: 'app-lista-plantas',
@@ -201,6 +203,22 @@ export class ListaPlantasComponent implements OnInit {
   onCrearPlanta() {
     const dialogRef = this.dialog.open(PlantasEnergiaComponent, {
       width: '800px',
+      data: {
+        dirContract: this.dirContract,
+        energiasDisponibles: this.energiasDisponibles
+      }
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next:()=>{
+        this.loadPlantasEnergia()
+      }
+    })
+  }
+
+  onComprarEnergia() {
+    const dialogRef = this.dialog.open(ComprarEnergiaBolsaComponent, {
+      width: '500px',
       data: {
         dirContract: this.dirContract,
         energiasDisponibles: this.energiasDisponibles
