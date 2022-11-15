@@ -618,9 +618,18 @@ form .form-actions-row {
     margin-bottom: 60px !important;
 }
 
+.ml-3{
+    margin-left: 3px !important;
+}
+
+.ml-10{
+    margin-left: 10px !important;
+}
+
 .ml-20 {
     margin-left: 20px !important;
 }
+
 
 .mr-10{
     margin-right: 10px !important; 
@@ -1639,7 +1648,7 @@ mat-dialog-container .mat-form-field-infix span label {
 .tokens-generador {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     align-items: flex-start;
     padding: 16px;
     width: 100%;
@@ -2068,4 +2077,31 @@ mat-dialog-container .mat-form-field-infix span label {
 .certificado-container .info .firma img {
     width: 82.42px;
     height: 60.44px;
+}
+
+.button-mvm-asignar{
+    width: 100% !important;
+    height: 30px !important;
+    border: none;
+    margin-right: 8px !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    line-height: 15px !important;
+    padding: 1em 2em !important;
+    border-radius: 2em !important;
+    background-color: var(--verde-oscuro) !important;
+}
+
+.container-fijar-precios{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.container-fijar-precios button{
+    width: 50%;
 }

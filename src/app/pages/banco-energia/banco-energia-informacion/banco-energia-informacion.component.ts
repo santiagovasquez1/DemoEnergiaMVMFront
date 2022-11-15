@@ -67,4 +67,8 @@ export class BancoEnergiaInformacionComponent implements OnInit, OnDestroy {
     });
   }
 
+  onFijarPrecios() {
+    
+  }
+
 }

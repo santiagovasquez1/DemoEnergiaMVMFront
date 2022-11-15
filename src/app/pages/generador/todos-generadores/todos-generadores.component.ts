@@ -350,6 +350,7 @@ export class TodosGeneradoresComponent implements OnInit {
           if(this.flagGeneradoresLoad){
             this.todoGeneradores.push(element);
             // this.flagGeneradoresLoad = false;
+            console.log("this.todoGeneradores: ",this.todoGeneradores)
           }
           break;
       }
@@ -360,6 +361,7 @@ export class TodosGeneradoresComponent implements OnInit {
 
         if(this.flagGeneradoresLoad){
           let promises: Promise<void>[] = [];
+          console.log("entrando")
           for (let index = 0; index < this.todoGeneradores.length; index++) {
             promises.push(this.loadContract(this.todoGeneradores[index].infoContrato.dirContrato));
             await Promise.all(promises);
@@ -553,6 +555,7 @@ export class TodosGeneradoresComponent implements OnInit {
             }
           }
           this.dataSource.data = this.plantasFiltro;
+          
 
           if(this.dataSource.data.length == 0 || this.dataSource.data.length == undefined){
             this.toastr.info('No hay Plantas registradas en este departamento.','Datos no encontrados.');

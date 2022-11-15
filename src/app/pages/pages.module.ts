@@ -50,6 +50,9 @@ import { ListaComprasComponent } from './cliente/lista-compras/lista-compras.com
 import { TokensClienteComponent } from './cliente/tokens-cliente/tokens-cliente.component';
 import { TokensGeneradorComponent } from './generador/tokens-generador/tokens-generador.component';
 import { ComprarEnergiaBolsaComponent } from './generador/comprar-energia-bolsa/comprar-energia-bolsa.component';
+import { OrdenesDespachoComponent } from './regulador-mercado/ordenes-despacho/ordenes-despacho.component';
+import { ComprarTokensComponent } from './generador/tokens-generador/comprar-tokens/comprar-tokens.component';
+
 
 @NgModule({
     declarations: [
@@ -85,6 +88,8 @@ import { ComprarEnergiaBolsaComponent } from './generador/comprar-energia-bolsa/
         TokensClienteComponent,
         TokensGeneradorComponent,
         ComprarEnergiaBolsaComponent,
+        OrdenesDespachoComponent,
+        ComprarTokensComponent,
     ],
     imports: [
         CommonModule,
