@@ -240,6 +240,11 @@ form .form-actions-row {
     align-items: center;
 }
 
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
 .text-center {
     text-align: center;
 }
@@ -300,6 +305,10 @@ form .form-actions-row {
 .color-green {
     font-family: 'Montserrat', Roboto, "Helvetica Neue", sans-serif !important;
     color: var(--verde-oscuro);
+}
+
+.color-gris {
+    color: var(--gris-claro) !important;
 }
 
 .text-gris-p {
@@ -363,6 +372,7 @@ form .form-actions-row {
     cursor: pointer;
     transition: 300ms all;
     font-size: 14px;
+
 }
 
 .button-mvm {
@@ -524,6 +534,10 @@ form .form-actions-row {
     width: 160px !important;
 }
 
+.w-180 {
+    width: 180px !important;
+}
+
 .w-200px {
     width: 200px !important;
 }
@@ -604,8 +618,21 @@ form .form-actions-row {
     margin-bottom: 60px !important;
 }
 
+.ml-3{
+    margin-left: 3px !important;
+}
+
+.ml-10{
+    margin-left: 10px !important;
+}
+
 .ml-20 {
     margin-left: 20px !important;
+}
+
+
+.mr-10{
+    margin-right: 10px !important; 
 }
 
 .mr-20 {
@@ -858,30 +885,30 @@ form .form-actions-row {
     align-items: center;
 }
 
-.energia-dpto .buttons-acordeon {
+.buttons-acordeon {
     margin-top: 5px;
     display: flex;
     flex-direction: column;
     font-family: 'Montserrat', Roboto, "Helvetica Neue", sans-serif !important;
 }
 
-.energia-dpto .buttons-acordeon a {
+.buttons-acordeon a {
     text-decoration: none;
     margin-bottom: 5px;
     margin-left: 20px;
 }
 
-.energia-dpto .buttons-acordeon a:hover {
+.buttons-acordeon a:hover {
     color: #636363;
     cursor: pointer;
 }
 
-.energia-dpto .container-acordeon {
+.container-acordeon {
     display: grid;
     grid-template-columns: 50% 50%;
 }
 
-.energia-dpto .container-acordeon mat-accordion {
+.container-acordeon mat-accordion {
     width: 90%;
     margin-bottom: 20px;
 }
@@ -1377,31 +1404,53 @@ mat-dialog-container .mat-form-field-infix span label {
     height: calc(100vh - 65px);
     display: grid;
     grid-template-columns: 50% 50%;
-    justify-items: center;
-    align-items: center;
+    grid-template-rows: 85px 28% auto;
+
 }
 
-.container-banco-informacion .card {
-    width: 388px;
-    height: 391px;
-    background: #FFFFFF;
-    border: 1px solid #929292;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 38px;
+.container-banco-informacion .title {
+    grid-row: 1/2;
+}
+
+.container-banco-informacion .mat-accordion {
+    display: flex;
+    margin-left: 20px;
+    grid-row: 2/3;
+}
+
+.container-banco-informacion .mat-accordion .mat-expansion-panel{
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.container-banco-informacion .card-banco {
+    width: 300px;
+    height: 230px;
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 30% 70%;
-    padding: 10px 40px 40px 40px;
 }
 
-.container-banco-informacion .card form {
-    display: grid;
-    grid-template-rows: 50% 50%;
+.container-banco-informacion .card-solar,.card-eolica {
+    grid-row: 3/4;
+    margin-left: 20px;
 }
 
-.container-banco-informacion .card .header-card {
+
+
+.container-banco-informacion .card-banco .header-card {
     display: flex;
-    align-items: end;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.container-banco-informacion .card-banco .header-card img{
+    width: 48px;
+    height: 48px;
 }
 
 .info-certificado {
@@ -1599,7 +1648,7 @@ mat-dialog-container .mat-form-field-infix span label {
 .tokens-generador {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     align-items: flex-start;
     padding: 16px;
     width: 100%;
@@ -2028,4 +2077,31 @@ mat-dialog-container .mat-form-field-infix span label {
 .certificado-container .info .firma img {
     width: 82.42px;
     height: 60.44px;
+}
+
+.button-mvm-asignar{
+    width: 100% !important;
+    height: 30px !important;
+    border: none;
+    margin-right: 8px !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    line-height: 15px !important;
+    padding: 1em 2em !important;
+    border-radius: 2em !important;
+    background-color: var(--verde-oscuro) !important;
+}
+
+.container-fijar-precios{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.container-fijar-precios button{
+    width: 50%;
 }

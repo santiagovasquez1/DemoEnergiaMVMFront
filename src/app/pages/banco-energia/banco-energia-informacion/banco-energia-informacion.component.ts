@@ -12,7 +12,8 @@ import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 export class BancoEnergiaInformacionComponent implements OnInit, OnDestroy {
 
   energiasDisponibles: InfoEnergia[] = [];
-  energiaChangeEvent: any
+  energiaChangeEvent: any;
+  panelOpenState = false;
 
   constructor(private bancoEnergia: BancoEnergiaService,
     private toastr: ToastrService,
@@ -50,6 +51,10 @@ export class BancoEnergiaInformacionComponent implements OnInit, OnDestroy {
       this.energiaChangeEvent.removeAllListeners('data');
   }
 
+  changeBanco(mapa){
+
+  }
+
   private setCantidadEnergiaInfo() {
     this.bancoEnergia.getTiposEnergiasDisponibles().subscribe({
       next: (data) => {
@@ -60,6 +65,10 @@ export class BancoEnergiaInformacionComponent implements OnInit, OnDestroy {
         this.toastr.error(error.message, 'Error');
       }
     });
+  }
+
+  onFijarPrecios() {
+    
   }
 
 }

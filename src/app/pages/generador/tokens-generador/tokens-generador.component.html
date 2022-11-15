@@ -15,7 +15,11 @@
                 <p>Esto equivale en COP</p>
             </div>
             <p class="cantidad">{{tokensEnPesos|currency}}</p>
-            <button class="button-mvm mt-40 w-200px" mat-ripple [disabled]="!isCobrarValid" (click)="onCobrarTokens()">Cobrar</button>
+            <div class="flex-alg-center">
+                <button class="button-mvm mt-40 w-200px" mat-ripple [disabled]="!isCobrarValid" (click)="onCobrarTokens()">Cobrar</button>
+                <button class="button-mvm mt-40 w-200px ml-10" mat-ripple (click)="onComprarTokens()">Comprar tokens</button>
+            </div>
+            
         </div>
     </div>
 </div>

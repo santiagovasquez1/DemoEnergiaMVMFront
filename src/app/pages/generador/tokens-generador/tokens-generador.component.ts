@@ -5,6 +5,8 @@ import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.serv
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
+import { ComprarTokensComponent } from './comprar-tokens/comprar-tokens.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tokens-generador',
@@ -16,9 +18,12 @@ export class TokensGeneradorComponent implements OnInit {
   compraEnergiaEvent: any;
   tokensGenerador: number;
   tokensEnPesos: number;
+  dirContract: string;
+  energiasDisponibles: string[] = [];
 
   constructor(private reguladorMercado: ReguladorMercadoService,
     private generador: GeneradorContractService,
+    public dialog: MatDialog,
     private ngZone: NgZone,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
@@ -88,6 +93,22 @@ export class TokensGeneradorComponent implements OnInit {
           })
         }
       })
+  }
+
+  onComprarTokens() {
+    const dialogRef = this.dialog.open(ComprarTokensComponent, {
+      width: '500px',
+      data: {
+        dirContract: this.dirContract,
+        energiasDisponibles: this.energiasDisponibles
+      }
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next:()=>{
+        // this.loadPlantasEnergia()
+      }
+    })
   }
 
   get isCobrarValid(): boolean {
