@@ -1,3 +1,4 @@
+import { TiposContratos } from "./EnumTiposContratos";
 
 
 export interface InfoContrato {
@@ -12,6 +13,6 @@ export interface InfoContrato {
     ciudad: string;
     direccion: string;
     comercializador: string;
-    tipoComercio: number;
+    tiposContratos: TiposContratos;
 }
 

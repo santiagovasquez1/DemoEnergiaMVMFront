@@ -32,7 +32,7 @@ export class ContratarComercializadorGComponent implements OnInit {
     this.reguladorMercado.getContratosRegistrados().pipe(
       map((data) => {
         let info = data.filter((item) => item.tipoContrato == TiposContratos.Comercializador
-          && item.infoContrato.tipoComercio == 1)
+          && item.infoContrato.tiposContratos == TiposContratos.Comercializador)
           .map((item) => item.infoContrato);
         console.log("Contratos de tipo comercializador generador: ",info);
         return info;

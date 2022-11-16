@@ -37,24 +37,24 @@ export class AgregarGeneradorComponent implements OnInit {
 
 
   guardarGenerador(): void {
-    console.log("Guardando generador");
-    this.reguladorMercado = localStorage.getItem('addressRegulador')
-    this.spinnerService.show();
-    this.generadorService.agregarGenerador(this.reguladorMercado,this.generadorForm.value.nombreGenerador).subscribe({
+    // console.log("Guardando generador");
+    // this.reguladorMercado = localStorage.getItem('addressRegulador')
+    // this.spinnerService.show();
+    // this.generadorService.agregarGenerador().subscribe({
 
-      next: data => {
-        console.log(data);
-        this.toastr.success('Generador guardado con éxito', 'Operación exitosa');
-        this.generadorForm.reset();
-        this.spinnerService.hide();
-      },
-      error: err => {
-        console.log(err);
-        this.toastr.error('Error realizando la transacción', 'Error');
-        this.generadorForm.reset();
-        this.spinnerService.hide();
-      }
-    });
+    //   next: data => {
+    //     console.log(data);
+    //     this.toastr.success('Generador guardado con éxito', 'Operación exitosa');
+    //     this.generadorForm.reset();
+    //     this.spinnerService.hide();
+    //   },
+    //   error: err => {
+    //     console.log(err);
+    //     this.toastr.error('Error realizando la transacción', 'Error');
+    //     this.generadorForm.reset();
+    //     this.spinnerService.hide();
+    //   }
+    // });
 
   }
 
