@@ -36,7 +36,7 @@ export class ComercializadorContractService extends AgenteContractService {
             ciudad,
             direccion,
             comercializador,
-            tipoComercio
+            tiposContratos
           ] = infoContrato
 
           let tempInfo: InfoContrato = {
@@ -51,7 +51,7 @@ export class ComercializadorContractService extends AgenteContractService {
             ciudad,
             direccion,
             comercializador,
-            tipoComercio
+            tiposContratos
           }
           return tempInfo;
         });

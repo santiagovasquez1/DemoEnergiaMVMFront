@@ -22,6 +22,7 @@ import { ComprasRealizadasComponent } from './comercializador/compras-realizadas
 import { TransaccionesComponent } from './dashboard/transacciones/transacciones.component';
 import { BancoEnergiaInformacionComponent } from './banco-energia/banco-energia-informacion/banco-energia-informacion.component';
 import { TokensClienteComponent } from './cliente/tokens-cliente/tokens-cliente.component';
+import { OrdenesDespachoComponent } from './regulador-mercado/ordenes-despacho/ordenes-despacho.component';
 
 
 const routes: Routes = [
@@ -56,6 +57,11 @@ const routes: Routes = [
             {
                 path: "regulador-mercado/registros/detalle",
                 component: RegistrosDetalleComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: "regulador-mercado/ordenes-despacho",
+                component: OrdenesDespachoComponent,
                 canActivate: [AuthGuard]
             },
             {

@@ -9,18 +9,16 @@ import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
 
 @Component({
-  selector: 'app-comprar-energia',
-  templateUrl: './comprar-energia.component.html',
-  styles: [
-  ]
+  selector: 'app-comprar-energia-bolsa',
+  templateUrl: './comprar-energia-bolsa.component.html',
+  styleUrls: []
 })
-export class ComprarEnergiaComponent implements OnInit {
-
+export class ComprarEnergiaBolsaComponent implements OnInit {
   tokensDelegados: number;
   comprarEnergiaForm: FormGroup
   tiposEnergia: InfoEnergia[] = [];
 
-  constructor(public dialogRef: MatDialogRef<ComprarEnergiaComponent>,
+  constructor(public dialogRef: MatDialogRef<ComprarEnergiaBolsaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private alertDialog: SweetAlertService,
     private spinner: NgxSpinnerService,
@@ -78,8 +76,8 @@ export class ComprarEnergiaComponent implements OnInit {
     this.comprarEnergiaForm = this.fb.group({
       tipoEnergia: ['', Validators.required],
       cantidadEnergia: ['', Validators.required],
-      // valorCompra: [{ value: '', disabled: true }, Validators.required],
-      // tokensDelegados: [{ value: this.tokensDelegados, disabled: true }, Validators.required],
+      valorCompra: [{ value: '', disabled: true }, Validators.required],
+      tokensDelegados: [{ value: this.tokensDelegados, disabled: true }, Validators.required],
     });
   }
 

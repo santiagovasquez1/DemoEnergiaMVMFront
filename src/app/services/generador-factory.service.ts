@@ -8,6 +8,7 @@ import { AbiItem } from 'web3-utils';
 import { catchError, forkJoin, from, switchMap, throwError } from 'rxjs';
 import { Observable } from 'rxjs';
 import { FactoryService } from './factory.service';
+import { InfoContrato } from '../models/infoContrato';
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +23,11 @@ export class GeneradorFactoryService extends FactoryService {
     this.setContractData(generadorFactory, networkData, web3);
   }
 
-  agregarGenerador(reguladorMercado,nombreGenerador): Observable<any> {
+  agregarGenerador(infoContrato: InfoContrato): Observable<any> {
     let account = localStorage.getItem('account');
     if (account) {
       console.log(this.contract);
-      return from(this.contract.methods.factoryGenerador(reguladorMercado,nombreGenerador).send({ from: account })).pipe(
+      return from(this.contract.methods.FactoryContrato(infoContrato).send({ from: account })).pipe(
         catchError((error) => {
           return throwError(() => new Error(error.message));
         })

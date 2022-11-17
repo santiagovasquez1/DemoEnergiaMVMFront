@@ -9,18 +9,16 @@ import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
 
 @Component({
-  selector: 'app-comprar-energia',
-  templateUrl: './comprar-energia.component.html',
-  styles: [
-  ]
+  selector: 'app-comprar-tokens',
+  templateUrl: './comprar-tokens.component.html'
 })
-export class ComprarEnergiaComponent implements OnInit {
+export class ComprarTokensComponent implements OnInit {
 
   tokensDelegados: number;
   comprarEnergiaForm: FormGroup
   tiposEnergia: InfoEnergia[] = [];
 
-  constructor(public dialogRef: MatDialogRef<ComprarEnergiaComponent>,
+  constructor(public dialogRef: MatDialogRef<ComprarTokensComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private alertDialog: SweetAlertService,
     private spinner: NgxSpinnerService,
@@ -49,16 +47,16 @@ export class ComprarEnergiaComponent implements OnInit {
           this.toastr.error(error.message, 'Error');
         }
       });
-      this.comprarEnergiaForm.get('tipoEnergia').valueChanges.subscribe({
-        next: () => {
-          this.onEnergiaChange();
-        }
-      });
-      this.comprarEnergiaForm.get('cantidadEnergia').valueChanges.subscribe({
-        next: () => {
-          this.onEnergiaChange();
-        }
-      });
+      // this.comprarEnergiaForm.get('tipoEnergia').valueChanges.subscribe({
+      //   next: () => {
+      //     this.onEnergiaChange();
+      //   }
+      // });
+      // this.comprarEnergiaForm.get('cantidadEnergia').valueChanges.subscribe({
+      //   next: () => {
+      //     this.onEnergiaChange();
+      //   }
+      // });
     } catch (error) {
       console.log(error);
       this.toastr.error('Error al cargar los datos', error.message);
@@ -69,21 +67,20 @@ export class ComprarEnergiaComponent implements OnInit {
     let tipoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value == '' ? null : this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
     let cantidadEnergia = this.comprarEnergiaForm.get('cantidadEnergia').value == '' ? 0 : this.comprarEnergiaForm.get('cantidadEnergia').value;
     if (cantidadEnergia > 0 && tipoEnergia) {
-      let precioEnergia = tipoEnergia.precio * cantidadEnergia;
+      // let precioEnergia = tipoEnergia.precio * cantidadEnergia;
+      let precioEnergia = 0.001 * 1500 * 4500 * cantidadEnergia;
       this.comprarEnergiaForm.get('valorCompra').setValue(precioEnergia);
     }
   }
 
   initForm() {
     this.comprarEnergiaForm = this.fb.group({
-      tipoEnergia: ['', Validators.required],
       cantidadEnergia: ['', Validators.required],
-      // valorCompra: [{ value: '', disabled: true }, Validators.required],
-      // tokensDelegados: [{ value: this.tokensDelegados, disabled: true }, Validators.required],
+      valorCompra: [{ value: '', disabled: true }, Validators.required]
     });
   }
 
-  onComprarEnergia() {
+  onComprarTokens() {
     this.alertDialog.confirmAlert('Confirmar', '¿Está seguro de que desea comprar energía?')
       .then((result) => {
         if (result.isConfirmed) {
@@ -108,11 +105,9 @@ export class ComprarEnergiaComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  get isComprarValid(): boolean {
-    let cantidadCompra = this.comprarEnergiaForm.get('cantidadEnergia').value;
-    let valorCompra = this.comprarEnergiaForm.get('valorCompra').value;
-    let infoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
-    return this.comprarEnergiaForm.valid && valorCompra <= this.data.tokensDelegados && cantidadCompra <= infoEnergia.cantidadEnergia;
-  }
+  // get isComprarValid(): boolean {
+  //   let cantidadCompra = this.comprarEnergiaForm.get('cantidadEnergia').value;
+  //   return this.comprarEnergiaForm.valid;
+  // }
 
 }

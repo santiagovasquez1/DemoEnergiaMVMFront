@@ -50,7 +50,7 @@ export class ContratarComercializadorComponent implements OnInit {
     this.reguladorMercado.getContratosRegistrados().pipe(
       map((data) => {
         let info = data.filter((item) => item.tipoContrato == TiposContratos.Comercializador
-          && item.infoContrato.tipoComercio == 0)
+          && item.infoContrato.tiposContratos == TiposContratos.Cliente)
           .map((item) => item.infoContrato);
         return info;
       })

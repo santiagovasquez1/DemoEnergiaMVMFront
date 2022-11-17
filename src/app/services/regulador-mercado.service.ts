@@ -152,6 +152,8 @@ export class ReguladorMercadoService {
   }
 
   postRegistrarSolicitud(infoContrato: InfoContrato, tipoContrato: TiposContratos): Observable<any> {
+    console.log(infoContrato)
+    console.log(tipoContrato)
     return from(this.contract?.methods.registrarSolicitud(infoContrato, tipoContrato).send({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
@@ -193,7 +195,7 @@ export class ReguladorMercadoService {
 
   private mappingSolicitud(data: any): SolicitudContrato {
     const [infoContrato, tipoContrato, estadoSolicitud, fechaSolicitud, fechaAprobacion] = data;
-    const [dirContrato, owner, nit, empresa, contacto, telefono, correo, departamento, ciudad, direccion, comercializador, tipoComercio] = infoContrato;
+    const [dirContrato, owner, nit, empresa, contacto, telefono, correo, departamento, ciudad, direccion, comercializador, tiposContratos] = infoContrato;
 
     let solicitudDef: SolicitudContrato = {
       infoContrato: {
@@ -208,7 +210,7 @@ export class ReguladorMercadoService {
         nit,
         dirContrato,
         empresa,
-        tipoComercio: parseInt(tipoComercio)
+        tiposContratos: parseInt(tiposContratos) as TiposContratos
       },
       tipoContrato: parseInt(tipoContrato) as TiposContratos,
       estadoSolicitud: parseInt(estadoSolicitud) as EstadoSolicitud,
