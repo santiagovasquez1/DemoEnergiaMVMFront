@@ -47,6 +47,7 @@ export class GeneradorComponent implements OnInit {
       promises.push(this.bancoEnergia.loadBlockChainContractData());
       promises.push(this.generadorService.loadBlockChainContractData(this.dirContract));
       await Promise.all(promises);
+      console.log("this.dirContract",this.dirContract)
       this.generadorService.contract.events.compraEnergia({
         froBlock: 'latest',
       }, (error, event) => {
@@ -70,8 +71,8 @@ export class GeneradorComponent implements OnInit {
     let observables: Observable<any>[] = [];
     observables.push(this.generadorService.getInfoContrato());
     observables.push(this.bancoEnergia.getTiposEnergiasDisponibles());
-    observables.push(this.generadorService.getMisTokens());
-
+    // observables.push(this.generadorService.getMisTokens()); //TODO: Error al traer los tokens de generador
+    
     this.spinner.show();
     forkJoin(observables).subscribe({
       next: (data: any[]) => {

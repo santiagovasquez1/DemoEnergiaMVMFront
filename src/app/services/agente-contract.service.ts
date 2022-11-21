@@ -7,6 +7,7 @@ import { AbiItem } from 'web3-utils';
 import { Web3ConnectService } from './web3-connect.service';
 import { WinRefService } from './win-ref.service';
 import { Contract } from 'web3-eth-contract';
+import { TiposContratos } from '../models/EnumTiposContratos';
 
 @Injectable({
   providedIn: 'root'
@@ -50,7 +51,7 @@ export abstract class AgenteContractService {
           nit: data.nit,
           dirContrato: data.dirContrato,
           empresa: data.empresa,
-          tipoComercio: data.tipoComercio
+          tipoContrato: parseInt(data.tipoContrato) as TiposContratos
         };
         return tempInfo as InfoContrato;
       }),

@@ -52,6 +52,7 @@ import { TokensGeneradorComponent } from './generador/tokens-generador/tokens-ge
 import { ComprarEnergiaBolsaComponent } from './generador/comprar-energia-bolsa/comprar-energia-bolsa.component';
 import { OrdenesDespachoComponent } from './regulador-mercado/ordenes-despacho/ordenes-despacho.component';
 import { ComprarTokensComponent } from './generador/tokens-generador/comprar-tokens/comprar-tokens.component';
+import { FijarPreciosComponent } from './generador/fijar-precios/fijar-precios.component';
 
 
 @NgModule({
@@ -90,6 +91,7 @@ import { ComprarTokensComponent } from './generador/tokens-generador/comprar-tok
         ComprarEnergiaBolsaComponent,
         OrdenesDespachoComponent,
         ComprarTokensComponent,
+        FijarPreciosComponent,
     ],
     imports: [
         CommonModule,

@@ -542,6 +542,10 @@ form .form-actions-row {
     width: 200px !important;
 }
 
+.w-220 {
+    width: 220px !important;
+}
+
 .w-240 {
     width: 240px !important;
 }

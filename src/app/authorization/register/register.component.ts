@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
       id: 1,
       tipo: 'Generador'
     }
-  ]
+   ] //TODO:Comercializador solo para cliente, no necesita tipo
 
   agenteMercado: number = 0;
   departamentos: string[] = [];
@@ -125,10 +125,10 @@ export class RegisterComponent implements OnInit {
         departamento: this.registroForm.value.departamento,
         ciudad: this.registroForm.value.ciudad,
         direccion: this.registroForm.value.direccion,
-        tipoComercio: this.registroForm.value.tipoComercio ? this.registroForm.value.tipoComercio : 0,
         owner: localStorage.getItem('account'),
         comercializador: '0x0000000000000000000000000000000000000000',
-        dirContrato: '0x0000000000000000000000000000000000000000'
+        dirContrato: '0x0000000000000000000000000000000000000000',
+        tipoContrato: parseInt(this.registroForm.value.tipoAgente) as TiposContratos
       },
       estadoSolicitud: EstadoSolicitud.pendiente,
       fechaAprobacion: '',

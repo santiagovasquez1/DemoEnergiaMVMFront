@@ -101,8 +101,9 @@ export class NuevaEnergiaComponent implements OnInit {
         this.spinner.show();
         let nombreEnergia = this.nuevaEnergiaForm.get('nombreEnergia').value;
         let cantidadEnergia = this.nuevaEnergiaForm.get('cantidadEnergia').value;
+        let cantidadEnergiaBolsa = this.nuevaEnergiaForm.get('cantidadEnergiaBolsa').value;
         const dirPlanta = this.data.hashPlanta;
-        this.generadorContract.postInyectarEnergiaPlanta(dirPlanta, nombreEnergia, cantidadEnergia).subscribe({
+        this.generadorContract.postInyectarEnergiaPlanta(dirPlanta, nombreEnergia, cantidadEnergia,cantidadEnergiaBolsa).subscribe({
           next: () => {
             this.spinner.hide();
             this.dialogRef.close();
