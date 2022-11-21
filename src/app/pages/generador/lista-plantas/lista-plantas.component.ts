@@ -19,6 +19,7 @@ import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParame
 import moment from 'moment';
 import { PlantasEnergiaComponent } from '../plantas-energia/plantas-energia.component';
 import { ComprarEnergiaBolsaComponent } from '../comprar-energia-bolsa/comprar-energia-bolsa.component';
+import { FijarPreciosComponent } from '../fijar-precios/fijar-precios.component';
 
 
 @Component({
@@ -218,6 +219,22 @@ export class ListaPlantasComponent implements OnInit {
 
   onComprarEnergia() {
     const dialogRef = this.dialog.open(ComprarEnergiaBolsaComponent, {
+      width: '500px',
+      data: {
+        dirContract: this.dirContract,
+        energiasDisponibles: this.energiasDisponibles
+      }
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next:()=>{
+        this.loadPlantasEnergia()
+      }
+    })
+  }
+
+  onFijarPrecios(){
+    const dialogRef = this.dialog.open(FijarPreciosComponent, {
       width: '500px',
       data: {
         dirContract: this.dirContract,

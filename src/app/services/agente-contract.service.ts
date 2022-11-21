@@ -51,7 +51,7 @@ export abstract class AgenteContractService {
           nit: data.nit,
           dirContrato: data.dirContrato,
           empresa: data.empresa,
-          tiposContratos: parseInt(data.tiposContratos) as TiposContratos
+          tipoContrato: parseInt(data.tipoContrato) as TiposContratos
         };
         return tempInfo as InfoContrato;
       }),

@@ -13,6 +13,6 @@ export interface InfoContrato {
     ciudad: string;
     direccion: string;
     comercializador: string;
-    tiposContratos: TiposContratos;
+    tipoContrato: TiposContratos;
 }
 

@@ -128,7 +128,7 @@ export class RegisterComponent implements OnInit {
         owner: localStorage.getItem('account'),
         comercializador: '0x0000000000000000000000000000000000000000',
         dirContrato: '0x0000000000000000000000000000000000000000',
-        tiposContratos: parseInt(this.registroForm.value.tipoAgente) as TiposContratos
+        tipoContrato: parseInt(this.registroForm.value.tipoAgente) as TiposContratos
       },
       estadoSolicitud: EstadoSolicitud.pendiente,
       fechaAprobacion: '',
