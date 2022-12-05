@@ -85,4 +85,21 @@ export class BancoEnergiaService {
       }));
   }
 
+  setPrecioVentaEnergia(precioEnergia: number): Observable<any> {
+    return from(this.contract?.methods.setPrecioVentaEnergia(precioEnergia).send({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+  getPrecioVentaEnergia(): Observable<number> {
+    return from(this.contract.methods.getPrecioVentaEnergia().call({ from: this.account })).pipe(
+      map(data => data as number),
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
 }

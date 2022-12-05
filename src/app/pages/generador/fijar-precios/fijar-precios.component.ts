@@ -71,16 +71,42 @@ export class FijarPreciosComponent implements OnInit {
         if (result.isConfirmed) {
           this.spinner.show();
           let precioEnergia = this.comprarEnergiaForm.get('valorEnergia').value;
-          this.generadorContract.setPrecioEnergia(precioEnergia).subscribe({
-            next: () => {
-              this.spinner.hide();
-              this.toastr.success('Fijación de precio', 'Éxito');
-              this.dialogRef.close();
-            }, error: (error) => {
-              this.spinner.hide();
-              this.toastr.error(error.message, 'Error');
-            }
-          });
+          if(this.data.setPrecio == 'bolsa'){
+            this.bancoEnergia.setPrecioVentaEnergia(precioEnergia).subscribe({
+              next: () => {
+                this.spinner.hide();
+                this.toastr.success('Fijación de precio', 'Éxito');
+                this.dialogRef.close();
+                this.bancoEnergia.getPrecioVentaEnergia().subscribe({
+                  next: (data) => {
+                    this.spinner.hide();
+                    this.dialogRef.close();
+                  }, error: (error) => {
+                    this.spinner.hide();
+                    this.toastr.error(error.message, 'Error');
+                  }
+                });
+              },error: (error) => {
+                this.spinner.hide();
+                this.toastr.error(error.message, 'Error');
+              }
+            });
+
+
+          }
+          else if(this.data.setPrecio == 'generador'){
+            this.generadorContract.setPrecioEnergia(precioEnergia).subscribe({
+              next: () => {
+                this.spinner.hide();
+                this.toastr.success('Fijación de precio', 'Éxito');
+                this.dialogRef.close();
+              }, error: (error) => {
+                this.spinner.hide();
+                this.toastr.error(error.message, 'Error');
+              }
+            });
+          }
+
         }
       });
   }

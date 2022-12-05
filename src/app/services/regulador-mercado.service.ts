@@ -66,7 +66,7 @@ export class ReguladorMercadoService {
 
   postComprarTokens(cantidadTokens: number): Observable<any> {
     let valorToken = this.web3.utils.toWei(cantidadTokens.toString(), 'finney');
-    return from(this.contract?.methods.ComprarTokens(cantidadTokens).send({ from: this.account, value: valorToken })).pipe(
+    return from(this.contract?.methods.ComprarTokens(cantidadTokens).send({ from: this.account})).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
@@ -195,8 +195,9 @@ export class ReguladorMercadoService {
   }
 
   setDespachoEnergia(dirGenerador,cantidadDespacho): Observable<any> {
-    console.log("dir generador",dirGenerador)
-    console.log("cantidadDespacho: ",cantidadDespacho)
+    console.log("dir generador REGULADOR SERVICE",dirGenerador)
+    console.log("cantidadDespacho REGULADOR SERVICE: ",cantidadDespacho)
+    console.log("FROM: ",this.account)
     return from(this.contract?.methods.setDespachoEnergia(dirGenerador, cantidadDespacho).call({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));

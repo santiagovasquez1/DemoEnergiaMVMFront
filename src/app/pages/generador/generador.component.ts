@@ -41,13 +41,13 @@ export class GeneradorComponent implements OnInit {
   async ngOnInit(): Promise<void> {
 
     this.dirContract = localStorage.getItem('dirContract');
+    console.log("dircontarto en generador component: ",this.dirContract)
     try {
       let promises: Promise<void>[] = [];
       promises.push(this.regulardorMercado.loadBlockChainContractData());
       promises.push(this.bancoEnergia.loadBlockChainContractData());
       promises.push(this.generadorService.loadBlockChainContractData(this.dirContract));
       await Promise.all(promises);
-      console.log("this.dirContract",this.dirContract)
       this.generadorService.contract.events.compraEnergia({
         froBlock: 'latest',
       }, (error, event) => {
