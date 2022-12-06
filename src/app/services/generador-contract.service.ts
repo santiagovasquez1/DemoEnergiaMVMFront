@@ -2,6 +2,8 @@ import { InfoEnergia } from 'src/app/models/InfoEnergia';
 import { EstadoPlanta, InfoPlantaEnergia } from './../models/InfoPlantaEnergia';
 import { Injectable } from '@angular/core';
 import Web3 from 'web3';
+// const Tx = require('ethereumjs-tx').Transaction;
+import {Transaction} from 'ethereumjs-tx';
 import { AgenteContractService } from './agente-contract.service';
 import Generador from '../../../buildTruffle/contracts/Generador.json';
 import { catchError, from, map, Observable, of, throwError } from 'rxjs';
@@ -43,6 +45,39 @@ export class GeneradorContractService extends AgenteContractService {
       })
     );
   }
+
+  postInyectarEnergiaPlanta2(dirPlanta: string, tipoEnergia: string, cantidad: number): void {
+    const web3 = this.winRef.window.web3 as Web3;
+    const secretKey = Buffer.from("f4a54c162426adbf9b0f438a36c4a390c2ddcb1da2de0c81c2d7347cb76cae6d", 'hex');
+    web3.eth.getTransactionCount(this.account, (err, txNum) => {
+      debugger;
+      this.contract?.methods.inyectarEnergiaPlanta(dirPlanta, tipoEnergia, cantidad)
+          .estimateGas({from:this.account}, (err, gasAmount) => {
+              let rawTx = {
+                  gasPrice: web3.utils.toHex(web3.utils.toWei('2', 'gwei')),
+                  gasLimit: web3.utils.toHex(gasAmount),
+                  to: this.dirContrato,
+                  value: '0x00',
+                  data: this.contract.methods.inyectarEnergiaPlanta(dirPlanta, tipoEnergia, cantidad).encodeABI()
+              };
+              console.log(rawTx);
+              debugger;
+              let tx = new Transaction(rawTx);
+              tx.sign(secretKey);
+              const serializedTx = tx.serialize().toString('hex');
+              console.log("Envio")
+              web3.eth.sendSignedTransaction('0x' + serializedTx, (err, txHash) => {
+                  if (!err) {
+                      console.log(txHash);
+                      console.log("Envio");
+                  } else {
+                      console.log(err);
+                  }
+              });
+          });
+  });
+  }
+
 
   getPlantasEnergia(): Observable<InfoPlantaEnergia[]> {
     return from(this.contract?.methods.getPlantasEnergia().call({ from: this.account })).pipe(

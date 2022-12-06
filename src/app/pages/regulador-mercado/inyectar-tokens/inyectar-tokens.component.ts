@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -13,20 +14,36 @@ import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 })
 export class InyectarTokensComponent implements OnInit {
   cantidadTokens: number = 0;
+  inyeccionTokensForm: FormGroup;
 
   constructor(public dialogRef: MatDialogRef<InyectarTokensComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private alertDialog: SweetAlertService,
     private spinner: NgxSpinnerService,
     private reguladorMercado: ReguladorMercadoService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private fb: FormBuilder) {
+    this.initForm();
+  }
 
   async ngOnInit() {
     await this.reguladorMercado.loadBlockChainContractData();
+
   }
 
   get isValid(): boolean {
-    return this.cantidadTokens > 0;
+    return this.cantidadTokens > 0 ;
+  }
+
+  initForm() {
+    this.inyeccionTokensForm = this.fb.group({
+      cantidadTokens: ['', Validators.required]
+    });
+    this.inyeccionTokensForm.get('cantidadTokens').valueChanges.subscribe({
+      next: (data: string) => {
+        this.cantidadTokens = parseInt(data);
+      }
+    });
   }
 
   onInyectarTokens() {

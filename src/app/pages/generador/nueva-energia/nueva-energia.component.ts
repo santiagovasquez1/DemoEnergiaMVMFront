@@ -102,18 +102,22 @@ export class NuevaEnergiaComponent implements OnInit {
         let nombreEnergia = this.nuevaEnergiaForm.get('nombreEnergia').value;
         let cantidadEnergia = this.nuevaEnergiaForm.get('cantidadEnergia').value;
         const dirPlanta = this.data.hashPlanta;
-        this.generadorContract.postInyectarEnergiaPlanta(dirPlanta, nombreEnergia, cantidadEnergia).subscribe({
-          next: () => {
-            this.spinner.hide();
-            this.dialogRef.close();
-            this.toastr.success('¡Energía agregada con éxito!');
-          }, error: (err) => {
-            this.spinner.hide();
-            console.log(err);
-            this.toastr.error(err.message, 'Error');
-            this.dialogRef.close();
-          }
-        });
+        // this.generadorContract.postInyectarEnergiaPlanta(dirPlanta, nombreEnergia, cantidadEnergia).subscribe({
+        //   next: () => {
+        //     this.spinner.hide();
+        //     this.dialogRef.close();
+        //     this.toastr.success('¡Energía agregada con éxito!');
+        //   }, error: (err) => {
+        //     this.spinner.hide();
+        //     console.log(err);
+        //     this.toastr.error(err.message, 'Error');
+        //     this.dialogRef.close();
+        //   }
+        // });
+        this.generadorContract.postInyectarEnergiaPlanta2(dirPlanta, nombreEnergia, cantidadEnergia);
+        this.spinner.hide();
+        this.dialogRef.close();
+        this.toastr.success('¡Energía agregada con éxito!');
       }
     });
   }
@@ -126,7 +130,7 @@ export class NuevaEnergiaComponent implements OnInit {
     }
   }
 
-  onCancelar(){
+  onCancelar() {
     this.dialogRef.close();
   }
 }

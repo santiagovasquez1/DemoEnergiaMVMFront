@@ -44,8 +44,8 @@ export class InfoCertificadoAgenteComponent implements OnInit {
       case TiposContratos.Cliente:
         this.verbo = "comprado";
         break;
-      case TiposContratos.Comercializador:
-        this.verbo = 'colocado';
+      case TiposContratos.Generador:
+        this.verbo = 'Colocado';
         break;
       default:
         this.verbo = '';

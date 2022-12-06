@@ -29,7 +29,7 @@ import { ContratarComercializadorComponent } from '../contratar-comercializador/
 })
 export class ListaComprasComponent implements OnInit, OnDestroy {
 
-  displayedColumns: string[] = ['id', 'comercializador', 'cantidad', 'tecnologia', 'fechaCompra', 'valorCompra', 'generador', 'planta'];
+  displayedColumns: string[] = ['comercializador', 'cantidad', 'tecnologia', 'fechaCompra', 'valorCompra', 'generador', 'planta'];
   energiasDisponibles: string[];
   dataSource: MatTableDataSource<InfoCompraEnergia>;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;

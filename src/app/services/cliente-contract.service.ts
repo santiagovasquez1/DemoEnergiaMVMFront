@@ -83,8 +83,7 @@ export class ClienteContractService extends AgenteContractService {
             empresaComercializador,
             tipoEnergia,
             cantidadEnergia,
-            fechaAprobacion,
-            index
+            fechaAprobacion
           ] = item;
 
           let tempInfo: InfoCompraEnergia = {
@@ -100,8 +99,7 @@ export class ClienteContractService extends AgenteContractService {
             tipoEnergia,
             cantidadEnergia: parseInt(cantidadEnergia),
             fechaAprobacion: moment(parseInt(fechaAprobacion) * 1000).format('DD/MM/YYYY HH:mm:ss'),
-            fechaAprobacionNumber: parseInt(fechaAprobacion),
-            index
+            fechaAprobacionNumber: parseInt(fechaAprobacion)
           }
           return tempInfo;
         })

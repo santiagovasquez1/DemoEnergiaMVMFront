@@ -12,5 +12,4 @@ export interface InfoCompraEnergia {
     cantidadEnergia: number;
     fechaAprobacion: string;
     fechaAprobacionNumber: number;
-    index: number;
 }
