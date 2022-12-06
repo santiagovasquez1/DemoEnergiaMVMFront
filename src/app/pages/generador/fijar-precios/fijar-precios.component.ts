@@ -7,24 +7,24 @@ import { ClienteContractService } from 'src/app/services/cliente-contract.servic
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
+import { GeneradorContractService } from 'src/app/services/generador-contract.service';
 
 @Component({
-  selector: 'app-comprar-energia',
-  templateUrl: './comprar-energia.component.html',
-  styles: [
-  ]
+  selector: 'app-fijar-precios',
+  templateUrl: './fijar-precios.component.html'
 })
-export class ComprarEnergiaComponent implements OnInit {
+export class FijarPreciosComponent implements OnInit {
 
   tokensDelegados: number;
   comprarEnergiaForm: FormGroup
   tiposEnergia: InfoEnergia[] = [];
 
-  constructor(public dialogRef: MatDialogRef<ComprarEnergiaComponent>,
+  constructor(public dialogRef: MatDialogRef<FijarPreciosComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private alertDialog: SweetAlertService,
     private spinner: NgxSpinnerService,
     private clienteService: ClienteContractService,
+    private generadorContract: GeneradorContractService,
     private toastr: ToastrService,
     private fb: FormBuilder,
     private bancoEnergia: BancoEnergiaService) {
@@ -49,16 +49,6 @@ export class ComprarEnergiaComponent implements OnInit {
           this.toastr.error(error.message, 'Error');
         }
       });
-      this.comprarEnergiaForm.get('tipoEnergia').valueChanges.subscribe({
-        next: () => {
-          this.onEnergiaChange();
-        }
-      });
-      this.comprarEnergiaForm.get('cantidadEnergia').valueChanges.subscribe({
-        next: () => {
-          this.onEnergiaChange();
-        }
-      });
     } catch (error) {
       console.log(error);
       this.toastr.error('Error al cargar los datos', error.message);
@@ -66,41 +56,57 @@ export class ComprarEnergiaComponent implements OnInit {
   }
 
   private onEnergiaChange() {
-    let tipoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value == '' ? null : this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
-    let cantidadEnergia = this.comprarEnergiaForm.get('cantidadEnergia').value == '' ? 0 : this.comprarEnergiaForm.get('cantidadEnergia').value;
-    if (cantidadEnergia > 0 && tipoEnergia) {
-      let precioEnergia = tipoEnergia.precio * cantidadEnergia;
-      this.comprarEnergiaForm.get('valorCompra').setValue(precioEnergia);
-    }
+
   }
 
   initForm() {
     this.comprarEnergiaForm = this.fb.group({
-      tipoEnergia: ['', Validators.required],
-      cantidadEnergia: ['', Validators.required],
-      // valorCompra: [{ value: '', disabled: true }, Validators.required],
-      // tokensDelegados: [{ value: this.tokensDelegados, disabled: true }, Validators.required],
+      valorEnergia: ['', Validators.required],
     });
   }
 
-  onComprarEnergia() {
-    this.alertDialog.confirmAlert('Confirmar', '¿Está seguro de que desea comprar energía?')
+  onFijarPrecio() {
+    this.alertDialog.confirmAlert('Confirmar', '¿Está seguro de que desea fijar el precio?')
       .then((result) => {
         if (result.isConfirmed) {
           this.spinner.show();
-          let infoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
-          let cantidadEnergia = this.comprarEnergiaForm.get('cantidadEnergia').value;
-          let fechaFin = Date.now() /1000;
-          this.clienteService.postComprarEnergia(infoEnergia.nombre, cantidadEnergia,fechaFin).subscribe({
-            next: () => {
-              this.spinner.hide();
-              this.toastr.success('Emision de compra de energia', 'Éxito');
-              this.dialogRef.close();
-            }, error: (error) => {
-              this.spinner.hide();
-              this.toastr.error(error.message, 'Error');
-            }
-          });
+          let precioEnergia = this.comprarEnergiaForm.get('valorEnergia').value;
+          if(this.data.setPrecio == 'bolsa'){
+            this.bancoEnergia.setPrecioVentaEnergia(precioEnergia).subscribe({
+              next: () => {
+                this.spinner.hide();
+                this.toastr.success('Fijación de precio', 'Éxito');
+                this.dialogRef.close();
+                this.bancoEnergia.getPrecioVentaEnergia().subscribe({
+                  next: (data) => {
+                    this.spinner.hide();
+                    this.dialogRef.close();
+                  }, error: (error) => {
+                    this.spinner.hide();
+                    this.toastr.error(error.message, 'Error');
+                  }
+                });
+              },error: (error) => {
+                this.spinner.hide();
+                this.toastr.error(error.message, 'Error');
+              }
+            });
+
+
+          }
+          else if(this.data.setPrecio == 'generador'){
+            this.generadorContract.setPrecioEnergia(precioEnergia).subscribe({
+              next: () => {
+                this.spinner.hide();
+                this.toastr.success('Fijación de precio', 'Éxito');
+                this.dialogRef.close();
+              }, error: (error) => {
+                this.spinner.hide();
+                this.toastr.error(error.message, 'Error');
+              }
+            });
+          }
+
         }
       });
   }

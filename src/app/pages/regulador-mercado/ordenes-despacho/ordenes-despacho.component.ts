@@ -18,6 +18,7 @@ import { ComercializadorFactoryService } from 'src/app/services/comercializador-
 import { GeneradorFactoryService } from 'src/app/services/generador-factory.service';
 import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
 
+
 @Component({
   selector: 'app-ordenes-despacho',
   templateUrl: './ordenes-despacho.component.html',
@@ -36,6 +37,7 @@ export class OrdenesDespachoComponent implements OnInit {
   isFromInit: boolean = false;
   diligenciandoSolicitud: boolean = false;
   reloadData: boolean = false;
+  cantidadDespacho: number = 0;
 
   dataSource: MatTableDataSource<SolicitudContrato>;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
@@ -155,62 +157,42 @@ export class OrdenesDespachoComponent implements OnInit {
     });
   }
 
+
+  onKey(event: any) { 
+    this.cantidadDespacho = event.target.value;
+    console.log(this.cantidadDespacho)
+  }
+
   onApprove(index: number, solicitud: SolicitudContrato) {
     this.diligenciandoSolicitud = true;
+    console.log("SOLICITUD: ",solicitud)
     this.sweetAlert.confirmAlert('Diligenciar solicitud', '¿Está seguro de diligenciar la solicitud?')
       .then(async (result) => {
         if (result.isConfirmed) {
           this.spinner.show();
           switch (solicitud.tipoContrato) {
-            case TiposContratos.Cliente:
-              await this.clienteFactory.loadBlockChainContractData();
-              this.clienteFactory.setFactoryContrato(solicitud.infoContrato).subscribe({
-                next: () => {
-                  this.spinner.hide();
-                  this.toastr.success('Solicitud diligenciada', 'Registro');
-                  this.reloadData = true;
-                  this.diligenciandoSolicitud = false;
-                  this.getInfoAgentes();
-                }, error: (err) => {
-                  this.diligenciandoSolicitud = false;
-                  console.log(err);
-                  this.spinner.hide();
-                  this.toastr.error(err.message, 'Error');
-                }
-              });
-              break;
-            case TiposContratos.Comercializador:
-              await this.comercializadorFactory.loadBlockChainContractData();
-              this.comercializadorFactory.setFactoryContrato(solicitud.infoContrato).subscribe({
-                next: () => {
-                  this.spinner.hide();
-                  this.toastr.success('Solicitud diligenciada', 'Registro');
-                  this.reloadData = true;
-                  this.diligenciandoSolicitud = false;
-                  this.getInfoAgentes();
-                }, error: (err) => {
-                  this.diligenciandoSolicitud = false;
-                  console.log(err);
-                  this.spinner.hide();
-                  this.toastr.error(err.message, 'Error');
-                }
-              });
-              break;
             case TiposContratos.Generador:
               await this.generadorFactory.loadBlockChainContractData();
-
-              this.generadorFactory.setFactoryContrato(solicitud.infoContrato).subscribe({
+              let dirGenerador = solicitud.infoContrato.dirContrato;
+              this.regulardorMercado.setDespachoEnergia(dirGenerador,this.cantidadDespacho).subscribe({
                 next: () => {
                   this.spinner.hide();
                   this.toastr.success('Solicitud diligenciada', 'Registro');
                   this.reloadData = true;
                   this.diligenciandoSolicitud = false;
-                  this.getInfoAgentes();
                 }, error: (err) => {
                   this.diligenciandoSolicitud = false;
                   console.log(err);
                   this.spinner.hide();
                   this.toastr.error(err.message, 'Error');
+                }
+              });
+
+              this.regulardorMercado.getDespachosRealizados().subscribe({
+                next: (data) => {
+                  console.log("data de despachos: ",data)
+                }, error: (err) => {
+                  console.log(err);
                 }
               });
               break;

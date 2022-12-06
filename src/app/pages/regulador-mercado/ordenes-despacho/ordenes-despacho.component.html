@@ -24,14 +24,14 @@
             <ng-container matColumnDef="tipoAgente">
                 <mat-header-cell *matHeaderCellDef>Asignar despacho</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <input class="ml-3" type="number" autocomplete="off">
+                    <input class="ml-3" type="number" autocomplete="off"  (keyup)="onKey($event)">
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="acciones">
                 <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
                 <mat-cell *matCellDef="let element; let index = index">
-                    <button matRipple class="button-mvm-asignar" (click)="onApprove(index,element)" [disabled]="element.estadoSolicitud == 0 || element.estadoSolicitud == 1" matTooltip="Aceptar solicitud">
-                        <mat-icon>person_add</mat-icon>
+                    <button matRipple class="button-mvm-asignar"  [disabled]="element.estadoSolicitud == 0 || element.estadoSolicitud == 1" matTooltip="Aceptar solicitud">
+                        <mat-icon (click)="onApprove(index,element)">person_add</mat-icon>
                     </button>
                 </mat-cell>
             </ng-container>

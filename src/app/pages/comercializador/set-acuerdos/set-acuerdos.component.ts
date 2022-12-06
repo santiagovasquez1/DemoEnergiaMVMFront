@@ -7,24 +7,32 @@ import { ClienteContractService } from 'src/app/services/cliente-contract.servic
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
+import { ComercializadorContractService } from 'src/app/services/comercializador-contract.service';
+import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
+import { InfoContrato } from 'src/app/models/infoContrato';
+import { SolicitudContrato } from 'src/app/models/solicitudContrato';
 
 @Component({
-  selector: 'app-comprar-energia',
-  templateUrl: './comprar-energia.component.html',
-  styles: [
-  ]
+  selector: 'app-set-acuerdos',
+  templateUrl: './set-acuerdos.component.html'
 })
-export class ComprarEnergiaComponent implements OnInit {
+export class SetAcuerdosComponent implements OnInit {
 
   tokensDelegados: number;
   comprarEnergiaForm: FormGroup
   tiposEnergia: InfoEnergia[] = [];
+  tiposEnergiaAux: string[] = ['solar','eolica'];
+  generadores: SolicitudContrato[];
+  dirGenerador: any;
+  infoCliente: InfoContrato;
 
-  constructor(public dialogRef: MatDialogRef<ComprarEnergiaComponent>,
+  constructor(public dialogRef: MatDialogRef<SetAcuerdosComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private alertDialog: SweetAlertService,
     private spinner: NgxSpinnerService,
     private clienteService: ClienteContractService,
+    private comercializadorService: ComercializadorContractService,
+    private regulardorMercado: ReguladorMercadoService,
     private toastr: ToastrService,
     private fb: FormBuilder,
     private bancoEnergia: BancoEnergiaService) {
@@ -34,6 +42,10 @@ export class ComprarEnergiaComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     try {
+      console.log("DATA EN ONINIT: ",this.data.emision)
+
+      this.getInfoGeneradores();
+
       let promises: Promise<void>[] = [];
       promises.push(this.bancoEnergia.loadBlockChainContractData());
       promises.push(this.clienteService.loadBlockChainContractData(this.data.dirContrato));
@@ -41,7 +53,7 @@ export class ComprarEnergiaComponent implements OnInit {
 
       this.bancoEnergia.getTiposEnergiasDisponibles().subscribe({
         next: (data) => {
-          console.log(data);
+          console.log("TIPOS DE ENERGÍA: ",data);
           this.tiposEnergia = data;
         },
         error: (error) => {
@@ -49,12 +61,17 @@ export class ComprarEnergiaComponent implements OnInit {
           this.toastr.error(error.message, 'Error');
         }
       });
-      this.comprarEnergiaForm.get('tipoEnergia').valueChanges.subscribe({
+      this.comprarEnergiaForm.get('generador').valueChanges.subscribe({
         next: () => {
           this.onEnergiaChange();
         }
       });
       this.comprarEnergiaForm.get('cantidadEnergia').valueChanges.subscribe({
+        next: () => {
+          this.onEnergiaChange();
+        }
+      });
+      this.comprarEnergiaForm.get('fechaFin').valueChanges.subscribe({
         next: () => {
           this.onEnergiaChange();
         }
@@ -66,18 +83,25 @@ export class ComprarEnergiaComponent implements OnInit {
   }
 
   private onEnergiaChange() {
-    let tipoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value == '' ? null : this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
+    let generador = this.comprarEnergiaForm.get('generador').value == '' ? null : this.comprarEnergiaForm.get('generador').value;
+    console.log("SELECCIONÓ EL GENERADOR: ",generador)
+    this.dirGenerador = generador;
+
     let cantidadEnergia = this.comprarEnergiaForm.get('cantidadEnergia').value == '' ? 0 : this.comprarEnergiaForm.get('cantidadEnergia').value;
-    if (cantidadEnergia > 0 && tipoEnergia) {
-      let precioEnergia = tipoEnergia.precio * cantidadEnergia;
+    let fechaFin = this.comprarEnergiaForm.get('fechaFin').value == '' ? 0 : this.comprarEnergiaForm.get('fechaFin').value;
+
+    console.log(fechaFin)
+    if (cantidadEnergia > 0 && generador) {
+      let precioEnergia = generador.precio * cantidadEnergia;
       this.comprarEnergiaForm.get('valorCompra').setValue(precioEnergia);
     }
   }
 
   initForm() {
     this.comprarEnergiaForm = this.fb.group({
-      tipoEnergia: ['', Validators.required],
+      generador: ['', Validators.required],
       cantidadEnergia: ['', Validators.required],
+      fechaFin:['', Validators.required],
       // valorCompra: [{ value: '', disabled: true }, Validators.required],
       // tokensDelegados: [{ value: this.tokensDelegados, disabled: true }, Validators.required],
     });
@@ -88,17 +112,24 @@ export class ComprarEnergiaComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           this.spinner.show();
-          let infoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
-          let cantidadEnergia = this.comprarEnergiaForm.get('cantidadEnergia').value;
-          let fechaFin = Date.now() /1000;
-          this.clienteService.postComprarEnergia(infoEnergia.nombre, cantidadEnergia,fechaFin).subscribe({
-            next: () => {
+
+          let _dirCliente: string = '0x19340ba17d7E375c37C36Bf349835FE930E329F8';
+          let _indexGlobal: number = 0;
+
+          console.log("THIS GENERADOR ENVIADO: ",this.dirGenerador.infoContrato.dirContrato)
+          console.log("this.data.emision.dirCliente: ",this.data.emision.dirCliente)
+          console.log("this.data.emision.indexGlobal: ",this.data.emision.indexGlobal)
+      
+          this.comercializadorService.realizarAcuerdo(this.dirGenerador.infoContrato.dirContrato, this.data.emision.dirCliente,this.data.emision.indexGlobal).subscribe({
+            next: (data) => {
+              console.log("DATA: ",data)
+              this.toastr.success("El cuerdo se ha concretado con el generador.","Transacción exitosa!");
               this.spinner.hide();
-              this.toastr.success('Emision de compra de energia', 'Éxito');
               this.dialogRef.close();
             }, error: (error) => {
-              this.spinner.hide();
+              console.log(error);
               this.toastr.error(error.message, 'Error');
+              this.spinner.hide();
             }
           });
         }
@@ -109,11 +140,31 @@ export class ComprarEnergiaComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  private getInfoGeneradores() {
+    this.regulardorMercado.getSolicitudesRegistro().subscribe({
+      next: (data) => {
+        let filterData = data as SolicitudContrato[];
+        this.generadores = filterData.filter(item => item.tipoContrato == 2);
+        console.log("FILTRO GENERADOR: ",this.generadores)
+      }, error: (err) => {
+        console.log(err);
+        this.toastr.error(err.message, 'Error');
+      }
+    });
+  }
+
   get isComprarValid(): boolean {
     let cantidadCompra = this.comprarEnergiaForm.get('cantidadEnergia').value;
     let valorCompra = this.comprarEnergiaForm.get('valorCompra').value;
-    let infoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
+    let infoEnergia = this.comprarEnergiaForm.get('generador').value as InfoEnergia;
     return this.comprarEnergiaForm.valid && valorCompra <= this.data.tokensDelegados && cantidadCompra <= infoEnergia.cantidadEnergia;
   }
 
 }
+
+
+
+
+
+
+

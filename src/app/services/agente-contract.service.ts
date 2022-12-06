@@ -38,7 +38,6 @@ export abstract class AgenteContractService {
   public getInfoContrato(): Observable<InfoContrato> {
     return from(this.contract?.methods.getInfoContrato().call({ from: this.account })).pipe(
       map((data: any) => {
-        console.log("ejecutando getinfocontrato desde agente");
         let tempInfo = {
           owner: data.owner,
           ciudad: data.ciudad,
@@ -51,7 +50,7 @@ export abstract class AgenteContractService {
           nit: data.nit,
           dirContrato: data.dirContrato,
           empresa: data.empresa,
-          tiposContratos: parseInt(data.tiposContratos) as TiposContratos
+          tipoContrato: parseInt(data.tipoContrato) as TiposContratos
         };
         return tempInfo as InfoContrato;
       }),
