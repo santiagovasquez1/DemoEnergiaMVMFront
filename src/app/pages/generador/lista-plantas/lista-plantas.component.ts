@@ -238,7 +238,8 @@ export class ListaPlantasComponent implements OnInit {
       width: '500px',
       data: {
         dirContract: this.dirContract,
-        energiasDisponibles: this.energiasDisponibles
+        energiasDisponibles: this.energiasDisponibles,
+        setPrecio: 'generador'
       }
     });
 

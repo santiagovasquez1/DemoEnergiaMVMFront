@@ -174,7 +174,6 @@ export class OrdenesDespachoComponent implements OnInit {
             case TiposContratos.Generador:
               await this.generadorFactory.loadBlockChainContractData();
               let dirGenerador = solicitud.infoContrato.dirContrato;
-              console.log("dirGenerador",dirGenerador)
               this.regulardorMercado.setDespachoEnergia(dirGenerador,this.cantidadDespacho).subscribe({
                 next: () => {
                   this.spinner.hide();

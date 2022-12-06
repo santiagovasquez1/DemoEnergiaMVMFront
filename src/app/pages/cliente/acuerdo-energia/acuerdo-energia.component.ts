@@ -7,18 +7,19 @@ import { ClienteContractService } from 'src/app/services/cliente-contract.servic
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
+import { type } from 'os';
+
 
 @Component({
-  selector: 'app-comprar-tokens',
-  templateUrl: './comprar-tokens.component.html'
+  selector: 'app-acuerdo-energia',
+  templateUrl: './acuerdo-energia.component.html'
 })
-export class ComprarTokensComponent implements OnInit {
-
+export class AcuerdoEnergiaComponent implements OnInit {
   tokensDelegados: number;
   comprarEnergiaForm: FormGroup
   tiposEnergia: InfoEnergia[] = [];
 
-  constructor(public dialogRef: MatDialogRef<ComprarTokensComponent>,
+  constructor(public dialogRef: MatDialogRef<AcuerdoEnergiaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private alertDialog: SweetAlertService,
     private spinner: NgxSpinnerService,
@@ -39,7 +40,7 @@ export class ComprarTokensComponent implements OnInit {
 
       this.bancoEnergia.getTiposEnergiasDisponibles().subscribe({
         next: (data) => {
-          console.log(data);
+          console.log("TIPOS DE ENERGÍA: ",data);
           this.tiposEnergia = data;
         },
         error: (error) => {
@@ -47,16 +48,21 @@ export class ComprarTokensComponent implements OnInit {
           this.toastr.error(error.message, 'Error');
         }
       });
-      // this.comprarEnergiaForm.get('tipoEnergia').valueChanges.subscribe({
-      //   next: () => {
-      //     this.onEnergiaChange();
-      //   }
-      // });
-      // this.comprarEnergiaForm.get('cantidadEnergia').valueChanges.subscribe({
-      //   next: () => {
-      //     this.onEnergiaChange();
-      //   }
-      // });
+      this.comprarEnergiaForm.get('tipoEnergia').valueChanges.subscribe({
+        next: () => {
+          this.onEnergiaChange();
+        }
+      });
+      this.comprarEnergiaForm.get('cantidadEnergia').valueChanges.subscribe({
+        next: () => {
+          this.onEnergiaChange();
+        }
+      });
+      this.comprarEnergiaForm.get('fechaFin').valueChanges.subscribe({
+        next: () => {
+          this.onEnergiaChange();
+        }
+      });
     } catch (error) {
       console.log(error);
       this.toastr.error('Error al cargar los datos', error.message);
@@ -66,28 +72,37 @@ export class ComprarTokensComponent implements OnInit {
   private onEnergiaChange() {
     let tipoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value == '' ? null : this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
     let cantidadEnergia = this.comprarEnergiaForm.get('cantidadEnergia').value == '' ? 0 : this.comprarEnergiaForm.get('cantidadEnergia').value;
+    let fechaFin = this.comprarEnergiaForm.get('fechaFin').value == '' ? 0 : this.comprarEnergiaForm.get('fechaFin').value;
+
+    console.log(fechaFin)
     if (cantidadEnergia > 0 && tipoEnergia) {
-      // let precioEnergia = tipoEnergia.precio * cantidadEnergia;
-      let precioEnergia = 0.001 * 1500 * 4500 * cantidadEnergia;
+      let precioEnergia = tipoEnergia.precio * cantidadEnergia;
       this.comprarEnergiaForm.get('valorCompra').setValue(precioEnergia);
     }
   }
 
   initForm() {
     this.comprarEnergiaForm = this.fb.group({
+      tipoEnergia: ['', Validators.required],
       cantidadEnergia: ['', Validators.required],
-      valorCompra: [{ value: '', disabled: true }, Validators.required]
+      fechaFin:['', Validators.required],
+      // valorCompra: [{ value: '', disabled: true }, Validators.required],
+      // tokensDelegados: [{ value: this.tokensDelegados, disabled: true }, Validators.required],
     });
   }
 
-  onComprarTokens() {
+  onComprarEnergia() {
     this.alertDialog.confirmAlert('Confirmar', '¿Está seguro de que desea comprar energía?')
       .then((result) => {
         if (result.isConfirmed) {
           this.spinner.show();
           let infoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
           let cantidadEnergia = this.comprarEnergiaForm.get('cantidadEnergia').value;
-          let fechaFin = Date.now() /1000;
+          let fechaFin = this.comprarEnergiaForm.get('fechaFin').value;
+          fechaFin = Math.trunc(Date.parse(fechaFin) / 1000)
+          console.log("infoEnergia: ",infoEnergia);
+          console.log("cantidadEnergia: ",cantidadEnergia);
+          console.log("fechaFin: ",fechaFin);
           this.clienteService.postComprarEnergia(infoEnergia.nombre, cantidadEnergia,fechaFin).subscribe({
             next: () => {
               this.spinner.hide();
@@ -106,9 +121,15 @@ export class ComprarTokensComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  // get isComprarValid(): boolean {
-  //   let cantidadCompra = this.comprarEnergiaForm.get('cantidadEnergia').value;
-  //   return this.comprarEnergiaForm.valid;
-  // }
-
+  get isComprarValid(): boolean {
+    let cantidadCompra = this.comprarEnergiaForm.get('cantidadEnergia').value;
+    let valorCompra = this.comprarEnergiaForm.get('valorCompra').value;
+    let infoEnergia = this.comprarEnergiaForm.get('tipoEnergia').value as InfoEnergia;
+    return this.comprarEnergiaForm.valid && valorCompra <= this.data.tokensDelegados && cantidadCompra <= infoEnergia.cantidadEnergia;
+  }
 }
+
+
+
+
+
