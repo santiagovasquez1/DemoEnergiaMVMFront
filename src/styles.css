@@ -423,10 +423,6 @@ form .form-actions-row {
     grid-template-rows: 100vh;
 }
 
-.imagen {
-    /*background-image: url(./assets/images/imgLogin.png);*/
-}
-
 .loginContainer .imagen #fondo {
     width: 100%;
     height: 100%;
@@ -937,10 +933,6 @@ form .form-actions-row {
     max-height: 90%;
 }
 
-.container-generadores .tipo-energia-dpto {
-    /* background-color: #c77a1648; */
-}
-
 .departamento-generadores {
     margin: 30px;
 }
@@ -1363,6 +1355,14 @@ mat-dialog-container .mat-form-field-infix span label {
 .mvm-table .mat-column-generador,
 .mvm-table .mat-column-tecnologia {
     flex: 0 0 100px !important;
+}
+
+.mvm-table .mat-column-despacho {
+    flex: 0 0 150px !important
+}
+
+.mvm-table .mat-column-generador {
+    flex: 0 0 250px !important
 }
 
 .mvm-table .mat-column-id {
