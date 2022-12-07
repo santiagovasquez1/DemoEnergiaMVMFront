@@ -6,16 +6,19 @@
 
     <app-filter *ngIf="filterFormProperties.length>0" [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
 
-    <div>
-        <button class="button-mvm w-160" mat-ripple (click)="onAcuerdoCompra()">Realizar acuerdo</button>
-        <button class="button-mvm w-160" mat-ripple (click)="onGetAcuerdos()">Get contrato</button>
-    </div>
-
     <div class="table-container mt-30 fadeIn">
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
             <ng-container matColumnDef="empresaCliente">
-                <mat-header-cell *matHeaderCellDef>Empresa</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.nombre}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef>Cliente</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.dataCliente.nombreAgente}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="empresaGenerador">
+                <mat-header-cell *matHeaderCellDef>Generador</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.dataGenerador.nombreAgente}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="estado">
+                <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.estadoAcuerdo|estadoCompra}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="fechaInicio">
                 <mat-header-cell *matHeaderCellDef>Fecha Inicio</mat-header-cell>
