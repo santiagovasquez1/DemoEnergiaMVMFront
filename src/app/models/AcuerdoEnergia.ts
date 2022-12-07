@@ -4,17 +4,22 @@ export enum EstadoAcuerdo {
     cerrado
 }
 
+export interface DataAgenteAcuerdo {
+    dirContrato: string;
+    nombreAgente: string;
+}
+
 
 export interface AcuerdoEnergia {
-    dirCliente: string; 
-    dirGenerador: string;
-    dirComercializador: string;
-    tipoEnergia: string; //
-    cantidadEnergiaTotal: number; //
-    cantidadEnergiaInyectada: number; //
-    fechaSolicitud: number;
-    fechaInicio: number; //
-    fechaFin: number; //
+    dataCliente: DataAgenteAcuerdo;
+    dataGenerador: DataAgenteAcuerdo;
+    dataComercializador: DataAgenteAcuerdo;
+    tipoEnergia: string;
+    cantidadEnergiaTotal: number;
+    cantidadEnergiaInyectada: number;
+    fechaSolicitud: string;
+    fechaInicio: string;
+    fechaFin: string;
     estadoAcuerdo: EstadoAcuerdo;
     indexCliente: number;
     indexGlobal: number;
