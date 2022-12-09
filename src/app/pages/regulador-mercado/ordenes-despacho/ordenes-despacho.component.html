@@ -12,26 +12,27 @@
                 <mat-header-cell *matHeaderCellDef>Generador</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.nombreGenerador}}</mat-cell>
             </ng-container>
-
-            <ng-container matColumnDef="ubicacion">
-                <mat-header-cell *matHeaderCellDef>Ubicación</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.ubicacion}}</mat-cell>
-            </ng-container>
             <ng-container matColumnDef="capacidadNominal">
                 <mat-header-cell *matHeaderCellDef>Capacidad nominal Mwh</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.capacidadNominalGenerador}}</mat-cell>
+                <mat-cell *matCellDef="let element">{{element.capacidadNominal}}</mat-cell>
             </ng-container>
+
+            <ng-container matColumnDef="cantidadProducida">
+                <mat-header-cell *matHeaderCellDef>Energia despachada Mw</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.cantidadProducida}}</mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="despacho">
-                <mat-header-cell *matHeaderCellDef>Asignar despacho</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>Asignar despacho Mw</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <input class="ml-3" type="number" autocomplete="off" (keyup)="onKey($event)">
+                    <input [(ngModel)]="element.cantidadEnergia" class="ml-3" type="number" autocomplete="off">
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="acciones">
                 <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
                 <mat-cell *matCellDef="let element; let index = index">
                     <button matRipple class="button-mvm-asignar" [disabled]="element.estadoSolicitud == 0 || element.estadoSolicitud == 1" matTooltip="Aceptar solicitud">
-                        <mat-icon (click)="onApprove(index,element)">person_add</mat-icon>
+                        <mat-icon (click)="onDespacharEnergia(element)">person_add</mat-icon>
                     </button>
                 </mat-cell>
             </ng-container>

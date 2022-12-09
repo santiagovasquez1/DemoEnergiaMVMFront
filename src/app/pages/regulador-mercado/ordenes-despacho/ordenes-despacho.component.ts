@@ -1,24 +1,18 @@
-import { InfoGeneradorDespacho } from './../../../models/InfoGeneradorDespacho';
+import { DespachosEnergiaService } from './../../../services/despachos-energia.service';
 import { EstadoSolicitud } from './../../../models/solicitudContrato';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { SweetAlertService } from './../../../services/sweet-alert.service';
-import { InfoContrato } from './../../../models/infoContrato';
 import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, Subscription, timer, switchMap, of } from 'rxjs';
-import { SolicitudContrato } from 'src/app/models/solicitudContrato';
+import { Observable, switchMap, of, forkJoin } from 'rxjs';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { TableService } from 'src/app/services/shared/table-service.service';
 import { TiposContratos } from 'src/app/models/EnumTiposContratos';
-import { ClienteFactoryService } from 'src/app/services/cliente-factory.service';
-import { ComercializadorFactoryService } from 'src/app/services/comercializador-factory.service';
-import { GeneradorFactoryService } from 'src/app/services/generador-factory.service';
 import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
-
+import { OrdenDespacho } from 'src/app/models/OrdenDespacho';
 
 @Component({
   selector: 'app-ordenes-despacho',
@@ -30,32 +24,32 @@ export class OrdenesDespachoComponent implements OnInit {
   estadosSolicitud: EstadoSolicitud[];
   tiposDeAgentes: TiposContratos[];
 
-  displayedColumns: string[] = ['generador', 'ubicacion', 'capacidadNominal', 'despacho', 'acciones'];
+  displayedColumns: string[] = ['generador', 'capacidadNominal', 'cantidadProducida', 'despacho', 'acciones'];
   contadorAnterior = 0;
   contadorActual = 0;
   isFromInit: boolean = false;
   diligenciandoSolicitud: boolean = false;
   reloadData: boolean = false;
-  cantidadDespacho: number = 0;
 
-  dataSource: MatTableDataSource<InfoGeneradorDespacho>;
+  dataSource: MatTableDataSource<OrdenDespacho>;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('table', { static: true }) table: MatTable<any>;
   sort: MatSort;
   contratoDiligenciadoEvent: any;
+  inyeccionDespachoEvent: any;
   filterFormProperties: RowFilterForm[] = [];
 
   //Filtros:
   filters = {
     nombreGenerador: '',
-    contacto: '',
-    ubicacion: '',
     capacidadNominal: '',
+    energiaDespachada: ''
   }
 
 
   constructor(private toastr: ToastrService,
     private regulardorMercado: ReguladorMercadoService,
+    private despachosEnergia: DespachosEnergiaService,
     private tableService: TableService,
     private spinner: NgxSpinnerService,
     private sweetAlert: SweetAlertService,
@@ -69,19 +63,13 @@ export class OrdenesDespachoComponent implements OnInit {
         controlType: 'text',
         pipe: ''
       }, {
-        label: 'Contacto',
-        formControlName: 'contacto',
-        controlType: 'text',
-        pipe: ''
-      },
-      {
-        label: 'Ubicación',
-        formControlName: 'ubicacion',
-        controlType: 'text',
+        label: 'Capacidad Nominal (Mw)',
+        formControlName: 'capacidadNominal',
+        controlType: 'number',
         pipe: ''
       }, {
-        label: 'capacidadNominal',
-        formControlName: 'capacidadNominal',
+        label: 'Energia Despachada (Mw)',
+        formControlName: 'energiaDespachada',
         controlType: 'number',
         pipe: ''
       }]
@@ -90,13 +78,17 @@ export class OrdenesDespachoComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.contratoDiligenciadoEvent.removeAllListeners('data');
+    this.inyeccionDespachoEvent.removeAllListeners('data');
   }
 
   async ngOnInit(): Promise<void> {
     try {
       this.isFromInit = true;
       this.spinner.show();
-      await this.regulardorMercado.loadBlockChainContractData();
+      let promises: Promise<void>[] = [];
+      promises.push(this.regulardorMercado.loadBlockChainContractData());
+      promises.push(this.despachosEnergia.loadBlockChainContractData());
+      await Promise.all(promises);
       this.tableService.setPaginatorTable(this.paginator);
       this.spinner.hide();
       this.getGeneradores();
@@ -113,6 +105,21 @@ export class OrdenesDespachoComponent implements OnInit {
           this.getGeneradores()
         })
       });
+
+      this.inyeccionDespachoEvent = this.despachosEnergia.contract.events.inyeccionDespacho({
+        fromBlock: 'latest'
+      }, (err, event) => {
+        if (err) {
+          console.log(err);
+          this.toastr.error(err.message, 'Error');
+        }
+      }).on('data', (event) => {
+        this.ngZone.run(() => {
+          this.getGeneradores()
+        })
+      });
+
+
     } catch (error) {
       console.log(error);
       this.toastr.error(error.message, 'Error');
@@ -123,22 +130,35 @@ export class OrdenesDespachoComponent implements OnInit {
     this.regulardorMercado.getSolicitudesRegistro().pipe(
       switchMap(solicitudes => {
         return of(solicitudes.filter(item => item.tipoContrato == TiposContratos.Generador).map(solicitud => {
-          let infoGeneradorDespacho: InfoGeneradorDespacho = {
-            nombreGenerador: solicitud.infoContrato.empresa,
-            contacto: solicitud.infoContrato.contacto,
-            ubicacion: `${solicitud.infoContrato.departamento} - ${solicitud.infoContrato.ciudad}`,
-            capacidadNominalGenerador: 0
+          let infoGeneradorDespacho = {
+            dirGenerador: solicitud.infoContrato.dirContrato,
+            nombreGenerador: solicitud.infoContrato.empresa
           };
           return infoGeneradorDespacho
         }));
       })
     ).subscribe({
       next: data => {
-        let filterData = this.filterData(data);
-        this.dataSource.data = filterData;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.table.renderRows();
+        let timeNow = Math.floor(Date.now() / 1000);
+        let getDespachosObservables: Observable<OrdenDespacho>[] = [];
+
+        data.forEach(element => {
+          getDespachosObservables.push(this.despachosEnergia.getDespachosByGeneradorAndDate(element.dirGenerador, element.nombreGenerador, timeNow));
+        });
+
+        forkJoin(getDespachosObservables).subscribe({
+          next: (ordenesDespacho) => {
+            let filterData = this.filterData(ordenesDespacho);
+            this.dataSource.data = filterData;
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+            this.table.renderRows();
+          },
+          error: (error) => {
+            console.log(error);
+            this.toastr.error(error.message, 'Error');
+          }
+        })
       }, error: (err) => {
         console.log(err);
         this.toastr.error(err.message, 'Error');
@@ -146,53 +166,39 @@ export class OrdenesDespachoComponent implements OnInit {
     })
   }
 
-  onKey(event: any) {
-    this.cantidadDespacho = event.target.value;
-    console.log(this.cantidadDespacho)
-  }
-
-  onApprove(index: number, solicitud: SolicitudContrato) {
-    // this.diligenciandoSolicitud = true;
-    // console.log("SOLICITUD: ", solicitud)
-    // this.sweetAlert.confirmAlert('Diligenciar solicitud', '¿Está seguro de diligenciar la solicitud?')
-    //   .then(async (result) => {
-    //     if (result.isConfirmed) {
-    //       this.spinner.show();
-    //       switch (solicitud.tipoContrato) {
-    //         case TiposContratos.Generador:
-    //           await this.generadorFactory.loadBlockChainContractData();
-    //           let dirGenerador = solicitud.infoContrato.dirContrato;
-    //           this.regulardorMercado.setDespachoEnergia(dirGenerador, this.cantidadDespacho).subscribe({
-    //             next: () => {
-    //               this.spinner.hide();
-    //               this.toastr.success('Solicitud diligenciada', 'Registro');
-    //               this.reloadData = true;
-    //               this.diligenciandoSolicitud = false;
-    //             }, error: (err) => {
-    //               this.diligenciandoSolicitud = false;
-    //               console.log(err);
-    //               this.spinner.hide();
-    //               this.toastr.error(err.message, 'Error');
-    //             }
-    //           });
-
-    //           this.regulardorMercado.getDespachosRealizados().subscribe({
-    //             next: (data) => {
-    //               console.log("data de despachos: ", data)
-    //             }, error: (err) => {
-    //               console.log(err);
-    //             }
-    //           });
-    //           break;
-    //         default:
-    //           this.spinner.hide();
-    //           this.toastr.error('Tipo de contrato no soportado', 'Error');
-    //       }
-
-    //     } else {
-    //       this.diligenciandoSolicitud = false;
-    //     }
-    //   })
+  onDespacharEnergia(ordenDespacho: OrdenDespacho) {
+    this.sweetAlert.confirmAlert('Despacho de energia', `¿Deseas despachar ${ordenDespacho.cantidadEnergia}Mw al generador ${ordenDespacho.nombreGenerador}`).then(result => {
+      if (result.isConfirmed) {
+        this.spinner.show();
+        if (ordenDespacho.index == null) {
+          this.despachosEnergia.setDespachoEnergia(ordenDespacho.dirGenerador, ordenDespacho.cantidadEnergia).subscribe({
+            next: (() => {
+              this.getGeneradores();
+              this.spinner.hide();
+              this.toastr.success('Despacho realizado con exito', 'Despacho');
+            }),
+            error: error => {
+              console.log(error);
+              this.toastr.error(error.message, 'Error');
+            }
+          });
+        } else {
+          let timeNow = Math.floor(Date.now() / 1000);
+          this.despachosEnergia.editCantidadDespacho(ordenDespacho.dirGenerador, ordenDespacho.cantidadEnergia,
+            timeNow, ordenDespacho.index).subscribe({
+              next:()=>{
+                this.getGeneradores();
+                this.spinner.hide();
+                this.toastr.success('Modificación de despacho realizado con exito', 'Despacho');
+              },
+              error:error=>{
+                console.log(error);
+                this.toastr.error(error.message, 'Error');
+              }
+            });
+        }
+      }
+    });
   }
 
 
@@ -201,12 +207,12 @@ export class OrdenesDespachoComponent implements OnInit {
     this.getGeneradores();
   }
 
-  private filterData(data: InfoGeneradorDespacho[]): InfoGeneradorDespacho[] {
+  private filterData(data: OrdenDespacho[]): OrdenDespacho[] {
     let filterArray = data
     filterArray = this.filters.nombreGenerador !== '' ? filterArray.filter(item => item.nombreGenerador.toLowerCase().includes(this.filters.nombreGenerador)) : filterArray;
-    filterArray = this.filters.contacto !== '' ? filterArray.filter(item => item.contacto.toLowerCase().includes(this.filters.contacto.toLowerCase())) : filterArray;
-    filterArray = this.filters.ubicacion !== '' ? filterArray.filter(item => item.ubicacion.toLowerCase().includes(this.filters.ubicacion.toLowerCase())) : filterArray;
-    filterArray = this.filters.capacidadNominal !== '' ? filterArray.filter(item => item.capacidadNominalGenerador == parseInt(this.filters.capacidadNominal)) : filterArray;
+    filterArray = this.filters.capacidadNominal !== '' ? filterArray.filter(item => item.capacidadNominal === parseInt(this.filters.capacidadNominal)) : filterArray;
+    filterArray = this.filters.capacidadNominal !== '' ? filterArray.filter(item => item.cantidadProducida === parseInt(this.filters.energiaDespachada)) : filterArray;
+
     return filterArray;
   }
 
