@@ -55,6 +55,7 @@ import { ComprarTokensComponent } from './generador/tokens-generador/comprar-tok
 import { FijarPreciosComponent } from './generador/fijar-precios/fijar-precios.component';
 import { AcuerdoEnergiaComponent } from './cliente/acuerdo-energia/acuerdo-energia.component';
 import { SetAcuerdosComponent } from './comercializador/set-acuerdos/set-acuerdos.component';
+import { HistoricoDespachosComponent } from './regulador-mercado/historico-despachos/historico-despachos.component';
 
 
 @NgModule({
@@ -96,6 +97,7 @@ import { SetAcuerdosComponent } from './comercializador/set-acuerdos/set-acuerdo
         FijarPreciosComponent,
         AcuerdoEnergiaComponent,
         SetAcuerdosComponent,
+        HistoricoDespachosComponent,
     ],
     imports: [
         CommonModule,

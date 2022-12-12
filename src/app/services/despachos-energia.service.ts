@@ -102,7 +102,7 @@ export class DespachosEnergiaService {
   }
 
 
-  getHistoricoDespachosEnergia(): Observable<any> {
+  getHistoricoDespachosEnergia(): Observable<OrdenDespacho[]> {
     return from(this.contract?.methods.getHistoricoDespachos().call({ from: this.account })).pipe(
       switchMap((data: any[]) => {
         let mappingsOrdenesDespacho: Observable<OrdenDespacho>[] = []
@@ -119,7 +119,6 @@ export class DespachosEnergiaService {
 
 
   private mappingOrdenDespacho(data: any): Observable<OrdenDespacho> {
-    debugger;
     const [dirGenerador, nombreGenerador, cantidadEnergia, cantidadProducida, fechaDespacho, index] = data;
     const generadorContract: GeneradorContractService = new GeneradorContractService(this.winRef, this.web3ConnectService, this.toastr);
     return from(generadorContract.loadBlockChainContractData(dirGenerador)).pipe(
@@ -129,8 +128,8 @@ export class DespachosEnergiaService {
             let ordenDespacho: OrdenDespacho = {
               dirGenerador,
               nombreGenerador,
-              cantidadEnergia,
-              cantidadProducida,
+              cantidadEnergia:parseInt(cantidadEnergia),
+              cantidadProducida:parseInt(cantidadProducida),
               fechaDespacho: moment(parseInt(fechaDespacho) * 1000).format('DD/MM/YYYY'),
               capacidadNominal,
               index

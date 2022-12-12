@@ -482,9 +482,30 @@ form .form-actions-row {
     width: 100%;
 }
 
-.loginContainer .container-loginForm .loginForm .password {
+.loginContainer .container-loginForm .loginForm .password,
+.totalesContainer {
     display: flex;
     justify-content: space-between;
+}
+
+.totalesContainer {
+    margin: 0px auto;
+    margin-top: 20px;
+    max-width: var(--max-width) !important;
+}
+
+.totalesContainer .total,
+.totalesContainer .resultado {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.totalesContainer .total {
+    color: var(--verde-oscuro);
+}
+
+.totalesContainer .resultado {
+    color: #666666;
 }
 
 .loginContainer .container-loginForm .loginForm .no-cuenta {

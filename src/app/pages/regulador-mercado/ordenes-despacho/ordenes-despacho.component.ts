@@ -19,7 +19,7 @@ import { OrdenDespacho } from 'src/app/models/OrdenDespacho';
   templateUrl: './ordenes-despacho.component.html',
   styleUrls: ['./ordenes-despacho.component.css']
 })
-export class OrdenesDespachoComponent implements OnInit {
+export class OrdenesDespachoComponent implements OnInit, OnDestroy {
 
   estadosSolicitud: EstadoSolicitud[];
   tiposDeAgentes: TiposContratos[];
@@ -83,7 +83,6 @@ export class OrdenesDespachoComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     try {
-      this.isFromInit = true;
       this.spinner.show();
       let promises: Promise<void>[] = [];
       promises.push(this.regulardorMercado.loadBlockChainContractData());
@@ -186,12 +185,12 @@ export class OrdenesDespachoComponent implements OnInit {
           let timeNow = Math.floor(Date.now() / 1000);
           this.despachosEnergia.editCantidadDespacho(ordenDespacho.dirGenerador, ordenDespacho.cantidadEnergia,
             timeNow, ordenDespacho.index).subscribe({
-              next:()=>{
+              next: () => {
                 this.getGeneradores();
                 this.spinner.hide();
                 this.toastr.success('Modificación de despacho realizado con exito', 'Despacho');
               },
-              error:error=>{
+              error: error => {
                 console.log(error);
                 this.toastr.error(error.message, 'Error');
               }
