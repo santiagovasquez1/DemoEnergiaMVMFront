@@ -1,3 +1,5 @@
+import { ToastrService } from 'ngx-toastr';
+import { OrdenDespacho } from './../models/OrdenDespacho';
 import { InfoReguladorMercado } from './../models/infoReguladorMercado';
 import { TiposContratos } from './../models/EnumTiposContratos';
 import { InfoContrato } from './../models/infoContrato';
@@ -9,9 +11,11 @@ import { Contract } from 'web3-eth-contract';
 import { AbiItem } from 'web3-utils';
 import reguladorMercado from "../../../buildTruffle/contracts/ReguladorMercado.json";
 import { WinRefService } from './win-ref.service';
-import { catchError, from, map, Observable, Subscription, throwError } from 'rxjs';
+import { catchError, from, map, Observable, of, throwError, switchMap, forkJoin } from 'rxjs';
 import moment from 'moment';
 import { info } from 'console';
+import { ProviderRpcError } from '../models/JsonrpcError';
+import { GeneradorContractService } from './generador-contract.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +29,7 @@ export class ReguladorMercadoService {
   tokensDevueltos$: any;
   EnviarTokens$: any;
   web3: Web3;
-  constructor(private winRef: WinRefService, private web3ConnectService: Web3ConnectService) { }
+  constructor(private winRef: WinRefService, private web3ConnectService: Web3ConnectService, private toastr: ToastrService) { }
 
   async loadBlockChainContractData() {
     await this.web3ConnectService.loadWeb3();
@@ -66,7 +70,7 @@ export class ReguladorMercadoService {
 
   postComprarTokens(cantidadTokens: number): Observable<any> {
     let valorToken = this.web3.utils.toWei(cantidadTokens.toString(), 'finney');
-    return from(this.contract?.methods.ComprarTokens(cantidadTokens).send({ from: this.account})).pipe(
+    return from(this.contract?.methods.ComprarTokens(cantidadTokens).send({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
@@ -194,33 +198,6 @@ export class ReguladorMercadoService {
       }));
   }
 
-  setDespachoEnergia(dirGenerador,cantidadDespacho): Observable<any> {
-    console.log("dir generador REGULADOR SERVICE",dirGenerador)
-    console.log("cantidadDespacho REGULADOR SERVICE: ",cantidadDespacho)
-    console.log("FROM: ",this.account)
-    return from(this.contract?.methods.setDespachoEnergia(dirGenerador, cantidadDespacho).call({ from: this.account })).pipe(
-      catchError((error) => {
-        return throwError(() => new Error(error.message));
-      }));
-  }
-
-  getDespachosRealizados(): Observable<any> {
-    return from(this.contract?.methods.getDespachosRealizados().call({ from: this.account })).pipe(
-      catchError((error) => {
-        return throwError(() => new Error(error.message));
-      }));
-  }
-
-  getDespachosByGeneradorAndDate(): Observable<any> {
-    let dirGenerador ="";
-    let date = 0;
-    return from(this.contract?.methods.getDespachosByGeneradorAndDate(dirGenerador, date).call({ from: this.account })).pipe(
-      catchError((error) => {
-        return throwError(() => new Error(error.message));
-      }));
-  }
-  
-
   private mappingSolicitud(data: any): SolicitudContrato {
     let [infoContrato, tipoContrato, estadoSolicitud, fechaSolicitud, fechaAprobacion] = data;
 
@@ -246,5 +223,4 @@ export class ReguladorMercadoService {
     }
     return solicitudDef;
   }
-
 }
