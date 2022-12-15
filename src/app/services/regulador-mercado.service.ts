@@ -68,6 +68,17 @@ export class ReguladorMercadoService {
     );
   }
 
+  getTokensAgente(ownerAgente: string): Observable<number> {
+    return from(this.contract.methods.MisTokens(ownerAgente).call({ from: this.account })).pipe(
+      map((data: string) => {
+        return parseInt(data);
+      }),
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    )
+  }
+
   postComprarTokens(cantidadTokens: number): Observable<any> {
     let valorToken = this.web3.utils.toWei(cantidadTokens.toString(), 'finney');
     return from(this.contract?.methods.ComprarTokens(cantidadTokens).send({ from: this.account })).pipe(

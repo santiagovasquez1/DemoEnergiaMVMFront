@@ -57,6 +57,7 @@ import { AcuerdoEnergiaComponent } from './cliente/acuerdo-energia/acuerdo-energ
 import { SetAcuerdosComponent } from './comercializador/set-acuerdos/set-acuerdos.component';
 import { HistoricoDespachosComponent } from './regulador-mercado/historico-despachos/historico-despachos.component';
 import { LiquidacionInyeccionesComponent } from './regulador-mercado/liquidacion-inyecciones/liquidacion-inyecciones.component';
+import { LiquidarInyeccionComponent } from './regulador-mercado/liquidar-inyeccion/liquidar-inyeccion.component';
 
 
 @NgModule({
@@ -100,6 +101,7 @@ import { LiquidacionInyeccionesComponent } from './regulador-mercado/liquidacion
         SetAcuerdosComponent,
         HistoricoDespachosComponent,
         LiquidacionInyeccionesComponent,
+        LiquidarInyeccionComponent,
     ],
     imports: [
         CommonModule,

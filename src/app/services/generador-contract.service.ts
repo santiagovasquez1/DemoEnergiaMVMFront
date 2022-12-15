@@ -17,7 +17,7 @@ export class GeneradorContractService extends AgenteContractService {
     await this.web3Connect.loadWeb3();
     const web3 = this.winRef.window.web3 as Web3;
     this.setContractData(Generador, web3);
-    
+
   }
 
   postCrearNuevaEnergia(tipoEnergia: string, cantidad: number): Observable<any> {
@@ -38,7 +38,7 @@ export class GeneradorContractService extends AgenteContractService {
   }
 
   postInyectarEnergiaPlanta(dirPlanta: string, tipoEnergia: string, cantidad: number, cantidadBolsa: number): Observable<any> {
-    return from(this.contract?.methods.inyectarEnergiaPlanta(dirPlanta, tipoEnergia, cantidad,cantidadBolsa).send({ from: this.account })).pipe(
+    return from(this.contract?.methods.inyectarEnergiaPlanta(dirPlanta, tipoEnergia, cantidad, cantidadBolsa).send({ from: this.account })).pipe(
       // catchError((error) => {
       //   return throwError(() => new Error(error.message));
       // })
@@ -149,5 +149,11 @@ export class GeneradorContractService extends AgenteContractService {
       })
     );
   }
-  
+
+  resetProduccionPlanta(dirPlanta: string): Observable<any> {
+    return from(this.contract?.methods.resetProduccionPlanta(dirPlanta).send({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      }));
+  }
 }

@@ -122,6 +122,14 @@ export class BancoEnergiaService {
     )
   }
 
+  liquidarInyecciones(timeStamp: number): Observable<any> {
+    return from(this.contract?.methods.liquidarInyecciones(timeStamp).send({ from: this.account })).pipe(
+      catchError((error: ProviderRpcError) => {
+        return throwError(() => new Error(error.message));
+      })
+    )
+  }
+
   private mappingInfoInyeccionBanco(data: any[]): Observable<InfoInyeccionBanco> {
     const generadorContract: GeneradorContractService = new GeneradorContractService(this.winRef, this.web3ConnectService, this.toastr);
 

@@ -1351,6 +1351,10 @@ mat-dialog-container .mat-form-field-infix span label {
     background-color: var(--rojo);
 }
 
+.alerta {
+    background-color: #C2D500;
+}
+
 .mvm-table .mat-row:hover .mat-cell {
     background-color: #eee;
 }

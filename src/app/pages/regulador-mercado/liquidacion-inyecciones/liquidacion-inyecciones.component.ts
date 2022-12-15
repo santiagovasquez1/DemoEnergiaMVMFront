@@ -1,3 +1,4 @@
+import { LiquidarInyeccionComponent } from './../liquidar-inyeccion/liquidar-inyeccion.component';
 import { InfoInyeccionBanco } from './../../../models/infoInyeccionBanco';
 import { Observable, switchMap, map, from, reduce, forkJoin } from 'rxjs';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
@@ -10,6 +11,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
 import { TableService } from 'src/app/services/shared/table-service.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-liquidacion-inyecciones',
@@ -39,7 +41,8 @@ export class LiquidacionInyeccionesComponent implements OnInit {
     private alertDialog: SweetAlertService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private tableService: TableService) {
+    private tableService: TableService,
+    private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource();
     this.filterFormProperties = [{
       fields: [{
@@ -84,15 +87,15 @@ export class LiquidacionInyeccionesComponent implements OnInit {
     let promises: Promise<any>[] = [];
     promises.push(this.bancoEnergiaService.loadBlockChainContractData());
     await Promise.all(promises);
+    this.spinner.hide();
     this.tableService.setPaginatorTable(this.paginator);
     this.getInfoInyeccionesEnergias();
-    this.spinner.hide();
   }
 
   private getInfoInyeccionesEnergias() {
+    this.spinner.show();
     let infoInyeccionesObservers: Observable<any>[] = [];
     infoInyeccionesObservers.push(this.bancoEnergiaService.getInfoInyeccionesEnergias());
-
     infoInyeccionesObservers.push(this.bancoEnergiaService.getInfoInyeccionesEnergias().pipe(
       switchMap((data) => {
         return from(data).pipe(
@@ -104,17 +107,18 @@ export class LiquidacionInyeccionesComponent implements OnInit {
 
     forkJoin(infoInyeccionesObservers).subscribe({
       next: data => {
-        console.log(data[0]);
         const filterData = data[0] as InfoInyeccionBanco[]
         this.dataSource.data = filterData;
         this.dataSource.data = filterData;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        // this.table.renderRows();
+        this.table.renderRows();
 
         this.totalEnergiaInyectada = data[1];
+        this.spinner.hide();
       }, error: error => {
         console.log(error);
+        this.spinner.hide();
         this.toastr.error(error.message, 'Error');
       }
     });
@@ -122,5 +126,16 @@ export class LiquidacionInyeccionesComponent implements OnInit {
 
   onfieldValueChange(event: FieldValueChange) {
 
+  }
+
+  onLiquidarInyeccion() {
+    const dialogRef = this.dialog.open(LiquidarInyeccionComponent, {
+      width: '500px'
+    });
+    dialogRef.afterClosed().subscribe({
+      next: () => {
+        this.getInfoInyeccionesEnergias()
+      }
+    })
   }
 }

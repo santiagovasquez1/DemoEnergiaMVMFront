@@ -1,18 +1,15 @@
+import { from, switchMap } from 'rxjs';
 import { TableService } from 'src/app/services/shared/table-service.service';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { PlantaEnergiaService } from './../../../services/planta-energia.service';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
 import { BancoEnergiaService } from './../../../services/banco-energia.service';
 import { NuevaEnergiaComponent, Estado } from './../nueva-energia/nueva-energia.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { InfoPlantaEnergia, EstadoPlanta } from './../../../models/InfoPlantaEnergia';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, NgZone } from '@angular/core';
 import { GeneradorContractService } from 'src/app/services/generador-contract.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, forkJoin } from 'rxjs';
-import { WinRefService } from 'src/app/services/win-ref.service';
-import { Web3ConnectService } from 'src/app/services/web3-connect.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
@@ -21,6 +18,7 @@ import { PlantasEnergiaComponent } from '../plantas-energia/plantas-energia.comp
 import { ComprarEnergiaBolsaComponent } from '../comprar-energia-bolsa/comprar-energia-bolsa.component';
 import { FijarPreciosComponent } from '../fijar-precios/fijar-precios.component';
 import { DespachosEnergiaService } from 'src/app/services/despachos-energia.service';
+import { PlantaEnergiaService } from 'src/app/services/planta-energia.service';
 
 
 @Component({
@@ -29,7 +27,7 @@ import { DespachosEnergiaService } from 'src/app/services/despachos-energia.serv
   styles: [
   ]
 })
-export class ListaPlantasComponent implements OnInit {
+export class ListaPlantasComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['nombre', 'ubicacion', 'coordenadas', 'fechaOperacion', 'tasaEmision', 'capacidad', 'tecnologia', 'cantidad', 'estado', 'acciones'];
   ubicaciones: string[] = []
@@ -42,7 +40,7 @@ export class ListaPlantasComponent implements OnInit {
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('table', { static: true }) table: MatTable<any>;
   sort: MatSort;
-
+  precioEnergia: number = 0;
   filterFormProperties: RowFilterForm[] = [];
 
   filters = {
@@ -52,16 +50,23 @@ export class ListaPlantasComponent implements OnInit {
     tipoEnergia: '',
     estadoPlanta: undefined
   }
+  ordenDespachoEvent: any;
 
   constructor(
     private generadorService: GeneradorContractService,
     private despachosEnergia: DespachosEnergiaService,
+    private plantaEnergia: PlantaEnergiaService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     public dialog: MatDialog,
     private bancoEnergia: BancoEnergiaService,
-    private tableService: TableService) {
+    private tableService: TableService,
+    private ngZone: NgZone) {
     this.dataSource = new MatTableDataSource();
+  }
+
+  ngOnDestroy(): void {
+    this.ordenDespachoEvent.removeAllListeners('data');
   }
 
   private setFilterForm() {
@@ -110,6 +115,20 @@ export class ListaPlantasComponent implements OnInit {
       this.tableService.setPaginatorTable(this.paginator);
       this.loadSelectsOptions();
       this.loadPlantasEnergia();
+      this.getTotalEnergiaDespachada();
+      this.getPrecioEnergia();
+      this.ordenDespachoEvent = this.despachosEnergia.contract.events.ordenDespacho({
+        fromBlock: 'latest'
+      }, (err, event) => {
+        if (err) {
+          console.log(err);
+          this.toastr.error(err.message, 'Error');
+        }
+      }).on('data', (event) => {
+        this.ngZone.run(() => {
+          this.getTotalEnergiaDespachada()
+        })
+      })
     } catch (error) {
       console.log(error);
       this.toastr.error('Error al cargar las plantas de energía', 'Error');
@@ -127,7 +146,6 @@ export class ListaPlantasComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.table.renderRows();
-
       },
       error: (error) => {
         this.toastr.error(error.message, 'Error');
@@ -153,7 +171,31 @@ export class ListaPlantasComponent implements OnInit {
         this.spinner.hide();
       }
     })
+  }
 
+  private getTotalEnergiaDespachada() {
+    const timeNow = Math.floor(new Date().getTime() / 1000);
+    this.despachosEnergia.getDespachosByGeneradorAndDate(this.dirContract, '', timeNow).subscribe({
+      next: data => {
+        this.cantidadEnergiaDepachada = data.cantidadEnergia
+      },
+      error: error => {
+        this.toastr.error(error.message, 'Error');
+        console.log(error);
+      }
+    })
+  }
+
+  private getPrecioEnergia() {
+    this.generadorService.getPrecioEnergia().subscribe({
+      next: data => {
+        this.precioEnergia = data
+      },
+      error: error => {
+        this.toastr.error(error.message, 'Error');
+        console.log(error);
+      }
+    })
   }
 
   onInyectarEnergia(planta: InfoPlantaEnergia) {
@@ -254,7 +296,19 @@ export class ListaPlantasComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe({
       next: () => {
-        this.loadPlantasEnergia()
+        this.getPrecioEnergia();
+      }
+    })
+  }
+
+  onReiniciarProduccion(plantaEnergia: InfoPlantaEnergia) {
+    this.generadorService.resetProduccionPlanta(plantaEnergia.dirPlanta).subscribe({
+      next: () => {
+        this.loadPlantasEnergia();
+      },
+      error: error => {
+        this.toastr.error(error.message, 'Error');
+        console.log(error);
       }
     })
   }

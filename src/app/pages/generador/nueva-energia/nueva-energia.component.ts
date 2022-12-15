@@ -1,3 +1,4 @@
+import { PlantaEnergiaService } from './../../../services/planta-energia.service';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -122,10 +123,10 @@ export class NuevaEnergiaComponent implements OnInit {
         this.cantidadEnergiaContratos = this.nuevaEnergiaForm.get('cantidadEnergia').value !== '' ? this.nuevaEnergiaForm.get('cantidadEnergia').value : 0;
         this.cantidadEnergiaBolsa = this.nuevaEnergiaForm.get('cantidadEnergiaBolsa').value !== '' ? this.nuevaEnergiaForm.get('cantidadEnergiaBolsa').value : 0;
         this.cantidadEnergia = this.cantidadEnergiaContratos + this.cantidadEnergiaBolsa;
-
+        debugger;
         const dirPlanta = this.data.hashPlanta;
         this.toastr.success('¡Energía agregada con éxito!');
-        this.generadorContract.postInyectarEnergiaPlanta(dirPlanta, nombreEnergia, this.cantidadEnergia, this.cantidadEnergiaBolsa).subscribe({
+        this.generadorContract.postInyectarEnergiaPlanta(dirPlanta, nombreEnergia, this.cantidadEnergiaContratos, this.cantidadEnergiaBolsa).subscribe({
           next: () => {
             this.spinner.hide();
             this.dialogRef.close();
