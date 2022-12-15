@@ -1,5 +1,7 @@
+import { InfoContrato } from 'src/app/models/infoContrato';
+import { InfoInyeccionBanco, EstadoInyeccion } from './../models/infoInyeccionBanco';
 import { InfoEnergia } from './../models/InfoEnergia';
-import { Observable, catchError, throwError, from, map } from 'rxjs';
+import { Observable, catchError, throwError, from, map, of, switchMap, forkJoin } from 'rxjs';
 import { Injectable } from '@angular/core';
 import Web3 from 'web3';
 import { Web3ConnectService } from './web3-connect.service';
@@ -9,6 +11,9 @@ import { Contract } from 'web3-eth-contract';
 import { AbiItem } from 'web3-utils';
 import { InfoTx } from '../models/InfoTx';
 import moment from 'moment';
+import { ProviderRpcError } from '../models/JsonrpcError';
+import { GeneradorContractService } from './generador-contract.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +23,7 @@ export class BancoEnergiaService {
   account: any;
   adressContract: any;
   web3: Web3;
-  constructor(private winRef: WinRefService, private web3ConnectService: Web3ConnectService) { }
+  constructor(private winRef: WinRefService, private web3ConnectService: Web3ConnectService, private toastr: ToastrService) { }
 
   async loadBlockChainContractData() {
     await this.web3ConnectService.loadWeb3();
@@ -54,7 +59,7 @@ export class BancoEnergiaService {
         return tempArray as InfoEnergia[];
       }),
       catchError((error) => {
-        
+
         return throwError(() => new Error(error.message));
       }));
   }
@@ -102,4 +107,66 @@ export class BancoEnergiaService {
     );
   }
 
+  getInfoInyeccionesEnergias(): Observable<InfoInyeccionBanco[]> {
+    return from(this.contract?.methods.getInfoInyeccionesEnergias().call({ from: this.account })).pipe(
+      switchMap((data: any[]) => {
+        let mappingsInfoInyeccionBanco: Observable<InfoInyeccionBanco>[] = [];
+        data.forEach(item => {
+          mappingsInfoInyeccionBanco.push(this.mappingInfoInyeccionBanco(item));
+        });
+        return forkJoin(mappingsInfoInyeccionBanco);
+      }),
+      catchError((error: ProviderRpcError) => {
+        return throwError(() => new Error(error.message));
+      })
+    )
+  }
+
+  private mappingInfoInyeccionBanco(data: any[]): Observable<InfoInyeccionBanco> {
+    const generadorContract: GeneradorContractService = new GeneradorContractService(this.winRef, this.web3ConnectService, this.toastr);
+
+    const [infoEnergiaTemp, infoPlantaTemp, dirContratoGenerador,
+      ownerGenerador, precioEnergia, fechaInyeccion, estadoInyeccion] = data;
+
+    const [nombreEnergia, cantidadEnergia] = infoEnergiaTemp;
+    const [dirPlanta, nombrePlanta, departamento, ciudad, coordenadas,
+      fechaInicio, tasaEmision, isRec, capacidadNominal, tecnologia, cantidadEnergiaPlanta, estado] = infoPlantaTemp;
+
+    return from(generadorContract?.loadBlockChainContractData(dirContratoGenerador)).pipe(
+      switchMap(() => {
+        return generadorContract.getInfoContrato().pipe(
+          switchMap((infoContrato: InfoContrato) => {
+            const infoInyeccionBanco: InfoInyeccionBanco = {
+              infoEnergia: {
+                nombre: nombreEnergia,
+                cantidadEnergia: parseInt(cantidadEnergia),
+                precio: 0
+              },
+              infoPlanta: {
+                dirPlanta,
+                nombre: nombrePlanta,
+                departamento,
+                ciudad,
+                coordenadas,
+                fechaInicio,
+                tasaEmision,
+                isRec,
+                capacidadNominal,
+                tecnologia,
+                cantidadEnergia: cantidadEnergiaPlanta,
+                estado
+              },
+              dirContratoGenerador,
+              ownerGenerador,
+              nombreGenerador: infoContrato.empresa,
+              precioEnergia,
+              fechaInyeccion: moment(parseInt(fechaInyeccion) * 1000).format('DD/MM/YYYY HH:mm:ss'),
+              estadoInyeccion: parseInt(estadoInyeccion) as EstadoInyeccion
+            }
+            return of(infoInyeccionBanco)
+          })
+        )
+      })
+    );
+  }
 }

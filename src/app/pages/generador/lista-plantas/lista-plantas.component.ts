@@ -20,6 +20,7 @@ import moment from 'moment';
 import { PlantasEnergiaComponent } from '../plantas-energia/plantas-energia.component';
 import { ComprarEnergiaBolsaComponent } from '../comprar-energia-bolsa/comprar-energia-bolsa.component';
 import { FijarPreciosComponent } from '../fijar-precios/fijar-precios.component';
+import { DespachosEnergiaService } from 'src/app/services/despachos-energia.service';
 
 
 @Component({
@@ -34,7 +35,9 @@ export class ListaPlantasComponent implements OnInit {
   ubicaciones: string[] = []
   estadosPlantas: EstadoPlanta[];
   dirContract: string;
+  nombreGenerador: string;
   energiasDisponibles: string[] = [];
+  cantidadEnergiaDepachada: number = 0;
   dataSource: MatTableDataSource<InfoPlantaEnergia>;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('table', { static: true }) table: MatTable<any>;
@@ -52,6 +55,7 @@ export class ListaPlantasComponent implements OnInit {
 
   constructor(
     private generadorService: GeneradorContractService,
+    private despachosEnergia: DespachosEnergiaService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     public dialog: MatDialog,
@@ -100,6 +104,7 @@ export class ListaPlantasComponent implements OnInit {
       this.dirContract = localStorage.getItem('dirContract');
       let promises: Promise<void>[] = [];
       promises.push(this.bancoEnergia.loadBlockChainContractData());
+      promises.push(this.despachosEnergia.loadBlockChainContractData());
       promises.push(this.generadorService.loadBlockChainContractData(this.dirContract));
       await Promise.all(promises);
       this.tableService.setPaginatorTable(this.paginator);
@@ -156,6 +161,7 @@ export class ListaPlantasComponent implements OnInit {
       width: '500px',
       data: {
         dirContract: this.dirContract,
+        nombreGenerador: this.nombreGenerador,
         hashPlanta: planta.dirPlanta,
         tecnologia: planta.tecnologia,
         capacidadNominal: planta.capacidadNominal,
@@ -206,12 +212,13 @@ export class ListaPlantasComponent implements OnInit {
       width: '800px',
       data: {
         dirContract: this.dirContract,
+        nombreGenerador: this.nombreGenerador,
         energiasDisponibles: this.energiasDisponibles
       }
     });
 
     dialogRef.afterClosed().subscribe({
-      next:()=>{
+      next: () => {
         this.loadPlantasEnergia()
       }
     })
@@ -222,29 +229,31 @@ export class ListaPlantasComponent implements OnInit {
       width: '500px',
       data: {
         dirContract: this.dirContract,
+        nombreGenerador: this.nombreGenerador,
         energiasDisponibles: this.energiasDisponibles
       }
     });
 
     dialogRef.afterClosed().subscribe({
-      next:()=>{
+      next: () => {
         this.loadPlantasEnergia()
       }
     })
   }
 
-  onFijarPrecios(){
+  onFijarPrecios() {
     const dialogRef = this.dialog.open(FijarPreciosComponent, {
       width: '500px',
       data: {
         dirContract: this.dirContract,
+        nombreGenerador: this.nombreGenerador,
         energiasDisponibles: this.energiasDisponibles,
         setPrecio: 'generador'
       }
     });
 
     dialogRef.afterClosed().subscribe({
-      next:()=>{
+      next: () => {
         this.loadPlantasEnergia()
       }
     })

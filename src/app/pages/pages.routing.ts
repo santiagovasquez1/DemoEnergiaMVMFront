@@ -1,3 +1,4 @@
+import { LiquidacionInyeccionesComponent } from './regulador-mercado/liquidacion-inyecciones/liquidacion-inyecciones.component';
 import { HistoricoDespachosComponent } from './regulador-mercado/historico-despachos/historico-despachos.component';
 import { TokensGeneradorComponent } from './generador/tokens-generador/tokens-generador.component';
 import { ListaComprasComponent } from './cliente/lista-compras/lista-compras.component';
@@ -68,6 +69,10 @@ const routes: Routes = [
                 path: "regulador-mercado/historico-ordenes-despacho",
                 component: HistoricoDespachosComponent,
                 canActivate: [AuthGuard]
+            },{
+                path: "regulador-mercado/liquidacion-inyecciones-bolsa",
+                component: LiquidacionInyeccionesComponent,
+                canActivate: [AuthGuard]  
             },
             {
                 path: "cliente",

@@ -1373,7 +1373,6 @@ mat-dialog-container .mat-form-field-infix span label {
 .mvm-table .mat-column-cantidad,
 .mvm-table .mat-column-certificado,
 .mvm-table .mat-column-planta,
-.mvm-table .mat-column-generador,
 .mvm-table .mat-column-tecnologia {
     flex: 0 0 100px !important;
 }

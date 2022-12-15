@@ -23,6 +23,11 @@
         </div>
     </div>
 
+    <div class="totalesContainer">
+        <p class="total">Total despachado</p>
+        <p class="resultado">{{cantidadEnergiaDepachada}} Mw</p>
+    </div>
+
     <div class="table-container mt-30 fadeIn">
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
             <ng-container matColumnDef="nombre">

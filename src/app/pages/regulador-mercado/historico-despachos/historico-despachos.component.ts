@@ -172,7 +172,7 @@ export class HistoricoDespachosComponent implements OnInit, OnDestroy {
         let filterData = this.filterData(data[0]);
         this.cantidadEnergiaDepachada = data[1];
         this.cantidadEnergiaInyectada = data[2];
-        
+
         this.dataSource.data = filterData;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
