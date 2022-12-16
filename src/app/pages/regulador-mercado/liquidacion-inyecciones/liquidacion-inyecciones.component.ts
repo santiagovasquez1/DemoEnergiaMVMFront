@@ -1,5 +1,5 @@
 import { LiquidarInyeccionComponent } from './../liquidar-inyeccion/liquidar-inyeccion.component';
-import { InfoInyeccionBanco } from './../../../models/infoInyeccionBanco';
+import { InfoInyeccionBanco, EstadoInyeccion } from './../../../models/infoInyeccionBanco';
 import { Observable, switchMap, map, from, reduce, forkJoin } from 'rxjs';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -12,6 +12,7 @@ import { MatSort } from '@angular/material/sort';
 import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
 import { TableService } from 'src/app/services/shared/table-service.service';
 import { MatDialog } from '@angular/material/dialog';
+import moment from 'moment';
 
 @Component({
   selector: 'app-liquidacion-inyecciones',
@@ -34,52 +35,17 @@ export class LiquidacionInyeccionesComponent implements OnInit {
     tipoEnergia: '',
     cantidad: '',
     precio: '',
+    estado: undefined,
     fechaInyeccion: ''
   }
 
   constructor(private bancoEnergiaService: BancoEnergiaService,
-    private alertDialog: SweetAlertService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
     private tableService: TableService,
     private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource();
-    this.filterFormProperties = [{
-      fields: [{
-        label: 'Generador',
-        formControlName: 'generador',
-        controlType: 'text',
-        pipe: ''
-      }, {
-        label: 'Planta',
-        formControlName: 'planta',
-        controlType: 'text',
-        pipe: ''
-      }, {
-        label: 'Tipo de energía',
-        formControlName: 'tipoEnergia',
-        controlType: 'select',
-        pipe: '',
-        optionValues: []
-      }],
-    }, {
-      fields: [{
-        label: 'Cantidad (Mw)',
-        formControlName: 'cantidad',
-        controlType: 'number',
-        pipe: ''
-      }, {
-        label: 'Precio de venta',
-        formControlName: 'precio',
-        controlType: 'number',
-        pipe: ''
-      }, {
-        label: 'Fecha de inyección',
-        formControlName: 'fechaInyeccion',
-        controlType: 'date',
-        pipe: ''
-      }]
-    }]
+
   }
 
   async ngOnInit(): Promise<void> {
@@ -88,8 +54,67 @@ export class LiquidacionInyeccionesComponent implements OnInit {
     promises.push(this.bancoEnergiaService.loadBlockChainContractData());
     await Promise.all(promises);
     this.spinner.hide();
+    this.setFilters();
     this.tableService.setPaginatorTable(this.paginator);
     this.getInfoInyeccionesEnergias();
+  }
+
+  private setFilters() {
+    this.spinner.show();
+    this.bancoEnergiaService.getTiposEnergiasDisponibles().subscribe({
+      next: data => {
+        this.filterFormProperties = [{
+          fields: [{
+            label: 'Generador',
+            formControlName: 'generador',
+            controlType: 'text',
+            pipe: ''
+          }, {
+            label: 'Planta',
+            formControlName: 'planta',
+            controlType: 'text',
+            pipe: ''
+          }, {
+            label: 'Tipo de energía',
+            formControlName: 'tipoEnergia',
+            controlType: 'select',
+            pipe: '',
+            optionValues: data.map(item => item.nombre)
+          },
+          {
+            label: 'Cantidad (Mw)',
+            formControlName: 'cantidad',
+            controlType: 'number',
+            pipe: ''
+          }],
+        }, {
+          fields: [{
+            label: 'Precio de venta',
+            formControlName: 'precio',
+            controlType: 'number',
+            pipe: ''
+          }, {
+            label: 'Estado liquidación',
+            formControlName: 'estadoLiquidacion',
+            controlType: 'select',
+            pipe: 'estadoInyeccion',
+            optionValues: Object.values(EstadoInyeccion).filter(item => typeof item == 'number') as EstadoInyeccion[]
+          }, {
+            label: 'Fecha de inyección',
+            formControlName: 'fechaInyeccion',
+            controlType: 'date',
+            pipe: ''
+          }]
+        }]
+        this.spinner.hide();
+      },
+      error: error => {
+        console.log(error);
+        this.spinner.hide();
+        this.toastr.error(error.message, 'Error');
+        this.spinner.hide();
+      }
+    })
   }
 
   private getInfoInyeccionesEnergias() {
@@ -107,9 +132,9 @@ export class LiquidacionInyeccionesComponent implements OnInit {
 
     forkJoin(infoInyeccionesObservers).subscribe({
       next: data => {
-        const filterData = data[0] as InfoInyeccionBanco[]
-        this.dataSource.data = filterData;
-        this.dataSource.data = filterData;
+        const filterArray = this.filterData(data[0] as InfoInyeccionBanco[])
+        this.dataSource.data = filterArray;
+        this.dataSource.data = filterArray;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.table.renderRows();
@@ -125,7 +150,14 @@ export class LiquidacionInyeccionesComponent implements OnInit {
   }
 
   onfieldValueChange(event: FieldValueChange) {
-
+    if (event.controlName === 'estado') {
+      this.filters[event.controlName] = event.data !== '' ? parseInt(event.data) : event.data
+    } else if (event.controlName === 'fechaInyeccion') {
+      this.filters[event.controlName] = event.data !== '' ? moment(event.data).format('DD/MM/YYYY') : 'Invalid date'
+    } else {
+      this.filters[event.controlName] = event.data;
+    }
+    this.getInfoInyeccionesEnergias();
   }
 
   onLiquidarInyeccion() {
@@ -137,5 +169,26 @@ export class LiquidacionInyeccionesComponent implements OnInit {
         this.getInfoInyeccionesEnergias()
       }
     })
+  }
+
+  private filterData(data: InfoInyeccionBanco[]): InfoInyeccionBanco[] {
+    let filterArray = data;
+    filterArray = this.filters.generador !== '' ? filterArray.filter(item => item.nombreGenerador.toLowerCase().includes(this.filters.generador.toLowerCase())) : filterArray;
+    filterArray = this.filters.planta !== '' ? filterArray.filter(item => item.infoPlanta.nombre.toLowerCase().includes(this.filters.planta.toLowerCase())) : filterArray;
+    filterArray = this.filters.tipoEnergia !== '' ? filterArray.filter(item => item.infoEnergia.nombre === this.filters.tipoEnergia) : filterArray;
+    filterArray = this.filters.cantidad !== '' ? filterArray.filter(item => item.infoEnergia.cantidadEnergia === parseInt(this.filters.cantidad)) : filterArray;
+    filterArray = this.filters.precio !== '' ? filterArray.filter(item => item.precioEnergia === parseInt(this.filters.precio)) : filterArray;
+    // filterArray = this.filters.estado !== '' ? filterArray.filter(item => item.estadoInyeccion === parseInt(this.filters.estado)) : filterArray;
+        
+    filterArray = this.filters.fechaInyeccion !== 'Invalid date' && this.filters.fechaInyeccion !== '' ? filterArray.filter(item => {
+      let temp = moment(item.fechaInyeccion, 'DD/MM/YYYY');
+      let isSame = temp.isSame(moment(this.filters.fechaInyeccion, 'DD/MM/YYYY'), 'day');
+      if (isSame) {
+        return true;
+      } else {
+        return false;
+      }
+    }) : filterArray;
+    return filterArray;
   }
 }

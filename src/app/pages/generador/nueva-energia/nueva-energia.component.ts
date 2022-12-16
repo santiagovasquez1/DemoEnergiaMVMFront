@@ -163,8 +163,9 @@ export class NuevaEnergiaComponent implements OnInit {
   }
 
   get isValid(): boolean {
+
     if (this.cantidadActual + this.cantidadEnergia <= this.capacidadNominal &&
-      this.cantidadActual + this.cantidadEnergia <= this.energiaDespachada &&
+      this.energiaInyectada + this.cantidadEnergia <= this.energiaDespachada &&
       this.cantidadEnergia > 0) {
       return true;
     } else {

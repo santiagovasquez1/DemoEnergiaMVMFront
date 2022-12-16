@@ -1,3 +1,4 @@
+import { SweetAlertService } from './../../../services/sweet-alert.service';
 import { from, switchMap } from 'rxjs';
 import { TableService } from 'src/app/services/shared/table-service.service';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
@@ -55,7 +56,7 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
   constructor(
     private generadorService: GeneradorContractService,
     private despachosEnergia: DespachosEnergiaService,
-    private plantaEnergia: PlantaEnergiaService,
+    private alertDialog: SweetAlertService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     public dialog: MatDialog,
@@ -302,14 +303,19 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
   }
 
   onReiniciarProduccion(plantaEnergia: InfoPlantaEnergia) {
-    this.generadorService.resetProduccionPlanta(plantaEnergia.dirPlanta).subscribe({
-      next: () => {
-        this.loadPlantasEnergia();
-      },
-      error: error => {
-        this.toastr.error(error.message, 'Error');
-        console.log(error);
+    this.alertDialog.confirmAlert('Reinicio producción', `¿Deseas reiniciar la producción de la planta de energia ${plantaEnergia.nombre}?`).then(result => {
+      if (result.isConfirmed) {
+        this.generadorService.resetProduccionPlanta(plantaEnergia.dirPlanta).subscribe({
+          next: () => {
+            this.loadPlantasEnergia();
+          },
+          error: error => {
+            this.toastr.error(error.message, 'Error');
+            console.log(error);
+          }
+        });
       }
     })
+
   }
 }
