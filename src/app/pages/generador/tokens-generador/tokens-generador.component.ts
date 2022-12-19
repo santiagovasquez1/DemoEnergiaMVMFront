@@ -1,6 +1,6 @@
+import { switchMap } from 'rxjs';
 import { GeneradorContractService } from './../../../services/generador-contract.service';
 import { Component, OnInit, NgZone } from '@angular/core';
-import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -58,16 +58,20 @@ export class TokensGeneradorComponent implements OnInit {
   }
 
   getTokensGenerador() {
-    this.generador.getMisTokens().subscribe({
+    this.generador.getInfoContrato().pipe(
+      switchMap(data => {
+        return this.reguladorMercado.getTokensAgente(data.owner)
+      })
+    ).subscribe({
       next: data => {
         this.tokensGenerador = data;
         this.getTokensPesos();
       },
-      error: (error) => {
+      error: error => {
         console.log(error);
         this.toastr.error(error.message, 'Error');
       }
-    })
+    });
   }
 
   getTokensPesos() {
@@ -105,8 +109,8 @@ export class TokensGeneradorComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe({
-      next:()=>{
-        // this.loadPlantasEnergia()
+      next: () => {
+        this.getTokensGenerador();
       }
     })
   }

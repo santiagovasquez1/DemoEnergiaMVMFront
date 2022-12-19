@@ -64,8 +64,11 @@
             <ng-container matColumnDef="acciones">
                 <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <button matRipple class="mvm-action-button approve" (click)="onInyectarEnergia(element)" matTooltip="Inyectar energia">
+                    <button matRipple class="mvm-action-button approve" (click)="onInyectarEnergia(element)" matTooltip="Inyectar energia" [disabled]="precioEnergia == 0">
                         <img src="../../../../assets/images/Energía.svg" alt="energia">
+                    </button>
+                    <button matRipple class="mvm-action-button alerta" (click)="onReiniciarProduccion(element)" matTooltip="Reiniciar producción">
+                        <img src="../../../../assets/images/Registro.svg" alt="energia">
                     </button>
                 </mat-cell>
             </ng-container>
@@ -74,7 +77,12 @@
             <mat-row class="fadeIn" *matRowDef="let row; columns:displayedColumns"></mat-row>
         </mat-table>
     </div>
-
+    <div class="totalesContainer">
+        <p class="total">Total despachado</p>
+        <p class="resultado">{{cantidadEnergiaDepachada}} Mw</p>
+        <p class="total">Precio de venta energía</p>
+        <p class="resultado">{{precioEnergia}} Tokens</p>
+    </div>
     <div class="table-container mt-10 fadeIn">
         <mat-paginator class="mvm-paginator " #paginator [pageSizeOptions]="[5,10, 25, 100 ] " showFirstLastButtons></mat-paginator>
     </div>

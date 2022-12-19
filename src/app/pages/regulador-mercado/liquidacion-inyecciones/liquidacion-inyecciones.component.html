@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="titulo">
+        <h2 class="title-xg">Liquidaciones de inyecciones de energía</h2>
+    </div>
+    <app-filter *ngIf="filterFormProperties.length>0" [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
+
+    <div class="actions-container fadeIn mt-30">
+        <div class="d-flex flex-row-reverse">
+            <button class="button-mvm w-220" mat-ripple (click)="onLiquidarInyeccion()">
+                <img src="../../../../assets/images/carbon_energy-renewable.svg" alt="" class="crear-planta-logo">
+                Liquidar Inyecciones
+            </button>
+        </div>
+    </div>
+
+    <div class="table-container mt-30 fadeIn">
+        <mat-table #table [dataSource]="dataSource" class="mvm-table">
+            <ng-container matColumnDef="generador">
+                <mat-header-cell *matHeaderCellDef>Generador</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.nombreGenerador}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="planta">
+                <mat-header-cell *matHeaderCellDef>Planta de energía</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.infoPlanta.nombre}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="tipoEnergia">
+                <mat-header-cell *matHeaderCellDef>Tipo de energía</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.infoEnergia.nombre}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="cantidad">
+                <mat-header-cell *matHeaderCellDef>Cantidad Mw</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.infoEnergia.cantidadEnergia}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="precio">
+                <mat-header-cell *matHeaderCellDef>Precio de inyección</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.precioEnergia}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="estado">
+                <mat-header-cell *matHeaderCellDef>Estado de inyección</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.estadoInyeccion|estadoInyeccion}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="fechaInyeccion">
+                <mat-header-cell *matHeaderCellDef>Fecha de Inyección</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.fechaInyeccion}}</mat-cell>
+            </ng-container>
+
+            <mat-header-row class="fadeIn" *matHeaderRowDef="displayedColumns; sticky: true "></mat-header-row>
+            <mat-row *matRowDef="let row; columns:displayedColumns "></mat-row>
+        </mat-table>
+    </div>
+
+    <div class="totalesContainer">
+        <p class="total">Total energía inyectada</p>
+        <p class="resultado">{{totalEnergiaInyectada}} Mw</p>
+    </div>
+
+    <div class="table-container mt-10 fadeIn ">
+        <mat-paginator class="mvm-paginator " #paginator [pageSizeOptions]="[5,10, 25, 100 ] " showFirstLastButtons></mat-paginator>
+    </div>
+</div>

@@ -25,6 +25,7 @@ import { FilterComponent } from './filter/filter.component';
 import { EstadoPlantaPipe } from './pipes/estado-planta.pipe';
 import { EstadoCompraPipe } from './pipes/estado-compra.pipe';
 import { InfoCertificadoCompraComponent } from './info-certificado-compra/info-certificado-compra.component';
+import { EstadoInyeccionPipe } from './pipes/estado-inyeccion.pipe';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import { InfoCertificadoCompraComponent } from './info-certificado-compra/info-c
         FilterComponent,
         EstadoPlantaPipe,
         EstadoCompraPipe,
-        InfoCertificadoCompraComponent
+        InfoCertificadoCompraComponent,
+        EstadoInyeccionPipe
     ],
     imports: [
         CommonModule,
@@ -71,7 +73,8 @@ import { InfoCertificadoCompraComponent } from './info-certificado-compra/info-c
         FilterComponent,
         EstadoPlantaPipe,
         EstadoCompraPipe,
-        InfoCertificadoCompraComponent
+        InfoCertificadoCompraComponent,
+        EstadoInyeccionPipe
     ]
 })
 export class SharedModule { }

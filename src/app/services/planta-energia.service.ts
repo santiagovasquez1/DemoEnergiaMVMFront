@@ -33,17 +33,19 @@ export class PlantaEnergiaService extends AgenteContractService {
       }));
   }
 
-  postAumentarCapacidadNominal (cantidad:number): Observable<any> {
+  postAumentarCapacidadNominal(cantidad: number): Observable<any> {
     return from(this.contract?.methods.aumentarCapacidadNominal(cantidad).send({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       }));
   }
 
-  postDisminuirCapacidadNominal (cantidad:number): Observable<any> {
+  postDisminuirCapacidadNominal(cantidad: number): Observable<any> {
     return from(this.contract?.methods.disminuirCapacidadNominal(cantidad).send({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       }));
   }
+
+
 }

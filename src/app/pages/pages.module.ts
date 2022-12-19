@@ -56,6 +56,8 @@ import { FijarPreciosComponent } from './generador/fijar-precios/fijar-precios.c
 import { AcuerdoEnergiaComponent } from './cliente/acuerdo-energia/acuerdo-energia.component';
 import { SetAcuerdosComponent } from './comercializador/set-acuerdos/set-acuerdos.component';
 import { HistoricoDespachosComponent } from './regulador-mercado/historico-despachos/historico-despachos.component';
+import { LiquidacionInyeccionesComponent } from './regulador-mercado/liquidacion-inyecciones/liquidacion-inyecciones.component';
+import { LiquidarInyeccionComponent } from './regulador-mercado/liquidar-inyeccion/liquidar-inyeccion.component';
 
 
 @NgModule({
@@ -98,6 +100,8 @@ import { HistoricoDespachosComponent } from './regulador-mercado/historico-despa
         AcuerdoEnergiaComponent,
         SetAcuerdosComponent,
         HistoricoDespachosComponent,
+        LiquidacionInyeccionesComponent,
+        LiquidarInyeccionComponent,
     ],
     imports: [
         CommonModule,

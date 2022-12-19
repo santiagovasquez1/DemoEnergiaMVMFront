@@ -1,18 +1,16 @@
+import { SweetAlertService } from './../../../services/sweet-alert.service';
+import { from, switchMap } from 'rxjs';
 import { TableService } from 'src/app/services/shared/table-service.service';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { PlantaEnergiaService } from './../../../services/planta-energia.service';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
 import { BancoEnergiaService } from './../../../services/banco-energia.service';
 import { NuevaEnergiaComponent, Estado } from './../nueva-energia/nueva-energia.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { InfoPlantaEnergia, EstadoPlanta } from './../../../models/InfoPlantaEnergia';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, NgZone } from '@angular/core';
 import { GeneradorContractService } from 'src/app/services/generador-contract.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, forkJoin } from 'rxjs';
-import { WinRefService } from 'src/app/services/win-ref.service';
-import { Web3ConnectService } from 'src/app/services/web3-connect.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
@@ -20,6 +18,8 @@ import moment from 'moment';
 import { PlantasEnergiaComponent } from '../plantas-energia/plantas-energia.component';
 import { ComprarEnergiaBolsaComponent } from '../comprar-energia-bolsa/comprar-energia-bolsa.component';
 import { FijarPreciosComponent } from '../fijar-precios/fijar-precios.component';
+import { DespachosEnergiaService } from 'src/app/services/despachos-energia.service';
+import { PlantaEnergiaService } from 'src/app/services/planta-energia.service';
 
 
 @Component({
@@ -28,18 +28,20 @@ import { FijarPreciosComponent } from '../fijar-precios/fijar-precios.component'
   styles: [
   ]
 })
-export class ListaPlantasComponent implements OnInit {
+export class ListaPlantasComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['nombre', 'ubicacion', 'coordenadas', 'fechaOperacion', 'tasaEmision', 'capacidad', 'tecnologia', 'cantidad', 'estado', 'acciones'];
   ubicaciones: string[] = []
   estadosPlantas: EstadoPlanta[];
   dirContract: string;
+  nombreGenerador: string;
   energiasDisponibles: string[] = [];
+  cantidadEnergiaDepachada: number = 0;
   dataSource: MatTableDataSource<InfoPlantaEnergia>;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('table', { static: true }) table: MatTable<any>;
   sort: MatSort;
-
+  precioEnergia: number = 0;
   filterFormProperties: RowFilterForm[] = [];
 
   filters = {
@@ -49,15 +51,23 @@ export class ListaPlantasComponent implements OnInit {
     tipoEnergia: '',
     estadoPlanta: undefined
   }
+  ordenDespachoEvent: any;
 
   constructor(
     private generadorService: GeneradorContractService,
+    private despachosEnergia: DespachosEnergiaService,
+    private alertDialog: SweetAlertService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     public dialog: MatDialog,
     private bancoEnergia: BancoEnergiaService,
-    private tableService: TableService) {
+    private tableService: TableService,
+    private ngZone: NgZone) {
     this.dataSource = new MatTableDataSource();
+  }
+
+  ngOnDestroy(): void {
+    this.ordenDespachoEvent.removeAllListeners('data');
   }
 
   private setFilterForm() {
@@ -100,11 +110,26 @@ export class ListaPlantasComponent implements OnInit {
       this.dirContract = localStorage.getItem('dirContract');
       let promises: Promise<void>[] = [];
       promises.push(this.bancoEnergia.loadBlockChainContractData());
+      promises.push(this.despachosEnergia.loadBlockChainContractData());
       promises.push(this.generadorService.loadBlockChainContractData(this.dirContract));
       await Promise.all(promises);
       this.tableService.setPaginatorTable(this.paginator);
       this.loadSelectsOptions();
       this.loadPlantasEnergia();
+      this.getTotalEnergiaDespachada();
+      this.getPrecioEnergia();
+      this.ordenDespachoEvent = this.despachosEnergia.contract.events.ordenDespacho({
+        fromBlock: 'latest'
+      }, (err, event) => {
+        if (err) {
+          console.log(err);
+          this.toastr.error(err.message, 'Error');
+        }
+      }).on('data', (event) => {
+        this.ngZone.run(() => {
+          this.getTotalEnergiaDespachada()
+        })
+      })
     } catch (error) {
       console.log(error);
       this.toastr.error('Error al cargar las plantas de energía', 'Error');
@@ -122,7 +147,6 @@ export class ListaPlantasComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.table.renderRows();
-
       },
       error: (error) => {
         this.toastr.error(error.message, 'Error');
@@ -148,7 +172,31 @@ export class ListaPlantasComponent implements OnInit {
         this.spinner.hide();
       }
     })
+  }
 
+  private getTotalEnergiaDespachada() {
+    const timeNow = Math.floor(new Date().getTime() / 1000);
+    this.despachosEnergia.getDespachosByGeneradorAndDate(this.dirContract, '', timeNow).subscribe({
+      next: data => {
+        this.cantidadEnergiaDepachada = data.cantidadEnergia
+      },
+      error: error => {
+        this.toastr.error(error.message, 'Error');
+        console.log(error);
+      }
+    })
+  }
+
+  private getPrecioEnergia() {
+    this.generadorService.getPrecioEnergia().subscribe({
+      next: data => {
+        this.precioEnergia = data
+      },
+      error: error => {
+        this.toastr.error(error.message, 'Error');
+        console.log(error);
+      }
+    })
   }
 
   onInyectarEnergia(planta: InfoPlantaEnergia) {
@@ -156,6 +204,7 @@ export class ListaPlantasComponent implements OnInit {
       width: '500px',
       data: {
         dirContract: this.dirContract,
+        nombreGenerador: this.nombreGenerador,
         hashPlanta: planta.dirPlanta,
         tecnologia: planta.tecnologia,
         capacidadNominal: planta.capacidadNominal,
@@ -206,12 +255,13 @@ export class ListaPlantasComponent implements OnInit {
       width: '800px',
       data: {
         dirContract: this.dirContract,
+        nombreGenerador: this.nombreGenerador,
         energiasDisponibles: this.energiasDisponibles
       }
     });
 
     dialogRef.afterClosed().subscribe({
-      next:()=>{
+      next: () => {
         this.loadPlantasEnergia()
       }
     })
@@ -222,31 +272,54 @@ export class ListaPlantasComponent implements OnInit {
       width: '500px',
       data: {
         dirContract: this.dirContract,
+        nombreGenerador: this.nombreGenerador,
         energiasDisponibles: this.energiasDisponibles
       }
     });
 
     dialogRef.afterClosed().subscribe({
-      next:()=>{
+      next: () => {
         this.loadPlantasEnergia()
       }
     })
   }
 
-  onFijarPrecios(){
+  onFijarPrecios() {
     const dialogRef = this.dialog.open(FijarPreciosComponent, {
       width: '500px',
       data: {
         dirContract: this.dirContract,
+        nombreGenerador: this.nombreGenerador,
         energiasDisponibles: this.energiasDisponibles,
         setPrecio: 'generador'
       }
     });
 
     dialogRef.afterClosed().subscribe({
-      next:()=>{
-        this.loadPlantasEnergia()
+      next: () => {
+        this.getPrecioEnergia();
       }
     })
+  }
+
+  onReiniciarProduccion(plantaEnergia: InfoPlantaEnergia) {
+    this.alertDialog.confirmAlert('Reinicio producción', `¿Deseas reiniciar la producción de la planta de energia ${plantaEnergia.nombre}?`).then(result => {
+      if (result.isConfirmed) {
+        this.spinner.show();
+        this.generadorService.resetProduccionPlanta(plantaEnergia.dirPlanta).subscribe({
+          next: () => {
+            this.loadPlantasEnergia();
+            this.spinner.hide();
+            this.toastr.success(`Se ha reiniciado la producción de la planta ${plantaEnergia.nombre}`, 'Exito');
+          },
+          error: error => {
+            this.spinner.hide();
+            this.toastr.error(error.message, 'Error');
+            console.log(error);
+          }
+        });
+      }
+    })
+
   }
 }
