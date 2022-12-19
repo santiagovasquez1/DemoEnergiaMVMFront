@@ -4,7 +4,7 @@ import { GeneradorContractService } from 'src/app/services/generador-contract.se
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, switchMap } from 'rxjs';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { InfoContrato } from 'src/app/models/infoContrato'
 import { MatDialog } from '@angular/material/dialog';
@@ -32,7 +32,7 @@ export class GeneradorComponent implements OnInit {
     private toastr: ToastrService,
     private generadorService: GeneradorContractService,
     private spinner: NgxSpinnerService,
-    private regulardorMercado: ReguladorMercadoService,
+    private reguladorMercado: ReguladorMercadoService,
     private bancoEnergia: BancoEnergiaService,
     public dialog: MatDialog) {
 
@@ -41,10 +41,10 @@ export class GeneradorComponent implements OnInit {
   async ngOnInit(): Promise<void> {
 
     this.dirContract = localStorage.getItem('dirContract');
-    console.log("dircontarto en generador component: ",this.dirContract)
+    console.log("dircontarto en generador component: ", this.dirContract)
     try {
       let promises: Promise<void>[] = [];
-      promises.push(this.regulardorMercado.loadBlockChainContractData());
+      promises.push(this.reguladorMercado.loadBlockChainContractData());
       promises.push(this.bancoEnergia.loadBlockChainContractData());
       promises.push(this.generadorService.loadBlockChainContractData(this.dirContract));
       await Promise.all(promises);
@@ -71,8 +71,7 @@ export class GeneradorComponent implements OnInit {
     let observables: Observable<any>[] = [];
     observables.push(this.generadorService.getInfoContrato());
     observables.push(this.bancoEnergia.getTiposEnergiasDisponibles());
-    // observables.push(this.generadorService.getMisTokens()); //TODO: Error al traer los tokens de generador
-    
+    observables.push(this.getTokensGenerador());
     this.spinner.show();
     forkJoin(observables).subscribe({
       next: (data: any[]) => {
@@ -96,7 +95,7 @@ export class GeneradorComponent implements OnInit {
     });
     forkJoin(observablesEnergias).subscribe({
       next: (data: number[]) => {
-         
+
         this.cantidadesDisponibles = data;
         this.spinner.hide();
       }, error: (err) => {
@@ -155,4 +154,11 @@ export class GeneradorComponent implements OnInit {
     })
   }
 
+  private getTokensGenerador() {
+    return this.generadorService.getInfoContrato().pipe(
+      switchMap(data => {
+        return this.reguladorMercado.getTokensAgente(data.owner)
+      })
+    );
+  }
 }

@@ -110,7 +110,7 @@ export class TokensGeneradorComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe({
       next: () => {
-        // this.loadPlantasEnergia()
+        this.getTokensGenerador();
       }
     })
   }

@@ -305,11 +305,15 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
   onReiniciarProduccion(plantaEnergia: InfoPlantaEnergia) {
     this.alertDialog.confirmAlert('Reinicio producción', `¿Deseas reiniciar la producción de la planta de energia ${plantaEnergia.nombre}?`).then(result => {
       if (result.isConfirmed) {
+        this.spinner.show();
         this.generadorService.resetProduccionPlanta(plantaEnergia.dirPlanta).subscribe({
           next: () => {
             this.loadPlantasEnergia();
+            this.spinner.hide();
+            this.toastr.success(`Se ha reiniciado la producción de la planta ${plantaEnergia.nombre}`, 'Exito');
           },
           error: error => {
+            this.spinner.hide();
             this.toastr.error(error.message, 'Error');
             console.log(error);
           }

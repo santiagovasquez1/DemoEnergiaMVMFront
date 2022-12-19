@@ -167,7 +167,7 @@ export class BancoEnergiaService {
               dirContratoGenerador,
               ownerGenerador,
               nombreGenerador: infoContrato.empresa,
-              precioEnergia,
+              precioEnergia: parseInt(precioEnergia),
               fechaInyeccion: moment(parseInt(fechaInyeccion) * 1000).format('DD/MM/YYYY HH:mm:ss'),
               estadoInyeccion: parseInt(estadoInyeccion) as EstadoInyeccion
             }

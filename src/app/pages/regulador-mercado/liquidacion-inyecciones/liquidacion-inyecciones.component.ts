@@ -95,7 +95,7 @@ export class LiquidacionInyeccionesComponent implements OnInit {
             pipe: ''
           }, {
             label: 'Estado liquidación',
-            formControlName: 'estadoLiquidacion',
+            formControlName: 'estado',
             controlType: 'select',
             pipe: 'estadoInyeccion',
             optionValues: Object.values(EstadoInyeccion).filter(item => typeof item == 'number') as EstadoInyeccion[]
@@ -176,10 +176,10 @@ export class LiquidacionInyeccionesComponent implements OnInit {
     filterArray = this.filters.generador !== '' ? filterArray.filter(item => item.nombreGenerador.toLowerCase().includes(this.filters.generador.toLowerCase())) : filterArray;
     filterArray = this.filters.planta !== '' ? filterArray.filter(item => item.infoPlanta.nombre.toLowerCase().includes(this.filters.planta.toLowerCase())) : filterArray;
     filterArray = this.filters.tipoEnergia !== '' ? filterArray.filter(item => item.infoEnergia.nombre === this.filters.tipoEnergia) : filterArray;
-    filterArray = this.filters.cantidad !== '' ? filterArray.filter(item => item.infoEnergia.cantidadEnergia === parseInt(this.filters.cantidad)) : filterArray;
-    filterArray = this.filters.precio !== '' ? filterArray.filter(item => item.precioEnergia === parseInt(this.filters.precio)) : filterArray;
-    // filterArray = this.filters.estado !== '' ? filterArray.filter(item => item.estadoInyeccion === parseInt(this.filters.estado)) : filterArray;
-        
+    filterArray = this.filters.cantidad !== '' && this.filters.cantidad !== null ? filterArray.filter(item => item.infoEnergia.cantidadEnergia === parseInt(this.filters.cantidad)) : filterArray;
+    filterArray = this.filters.precio !== '' && this.filters.precio !== null ? filterArray.filter(item => item.precioEnergia === parseInt(this.filters.precio)) : filterArray;
+    filterArray = this.filters.estado !== '' && this.filters.estado !== undefined && this.filters.estado !== null ? filterArray.filter(item => item.estadoInyeccion === parseInt(this.filters.estado) as EstadoInyeccion) : filterArray;
+
     filterArray = this.filters.fechaInyeccion !== 'Invalid date' && this.filters.fechaInyeccion !== '' ? filterArray.filter(item => {
       let temp = moment(item.fechaInyeccion, 'DD/MM/YYYY');
       let isSame = temp.isSame(moment(this.filters.fechaInyeccion, 'DD/MM/YYYY'), 'day');

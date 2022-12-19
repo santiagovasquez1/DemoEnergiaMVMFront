@@ -45,20 +45,6 @@ export class TokensClienteComponent implements OnInit, OnDestroy {
       await Promise.all(promises);
       this.spinner.hide();
       this.getInfoContrato();
-      //TODO: EVENTO ELIMINADO DE BACKEND
-      // this.compraEnergiaEvent = this.clienteService.contract.events.compraEnergia({
-      //   fromBlock: 'latest'
-      // }, (error, event) => {
-      //   if (error) {
-      //     console.log(error);
-      //     this.toastr.error(error.message, 'Error');
-      //   }
-      // }).on('data', () => {
-      //   this.ngZone.run(() => {
-      //     this.toastr.success('Compra de energía realizada', 'Energía');
-      //     this.getInfoContrato();
-      //   });
-      // });
     } catch (error) {
       console.log(error);
       this.toastr.error(error.message, 'Error');
