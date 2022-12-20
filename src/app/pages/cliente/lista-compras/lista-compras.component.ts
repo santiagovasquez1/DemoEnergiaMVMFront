@@ -48,7 +48,6 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
     planta: ''
   }
 
-  tokensDelegados: number = 0;
   infoCliente: InfoContrato;
   nombreComercializador;
 
@@ -69,7 +68,7 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.compraEnergiaEvent.removeAllListeners();
+    // this.compraEnergiaEvent.removeAllListeners();
   }
 
   async ngOnInit(): Promise<void> {
@@ -210,7 +209,6 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
       width: '500px',
       data: {
         dirContrato: localStorage.getItem('dirContract'),
-        tokensDelegados: this.tokensDelegados
       }
     });
 
@@ -227,7 +225,6 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
       width: '500px',
       data: {
         dirContrato: localStorage.getItem('dirContract'),
-        tokensDelegados: this.tokensDelegados
       }
     });
 
@@ -235,38 +232,7 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
       next: () => {
         this.getInfoContrato();
       }
-    })
-
-
-    // let acuerdoEnergia: AcuerdoEnergia = {
-    //   dirCliente: "0x19340ba17d7E375c37C36Bf349835FE930E329F8",
-    //   dirGenerador: '0x26cd32E0Ef557d88e89CB841C1b58d6623Cd42BD',
-    //   dirComercializador: '0x5abF7441F6C394588738eC07f190706c38b338B2',
-    //   tipoEnergia: 'solar',
-    //   cantidadEnergiaTotal: 0,
-    //   cantidadEnergiaInyectada: 0,
-    //   fechaSolicitud: Math.trunc(Date.now() / 1000),
-    //   fechaInicio: Math.trunc(Date.now() / 1000),
-    //   fechaFin: Math.trunc(Date.now() / 1000),
-    //   estadoAcuerdo: EstadoAcuerdo.activo,
-    //   indexCliente: 0,
-    //   indexGlobal: 0,
-    // }
-    // console.log("ACUERDO DE ENERGÍA: ",acuerdoEnergia)
-    
-    // let tipoEnergia = 'solar';
-    // let cantidad = 40
-    // this.cliente.postComprarEnergia(tipoEnergia, cantidad).subscribe({
-    //   next: (data) => {
-    //     this.infoCliente = data;
-    //     this.toastr.success("realizado","exito");
-    //     this.spinner.hide();
-    //   }, error: (error) => {
-    //     console.log(error);
-    //     this.toastr.error(error.message, 'Error');
-    //     this.spinner.hide();
-    //   }
-    // });
+    });
   }
 
   onContratar() {
@@ -304,19 +270,6 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
         const tiposEnergias = data[1] as InfoEnergia[];
         this.energiasDisponibles = tiposEnergias.map(x => x.nombre);
         this.setFilterForm();
-        if (this.infoCliente.comercializador !== '0x0000000000000000000000000000000000000000') {
-          await this.comercializador.loadBlockChainContractData(this.infoCliente.comercializador);
-          forkJoin([this.cliente.getTokensDelegados(), this.comercializador.getInfoContrato()]).subscribe({
-            next: (data: any[]) => {
-              this.tokensDelegados = data[0];
-              this.nombreComercializador = (data[1] as InfoContrato).empresa;
-            },
-            error: (error) => {
-              this.toastr.error(error.message, 'Error');
-              console.log(error);
-            }
-          });
-        }
       }, error: (error) => {
         console.log(error);
         this.toastr.error(error.message, 'Error');

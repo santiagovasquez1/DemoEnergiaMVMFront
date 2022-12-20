@@ -37,6 +37,7 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
   nombreGenerador: string;
   energiasDisponibles: string[] = [];
   cantidadEnergiaDepachada: number = 0;
+  energiaBolsaGenerador: InfoEnergia[];
   dataSource: MatTableDataSource<InfoPlantaEnergia>;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('table', { static: true }) table: MatTable<any>;
@@ -107,17 +108,20 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     try {
+      this.spinner.show();
       this.dirContract = localStorage.getItem('dirContract');
       let promises: Promise<void>[] = [];
       promises.push(this.bancoEnergia.loadBlockChainContractData());
       promises.push(this.despachosEnergia.loadBlockChainContractData());
       promises.push(this.generadorService.loadBlockChainContractData(this.dirContract));
       await Promise.all(promises);
+      this.spinner.hide();
       this.tableService.setPaginatorTable(this.paginator);
       this.loadSelectsOptions();
       this.loadPlantasEnergia();
       this.getTotalEnergiaDespachada();
       this.getPrecioEnergia();
+      this.getEnergiasBolsaGenerador();
       this.ordenDespachoEvent = this.despachosEnergia.contract.events.ordenDespacho({
         fromBlock: 'latest'
       }, (err, event) => {
@@ -216,6 +220,7 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe({
       next: () => {
         this.loadPlantasEnergia();
+        this.getEnergiasBolsaGenerador();
       }
     });
   }
@@ -262,7 +267,8 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe({
       next: () => {
-        this.loadPlantasEnergia()
+        this.loadPlantasEnergia();
+        this.getEnergiasBolsaGenerador();
       }
     })
   }
@@ -279,7 +285,7 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe({
       next: () => {
-        this.loadPlantasEnergia()
+        this.getEnergiasBolsaGenerador();
       }
     })
   }
@@ -321,5 +327,21 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
       }
     })
 
+  }
+
+  getEnergiasBolsaGenerador() {
+    this.spinner.show();
+    this.generadorService.getEnergiaBolsaGenerador().subscribe({
+      next: data => {
+        this.energiaBolsaGenerador = data;
+        console.log(this.energiaBolsaGenerador)
+        this.spinner.hide();
+      },
+      error: error => {
+        this.toastr.error(error.message, 'Error');
+        console.log(error);
+        this.spinner.hide();
+      }
+    })
   }
 }

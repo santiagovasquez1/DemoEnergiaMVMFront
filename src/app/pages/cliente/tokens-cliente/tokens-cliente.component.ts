@@ -1,3 +1,4 @@
+import { AcuerdoContractService } from 'src/app/services/acuerdo-contract.service';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { Component, NgZone, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,9 +19,8 @@ import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.serv
 export class TokensClienteComponent implements OnInit, OnDestroy {
   infoCliente: InfoContrato;
   tokensCliente: number = 0;
-  tokensDelegados: number = 0;
   tokensMercado: number = 0;
-  compraEnergiaEvent: any;
+  liquidacionAcuerdo: any;
 
   tokensComprar: number | string = '';
   tokensDelegar: number | string = '';
@@ -31,6 +31,7 @@ export class TokensClienteComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private reguladorMercado: ReguladorMercadoService,
     private bancoEnergia: BancoEnergiaService,
+    private acuerdosLedger: AcuerdoContractService,
     private ngZone: NgZone,
     private alertDialog: SweetAlertService) { }
 
@@ -41,10 +42,23 @@ export class TokensClienteComponent implements OnInit, OnDestroy {
       let promises: Promise<void>[] = []
       promises.push(this.reguladorMercado.loadBlockChainContractData());
       promises.push(this.bancoEnergia.loadBlockChainContractData());
+      promises.push(this.acuerdosLedger.loadBlockChainContractData());
       promises.push(this.clienteService.loadBlockChainContractData(dirContract));
       await Promise.all(promises);
       this.spinner.hide();
       this.getInfoContrato();
+      this.liquidacionAcuerdo = this.acuerdosLedger.contract.events.liquidacionAcuerdo({
+        fromBlock: 'latest'
+      }, (error, data) => {
+        if (error) {
+          console.log(error);
+          this.toastr.error(error.message, 'Error');
+        }
+      }).on('data',()=>{
+        this.ngZone.run(()=>{
+          this.getInfoContrato();
+        })
+      })
     } catch (error) {
       console.log(error);
       this.toastr.error(error.message, 'Error');
@@ -53,34 +67,29 @@ export class TokensClienteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.compraEnergiaEvent.removeAllListeners();
+    if (this.liquidacionAcuerdo) {
+      this.liquidacionAcuerdo.removeAllListeners();
+    }
   }
 
   getInfoContrato() {
-    
+    this.spinner.show();
     this.clienteService.getInfoContrato().subscribe({
       next: (data) => {
         this.infoCliente = data;
-        console.log("THIS.NFO.CLIENTE: ",this.infoCliente)
         let observables: Observable<number>[] = [];
         observables.push(this.clienteService.getMisTokens());
-        if (this.infoCliente.comercializador !== '0x0000000000000000000000000000000000000000') {
-          // TODO: CAMBIAR LA QUEMA DE DATOS
-          observables.push(this.reguladorMercado.getTokensDelegados(this.infoCliente.comercializador,this.infoCliente.owner));
-        } else {
-          observables.push(of(0));
-        }
         observables.push(this.reguladorMercado.getTokensDisponibles());
 
         forkJoin(observables).subscribe({
           next: (data: number[]) => {
-            console.log("DATA TOKENS: ",data)
-            this.tokensCliente = data[0] - data[1];
-            this.tokensDelegados = data[1];
-            this.tokensMercado = data[2];
+            this.tokensCliente = data[0];
+            this.tokensMercado = data[1];
+            this.spinner.hide();
           },
           error: (error) => {
             console.log(error);
+            this.spinner.hide();
             this.toastr.error(error.message, 'Error');
           }
         });
@@ -95,14 +104,6 @@ export class TokensClienteComponent implements OnInit, OnDestroy {
   get isComprarValid(): boolean {
     if (this.tokensComprar > 0 && this.tokensComprar !== '' && this.tokensComprar <= this.tokensMercado) {
       return true
-    } else {
-      return false;
-    }
-  }
-
-  get isDelegarValid(): boolean {
-    if (this.tokensDelegar > 0 && this.tokensDelegar !== '' && this.tokensDelegar <= this.tokensCliente + this.tokensDelegados && this.infoCliente.comercializador !== '0x0000000000000000000000000000000000000000') {
-      return true;
     } else {
       return false;
     }

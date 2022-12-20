@@ -30,40 +30,26 @@ export class ClienteContractService extends AgenteContractService {
   }
 
   postComprarEnergia(tipoEnergia: string, cantidad: number, fechaFin: number): Observable<any> {
-    return from(this.contract?.methods.comprarEnergia(tipoEnergia, cantidad,fechaFin).send({ from: this.account })).pipe(
+    return from(this.contract?.methods.comprarEnergia(tipoEnergia, cantidad, fechaFin).send({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
     );
   }
 
-  postConsumirEnergia(tipoEnergia: string, cantidad: number): Observable<any> {
-    return from(this.contract?.methods.gastoEnergia(tipoEnergia, cantidad).send({ from: this.account })).pipe(
+  postConsumirEnergia(cantidad: number): Observable<any> {
+    return from(this.contract?.methods.setGastoEnergia(cantidad).send({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
     );
   }
 
-  getEnergiaCliente(tipoEnergia: string): Observable<InfoEnergia> {
-    return from(this.contract?.methods.getEnergiaCliente(tipoEnergia).call({ from: this.account })).pipe(
-      map((data: any) => {
-        const [nombre, cantidadEnergia, precio] = data;
-        let tempInfo: InfoEnergia = {
-          nombre: nombre,
-          cantidadEnergia: cantidadEnergia,
-          precio: precio
-        }
-        return tempInfo;
-      }),
+  getEnergiaCliente(): Observable<number> {
+    return from(this.contract?.methods.getEnergiaTotal().call({ from: this.account })).pipe(
+      map((data: string) => parseInt(data)),
       catchError((error) => {
-        let tempInfo: InfoEnergia = {
-          nombre: '',
-          cantidadEnergia: 0,
-          precio: 0
-        }
-        console.error(error);
-        return of(tempInfo);
+        return of(0);
       })
     );
   }
@@ -114,16 +100,6 @@ export class ClienteContractService extends AgenteContractService {
     )
   }
 
-  getTokensDelegados(): Observable<number> {
-    console.log("LLAMANDO A getTokensDelegados CLIENTE SERVICE: ")
-    return from(this.contract.methods.getTokensDelegados().call({ from: this.account })).pipe(
-      map(data => data as number),
-      catchError((error) => {
-        return throwError(() => new Error(error.message));
-      })
-    );
-  }
-
   getAcumuladoVenta(): Observable<number> {
     return from(this.contract.methods.getAcumuladoVenta().call({ from: this.account })).pipe(
       map(data => data as number),
@@ -134,7 +110,7 @@ export class ClienteContractService extends AgenteContractService {
   }
 
   setAcuerdosDeCompra(AcuerdoEnergia: AcuerdoEnergia): Observable<any> {
-    console.log("this.account: ",this.account)
+    console.log("this.account: ", this.account)
     return from(this.contract?.methods.setAcuerdosDeCompra(AcuerdoEnergia).send({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));

@@ -1,3 +1,4 @@
+import { GeneradorContractService } from 'src/app/services/generador-contract.service';
 import { DespachosEnergiaService } from './../../../services/despachos-energia.service';
 import { EstadoSolicitud } from './../../../models/solicitudContrato';
 import { SweetAlertService } from './../../../services/sweet-alert.service';
@@ -7,12 +8,14 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, switchMap, of, forkJoin } from 'rxjs';
+import { Observable, switchMap, of, forkJoin, from } from 'rxjs';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { TableService } from 'src/app/services/shared/table-service.service';
 import { TiposContratos } from 'src/app/models/EnumTiposContratos';
 import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
 import { OrdenDespacho } from 'src/app/models/OrdenDespacho';
+import { Web3ConnectService } from 'src/app/services/web3-connect.service';
+import { WinRefService } from 'src/app/services/win-ref.service';
 
 @Component({
   selector: 'app-ordenes-despacho',
@@ -38,6 +41,7 @@ export class OrdenesDespachoComponent implements OnInit, OnDestroy {
   contratoDiligenciadoEvent: any;
   inyeccionDespachoEvent: any;
   filterFormProperties: RowFilterForm[] = [];
+  listCreacionPlantasEvents: any[] = [];
 
   //Filtros:
   filters = {
@@ -53,7 +57,9 @@ export class OrdenesDespachoComponent implements OnInit, OnDestroy {
     private tableService: TableService,
     private spinner: NgxSpinnerService,
     private sweetAlert: SweetAlertService,
-    private ngZone: NgZone) {
+    private ngZone: NgZone,
+    private winRef: WinRefService,
+    private web3Connect: Web3ConnectService) {
     this.dataSource = new MatTableDataSource();
 
     this.filterFormProperties = [{
@@ -79,6 +85,9 @@ export class OrdenesDespachoComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.contratoDiligenciadoEvent.removeAllListeners('data');
     this.inyeccionDespachoEvent.removeAllListeners('data');
+    this.listCreacionPlantasEvents.forEach((creacionEvent: any) => {
+      creacionEvent.removeAllListeners('data');
+    });
   }
 
   async ngOnInit(): Promise<void> {
@@ -151,6 +160,7 @@ export class OrdenesDespachoComponent implements OnInit, OnDestroy {
             this.dataSource.data = filterData;
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
+            this.loadGeneradoresEvents(filterData);
             this.table.renderRows();
           },
           error: (error) => {
@@ -161,6 +171,45 @@ export class OrdenesDespachoComponent implements OnInit, OnDestroy {
       }, error: (err) => {
         console.log(err);
         this.toastr.error(err.message, 'Error');
+      }
+    })
+  }
+
+  private loadGeneradoresEvents(ordenesDespacho: OrdenDespacho[]) {
+    this.listCreacionPlantasEvents.forEach((creacionEvent: any) => {
+      creacionEvent.removeAllListeners('data');
+    });
+    this.listCreacionPlantasEvents = [];
+    let obsContractData: Observable<void>[] = [];
+    let generadoresContracts: GeneradorContractService[] = [];
+    ordenesDespacho.forEach(orden => {
+      let generadorContractService: GeneradorContractService = new GeneradorContractService(this.winRef, this.web3Connect, this.toastr);
+      obsContractData.push(from(generadorContractService.loadBlockChainContractData(orden.dirGenerador)));
+      generadoresContracts.push(generadorContractService);
+    });
+
+    forkJoin(obsContractData).subscribe({
+      next: data => {
+        data.forEach((element, index) => {
+          this.listCreacionPlantasEvents.push(
+            generadoresContracts[index].contract.events.creacionPlanta({
+              fromBlock: 'latest'
+            }, (err, event) => {
+              if (err) {
+                console.log(err);
+                this.toastr.error(err.message, 'Error');
+              }
+            }).on('data', (event) => {
+              this.ngZone.run(() => {
+                this.getGeneradores();
+              })
+            })
+          )
+        })
+      },
+      error: error => {
+        console.log(error);
+        this.toastr.error(error.message, 'Error');
       }
     })
   }

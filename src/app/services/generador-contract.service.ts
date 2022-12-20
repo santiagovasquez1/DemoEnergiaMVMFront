@@ -1,10 +1,11 @@
+import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
 import { EstadoPlanta, InfoPlantaEnergia } from './../models/InfoPlantaEnergia';
 import { Injectable } from '@angular/core';
 import Web3 from 'web3';
 import { AgenteContractService } from './agente-contract.service';
 import Generador from '../../../buildTruffle/contracts/Generador.json';
-import { catchError, from, map, Observable, of, throwError } from 'rxjs';
+import { catchError, from, map, Observable, of, throwError, switchMap, forkJoin } from 'rxjs';
 import moment from 'moment';
 
 @Injectable({
@@ -144,6 +145,46 @@ export class GeneradorContractService extends AgenteContractService {
   getPrecioEnergia(): Observable<number> {
     return from(this.contract.methods.getPrecioEnergia().call({ from: this.account })).pipe(
       map(data => data as number),
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+  getEnergiaBolsaGenerador(): Observable<InfoEnergia[]> {
+    const bancoEnergia: BancoEnergiaService = new BancoEnergiaService(this.winRef, this.web3Connect, this.toastr);
+    return from(bancoEnergia.loadBlockChainContractData()).pipe(
+      switchMap(() => {
+        return bancoEnergia.getTiposEnergiasDisponibles().pipe(
+          switchMap(infosEnergias => {
+            let cantidadesObservable: Observable<any>[] = [];
+            infosEnergias.forEach(energia => {
+              cantidadesObservable.push(from(this.contract?.methods.getCantidadEnergiaBolsaByName(energia.nombre).call({ from: this.account })))
+            });
+
+            return forkJoin(cantidadesObservable).pipe(
+              map(data => {
+                return data.map((item, index) => {
+                  const infoEnergia: InfoEnergia = {
+                    nombre: infosEnergias[index].nombre,
+                    cantidadEnergia: parseInt(item),
+                    precio: 0
+                  }
+                  return infoEnergia;
+                });
+              })
+            );
+          })
+        );
+      }),
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+  postCompraEnergiaBolsa(cantidadEnergia: number, tipoEnergia: string): Observable<any> {
+    return from(this.contract?.methods.compraEnergiaBolsa(cantidadEnergia, tipoEnergia).send({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })

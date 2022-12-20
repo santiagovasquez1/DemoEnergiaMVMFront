@@ -451,32 +451,33 @@ export class TodosGeneradoresComponent implements OnInit {
   }
 
   private getCantidadesEnergiasDisponibles() {
-    let observables: Observable<InfoEnergia>[] = [];
-    this.energiasDisponibles.forEach(energia => {
-      observables.push(this.clienteService.getEnergiaCliente(energia));
-    });
-    forkJoin(observables).subscribe({
-      next: (data) => {
-        this.cantidadesDisponibles = data.map(x => x.cantidadEnergia);
-        this.cantidadesDisponibles = this.cantidadesDisponibles.map(x => Number(x))
-        this.totalEnergiasClientes.push(this.cantidadesDisponibles);
+    //TODO:Corregir funcion
+    // let observables: Observable<InfoEnergia>[] = [];
+    // this.energiasDisponibles.forEach(energia => {
+    //   observables.push(this.clienteService.getEnergiaCliente(energia));
+    // });
+    // forkJoin(observables).subscribe({
+    //   next: (data) => {
+    //     this.cantidadesDisponibles = data.map(x => x.cantidadEnergia);
+    //     this.cantidadesDisponibles = this.cantidadesDisponibles.map(x => Number(x))
+    //     this.totalEnergiasClientes.push(this.cantidadesDisponibles);
 
-        if(this.totalEnergiasClientes.length == this.todoClientes.length){
-          for (let i = 0; i < this.todoClientes.length; i++) {
-            this.todoClientes[i].infoContrato.cantidadSolar = this.totalEnergiasClientes[i][0]
-            this.todoClientes[i].infoContrato.cantidadEolica = this.totalEnergiasClientes[i][1]
-          }
-          this.addItem(this.departamento);
-        }
+    //     if(this.totalEnergiasClientes.length == this.todoClientes.length){
+    //       for (let i = 0; i < this.todoClientes.length; i++) {
+    //         this.todoClientes[i].infoContrato.cantidadSolar = this.totalEnergiasClientes[i][0]
+    //         this.todoClientes[i].infoContrato.cantidadEolica = this.totalEnergiasClientes[i][1]
+    //       }
+    //       this.addItem(this.departamento);
+    //     }
 
-        // this.spinner.hide();
-      },
-      error: (error) => {
-        console.log(error);
-        this.toastr.error(error.message, 'Error');
-        // this.spinner.hide();
-      }
-    })
+    //     // this.spinner.hide();
+    //   },
+    //   error: (error) => {
+    //     console.log(error);
+    //     this.toastr.error(error.message, 'Error');
+    //     // this.spinner.hide();
+    //   }
+    // })
   }
 
   async loadContract(contract): Promise<void> {
