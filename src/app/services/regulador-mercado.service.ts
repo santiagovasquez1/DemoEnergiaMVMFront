@@ -13,9 +13,6 @@ import reguladorMercado from "../../../buildTruffle/contracts/ReguladorMercado.j
 import { WinRefService } from './win-ref.service';
 import { catchError, from, map, Observable, of, throwError, switchMap, forkJoin } from 'rxjs';
 import moment from 'moment';
-import { info } from 'console';
-import { ProviderRpcError } from '../models/JsonrpcError';
-import { GeneradorContractService } from './generador-contract.service';
 
 @Injectable({
   providedIn: 'root'

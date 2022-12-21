@@ -9,9 +9,7 @@ import { EstadoCompra, InfoEmisionCompra } from './../../../models/InfoEmisionCo
 import { Component, OnInit, OnDestroy, NgZone, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { filter, Observable, Subscription } from 'rxjs';
 import { ComercializadorContractService } from 'src/app/services/comercializador-contract.service';
-import { CompraEnergiaRequest } from 'src/app/models/CompraEnergiaRequest';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -50,7 +48,7 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
 
   filters = {
     cliente: '',
-    generador:'',
+    generador: '',
     fechaSolicitud: '',
     fechaFin: '',
     tipoEnergia: '',
@@ -60,7 +58,6 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
   dirComercializador: string = "";
 
   constructor(private comercializadorService: ComercializadorContractService,
-    private regulardorMercado: ReguladorMercadoService,
     private acuerdosService: AcuerdoContractService,
     private toastr: ToastrService,
     public dialog: MatDialog,
@@ -179,34 +176,20 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
     });
   }
 
-  public onRealizarCompra(emisionCompra: AcuerdoEnergia) {
-    console.log("EMISION: ", emisionCompra)
+  public onRealizarCompra(acuerdoCompra: AcuerdoEnergia) {
     let dialogRef = this.dialog.open(SetAcuerdosComponent, {
       width: '500px',
       data: {
-        emision: emisionCompra,
-
+        acuerdoCompra: acuerdoCompra,
+        dirContrato: this.dirComercializador
       }
     });
 
     dialogRef.afterClosed().subscribe({
       next: () => {
-        // this.getInfoContrato();
+        this.getEmisionesDeCompra();
       }
-    })
-
-    // let dialog = this.dialog.open(CompraEnergiaComponent, {
-    //   width: '610px',
-    //   data: {
-    //     emision: emisionCompra,
-    //     index: index,
-    //     dirContract: localStorage.getItem('dirContract')
-    //   }
-    // });
-
-    // dialog.afterClosed().subscribe(result => {
-    //   this.getEmisionesDeCompra();
-    // });
+    });
   }
 
   public onRechazarCompra(dirContrato: string, index: number) {

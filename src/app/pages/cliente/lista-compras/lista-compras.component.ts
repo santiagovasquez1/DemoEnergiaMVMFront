@@ -1,4 +1,4 @@
-import { ComercializadorContractService } from 'src/app/services/comercializador-contract.service';
+import { AcuerdoContractService } from 'src/app/services/acuerdo-contract.service';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { TableService } from 'src/app/services/shared/table-service.service';
 import { InfoCompraEnergia } from './../../../models/InfoCompraEnergia';
@@ -31,9 +31,9 @@ import { AcuerdoEnergiaComponent } from '../acuerdo-energia/acuerdo-energia.comp
 })
 export class ListaComprasComponent implements OnInit, OnDestroy {
 
-  displayedColumns: string[] = ['id', 'comercializador', 'cantidad', 'tecnologia', 'fechaCompra', 'valorCompra', 'generador', 'planta'];
+  displayedColumns: string[] = ['empresaComercializador', 'empresaGenerador', 'estado', 'fechaInicio', 'fechaFin', 'tipoEnergia', 'energiaTotal', 'energiaEntregada']
   energiasDisponibles: string[];
-  dataSource: MatTableDataSource<InfoCompraEnergia>;
+  dataSource: MatTableDataSource<AcuerdoEnergia>;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('table', { static: true }) table: MatTable<any>;
   sort: MatSort;
@@ -42,21 +42,23 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
   compraEnergiaEvent: any;
 
   filters = {
-    tecnologia: '',
-    fechaCompra: '',
-    generador: '',
-    planta: ''
+    comercializador: '',
+    generador:'',
+    fechaSolicitud: '',
+    fechaFin: '',
+    tipoEnergia: '',
+    estado: undefined
   }
 
   infoCliente: InfoContrato;
-  nombreComercializador;
-
-  
+  nombreComercializador: string;
+  nullAddress: string = '0x0000000000000000000000000000000000000000';
+  actualizacionContratoEvent: any;
 
   constructor(private bancoEnergia: BancoEnergiaService,
     private cliente: ClienteContractService,
     private reguladorMercado: ReguladorMercadoService,
-    private comercializador: ComercializadorContractService,
+    private acuerdosLedger: AcuerdoContractService,
     public dialog: MatDialog,
     private spinner: NgxSpinnerService,
     private ngZone: NgZone,
@@ -68,82 +70,72 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.compraEnergiaEvent.removeAllListeners();
+    if (this.actualizacionContratoEvent) {
+      this.actualizacionContratoEvent.removeAllListeners('data');
+    }
   }
 
   async ngOnInit(): Promise<void> {
     const dirContract = localStorage.getItem('dirContract');
     try {
+      this.spinner.show();
       let promises: Promise<void>[] = [];
       this.tableService.setPaginatorTable(this.paginator);
 
       promises.push(this.reguladorMercado.loadBlockChainContractData());
       promises.push(this.bancoEnergia.loadBlockChainContractData());
+      promises.push(this.acuerdosLedger.loadBlockChainContractData());
       promises.push(this.cliente.loadBlockChainContractData(dirContract));
       await Promise.all(promises);
+      this.spinner.hide();
 
       this.getInfoContrato();
-      //TODO: REVISAR CAMBIO EVENTO DE COMPRA DE ENERGÍA - YA NO EXISTE EN BACKEND
-      // this.compraEnergiaEvent = this.cliente.contract.events.compraEnergia({
-      //   fromBlock: 'latest'
-      // }, (error, data) => {
-      //   if (error) {
-      //     console.log(error);
-      //     this.toastr.error(error.message, 'Error');
-      //   }
-      // }).on('data', () => {
-      //   this.ngZone.run(() => {
-      //     this.toastr.success('Compra de energía realizada', 'Energía');
-      //     this.getComprasCliente();
-      //     this.getInfoContrato();
-      //   });
-      // });
-      this.getComprasCliente();
+      this.actualizacionContratoEvent = this.cliente.contract.events.actualizacionContrato({
+        fromBlock: 'latest'
+      }, (error: { message: string; }) => {
+        if (error) {
+          console.log(error);
+          this.toastr.error(error.message, 'Error');
+        }
+      }).on('data', () => {
+        if (this.infoCliente) {
+          this.ngZone.run(() => {
+            this.getComprasCliente(this.infoCliente.dirContrato);
+          })
+        }
+      })
     } catch (error) {
       this.toastr.error(error.message, 'Error');
       console.log(error);
     }
   }
 
-  private getComprasCliente() {
-    this.cliente.getInfoContrato().subscribe({
-      next: (data) => {
-        if (data.comercializador !== '0x0000000000000000000000000000000000000000') {
-          this.cliente.getComprasRealizadas().subscribe({
-            next: (data) => {
-              const filterData = this.filterData(data);
-              this.dataSource.data = filterData;
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
-              this.table.renderRows();
-            },
-            error: (err) => {
-              console.log(err);
-              this.toastr.error(err.message, 'Error');
-            }
-          });
-        }
+  private getComprasCliente(dirContractCliente: string) {
+    this.spinner.show();
+    this.acuerdosLedger.getAcuerdosDeCompraByCliente(dirContractCliente).subscribe({
+      next: data => {
+        const filterData = this.filterData(data);
+        this.dataSource.data = filterData;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.table.renderRows();
+        this.spinner.hide();
       },
-      error: (error) => {
+      error: error => {
         console.log(error);
         this.toastr.error(error.message, 'Error');
+        this.spinner.hide();
       }
-    })
-
+    });
   }
 
   private setFilterForm() {
+
     this.filterFormProperties = [{
       fields: [{
-        label: 'Tecnologia',
-        formControlName: 'tecnologia',
-        controlType: 'select',
-        pipe: '',
-        optionValues: this.energiasDisponibles
-      }, {
-        label: 'Fecha de compra',
-        formControlName: 'fechaCompra',
-        controlType: 'date',
+        label: 'Comercializador',
+        formControlName: 'comercializador',
+        controlType: 'text',
         pipe: ''
       }, {
         label: 'Generador',
@@ -151,40 +143,76 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
         controlType: 'text',
         pipe: ''
       }, {
-        label: 'Planta',
-        formControlName: 'planta',
-        controlType: 'text',
+        label: 'Fecha de solicitud',
+        formControlName: 'fechaSolicitud',
+        controlType: 'date',
         pipe: ''
       }]
-    }]
+    }, {
+      fields: [{
+        label: 'Fecha fin',
+        formControlName: 'fechaFin',
+        controlType: 'date',
+        pipe: ''
+      }, {
+        label: 'Tipo de energia',
+        formControlName: 'tipoEnergia',
+        controlType: 'select',
+        optionValues: this.energiasDisponibles,
+        pipe: ''
+      }, {
+        label: 'Estado de compra',
+        formControlName: 'estado',
+        controlType: 'select',
+        optionValues: Object.values(EstadoAcuerdo).filter(item => typeof item == 'number'),
+        pipe: 'estadoCompra'
+      }]
+    }];
   }
 
   onfieldValueChange(event: FieldValueChange) {
-    if (event.controlName === 'fechaCompra') {
-      this.filters.fechaCompra = event.data !== '' ? moment(event.data).format('DD/MM/YYYY') : 'Invalid date';
+    if (event.controlName === 'fechaCompra' || event.controlName === 'fechaSolicitud') {
+      if (event.controlName == 'fechaCompra') {
+        this.filters.fechaFin = event.data !== '' ? moment(event.data).format('DD/MM/YYYY') : 'Invalid date';
+      } else {
+        this.filters.fechaSolicitud = event.data !== '' ? moment(event.data).format('DD/MM/YYYY') : 'Invalid date';
+      }
+    } else if (event.controlName === 'estado') {
+      this.filters.estado = event.data !== '' ? parseInt(event.data) : '';
     } else {
-      this.filters[event.controlName] = event.data;
+      this.filters[event.controlName] = event.data
     }
-    this.getComprasCliente();
+    if (this.infoCliente) {
+      this.getComprasCliente(this.infoCliente.dirContrato);
+    }
   }
 
 
-  private filterData(data: InfoCompraEnergia[]): InfoCompraEnergia[] {
+  private filterData(data: AcuerdoEnergia[]): AcuerdoEnergia[] {
     let filterArray = data;
-    filterArray = this.filters.fechaCompra !== 'Invalid date' && this.filters.fechaCompra !== '' ? filterArray.filter(item => {
-      let temp = moment(item.fechaAprobacion, 'DD/MM/YYYY');
-      let isSame = temp.isSame(moment(this.filters.fechaCompra, 'DD/MM/YYYY'), 'day');
+
+    filterArray = this.filters.comercializador !== '' ? filterArray.filter(item => item.dataComercializador.nombreAgente.toLowerCase().includes(this.filters.comercializador)) : filterArray;
+    filterArray = this.filters.generador !== '' ? filterArray.filter(item => item.dataGenerador.nombreAgente.toLowerCase().includes(this.filters.generador)) : filterArray;
+    filterArray = this.filters.tipoEnergia !== '' ? filterArray.filter(item => item.tipoEnergia.toLowerCase().includes(this.filters.tipoEnergia)) : filterArray;
+    filterArray = this.filters.fechaSolicitud !== 'Invalid date' && this.filters.fechaSolicitud !== '' ? filterArray.filter(item => {
+      let temp = moment(item.fechaInicio, 'DD/MM/YYYY');
+      let isSame = temp.isSame(moment(this.filters.fechaSolicitud, 'DD/MM/YYYY'), 'day');
       if (isSame) {
         return true;
       } else {
         return false;
       }
     }) : filterArray;
-
-    filterArray = this.filters.generador !== '' ? filterArray.filter(item => item.empresaGerador.toLocaleLowerCase().includes(this.filters.generador.toLowerCase())) : filterArray;
-    filterArray = this.filters.planta !== '' ? filterArray.filter(item => item.nombrePlanta.toLocaleLowerCase().includes(this.filters.planta)) : filterArray;
-    filterArray = this.filters.tecnologia !== '' ? filterArray.filter(item => item.tipoEnergia == this.filters.tecnologia) : filterArray;
-
+    filterArray = this.filters.fechaFin !== 'Invalid date' && this.filters.fechaFin !== '' ? filterArray.filter(item => {
+      let temp = moment(item.fechaFin, 'DD/MM/YYYY');
+      let isSame = temp.isSame(moment(this.filters.fechaFin, 'DD/MM/YYYY'), 'day');
+      if (isSame) {
+        return true;
+      } else {
+        return false;
+      }
+    }) : filterArray;
+    filterArray = this.filters.estado !== undefined && this.filters.estado !== '' ? filterArray.filter(item => item.estadoAcuerdo == this.filters.estado) : filterArray;
     return filterArray;
   }
 
@@ -219,7 +247,7 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
     })
   }
 
-  onContratoEnergia(){
+  onContratoEnergia() {
 
     let dialogRef = this.dialog.open(AcuerdoEnergiaComponent, {
       width: '500px',
@@ -230,7 +258,7 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe({
       next: () => {
-        this.getInfoContrato();
+        this.getComprasCliente(this.infoCliente.dirContrato);
       }
     });
   }
@@ -244,7 +272,7 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       this.spinner.show();
       this.cliente.getInfoContrato().subscribe({
         next: (data) => {
@@ -260,6 +288,7 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
   }
 
   private getInfoContrato() {
+    this.spinner.show();
     let observables: Observable<any>[] = [];
     observables.push(this.cliente.getInfoContrato());
     observables.push(this.bancoEnergia.getTiposEnergiasDisponibles())
@@ -269,12 +298,22 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
         this.infoCliente = data[0];
         const tiposEnergias = data[1] as InfoEnergia[];
         this.energiasDisponibles = tiposEnergias.map(x => x.nombre);
+        this.getComprasCliente(this.infoCliente.dirContrato);
         this.setFilterForm();
+        this.spinner.hide();
       }, error: (error) => {
         console.log(error);
         this.toastr.error(error.message, 'Error');
         this.spinner.hide();
       }
     });
+  }
+
+  get solicitarIsValid(): boolean {
+    if (this.infoCliente) {
+      return this.infoCliente.comercializador != this.nullAddress ? true : false;
+    }
+
+    return false;
   }
 }

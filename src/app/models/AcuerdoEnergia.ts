@@ -21,6 +21,6 @@ export interface AcuerdoEnergia {
     fechaInicio: string;
     fechaFin: string;
     estadoAcuerdo: EstadoAcuerdo;
-    indexCliente: number;
     indexGlobal: number;
+    valorContrato: number;
 }

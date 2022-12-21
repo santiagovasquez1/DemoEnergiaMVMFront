@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core';
-import { InfoContrato } from './../models/infoContrato';
-import { AgenteContractService } from './agente-contract.service'
-import { catchError, from, map, Observable, throwError, forkJoin, switchMap, mergeMap, of } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
+import { catchError, from, map, Observable, throwError} from 'rxjs';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 import { Web3ConnectService } from './web3-connect.service';
 import { WinRefService } from './win-ref.service';
 import { Contract } from 'web3-eth-contract';
-import { TiposContratos } from '../models/EnumTiposContratos';
 import Acuerdo from '../../../buildTruffle/contracts/AcuerdosLedger.json';
 import { AcuerdoEnergia } from '../models/AcuerdoEnergia';
-import { AnyARecord, AnyCnameRecord } from 'dns';
 import moment from 'moment';
 
 @Injectable({
@@ -24,8 +19,7 @@ export abstract class AcuerdoContractService {
   adressContract: any;
   web3: Web3;
   constructor(private winRef: WinRefService,
-    private web3ConnectService: Web3ConnectService,
-    private agenteService: AgenteContractService) { }
+    private web3ConnectService: Web3ConnectService) { }
 
   async loadBlockChainContractData() {
     await this.web3ConnectService.loadWeb3();
@@ -97,7 +91,7 @@ export abstract class AcuerdoContractService {
   private mappingAcuerdosDeCompra(data: any[]) {
     const acuerdosTemp = data.map(item => {
       const [
-        dataCliente, dataGenerador, dataComercializador, tipoEnergia, cantidadEnergiaTotal, cantidadEnergiaInyectada, fechaSolicitud, fechaInicio, fechaFin, estadoAcuerdo, indexCliente, indexGlobal
+        dataCliente, dataGenerador, dataComercializador, tipoEnergia, cantidadEnergiaTotal, cantidadEnergiaInyectada, fechaSolicitud, fechaInicio, fechaFin, estadoAcuerdo, indexGlobal, valorContrato
       ] = item;
 
       const [dirCliente, nombreCliente] = dataCliente
@@ -124,8 +118,8 @@ export abstract class AcuerdoContractService {
         fechaInicio: moment(parseInt(fechaInicio) * 1000).format('DD/MM/YYYY'),
         fechaFin: moment(parseInt(fechaFin) * 1000).format('DD/MM/YYYY'),
         estadoAcuerdo,
-        indexCliente,
-        indexGlobal
+        indexGlobal: parseInt(indexGlobal),
+        valorContrato: parseInt(valorContrato)
       };
       return temAcuerdo;
     });
