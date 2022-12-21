@@ -13,9 +13,6 @@ import reguladorMercado from "../../../buildTruffle/contracts/ReguladorMercado.j
 import { WinRefService } from './win-ref.service';
 import { catchError, from, map, Observable, of, throwError, switchMap, forkJoin } from 'rxjs';
 import moment from 'moment';
-import { info } from 'console';
-import { ProviderRpcError } from '../models/JsonrpcError';
-import { GeneradorContractService } from './generador-contract.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +22,8 @@ export class ReguladorMercadoService {
   contract: Contract | undefined;
   account: any;
   adressContract: any;
-  ComprandoTokens$: any;
-  tokensDevueltos$: any;
-  EnviarTokens$: any;
   web3: Web3;
+
   constructor(private winRef: WinRefService, private web3ConnectService: Web3ConnectService, private toastr: ToastrService) { }
 
   async loadBlockChainContractData() {
@@ -42,10 +37,6 @@ export class ReguladorMercadoService {
       this.adressContract = networkData.address;
       this.contract = new this.web3.eth.Contract(abi as unknown as AbiItem, this.adressContract);
       this.account = localStorage.getItem('account');
-      this.ComprandoTokens$ = this.contract.events.ComprandoTokens();
-      this.tokensDevueltos$ = this.contract.events.tokensDevueltos();
-      this.EnviarTokens$ = this.contract.events.EnviarTokensEvent();
-
       localStorage.setItem('addressRegulador', this.adressContract);
     } else {
       window.alert('Esta aplicación no está disponible en este network.');

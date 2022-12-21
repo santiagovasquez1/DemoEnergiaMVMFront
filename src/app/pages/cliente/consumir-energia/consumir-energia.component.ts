@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -14,10 +14,8 @@ import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 })
 export class ConsumirEnergiaComponent implements OnInit {
 
-  energiasDisponibles: string[];
-  cantidadesDisponibles: number[];
-  energiaSeleccionada: string;
-  cantidadSeleccionada: number;
+  energiaDisponible:number
+  cantidadEnergia: number;
   consumoForm: FormGroup;
 
   constructor(public dialogRef: MatDialogRef<ConsumirEnergiaComponent>,
@@ -26,9 +24,8 @@ export class ConsumirEnergiaComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private clienteService: ClienteContractService,
     private toastr: ToastrService,
-    private fb: UntypedFormBuilder) {
-    this.energiasDisponibles = this.data.energiasDisponibles;
-    this.cantidadesDisponibles = this.data.cantidadesDisponibles;
+    private fb: FormBuilder) {
+    this.energiaDisponible = this.data.cantidadesDisponibles;
     this.consumoForm = this.fb.group({});
   }
 
@@ -39,26 +36,12 @@ export class ConsumirEnergiaComponent implements OnInit {
 
   initForm() {
     this.consumoForm = this.fb.group({
-      energia: ['', Validators.required],
-      cantidadDisponible: [{ value: '', disabled: true }],
+      cantidadDisponible: [{ value: this.energiaDisponible, disabled: true }],
       cantidad: ['', Validators.required]
     })
 
-    this.consumoForm.get('energia').valueChanges.subscribe(data => {
-      this.energiaSeleccionada = data;
-      if (this.energiaSeleccionada !== '') {
-        const index = this.energiasDisponibles.findIndex(item => item === this.energiaSeleccionada);
-        this.consumoForm.patchValue({
-          cantidadDisponible : this.cantidadesDisponibles[index]
-        });
-      } else {
-        this.consumoForm.patchValue({
-          cantidadDisponible : ''
-        });
-      }
-    });
     this.consumoForm.get('cantidad').valueChanges.subscribe(data => {
-      this.cantidadSeleccionada = data !== '' ? parseInt(data) : 0;
+      this.cantidadEnergia = data !== '' ? parseInt(data) : 0;
     });
   }
 
@@ -67,10 +50,10 @@ export class ConsumirEnergiaComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           this.spinner.show();
-          this.clienteService.postConsumirEnergia(this.energiaSeleccionada, this.cantidadSeleccionada).subscribe({
+          this.clienteService.postConsumirEnergia(this.cantidadEnergia).subscribe({
             next: () => {
               this.spinner.hide();
-              this.toastr.success(`Consumo de ${this.cantidadSeleccionada}MWh de ${this.energiaSeleccionada}`, 'Éxito');
+              this.toastr.success(`Consumo de ${this.cantidadEnergia}MWh`, 'Éxito');
               this.dialogRef.close();
             },
             error: (error) => {
@@ -84,8 +67,7 @@ export class ConsumirEnergiaComponent implements OnInit {
   }
 
   get isValid(): boolean {
-    const index = this.energiasDisponibles.findIndex(item => item === this.energiaSeleccionada);
-    if (this.cantidadSeleccionada <= this.cantidadesDisponibles[index] && this.cantidadSeleccionada > 0 && this.consumoForm.valid) {
+    if (this.cantidadEnergia <= this.energiaDisponible && this.cantidadEnergia > 0 && this.consumoForm.valid) {
       return true;
     } else {
       return false;

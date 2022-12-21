@@ -7,17 +7,6 @@
         <h2 class="modal-title-mvm mt-20">Consumir energia</h2>
     </div>
     <form [formGroup]="consumoForm">
-        <div class="row">
-            <div class="col">
-                <div class="form-field">
-                    <label>Tipo de energia</label>
-                    <select class="custom-select" formControlName="energia">
-                        <option [ngValue]=""></option>
-                        <option *ngFor="let energia of energiasDisponibles" [ngValue]="energia">{{energia}}</option>
-                    </select>
-                </div>
-            </div>
-        </div>
         <div class="row mt-20">
             <div class="col">
                 <div class="form-field">

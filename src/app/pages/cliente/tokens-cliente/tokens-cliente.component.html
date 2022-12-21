@@ -23,24 +23,7 @@
                 </div>
                 <p class="tokens-text">Cambiar tus tokens disponibles por Ethers para posteriormente enviarlos a tu cuenta empresarial asignada.</p>
             </div>
-            <div class="col">
-                <p class="tokens-text">Tokens delegados</p>
-                <p class="tokens-number">{{tokensDelegados}}</p>
-                <div class="token-card mb-20">
-                    <div class="token-card-title">
-                        <img src="../../../../assets/images/tokens_disponibles.svg">
-                        <p>Delegar tokens</p>
-                    </div>
-                    <div class="token-card-input-container">
-                        <p>Delegar Tokens</p>
-                        <input type="number" [(ngModel)]="tokensDelegar">
-                    </div>
-                    <div class="actions-container">
-                        <button class="button-mvm w-100-px" mat-ripple [disabled]="!isDelegarValid" (click)="onDelegar()">Delegar</button>
-                    </div>
-                </div>
-                <p class="tokens-text">Envía tokens a tu comercializador para de esta manera comprar las cantidades de energía renovable que requieras.</p>
-            </div>
+
             <div class="col">
                 <p class="tokens-text">Tokens totales</p>
                 <p class="tokens-number">{{tokensMercado}}</p>

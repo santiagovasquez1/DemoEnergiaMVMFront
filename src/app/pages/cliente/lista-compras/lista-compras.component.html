@@ -16,52 +16,43 @@
                 Contratar
             </button >
         </div>
-            <button class="button-mvm w-160" mat-ripple (click)="onSolicitarCompra()" *ngIf="false">Solicitar compra</button>
-            <button class="button-mvm w-160" mat-ripple (click)="onContratoEnergia()">Solicitar acuerdo</button>
+            <button class="button-mvm w-160" mat-ripple (click)="onContratoEnergia()" [disabled]="!solicitarIsValid">Solicitar acuerdo</button>
         </div>
 
         <div class="table-container mt-20 fadeIn">
             <mat-table #table [dataSource]="dataSource" class="mvm-table">
-
-                <ng-container matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element.index}}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="comercializador">
+                <ng-container matColumnDef="empresaComercializador">
                     <mat-header-cell *matHeaderCellDef>Comercializador</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element.empresaComercializador}}</mat-cell>
+                    <mat-cell *matCellDef="let element">{{element.dataComercializador.nombreAgente}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="cantidad" class="mvm-column-widht-100">
-                    <mat-header-cell *matHeaderCellDef>Cantidad MWh</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element.cantidadEnergia}} MWh</mat-cell>
+                <ng-container matColumnDef="empresaGenerador">
+                    <mat-header-cell *matHeaderCellDef>Generador</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.dataGenerador.nombreAgente}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="tecnologia">
-                    <mat-header-cell *matHeaderCellDef>Tecnología</mat-header-cell>
+                <ng-container matColumnDef="estado">
+                    <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.estadoAcuerdo|estadoCompra}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="fechaInicio">
+                    <mat-header-cell *matHeaderCellDef>Fecha Inicio</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.fechaSolicitud}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="fechaFin">
+                    <mat-header-cell *matHeaderCellDef>Fecha Fin</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.fechaFin}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="tipoEnergia">
+                    <mat-header-cell *matHeaderCellDef>Tipo de energia</mat-header-cell>
                     <mat-cell *matCellDef="let element">{{element.tipoEnergia}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="fechaCompra">
-                    <mat-header-cell *matHeaderCellDef>Fecha de compra</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element.fechaAprobacion}}</mat-cell>
+                <ng-container matColumnDef="energiaTotal">
+                    <mat-header-cell *matHeaderCellDef>Energía total</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.cantidadEnergiaTotal}} MWh</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="valorCompra">
-                    <mat-header-cell *matHeaderCellDef>Valor compra (Erc-mvm)</mat-header-cell>
-                    <mat-cell *matCellDef="let element"></mat-cell>
+                <ng-container matColumnDef="energiaEntregada">
+                    <mat-header-cell *matHeaderCellDef>Energía entregada</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.cantidadEnergiaInyectada}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="generador">
-                    <mat-header-cell *matHeaderCellDef>Generador</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element.empresaGerador}}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="planta">
-                    <mat-header-cell *matHeaderCellDef>Planta</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element.nombrePlanta}}</mat-cell>
-                </ng-container>
-                <!-- <ng-container matColumnDef="certificado">
-                    <mat-header-cell *matHeaderCellDef>Ver certificado</mat-header-cell>
-                    <mat-cell *matCellDef="let element">
-                        <span class="info-certificado" (click)="verCertificado(element)">Certificado</span>
-                    </mat-cell>
-                </ng-container> -->
-
                 <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
                 <mat-row class="fadeIn" *matRowDef="let row; columns:displayedColumns"></mat-row>
             </mat-table>

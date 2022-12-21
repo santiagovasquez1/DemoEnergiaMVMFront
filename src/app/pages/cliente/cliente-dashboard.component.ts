@@ -23,12 +23,11 @@ import { ContratarComercializadorComponent } from './contratar-comercializador/c
   ]
 })
 export class ClienteDashboardComponent implements OnInit, OnDestroy {
+
   infoCliente: InfoContrato;
   tokensCliente: number = 0;
-  tokensDelegados: number = 0;
-  energiasDisponibles: string[] = [];
-  cantidadesDisponibles: number[] = [];
-  compraEnergiaEvent: any;
+  cantidadEnergia: number = 0;
+
 
   constructor(private clienteService: ClienteContractService,
     private spinner: NgxSpinnerService,
@@ -40,32 +39,19 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
     private ngZone: NgZone) { }
 
   ngOnDestroy(): void {
-    this.compraEnergiaEvent.removeAllListeners();
   }
 
   async ngOnInit(): Promise<void> {
     let dirContract = localStorage.getItem('dirContract');
     try {
+      this.spinner.show();
       let promises: Promise<void>[] = []
       promises.push(this.reguladorMercado.loadBlockChainContractData());
       promises.push(this.bancoEnergia.loadBlockChainContractData());
       promises.push(this.clienteService.loadBlockChainContractData(dirContract));
       promises.push(this.certificado.loadBlockChainContractData(''));
       await Promise.all(promises);
-      //TODO: EVENTO ELIMINADO DE BACKEND
-      // this.compraEnergiaEvent = this.clienteService.contract.events.compraEnergia({
-      //   fromBlock: 'latest'
-      // }, (error, event) => {
-      //   if (error) {
-      //     console.log(error);
-      //     this.toastr.error(error.message, 'Error');
-      //   }
-      // }).on('data', (event) => {
-      //   this.ngZone.run(() => {
-      //     this.toastr.success('Compra de energía realizada', 'Energía');
-      //     this.getInfoContrato();
-      //   });
-      // });
+      this.spinner.hide();
       this.getInfoContrato();
     } catch (error) {
       console.log(error);
@@ -74,51 +60,25 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
   }
 
   getInfoContrato() {
+    this.spinner.show();
+
     let observables: Observable<any>[] = [];
     observables.push(this.clienteService.getInfoContrato());
-    observables.push(this.bancoEnergia.getTiposEnergiasDisponibles())
+    observables.push(this.clienteService.getMisTokens());
+    observables.push(this.clienteService.getEnergiaCliente());
 
-    this.spinner.show();
     forkJoin(observables).subscribe({
       next: (data) => {
         this.infoCliente = data[0];
-        const tiposEnergias = data[1] as InfoEnergia[];
-        this.energiasDisponibles = tiposEnergias.map(x => x.nombre);
-        this.getTokensCliente().subscribe({
-          next: (tokens) => {
-            this.tokensCliente = tokens[0];
-            this.tokensDelegados = tokens[1];
-            this.getCantidadesEnergiasDisponibles();
-          }, error: (error) => {
-            console.log(error);
-            this.toastr.error(error.message, 'Error');
-            this.spinner.hide();
-          }
-        });
+        this.tokensCliente = data[1];
+        this.cantidadEnergia = data[2];
+        this.spinner.hide();
       }, error: (error) => {
         console.log(error);
         this.toastr.error(error.message, 'Error');
         this.spinner.hide();
       }
     });
-  }
-
-  private getCantidadesEnergiasDisponibles() {
-    let observables: Observable<InfoEnergia>[] = [];
-    this.energiasDisponibles.forEach(energia => {
-      observables.push(this.clienteService.getEnergiaCliente(energia));
-    });
-    forkJoin(observables).subscribe({
-      next: (data) => {
-        this.cantidadesDisponibles = data.map(x => x.cantidadEnergia);
-        this.spinner.hide();
-      },
-      error: (error) => {
-        console.log(error);
-        this.toastr.error(error.message, 'Error');
-        this.spinner.hide();
-      }
-    })
   }
 
   getTokensCliente(): Observable<number[]> {
@@ -158,7 +118,7 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
   onVerCertificado() {
     this.dialog.open(InfoCertificadoAgenteComponent, {
       width: '791px',
-      height: '671px',      
+      height: '671px',
       data: {
         dirContratoAgente: localStorage.getItem('dirContract'),
       }
@@ -170,8 +130,7 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
       width: '500px',
       data: {
         dirContrato: localStorage.getItem('dirContract'),
-        energiasDisponibles: this.energiasDisponibles,
-        cantidadesDisponibles: this.cantidadesDisponibles,
+        cantidadesDisponibles: this.cantidadEnergia
       }
     });
 
@@ -180,11 +139,19 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
     })
   }
 
-  get isDelegarValid(): boolean {
-    return this.infoCliente.comercializador !== '0x0000000000000000000000000000000000000000' && this.tokensCliente > 0;
-  }
-
-  get ComprarIsValid(): boolean {
-    return this.tokensDelegados > 0;
+  getCantidadesEnergiasDisponibles() {
+    this.spinner.show()
+    this.clienteService.getEnergiaCliente().subscribe({
+      next: data => {
+        debugger;
+        this.cantidadEnergia = data
+        this.spinner.hide();
+      },
+      error: error => {
+        console.log(error);
+        this.toastr.error(error.message, 'Error');
+        this.spinner.hide();
+      }
+    })
   }
 }

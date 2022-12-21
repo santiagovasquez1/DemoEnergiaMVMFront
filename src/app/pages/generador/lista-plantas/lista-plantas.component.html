@@ -83,6 +83,10 @@
         <p class="total">Precio de venta energía</p>
         <p class="resultado">{{precioEnergia}} Tokens</p>
     </div>
+    <div class="totalesContainer" *ngFor="let energia of energiaBolsaGenerador">
+        <p class="total">Total energía {{energia.nombre}} para contratos</p>
+        <p class="resultado">{{energia.cantidadEnergia}} Mw</p>
+    </div>
     <div class="table-container mt-10 fadeIn">
         <mat-paginator class="mvm-paginator " #paginator [pageSizeOptions]="[5,10, 25, 100 ] " showFirstLastButtons></mat-paginator>
     </div>
