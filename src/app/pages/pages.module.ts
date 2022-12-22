@@ -58,6 +58,8 @@ import { SetAcuerdosComponent } from './comercializador/set-acuerdos/set-acuerdo
 import { HistoricoDespachosComponent } from './regulador-mercado/historico-despachos/historico-despachos.component';
 import { LiquidacionInyeccionesComponent } from './regulador-mercado/liquidacion-inyecciones/liquidacion-inyecciones.component';
 import { LiquidarInyeccionComponent } from './regulador-mercado/liquidar-inyeccion/liquidar-inyeccion.component';
+import { AcuerdosEnergiaComponent } from './regulador-mercado/acuerdos-energia/acuerdos-energia.component';
+import { LiquidarContratoComponent } from './regulador-mercado/liquidar-contrato/liquidar-contrato.component';
 
 
 @NgModule({
@@ -102,6 +104,8 @@ import { LiquidarInyeccionComponent } from './regulador-mercado/liquidar-inyecci
         HistoricoDespachosComponent,
         LiquidacionInyeccionesComponent,
         LiquidarInyeccionComponent,
+        AcuerdosEnergiaComponent,
+        LiquidarContratoComponent,
     ],
     imports: [
         CommonModule,
@@ -149,6 +153,21 @@ import { LiquidarInyeccionComponent } from './regulador-mercado/liquidar-inyecci
         RegistrosDetalleComponent,
         ComprasRealizadasComponent,
         TransaccionesComponent,
+        BancoEnergiaInformacionComponent,
+        ConsumirEnergiaComponent,
+        ListaComprasComponent,
+        TokensClienteComponent,
+        TokensGeneradorComponent,
+        ComprarEnergiaBolsaComponent,
+        OrdenesDespachoComponent,
+        ComprarTokensComponent,
+        FijarPreciosComponent,
+        AcuerdoEnergiaComponent,
+        SetAcuerdosComponent,
+        HistoricoDespachosComponent,
+        LiquidacionInyeccionesComponent,
+        LiquidarInyeccionComponent,
+        AcuerdosEnergiaComponent,
     ]
    
 })

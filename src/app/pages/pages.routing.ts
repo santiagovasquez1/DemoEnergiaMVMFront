@@ -1,3 +1,5 @@
+import { AcuerdosEnergiaComponent } from './regulador-mercado/acuerdos-energia/acuerdos-energia.component';
+import { AcuerdoEnergiaComponent } from './cliente/acuerdo-energia/acuerdo-energia.component';
 import { LiquidacionInyeccionesComponent } from './regulador-mercado/liquidacion-inyecciones/liquidacion-inyecciones.component';
 import { HistoricoDespachosComponent } from './regulador-mercado/historico-despachos/historico-despachos.component';
 import { TokensGeneradorComponent } from './generador/tokens-generador/tokens-generador.component';
@@ -69,10 +71,14 @@ const routes: Routes = [
                 path: "regulador-mercado/historico-ordenes-despacho",
                 component: HistoricoDespachosComponent,
                 canActivate: [AuthGuard]
-            },{
+            }, {
                 path: "regulador-mercado/liquidacion-inyecciones-bolsa",
                 component: LiquidacionInyeccionesComponent,
-                canActivate: [AuthGuard]  
+                canActivate: [AuthGuard]
+            }, {
+                path: 'regulador-mercado/liquidacion-contratos',
+                component: AcuerdosEnergiaComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: "cliente",
