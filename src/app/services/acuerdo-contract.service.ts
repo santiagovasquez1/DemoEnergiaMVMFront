@@ -1,5 +1,6 @@
+import { EstadoAcuerdo } from './../models/AcuerdoEnergia';
 import { Injectable } from '@angular/core';
-import { catchError, from, map, Observable, throwError} from 'rxjs';
+import { catchError, from, map, Observable, throwError } from 'rxjs';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 import { Web3ConnectService } from './web3-connect.service';
@@ -88,6 +89,14 @@ export abstract class AcuerdoContractService {
       );
   }
 
+  liquidacionContrato(index: number): Observable<any> {
+    return from(this.contract.methods.liquidacionContrato(index).send({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
   private mappingAcuerdosDeCompra(data: any[]) {
     const acuerdosTemp = data.map(item => {
       const [
@@ -117,7 +126,7 @@ export abstract class AcuerdoContractService {
         fechaSolicitud: moment(parseInt(fechaSolicitud) * 1000).format('DD/MM/YYYY'),
         fechaInicio: moment(parseInt(fechaInicio) * 1000).format('DD/MM/YYYY'),
         fechaFin: moment(parseInt(fechaFin) * 1000).format('DD/MM/YYYY'),
-        estadoAcuerdo,
+        estadoAcuerdo:parseInt(estadoAcuerdo) as EstadoAcuerdo,
         indexGlobal: parseInt(indexGlobal),
         valorContrato: parseInt(valorContrato)
       };

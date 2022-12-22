@@ -20,6 +20,8 @@ export class EstadoCompraPipe implements PipeTransform {
         return 'Activo';
       case EstadoAcuerdo.pendiente:
         return 'Pendiente';
+      case EstadoAcuerdo.cancelado:
+        return 'Cancelado';
       case EstadoAcuerdo.cerrado:
         return 'Cerrado';
       default:

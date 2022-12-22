@@ -53,6 +53,7 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
     estadoPlanta: undefined
   }
   ordenDespachoEvent: any;
+  inyeccionEnergiaEvent: any;
 
   constructor(
     private generadorService: GeneradorContractService,
@@ -68,7 +69,12 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.ordenDespachoEvent.removeAllListeners('data');
+    if (this.ordenDespachoEvent) {
+      this.ordenDespachoEvent.removeAllListeners('data');
+    }
+    if (this.inyeccionEnergiaEvent) {
+      this.inyeccionEnergiaEvent.removeAllListeners('data');
+    }
   }
 
   private setFilterForm() {
@@ -133,7 +139,20 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
         this.ngZone.run(() => {
           this.getTotalEnergiaDespachada()
         })
-      })
+      });
+
+      this.inyeccionEnergiaEvent = this.despachosEnergia.contract.events.inyeccionEnergia({
+        fromBlock: 'latest'
+      }, (err, event) => {
+        if (err) {
+          console.log(err);
+          this.toastr.error(err.message, 'Error');
+        }
+      }).on('data', (event) => {
+        this.ngZone.run(() => {
+          this.getTotalEnergiaDespachada()
+        })
+      });
     } catch (error) {
       console.log(error);
       this.toastr.error('Error al cargar las plantas de energía', 'Error');

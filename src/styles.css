@@ -2139,6 +2139,28 @@ mat-dialog-container .mat-form-field-infix span label {
     width: 50%;
 }
 
+.info-acuerdo-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.info-acuerdo-container .info-acuerdo {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-acuerdo-container .title {
+    color: var(--verde-oscuro);
+    font-weight: 700;
+}
+
+.info-acuerdo-container p {
+    font-size: 13px;
+}
+
 
 /* Mobile size */
 

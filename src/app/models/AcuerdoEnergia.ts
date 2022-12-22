@@ -1,6 +1,7 @@
 export enum EstadoAcuerdo {
     pendiente,
     activo,
+    cancelado,
     cerrado
 }
 
