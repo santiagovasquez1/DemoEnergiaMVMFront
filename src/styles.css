@@ -1308,6 +1308,7 @@ mat-dialog-container .mat-form-field-infix span label {
 .mvm-table .mat-header-cell {
     display: flex;
     align-items: center;
+    width: 100px !important;
     justify-content: flex-start;
     color: white !important;
     background-color: var(--verde-oscuro);
@@ -1321,6 +1322,10 @@ mat-dialog-container .mat-form-field-infix span label {
     font-size: 14px !important;
     font-family: 'Montserrat';
     padding-right: 10px;
+    float: right;
+    display: flex;
+    align-items: center;
+    word-break: break-all;
 }
 
 .mvm-table .mat-cell .action-container {
@@ -1375,12 +1380,27 @@ mat-dialog-container .mat-form-field-infix span label {
 
 .mvm-table .mat-column-CantidadEnergia,
 .mvm-table .mat-column-acciones,
-.mvm-table .mat-column-estado,
 .mvm-table .mat-column-cantidad,
 .mvm-table .mat-column-certificado,
 .mvm-table .mat-column-planta,
 .mvm-table .mat-column-tecnologia {
     flex: 0 0 100px !important;
+}
+
+.celda-130{
+    min-width: 130px !important;
+    float: right;
+    display: flex;
+    align-items: center;
+    word-break:break-all;
+}
+
+.celda-110{
+    min-width: 110px !important;
+    float: right;
+    display: flex;
+    align-items: center;
+    word-break:break-all;
 }
 
 .mvm-table .mat-column-despacho {
