@@ -64,6 +64,11 @@
                 <span>Plantas de energia</span>
                 <mat-icon>keyboard_arrow_right</mat-icon>
             </a>
+            <a routerLinkActive="active" [routerLink]="['generador/contratos-clientes']" (click)="onLinkClick()">
+                <img src="../../../assets/images/Registro.svg" alt="registro">
+                <span>Contratos clientes</span>
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </a>
             <a routerLinkActive="active" [routerLink]="['generador/tokens']" (click)="onLinkClick()">
                 <mat-icon>currency_exchange</mat-icon>
                 <span>Tokens</span>

@@ -1,20 +1,22 @@
 <div class="container">
-
     <div class="titulo">
-        <h2 class="title-xg">Información Compras</h2>
+        <h2 class="title-xg">Acuerdos de energia clientes</h2>
     </div>
-
     <app-filter *ngIf="filterFormProperties.length>0" [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
 
-    <div class="table-container mt-30 fadeIn">
+    <div class="table-container mt-20 fadeIn">
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
+            <ng-container matColumnDef="index">
+                <mat-header-cell *matHeaderCellDef>Index</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.indexGlobal}}</mat-cell>
+            </ng-container>
             <ng-container matColumnDef="empresaCliente">
                 <mat-header-cell *matHeaderCellDef>Cliente</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.dataCliente.nombreAgente}}</mat-cell>
             </ng-container>
-            <ng-container matColumnDef="empresaGenerador">
-                <mat-header-cell *matHeaderCellDef>Generador</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.dataGenerador.nombreAgente}}</mat-cell>
+            <ng-container matColumnDef="empresaComercializador">
+                <mat-header-cell *matHeaderCellDef>Comercializador</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.dataComercializador.nombreAgente}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="estado">
                 <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
@@ -34,31 +36,31 @@
             </ng-container>
             <ng-container matColumnDef="energiaTotal">
                 <mat-header-cell *matHeaderCellDef>Energía total</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.cantidadEnergiaTotal}} MWh</mat-cell>
+                <mat-cell *matCellDef="let element">{{element.cantidadEnergiaTotal}} MW</mat-cell>
             </ng-container>
             <ng-container matColumnDef="energiaEntregada">
                 <mat-header-cell *matHeaderCellDef>Energía entregada</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.cantidadEnergiaInyectada}}</mat-cell>
+                <mat-cell *matCellDef="let element">{{element.cantidadEnergiaInyectada}} Mw</mat-cell>
             </ng-container>
             <ng-container matColumnDef="acciones">
                 <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <button matRipple class="mvm-action-button approve" [disabled]="element.estadoAcuerdo !== 0" (click)="onRealizarCompra(element)">
+                    <button matRipple class="mvm-action-button approve" matTooltip="Inyectar energia contrato" (click)="onInyectarEnergiaContrato(element)" [disabled]="element.estadoAcuerdo !== 1">
                         <mat-icon>done</mat-icon>
-                    </button>
-                    <button matRipple class="mvm-action-button reject" [disabled]="element.estadoAcuerdo !== 0" (click)="onRechazarCompra(element.ownerCliente,element.index)">
-                        <mat-icon>close</mat-icon>
                     </button>
                 </mat-cell>
             </ng-container>
-
             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
             <mat-row class="fadeIn" *matRowDef="let row; columns:displayedColumns"></mat-row>
         </mat-table>
     </div>
 
+    <div class="totalesContainer" *ngFor="let energia of energiaBolsaGenerador">
+        <p class="total">Total energía {{energia.nombre}} para contratos</p>
+        <p class="resultado">{{energia.cantidadEnergia}} Mw</p>
+    </div>
+
     <div class="table-container mt-10 fadeIn">
         <mat-paginator class="mvm-paginator" #paginator [pageSizeOptions]="[5,10, 25, 100 ]" showFirstLastButtons></mat-paginator>
     </div>
-
 </div>

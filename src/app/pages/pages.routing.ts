@@ -27,6 +27,7 @@ import { TransaccionesComponent } from './dashboard/transacciones/transacciones.
 import { BancoEnergiaInformacionComponent } from './banco-energia/banco-energia-informacion/banco-energia-informacion.component';
 import { TokensClienteComponent } from './cliente/tokens-cliente/tokens-cliente.component';
 import { OrdenesDespachoComponent } from './regulador-mercado/ordenes-despacho/ordenes-despacho.component';
+import { AcuerdosCompraComponent } from './generador/acuerdos-compra/acuerdos-compra.component';
 
 
 const routes: Routes = [
@@ -128,6 +129,10 @@ const routes: Routes = [
             {
                 path: "generador/lista-plantas-energia",
                 component: ListaPlantasComponent,
+                canActivate: [AuthGuard]
+            }, {
+                path: "generador/contratos-clientes",
+                component: AcuerdosCompraComponent,
                 canActivate: [AuthGuard]
             },
             {
