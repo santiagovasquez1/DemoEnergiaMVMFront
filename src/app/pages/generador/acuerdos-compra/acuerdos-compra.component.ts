@@ -1,30 +1,33 @@
-import { LiquidarContratoComponent } from './../liquidar-contrato/liquidar-contrato.component';
-import { CdkColumnDef } from '@angular/cdk/table';
-import { Component, OnInit, OnDestroy, NgZone, ViewChild } from '@angular/core';
+import { InyeccionAcuerdoComponent } from './../inyeccion-acuerdo/inyeccion-acuerdo.component';
+import { BancoEnergiaService } from './../../../services/banco-energia.service';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
-import moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { map } from 'rxjs';
-import { AcuerdoEnergia, EstadoAcuerdo } from 'src/app/models/AcuerdoEnergia';
-import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
 import { AcuerdoContractService } from 'src/app/services/acuerdo-contract.service';
-import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { TableService } from 'src/app/services/shared/table-service.service';
+import { GeneradorContractService } from './../../../services/generador-contract.service';
+import { Component, NgZone, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
+import { AcuerdoEnergia, EstadoAcuerdo } from 'src/app/models/AcuerdoEnergia';
+import { map } from 'rxjs';
+import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
+import moment from 'moment';
+import { InfoEnergia } from 'src/app/models/InfoEnergia';
 
 @Component({
-  selector: 'app-acuerdos-energia',
-  templateUrl: './acuerdos-energia.component.html',
+  selector: 'app-acuerdos-compra',
+  templateUrl: './acuerdos-compra.component.html',
   styles: [
   ]
 })
-export class AcuerdosEnergiaComponent implements OnInit, OnDestroy {
+export class AcuerdosCompraComponent implements OnInit, OnDestroy {
 
-  displayedColumns: string[] = ['index', 'empresaCliente', 'empresaComercializador', 'empresaGenerador', 'estado', 'fechaInicio', 'fechaFin', 'tipoEnergia', 'energiaTotal', 'energiaEntregada', 'acciones']
-  energiasDisponibles: string[];
+  dirGenerador: string = '';
+  energiasDisponibles: string[] = [];
+  energiaBolsaGenerador: InfoEnergia[];
+  displayedColumns: string[] = ['index', 'empresaCliente', 'empresaComercializador', 'estado', 'fechaInicio', 'fechaFin', 'tipoEnergia', 'energiaTotal', 'energiaEntregada', 'acciones']
   dataSource: MatTableDataSource<AcuerdoEnergia>;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('table', { static: true }) table: MatTable<any>;
@@ -35,37 +38,44 @@ export class AcuerdosEnergiaComponent implements OnInit, OnDestroy {
     index: '',
     cliente: '',
     comercializador: '',
-    generador: '',
     fechaSolicitud: '',
     fechaFin: '',
     tipoEnergia: '',
     estado: undefined
   }
-  creacionAcuerdoEvent: any;
-  actualizacionAcuerdoEvent: any;
 
-  constructor(private bancoEnergia: BancoEnergiaService,
+  acuerdoConClienteEvent: any;
+  actualizacionContratoEvent: any;
+  liquidacionContratoEvent: any;
+  inyeccionEnergiaEvent: any;
+
+  constructor(private generador: GeneradorContractService,
     private acuerdosLedger: AcuerdoContractService,
+    private bancoEnergia: BancoEnergiaService,
     public dialog: MatDialog,
     private spinner: NgxSpinnerService,
     private ngZone: NgZone,
     private toastr: ToastrService,
-    private tableService: TableService,) {
+    private tableService: TableService) {
     this.dataSource = new MatTableDataSource();
+    this.dirGenerador = localStorage.getItem('dirContract');
   }
 
   async ngOnInit(): Promise<void> {
     this.spinner.show();
     try {
       let promises: Promise<void>[] = [];
-      promises.push(this.bancoEnergia.loadBlockChainContractData());
       promises.push(this.acuerdosLedger.loadBlockChainContractData());
+      promises.push(this.bancoEnergia.loadBlockChainContractData());
+      promises.push(this.generador.loadBlockChainContractData(this.dirGenerador));
       await Promise.all(promises);
       this.tableService.setPaginatorTable(this.paginator);
       this.spinner.hide();
       this.getEnergiasDisponibles();
       this.getAcuerdosEnergia();
-      this.creacionAcuerdoEvent = this.acuerdosLedger.contract.events.creacionAcuerdo({
+      this.getEnergiasBolsaGenerador();
+
+      this.actualizacionContratoEvent = this.generador.contract.events.actualizacionContrato({
         fromBlock: 'latest'
       }, (error: { message: string; }) => {
         if (error) {
@@ -77,7 +87,7 @@ export class AcuerdosEnergiaComponent implements OnInit, OnDestroy {
           this.getAcuerdosEnergia();
         });
       });
-      this.actualizacionAcuerdoEvent = this.acuerdosLedger.contract.events.actualizacionAcuerdo({
+      this.acuerdoConClienteEvent = this.generador.contract.events.acuerdoConCliente({
         fromBlock: 'latest'
       }, (error: { message: string; }) => {
         if (error) {
@@ -89,6 +99,31 @@ export class AcuerdosEnergiaComponent implements OnInit, OnDestroy {
           this.getAcuerdosEnergia();
         });
       });
+      this.liquidacionContratoEvent = this.generador.contract.events.liquidacionContrato({
+        fromBlock: 'latest'
+      }, (error: { message: string; }) => {
+        if (error) {
+          console.log(error);
+          this.toastr.error(error.message, 'Error');
+        }
+      }).on('data', () => {
+        this.ngZone.run(() => {
+          this.getAcuerdosEnergia();
+        });
+      });
+      this.inyeccionEnergiaEvent = this.generador.contract.events.inyeccionEnergia({
+        fromBlock: 'latest'
+      }, (error: { message: string; }) => {
+        if (error) {
+          console.log(error);
+          this.toastr.error(error.message, 'Error');
+        }
+      }).on('data', () => {
+        this.ngZone.run(() => {
+          this.getEnergiasBolsaGenerador();
+        });
+      });
+
     } catch (error) {
       console.log(error);
       this.toastr.error(error, 'Error');
@@ -97,31 +132,18 @@ export class AcuerdosEnergiaComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.creacionAcuerdoEvent) {
-      this.creacionAcuerdoEvent.removeAllListeners('data');
+    if (this.acuerdoConClienteEvent) {
+      this.acuerdoConClienteEvent.removeAllListeners('data');
     }
-    if (this.actualizacionAcuerdoEvent) {
-      this.actualizacionAcuerdoEvent.removeAllListeners('data');
+    if (this.actualizacionContratoEvent) {
+      this.actualizacionContratoEvent.removeAllListeners('data');
     }
-  }
-
-  private getAcuerdosEnergia() {
-    this.spinner.show();
-    this.acuerdosLedger.getAcuerdosDeCompraMercado().subscribe({
-      next: data => {
-        const filterData = this.filterData(data);
-        this.dataSource.data = filterData;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.table.renderRows();
-        this.spinner.hide();
-      },
-      error: error => {
-        console.log(error);
-        this.toastr.error(error.message, 'Error');
-        this.spinner.hide();
-      }
-    })
+    if (this.liquidacionContratoEvent) {
+      this.liquidacionContratoEvent.removeAllListeners('data');
+    }
+    if (this.inyeccionEnergiaEvent) {
+      this.inyeccionEnergiaEvent.removeAllListeners('data');
+    }
   }
 
   private getEnergiasDisponibles() {
@@ -158,11 +180,6 @@ export class AcuerdosEnergiaComponent implements OnInit, OnDestroy {
       }, {
         label: 'Comercializador',
         formControlName: 'comercializador',
-        controlType: 'text',
-        pipe: ''
-      }, {
-        label: 'Generador',
-        formControlName: 'generador',
         controlType: 'text',
         pipe: ''
       }]
@@ -208,14 +225,21 @@ export class AcuerdosEnergiaComponent implements OnInit, OnDestroy {
     this.getAcuerdosEnergia();
   }
 
-  onLiquidarContrato(acuerdoEnergia: AcuerdoEnergia) {
-    const liquidacionDialog = this.dialog.open(LiquidarContratoComponent, {
-      width: '500px',
-      data: acuerdoEnergia
-    });
-    liquidacionDialog.afterClosed().subscribe({
-      next: () => {
-        this.getAcuerdosEnergia();
+  getAcuerdosEnergia() {
+    this.spinner.show();
+    this.acuerdosLedger.getAcuerdosDeCompraByGenerador(this.dirGenerador).subscribe({
+      next: data => {
+        const filterData = this.filterData(data);
+        this.dataSource.data = filterData;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.table.renderRows();
+        this.spinner.hide();
+      },
+      error: error => {
+        console.log(error);
+        this.toastr.error(error.message, 'Error');
+        this.spinner.hide();
       }
     });
   }
@@ -226,7 +250,6 @@ export class AcuerdosEnergiaComponent implements OnInit, OnDestroy {
     filterArray = this.filters.index !== '' && this.filters.index !== null ? filterArray.filter(item => item.indexGlobal === parseInt(this.filters.index)) : filterArray;
     filterArray = this.filters.cliente !== '' ? filterArray.filter(item => item.dataCliente.nombreAgente.toLowerCase().includes(this.filters.cliente)) : filterArray;
     filterArray = this.filters.comercializador !== '' ? filterArray.filter(item => item.dataComercializador.nombreAgente.toLowerCase().includes(this.filters.comercializador)) : filterArray;
-    filterArray = this.filters.generador !== '' ? filterArray.filter(item => item.dataGenerador.nombreAgente.toLowerCase().includes(this.filters.generador)) : filterArray;
     filterArray = this.filters.tipoEnergia !== '' ? filterArray.filter(item => item.tipoEnergia.toLowerCase().includes(this.filters.tipoEnergia)) : filterArray;
     filterArray = this.filters.fechaSolicitud !== 'Invalid date' && this.filters.fechaSolicitud !== '' ? filterArray.filter(item => {
       let temp = moment(item.fechaInicio, 'DD/MM/YYYY');
@@ -248,5 +271,34 @@ export class AcuerdosEnergiaComponent implements OnInit, OnDestroy {
     }) : filterArray;
     filterArray = this.filters.estado !== undefined && this.filters.estado !== '' ? filterArray.filter(item => item.estadoAcuerdo == this.filters.estado) : filterArray;
     return filterArray;
+  }
+
+  private getEnergiasBolsaGenerador() {
+    this.spinner.show();
+    this.generador.getEnergiaBolsaGenerador().subscribe({
+      next: data => {
+        this.energiaBolsaGenerador = data;
+        this.spinner.hide();
+      },
+      error: error => {
+        this.toastr.error(error.message, 'Error');
+        console.log(error);
+        this.spinner.hide();
+      }
+    })
+  }
+
+  onInyectarEnergiaContrato(acuerdoEnergia: AcuerdoEnergia) {
+    const dialogReg = this.dialog.open(InyeccionAcuerdoComponent, {
+      width: '500px',
+      data: acuerdoEnergia
+    });
+
+    dialogReg.afterClosed().subscribe({
+      next:()=>{
+        this.getAcuerdosEnergia();
+        this.getEnergiasBolsaGenerador();
+      }
+    })
   }
 }

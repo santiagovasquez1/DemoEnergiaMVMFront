@@ -195,6 +195,15 @@ export class GeneradorContractService extends AgenteContractService {
     return from(this.contract?.methods.resetProduccionPlanta(dirPlanta).send({ from: this.account })).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
-      }));
+      })
+    );
+  }
+
+  inyectarEnergiaContratos(dirCliente: string, tipoEnergia: string, cantidadEnergia: number, index: number): Observable<any> {
+    return from(this.contract?.methods.inyectarEnergiaContratos(dirCliente, tipoEnergia, cantidadEnergia, index).send({ from: this.account })).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
   }
 }

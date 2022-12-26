@@ -143,7 +143,6 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
     this.spinner.show()
     this.clienteService.getEnergiaCliente().subscribe({
       next: data => {
-        debugger;
         this.cantidadEnergia = data
         this.spinner.hide();
       },

@@ -60,6 +60,8 @@ import { LiquidacionInyeccionesComponent } from './regulador-mercado/liquidacion
 import { LiquidarInyeccionComponent } from './regulador-mercado/liquidar-inyeccion/liquidar-inyeccion.component';
 import { AcuerdosEnergiaComponent } from './regulador-mercado/acuerdos-energia/acuerdos-energia.component';
 import { LiquidarContratoComponent } from './regulador-mercado/liquidar-contrato/liquidar-contrato.component';
+import { AcuerdosCompraComponent } from './generador/acuerdos-compra/acuerdos-compra.component';
+import { InyeccionAcuerdoComponent } from './generador/inyeccion-acuerdo/inyeccion-acuerdo.component';
 
 
 @NgModule({
@@ -106,6 +108,8 @@ import { LiquidarContratoComponent } from './regulador-mercado/liquidar-contrato
         LiquidarInyeccionComponent,
         AcuerdosEnergiaComponent,
         LiquidarContratoComponent,
+        AcuerdosCompraComponent,
+        InyeccionAcuerdoComponent,
     ],
     imports: [
         CommonModule,

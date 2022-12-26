@@ -75,28 +75,27 @@ export class DespachosEnergiaService {
     return from(this.contract?.methods.getDespachosByGeneradorAndDate(dirGenerador, date).call({ from: this.account })).pipe(
       switchMap((data: any) => this.mappingOrdenDespacho(data)),
       catchError((error: ProviderRpcError) => {
-        if (error.message.includes("No existe orden")) {
-          const generadorContract: GeneradorContractService = new GeneradorContractService(this.winRef, this.web3ConnectService, this.toastr);
-          return from(generadorContract.loadBlockChainContractData(dirGenerador)).pipe(
-            switchMap(() => {
-              return generadorContract.getCapacidadNominal().pipe(
-                switchMap((capacidadNominal: number) => {
-                  let ordenDespacho: OrdenDespacho = {
-                    dirGenerador,
-                    nombreGenerador,
-                    cantidadEnergia: 0,
-                    cantidadProducida: 0,
-                    fechaDespacho: '',
-                    capacidadNominal,
-                    index: null
-                  };
-                  return of(ordenDespacho);
-                })
-              );
-            })
-          );
-        }
-        return throwError(() => new Error(error.message));
+        // if (error.message.includes("No existe orden")) {
+        const generadorContract: GeneradorContractService = new GeneradorContractService(this.winRef, this.web3ConnectService, this.toastr);
+        return from(generadorContract.loadBlockChainContractData(dirGenerador)).pipe(
+          switchMap(() => {
+            return generadorContract.getCapacidadNominal().pipe(
+              switchMap((capacidadNominal: number) => {
+                let ordenDespacho: OrdenDespacho = {
+                  dirGenerador,
+                  nombreGenerador,
+                  cantidadEnergia: 0,
+                  cantidadProducida: 0,
+                  fechaDespacho: '',
+                  capacidadNominal,
+                  index: null
+                };
+                return of(ordenDespacho);
+              })
+            );
+          })
+        );
+        // }
       })
     );
   }
@@ -128,8 +127,8 @@ export class DespachosEnergiaService {
             let ordenDespacho: OrdenDespacho = {
               dirGenerador,
               nombreGenerador,
-              cantidadEnergia:parseInt(cantidadEnergia),
-              cantidadProducida:parseInt(cantidadProducida),
+              cantidadEnergia: parseInt(cantidadEnergia),
+              cantidadProducida: parseInt(cantidadProducida),
               fechaDespacho: moment(parseInt(fechaDespacho) * 1000).format('DD/MM/YYYY'),
               capacidadNominal,
               index
