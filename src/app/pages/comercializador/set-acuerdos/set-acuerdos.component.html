@@ -26,4 +26,32 @@
             <button class="cancel-button-mvm w-160 mr-30" mat-ripple (click)="onCancelar()">Cancelar</button>
         </div>
     </form>
+
+    <mat-card class="custom mt-20 mb-20 fadeIn" *ngIf="this.generadorSeleccionado">
+        <mat-card-title>Empresa: {{this.generadorSeleccionado.infoContrato.empresa}} </mat-card-title>
+        <mat-card-subtitle>Nit: {{this.generadorSeleccionado.infoContrato.nit}} </mat-card-subtitle>
+        <mat-card-content>
+            <p>
+                Dueño del contrato: {{this.generadorSeleccionado.infoContrato.owner}}
+            </p>
+            <p>
+                Contacto: {{this.generadorSeleccionado.infoContrato.contacto}}
+            </p>
+            <p>
+                Teléfono: {{this.generadorSeleccionado.infoContrato.telefono}}
+            </p>
+            <p>
+                Correo: {{this.generadorSeleccionado.infoContrato.correo}}
+            </p>
+            <p>
+                Departamento: {{this.generadorSeleccionado.infoContrato.departamento}}
+            </p>
+            <p>
+                Ciudad: {{this.generadorSeleccionado.infoContrato.ciudad}}
+            </p>
+            <p>
+                Dirección: {{this.generadorSeleccionado.infoContrato.direccion}}
+            </p>
+        </mat-card-content>
+    </mat-card>
 </div>

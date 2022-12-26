@@ -22,6 +22,7 @@ export class SetAcuerdosComponent implements OnInit {
 
   comprarEnergiaForm: FormGroup
   generadores: SolicitudContrato[];
+  generadorSeleccionado: SolicitudContrato;
   dirGenerador: string;
   infoCliente: InfoContrato;
   fechaFinContrato: string;
@@ -63,6 +64,7 @@ export class SetAcuerdosComponent implements OnInit {
     this.comprarEnergiaForm.get('generador').valueChanges.subscribe({
       next: (data: SolicitudContrato) => {
         this.dirGenerador = data.infoContrato.dirContrato;
+        this.generadorSeleccionado = data;
       }
     });
 
