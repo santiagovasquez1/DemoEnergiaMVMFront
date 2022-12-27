@@ -22,8 +22,8 @@
         <div class="table-container mt-20 fadeIn">
             <mat-table #table [dataSource]="dataSource" class="mvm-table">
                 <ng-container matColumnDef="empresaComercializador">
-                    <mat-header-cell *matHeaderCellDef>Comercializador</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element.dataComercializador.nombreAgente}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef class="celda-150">Comercializador</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="celda-150">{{element.dataComercializador.nombreAgente}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="empresaGenerador">
                     <mat-header-cell *matHeaderCellDef>Generador</mat-header-cell>
