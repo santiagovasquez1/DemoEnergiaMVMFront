@@ -1395,6 +1395,14 @@ mat-dialog-container .mat-form-field-infix span label {
     word-break:break-all;
 }
 
+.celda-150{
+    min-width: 150px !important;
+    float: right;
+    display: flex;
+    align-items: center;
+    word-break:break-all;
+}
+
 .celda-110{
     min-width: 110px !important;
     float: right;
