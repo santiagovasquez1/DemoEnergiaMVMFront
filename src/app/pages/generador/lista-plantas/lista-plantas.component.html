@@ -27,15 +27,15 @@
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
             <ng-container matColumnDef="nombre">
                 <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.nombre}}</mat-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element.nombre">{{element.nombre|limitText:10|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="ubicacion">
                 <mat-header-cell *matHeaderCellDef>Ubicación</mat-header-cell>
-                <mat-cell *matCellDef="let element, let index=index" [matTooltip]="ubicaciones[index]">{{ubicaciones[index]|limitText:15}}</mat-cell>
+                <mat-cell *matCellDef="let element, let index=index" [matTooltip]="ubicaciones[index]">{{ubicaciones[index]|limitText:10|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="coordenadas">
                 <mat-header-cell *matHeaderCellDef>Coordenadas</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.coordenadas}}</mat-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element.coordenadas">{{element.coordenadas|limitText:9|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="fechaOperacion">
                 <mat-header-cell *matHeaderCellDef>Fecha inicio Operaciones</mat-header-cell>

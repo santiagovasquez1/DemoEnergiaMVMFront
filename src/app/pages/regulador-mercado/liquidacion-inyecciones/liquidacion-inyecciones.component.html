@@ -17,11 +17,11 @@
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
             <ng-container matColumnDef="generador">
                 <mat-header-cell *matHeaderCellDef class="celda-160">Generador</mat-header-cell>
-                <mat-cell *matCellDef="let element" class="celda-160">{{element.nombreGenerador}}</mat-cell>
+                <mat-cell *matCellDef="let element" class="celda-160" [matTooltip]="element.nombreGenerador">{{element.nombreGenerador|limitText:15|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="planta">
                 <mat-header-cell *matHeaderCellDef class="celda-160">Planta de energía</mat-header-cell>
-                <mat-cell *matCellDef="let element" class="celda-160">{{element.infoPlanta.nombre}}</mat-cell>
+                <mat-cell *matCellDef="let element" class="celda-160" [matTooltip]="element.infoPlanta.nombre">{{element.infoPlanta.nombre|limitText:15|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="tipoEnergia">
                 <mat-header-cell *matHeaderCellDef class="celda-70M">Tipo de energía</mat-header-cell>
