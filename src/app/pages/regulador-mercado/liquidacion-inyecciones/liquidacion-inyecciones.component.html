@@ -16,24 +16,24 @@
     <div class="table-container mt-30 fadeIn">
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
             <ng-container matColumnDef="generador">
-                <mat-header-cell *matHeaderCellDef>Generador</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.nombreGenerador}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-160">Generador</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="celda-160">{{element.nombreGenerador}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="planta">
-                <mat-header-cell *matHeaderCellDef>Planta de energía</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.infoPlanta.nombre}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-160">Planta de energía</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="celda-160">{{element.infoPlanta.nombre}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="tipoEnergia">
-                <mat-header-cell *matHeaderCellDef>Tipo de energía</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.infoEnergia.nombre}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-70M">Tipo de energía</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="celda-70M">{{element.infoEnergia.nombre}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="cantidad">
-                <mat-header-cell *matHeaderCellDef>Cantidad Mw</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.infoEnergia.cantidadEnergia}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-90M">Cantidad Mw</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="celda-90M">{{element.infoEnergia.cantidadEnergia}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="precio">
-                <mat-header-cell *matHeaderCellDef>Precio de inyección</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.precioEnergia}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-90M">Precio de inyección</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="celda-90M">{{element.precioEnergia}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="estado">

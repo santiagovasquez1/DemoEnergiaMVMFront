@@ -23,7 +23,7 @@ import { TableService } from 'src/app/services/shared/table-service.service';
 })
 export class AcuerdosEnergiaComponent implements OnInit, OnDestroy {
 
-  displayedColumns: string[] = ['index', 'empresaCliente', 'empresaComercializador', 'empresaGenerador', 'estado', 'fechaInicio', 'fechaFin', 'tipoEnergia', 'energiaTotal', 'energiaEntregada', 'acciones']
+  displayedColumns: string[] = ['empresaCliente', 'empresaComercializador', 'empresaGenerador', 'estado', 'fechaInicio', 'fechaFin', 'tipoEnergia', 'energiaTotal', 'energiaEntregada', 'acciones']
   energiasDisponibles: string[];
   dataSource: MatTableDataSource<AcuerdoEnergia>;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
