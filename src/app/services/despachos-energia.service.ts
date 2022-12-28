@@ -129,7 +129,7 @@ export class DespachosEnergiaService {
               nombreGenerador,
               cantidadEnergia: parseInt(cantidadEnergia),
               cantidadProducida: parseInt(cantidadProducida),
-              fechaDespacho: moment(parseInt(fechaDespacho) * 1000).format('DD/MM/YYYY'),
+              fechaDespacho: moment.unix(parseInt(fechaDespacho)).add(1, 'day').format('DD/MM/YYYY'),
               capacidadNominal,
               index
             };

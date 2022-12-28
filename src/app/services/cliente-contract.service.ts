@@ -54,6 +54,18 @@ export class ClienteContractService extends AgenteContractService {
     );
   }
 
+  getEnergiaDisponible(): Observable<number> {
+    return from(this.contract?.methods.getEnergiaDisponible().call({ from: this.account })).pipe(
+      map((data: string) => {
+        debugger;
+        return parseInt(data)
+      }),
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    )
+  }
+
   getComprasRealizadas(): Observable<InfoCompraEnergia[]> {
     return from(this.contract.methods.getComprasRealizadas().call({ from: this.account })).pipe(
       map((data: any[]) => {
@@ -86,7 +98,7 @@ export class ClienteContractService extends AgenteContractService {
             empresaComercializador,
             tipoEnergia,
             cantidadEnergia: parseInt(cantidadEnergia),
-            fechaAprobacion: moment(parseInt(fechaAprobacion) * 1000).format('DD/MM/YYYY HH:mm:ss'),
+            fechaAprobacion: moment.unix(parseInt(fechaAprobacion)).format('DD/MM/YYYY HH:mm:ss'),
             fechaAprobacionNumber: parseInt(fechaAprobacion),
             index
           }
