@@ -65,7 +65,7 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
     let observables: Observable<any>[] = [];
     observables.push(this.clienteService.getInfoContrato());
     observables.push(this.clienteService.getMisTokens());
-    observables.push(this.clienteService.getEnergiaCliente());
+    observables.push(this.clienteService.getEnergiaDisponible());
 
     forkJoin(observables).subscribe({
       next: (data) => {
@@ -141,7 +141,7 @@ export class ClienteDashboardComponent implements OnInit, OnDestroy {
 
   getCantidadesEnergiasDisponibles() {
     this.spinner.show()
-    this.clienteService.getEnergiaCliente().subscribe({
+    this.clienteService.getEnergiaDisponible().subscribe({
       next: data => {
         this.cantidadEnergia = data
         this.spinner.hide();

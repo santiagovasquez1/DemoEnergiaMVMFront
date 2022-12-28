@@ -83,7 +83,7 @@ export class LiquidarContratoComponent implements OnInit {
 
   get liquidacionValid(): boolean {
     const timeNow = moment(Date.now());
-    const fechaFin = moment(this.data.fechaFin, 'DD/MM/YYYY');
+    const fechaFin = moment(this.data.fechaFin, 'DD/MM/YYYY').hour(23).minute(59).second(59);
     if (timeNow.isSameOrAfter(fechaFin) && this.data.cantidadEnergiaTotal === this.data.cantidadEnergiaInyectada && this.tokensCliente >= this.data.valorContrato && this.data.estadoAcuerdo === EstadoAcuerdo.activo) {
       return true;
     }

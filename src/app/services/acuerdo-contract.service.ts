@@ -121,8 +121,8 @@ export abstract class AcuerdoContractService {
           nombreAgente: nombreComercializador
         },
         tipoEnergia,
-        cantidadEnergiaTotal,
-        cantidadEnergiaInyectada,
+        cantidadEnergiaTotal: parseInt(cantidadEnergiaTotal),
+        cantidadEnergiaInyectada: parseInt(cantidadEnergiaInyectada),
         fechaSolicitud: moment(parseInt(fechaSolicitud) * 1000).format('DD/MM/YYYY'),
         fechaInicio: moment(parseInt(fechaInicio) * 1000).format('DD/MM/YYYY'),
         fechaFin: moment(parseInt(fechaFin) * 1000).format('DD/MM/YYYY'),
