@@ -22,7 +22,7 @@
         </div>
 
         <div class="d-flex justify-content-center flex-row-reverse mt-20">
-            <button class="button-mvm w-160" mat-ripple (click)="onComprarEnergia()">Realizar contrato</button>
+            <button class="button-mvm w-160" mat-ripple (click)="onComprarEnergia()" [disabled]="!this.generadorSeleccionado">Realizar contrato</button>
             <button class="cancel-button-mvm w-160 mr-30" mat-ripple (click)="onCancelar()">Cancelar</button>
         </div>
     </form>
