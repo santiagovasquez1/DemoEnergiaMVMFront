@@ -1403,12 +1403,44 @@ mat-dialog-container .mat-form-field-infix span label {
     word-break:break-all;
 }
 
+.celda-160{
+    min-width: 160px !important;
+    float: right;
+    display: flex;
+    align-items: center;
+    word-break:break-all;
+}
+
+.celda-170{
+    min-width: 170px !important;
+    float: right;
+    display: flex;
+    align-items: center;
+    word-break:break-all;
+}
+
 .celda-110{
     min-width: 110px !important;
     float: right;
     display: flex;
     align-items: center;
     word-break:break-all;
+}
+
+.celda-70M{
+    max-width: 70px !important;
+}
+
+.celda-75M{
+    max-width: 75px !important;
+}
+
+.celda-90M{
+    max-width: 90px !important;
+}
+
+.celda-60M{
+    max-width: 60px !important;
 }
 
 .mvm-table .mat-column-despacho {

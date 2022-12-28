@@ -27,7 +27,7 @@ export class AcuerdosCompraComponent implements OnInit, OnDestroy {
   dirGenerador: string = '';
   energiasDisponibles: string[] = [];
   energiaBolsaGenerador: InfoEnergia[];
-  displayedColumns: string[] = ['index', 'empresaCliente', 'empresaComercializador', 'estado', 'fechaInicio', 'fechaFin', 'tipoEnergia', 'energiaTotal', 'energiaEntregada', 'acciones']
+  displayedColumns: string[] = ['empresaCliente', 'empresaComercializador', 'estado', 'fechaInicio', 'fechaFin', 'tipoEnergia', 'energiaTotal', 'energiaEntregada', 'acciones']
   dataSource: MatTableDataSource<AcuerdoEnergia>;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('table', { static: true }) table: MatTable<any>;
