@@ -9,7 +9,7 @@
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
             <ng-container matColumnDef="empresa">
                 <mat-header-cell *matHeaderCellDef>Empresa</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.empresa}}</mat-cell>
+                <mat-cell *matCellDef="let element">{{element.empresa|limitText:22|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="contacto">
                 <mat-header-cell *matHeaderCellDef>Contacto</mat-header-cell>
@@ -17,7 +17,7 @@
             </ng-container>
             <ng-container matColumnDef="ubicacion">
                 <mat-header-cell *matHeaderCellDef>Ubicación</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.ciudad}} {{element.departamento}}</mat-cell>
+                <mat-cell *matCellDef="let element">{{element.ciudad|limitText:18}} {{element.departamento}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="correo">
                 <mat-header-cell *matHeaderCellDef>Correo</mat-header-cell>

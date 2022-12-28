@@ -20,7 +20,7 @@ import { TableService } from 'src/app/services/shared/table-service.service';
 })
 export class HistoricoDespachosComponent implements OnInit, OnDestroy {
 
-  displayedColumns: string[] = ['index', 'generador', 'capacidadNominal', 'energiaDespachada', 'energiaInyectada', 'fechaDespacho'];
+  displayedColumns: string[] = ['generador', 'capacidadNominal', 'energiaDespachada', 'energiaInyectada', 'fechaDespacho'];
   dataSource: MatTableDataSource<OrdenDespacho>;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('table', { static: true }) table: MatTable<any>;

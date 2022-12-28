@@ -10,7 +10,7 @@
 
             <ng-container matColumnDef="empresa">
                 <mat-header-cell *matHeaderCellDef>Empresa</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.infoContrato.empresa}}</mat-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element.infoContrato.empresa">{{element.infoContrato.empresa|limitText:18|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="contacto">
                 <mat-header-cell *matHeaderCellDef>Contacto</mat-header-cell>
@@ -18,11 +18,11 @@
             </ng-container>
             <ng-container matColumnDef="ubicacion">
                 <mat-header-cell *matHeaderCellDef>ubicación</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.infoContrato.ciudad}} {{element.infoContrato.departamento}}</mat-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element.infoContrato.ciudad">{{element.infoContrato.ciudad}} {{element.infoContrato.departamento}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="correo">
                 <mat-header-cell *matHeaderCellDef>Correo</mat-header-cell>
-                <mat-cell *matCellDef="let element" [matTooltip]="element.infoContrato.correo">{{element.infoContrato.correo | limitText:15}}</mat-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element.infoContrato.correo">{{element.infoContrato.correo | limitText:13}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="tipoAgente">
                 <mat-header-cell *matHeaderCellDef>Tipo de agente</mat-header-cell>
