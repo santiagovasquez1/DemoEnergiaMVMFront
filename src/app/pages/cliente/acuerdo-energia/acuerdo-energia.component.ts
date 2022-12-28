@@ -40,7 +40,6 @@ export class AcuerdoEnergiaComponent implements OnInit {
 
       this.bancoEnergia.getTiposEnergiasDisponibles().subscribe({
         next: (data) => {
-          console.log("TIPOS DE ENERGÍA: ",data);
           this.tiposEnergia = data;
         },
         error: (error) => {
@@ -100,9 +99,6 @@ export class AcuerdoEnergiaComponent implements OnInit {
           let cantidadEnergia = this.comprarEnergiaForm.get('cantidadEnergia').value;
           let fechaFin = this.comprarEnergiaForm.get('fechaFin').value;
           fechaFin = Math.trunc(Date.parse(fechaFin) / 1000)
-          console.log("infoEnergia: ",infoEnergia);
-          console.log("cantidadEnergia: ",cantidadEnergia);
-          console.log("fechaFin: ",fechaFin);
           this.clienteService.postComprarEnergia(infoEnergia.nombre, cantidadEnergia,fechaFin).subscribe({
             next: () => {
               this.spinner.hide();
