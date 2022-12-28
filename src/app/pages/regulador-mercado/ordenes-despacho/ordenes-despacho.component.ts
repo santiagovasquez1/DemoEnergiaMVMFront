@@ -16,6 +16,7 @@ import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParame
 import { OrdenDespacho } from 'src/app/models/OrdenDespacho';
 import { Web3ConnectService } from 'src/app/services/web3-connect.service';
 import { WinRefService } from 'src/app/services/win-ref.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-ordenes-despacho',
@@ -147,11 +148,11 @@ export class OrdenesDespachoComponent implements OnInit, OnDestroy {
       })
     ).subscribe({
       next: data => {
-        let timeNow = Math.floor(Date.now() / 1000);
+        let timeNow = moment(Date.now()).hour(0).minute(0).second(0);
         let getDespachosObservables: Observable<OrdenDespacho>[] = [];
 
         data.forEach(element => {
-          getDespachosObservables.push(this.despachosEnergia.getDespachosByGeneradorAndDate(element.dirGenerador, element.nombreGenerador, timeNow));
+          getDespachosObservables.push(this.despachosEnergia.getDespachosByGeneradorAndDate(element.dirGenerador, element.nombreGenerador, timeNow.unix()));
         });
 
         forkJoin(getDespachosObservables).subscribe({
