@@ -8,11 +8,11 @@
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
             <ng-container matColumnDef="empresaCliente">
                 <mat-header-cell *matHeaderCellDef class="celda-150">Cliente</mat-header-cell>
-                <mat-cell *matCellDef="let element" class="celda-150" [matTooltip]="element.dataCliente.nombreAgente">{{element.dataCliente.nombreAgente|limitText:18|titlecase}}</mat-cell>
+                <mat-cell *matCellDef="let element" class="celda-150" [matTooltip]="element.dataCliente.nombreAgente">{{element.dataCliente.nombreAgente|limitText:13|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="empresaComercializador">
                 <mat-header-cell *matHeaderCellDef class="celda-150">Comercializador</mat-header-cell>
-                <mat-cell *matCellDef="let element" class="celda-150" [matTooltip]="element.dataComercializador.nombreAgente">{{element.dataComercializador.nombreAgente|limitText:18|titlecase}}</mat-cell>
+                <mat-cell *matCellDef="let element" class="celda-150" [matTooltip]="element.dataComercializador.nombreAgente">{{element.dataComercializador.nombreAgente|limitText:13|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="estado">
                 <mat-header-cell *matHeaderCellDef class="celda-90M">Estado</mat-header-cell>
