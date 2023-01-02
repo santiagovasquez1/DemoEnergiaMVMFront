@@ -13,6 +13,8 @@ import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.serv
 import { InfoContrato } from 'src/app/models/infoContrato';
 import { SolicitudContrato } from 'src/app/models/solicitudContrato';
 import moment from 'moment';
+import { GeneradorContractService } from 'src/app/services/generador-contract.service';
+import { InfoPlantaEnergia } from 'src/app/models/InfoPlantaEnergia';
 
 @Component({
   selector: 'app-set-acuerdos',
@@ -27,10 +29,14 @@ export class SetAcuerdosComponent implements OnInit {
   infoCliente: InfoContrato;
   fechaFinContrato: string;
   acuerdoCompra: AcuerdoEnergia
+  precioEnergia: number = 0;
+  plantasEnergia: InfoPlantaEnergia[];
+  capacidadNominalTotal: number = 0;
 
   constructor(public dialogRef: MatDialogRef<SetAcuerdosComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private alertDialog: SweetAlertService,
+    private generadorService: GeneradorContractService,
     private spinner: NgxSpinnerService,
     private comercializadorService: ComercializadorContractService,
     private regulardorMercado: ReguladorMercadoService,
@@ -55,6 +61,15 @@ export class SetAcuerdosComponent implements OnInit {
     }
   }
 
+  async loadContractDataGenerador(dirContrato: string){
+    let promises: Promise<void>[] = [];
+    promises.push(this.generadorService.loadBlockChainContractData(dirContrato))
+    await Promise.all(promises);
+    this.getPrecioEnergiaByGenerador(this.generadorSeleccionado.infoContrato.owner);
+    this.loadPlantasEnergia();
+    
+  }
+
   initForm() {
     this.comprarEnergiaForm = this.fb.group({
       generador: ['', Validators.required],
@@ -65,14 +80,28 @@ export class SetAcuerdosComponent implements OnInit {
       next: (data: SolicitudContrato) => {
         this.dirGenerador = data.infoContrato.dirContrato;
         this.generadorSeleccionado = data;
+        this.loadContractDataGenerador(this.generadorSeleccionado.infoContrato.dirContrato);
       }
     });
+
 
     this.comprarEnergiaForm.get('fechaFin').valueChanges.subscribe({
       next: (data: string) => {
         this.fechaFinContrato = data !== '' ? moment(data).format('DD/MM/YYYY') : 'Invalid date';
       }
     });
+  }
+
+  private getPrecioEnergiaByGenerador(account: string) {
+    this.generadorService.getPrecioEnergiaByGenerador(account).subscribe({
+      next: data => {
+        this.precioEnergia = data
+      },
+      error: error => {
+        this.toastr.error(error.message, 'Error');
+        console.log(error);
+      }
+    })
   }
 
   onComprarEnergia() {
@@ -119,6 +148,25 @@ export class SetAcuerdosComponent implements OnInit {
     let valorCompra = this.comprarEnergiaForm.get('valorCompra').value;
     let infoEnergia = this.comprarEnergiaForm.get('generador').value as InfoEnergia;
     return this.comprarEnergiaForm.valid && valorCompra <= this.data.tokensDelegados && cantidadCompra <= infoEnergia.cantidadEnergia;
+  }
+
+  loadPlantasEnergia() {
+    this.generadorService.getPlantasEnergia().subscribe({
+      next: (data: InfoPlantaEnergia[]) => {
+        this.plantasEnergia = data;
+
+        this.capacidadNominalTotal = 0;
+        for(let i = 0; i < this.plantasEnergia.length; i++) 
+        {
+          this.capacidadNominalTotal += this.plantasEnergia[i].capacidadNominal
+        };
+      },
+      error: (error) => {
+        this.toastr.error(error.message, 'Error');
+        console.log(error);
+      }
+    })
+
   }
 
 }
