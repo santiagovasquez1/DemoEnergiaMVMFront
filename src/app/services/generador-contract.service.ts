@@ -143,7 +143,19 @@ export class GeneradorContractService extends AgenteContractService {
   }
 
   getPrecioEnergia(): Observable<number> {
+    console.log("THIS ACCOUNT: ",this.account)
     return from(this.contract.methods.getPrecioEnergia().call({ from: this.account })).pipe(
+      map(data => data as number),
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+  getPrecioEnergiaByGenerador(account: string): Observable<number> {
+    // this.account = '0xf56a2fa25E3200B16Ec81B8aCCB6FAc71124592d';
+    console.log("ACCOUNT EN SERVICIO: ",account);
+    return from(this.contract.methods.getPrecioEnergia().call({ from: account })).pipe(
       map(data => data as number),
       catchError((error) => {
         return throwError(() => new Error(error.message));

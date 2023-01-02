@@ -83,12 +83,12 @@
 
             <ng-container matColumnDef="AgenteOrigen">
                 <mat-header-cell *matHeaderCellDef>Agente de origen</mat-header-cell>
-                <mat-cell *matCellDef="let element" [matTooltip]="element.nombreAgenteOrigen">{{element.nombreAgenteOrigen|limitText:22|titlecase}}</mat-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element.nombreAgenteOrigen">{{element.nombreAgenteOrigen|limitText:18|titlecase}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="AgenteDestino">
                 <mat-header-cell *matHeaderCellDef>Agente de destino</mat-header-cell>
-                <mat-cell *matCellDef="let element" [matTooltip]="element.nombreAgenteDestino">{{element.nombreAgenteDestino|limitText:22|titlecase}}</mat-cell>
+                <mat-cell *matCellDef="let element" [matTooltip]="element.nombreAgenteDestino">{{element.nombreAgenteDestino|limitText:18|titlecase}}</mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>

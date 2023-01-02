@@ -116,10 +116,12 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
     try {
       this.spinner.show();
       this.dirContract = localStorage.getItem('dirContract');
+
       let promises: Promise<void>[] = [];
       promises.push(this.bancoEnergia.loadBlockChainContractData());
       promises.push(this.despachosEnergia.loadBlockChainContractData());
       promises.push(this.generadorService.loadBlockChainContractData(this.dirContract));
+      
       await Promise.all(promises);
       this.spinner.hide();
       this.tableService.setPaginatorTable(this.paginator);
