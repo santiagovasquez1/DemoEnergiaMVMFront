@@ -1,45 +1,45 @@
 <div class="container">
     <div class="titulo">
-        <h2 class="title-xg">Acuerdos de energia clientes</h2>
+        <h2 class="title-xg">{{'Acuerdos de energia clientes' | translate}}</h2>
     </div>
     <app-filter *ngIf="filterFormProperties.length>0" [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
 
     <div class="table-container mt-20 fadeIn">
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
             <ng-container matColumnDef="empresaCliente">
-                <mat-header-cell *matHeaderCellDef class="celda-150">Cliente</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-150">{{'Cliente' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-150" [matTooltip]="element.dataCliente.nombreAgente">{{element.dataCliente.nombreAgente|limitText:13|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="empresaComercializador">
-                <mat-header-cell *matHeaderCellDef class="celda-150">Comercializador</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-150">{{'Comercializador' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-150" [matTooltip]="element.dataComercializador.nombreAgente">{{element.dataComercializador.nombreAgente|limitText:13|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="estado">
-                <mat-header-cell *matHeaderCellDef class="celda-90M">Estado</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-90M">{{'Estado' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-90M">{{element.estadoAcuerdo|estadoCompra}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="fechaInicio">
-                <mat-header-cell *matHeaderCellDef>Fecha Inicio</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Fecha Inicio' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.fechaSolicitud}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="fechaFin">
-                <mat-header-cell *matHeaderCellDef>Fecha Fin</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Fecha Fin' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.fechaFin}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="tipoEnergia">
-                <mat-header-cell *matHeaderCellDef>Tipo de energia</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Tipo de energia' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.tipoEnergia}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="energiaTotal">
-                <mat-header-cell *matHeaderCellDef class="celda-110">Energía total</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-110">{{'Energía total' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-110">{{element.cantidadEnergiaTotal}} MW</mat-cell>
             </ng-container>
             <ng-container matColumnDef="energiaEntregada">
-                <mat-header-cell *matHeaderCellDef>Energía entregada</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Energía entregada' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.cantidadEnergiaInyectada}} Mw</mat-cell>
             </ng-container>
             <ng-container matColumnDef="acciones">
-                <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Acciones' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <button matRipple class="mvm-action-button approve" matTooltip="Inyectar energia contrato" (click)="onInyectarEnergiaContrato(element)" [disabled]="element.estadoAcuerdo !== 1">
                         <mat-icon>done</mat-icon>
@@ -52,7 +52,7 @@
     </div>
 
     <div class="totalesContainer" *ngFor="let energia of energiaBolsaGenerador">
-        <p class="total">Total energía {{energia.nombre}} para contratos</p>
+        <p class="total">{{'Total energía' | translate}} {{energia.nombre}} {{'para contratos' | translate}}</p>
         <p class="resultado">{{energia.cantidadEnergia}} Mw</p>
     </div>
 

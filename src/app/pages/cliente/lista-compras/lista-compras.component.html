@@ -1,6 +1,6 @@
 <div class="container">
     <div class="titulo">
-        <h2 class="title-xg">Lista de compras</h2>
+        <h2 class="title-xg">{{'Lista de compras' | translate}}</h2>
     </div>
 
     <app-filter *ngIf="filterFormProperties.length>0" [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
@@ -8,7 +8,7 @@
     <div class="actions-container justify-content-between fadeIn mt-30" *ngIf="infoCliente">
         <div class="contratar-agente">
             <div class="info">
-                <p class="label">Comercializador</p>
+                <p class="label">{{'Comercializador' | translate}}</p>
                 <p class="data">{{nombreComercializador}}</p>
             </div>
             <button class="cancel-button-mvm w-120-px" (click)="onContratar()">
@@ -16,29 +16,29 @@
                 Contratar
             </button >
         </div>
-            <button class="button-mvm w-160" mat-ripple (click)="onContratoEnergia()" [disabled]="!solicitarIsValid">Solicitar acuerdo</button>
+            <button class="button-mvm w-160" mat-ripple (click)="onContratoEnergia()" [disabled]="!solicitarIsValid">{{'Solicitar acuerdo' | translate}}</button>
         </div>
 
         <div class="table-container mt-20 fadeIn">
             <mat-table #table [dataSource]="dataSource" class="mvm-table">
                 <ng-container matColumnDef="empresaComercializador">
-                    <mat-header-cell *matHeaderCellDef class="celda-170">Comercializador</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef class="celda-170">{{'Comercializador' | translate}}</mat-header-cell>
                     <mat-cell *matCellDef="let element" class="celda-170" [matTooltip]="element.dataComercializador.nombreAgente">{{element.dataComercializador.nombreAgente|limitText:16|titlecase}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="empresaGenerador">
-                    <mat-header-cell *matHeaderCellDef class="celda-170">Generador</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef class="celda-170">{{'Generador' | translate}}</mat-header-cell>
                     <mat-cell *matCellDef="let element" class="celda-170" [matTooltip]="element.dataGenerador.nombreAgente">{{element.dataGenerador.nombreAgente|limitText:16|titlecase}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="estado">
-                    <mat-header-cell *matHeaderCellDef class="celda-90M">Estado</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef class="celda-90M">{{'Estado' | translate}}</mat-header-cell>
                     <mat-cell *matCellDef="let element" class="celda-90M">{{element.estadoAcuerdo|estadoCompra}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="fechaInicio">
-                    <mat-header-cell *matHeaderCellDef>Fecha Inicio</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>{{'Fecha Inicio' | translate}}</mat-header-cell>
                     <mat-cell *matCellDef="let element">{{element.fechaSolicitud}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="fechaFin">
-                    <mat-header-cell *matHeaderCellDef>Fecha Fin</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>{{'Fecha Fin' | translate}}</mat-header-cell>
                     <mat-cell *matCellDef="let element">{{element.fechaFin}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="tipoEnergia">
@@ -46,11 +46,11 @@
                     <mat-cell *matCellDef="let element" class="celda-70M">{{element.tipoEnergia}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="energiaTotal">
-                    <mat-header-cell *matHeaderCellDef>Energía total</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>{{'Energía total' | translate}}</mat-header-cell>
                     <mat-cell *matCellDef="let element">{{element.cantidadEnergiaTotal}} MWh</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="energiaEntregada">
-                    <mat-header-cell *matHeaderCellDef>Energía entregada</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>{{'Energía entregada' | translate}}</mat-header-cell>
                     <mat-cell *matCellDef="let element">{{element.cantidadEnergiaInyectada}}</mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>

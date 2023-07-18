@@ -1,6 +1,6 @@
 <div class="container">
     <div class="titulo">
-        <h2 class="title-xg">Ordenes de despacho</h2>
+        <h2 class="title-xg">{{'Ordenes de despacho' | translate}}</h2>
     </div>
 
     <app-filter *ngIf="filterFormProperties.length>0" [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
@@ -9,27 +9,27 @@
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
 
             <ng-container matColumnDef="generador">
-                <mat-header-cell *matHeaderCellDef>Generador</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Generador' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.nombreGenerador}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="capacidadNominal">
-                <mat-header-cell *matHeaderCellDef>Capacidad nominal Mwh</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Capacidad nominal Mwh' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.capacidadNominal}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="cantidadProducida">
-                <mat-header-cell *matHeaderCellDef>Energia despachada Mw</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Energia despachada Mw' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.cantidadProducida}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="despacho">
-                <mat-header-cell *matHeaderCellDef>Asignar despacho Mw</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Asignar despacho' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <input [(ngModel)]="element.cantidadEnergia" class="ml-3" type="number" autocomplete="off">
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="acciones">
-                <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Acciones' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element; let index = index">
                     <button matRipple class="button-mvm-asignar" [disabled]="element.estadoSolicitud == 0 || element.estadoSolicitud == 1" matTooltip="Aceptar solicitud">
                         <mat-icon (click)="onDespacharEnergia(element)">person_add</mat-icon>

@@ -1,6 +1,6 @@
 <div class="container">
     <div class="titulo">
-        <h2 class="title-xg">Liquidaciones de inyecciones de energía</h2>
+        <h2 class="title-xg">{{'Liquidaciones de inyecciones de energía' | translate}}</h2>
     </div>
     <app-filter *ngIf="filterFormProperties.length>0" [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
 
@@ -8,7 +8,7 @@
         <div class="d-flex flex-row-reverse">
             <button class="button-mvm w-220" mat-ripple (click)="onLiquidarInyeccion()">
                 <img src="../../../../assets/images/carbon_energy-renewable.svg" alt="" class="crear-planta-logo">
-                Liquidar Inyecciones
+                {{'Liquidar Inyecciones' | translate}}
             </button>
         </div>
     </div>
@@ -16,33 +16,33 @@
     <div class="table-container mt-30 fadeIn">
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
             <ng-container matColumnDef="generador">
-                <mat-header-cell *matHeaderCellDef class="celda-160">Generador</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-160">{{'Generado' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-160" [matTooltip]="element.nombreGenerador">{{element.nombreGenerador|limitText:15|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="planta">
-                <mat-header-cell *matHeaderCellDef class="celda-160">Planta de energía</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-160">{{'Planta de energía' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-160" [matTooltip]="element.infoPlanta.nombre">{{element.infoPlanta.nombre|limitText:15|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="tipoEnergia">
-                <mat-header-cell *matHeaderCellDef class="celda-70M">Tipo de energía</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-70M">{{'Tipo de energía' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-70M">{{element.infoEnergia.nombre}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="cantidad">
-                <mat-header-cell *matHeaderCellDef class="celda-90M">Cantidad Mw</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-90M">{{'Cantidad Mw' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-90M">{{element.infoEnergia.cantidadEnergia}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="precio">
-                <mat-header-cell *matHeaderCellDef class="celda-90M">Precio de inyección</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-90M">{{'Precio de inyección' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-90M">{{element.precioEnergia}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="estado">
-                <mat-header-cell *matHeaderCellDef>Estado de inyección</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.estadoInyeccion|estadoInyeccion}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Estado de inyección' | translate}}</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.estadoInyeccion|estadoInyeccion|translate}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="fechaInyeccion">
-                <mat-header-cell *matHeaderCellDef>Fecha de Inyección</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Fecha de Inyección' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.fechaInyeccion}}</mat-cell>
             </ng-container>
 
@@ -52,7 +52,7 @@
     </div>
 
     <div class="totalesContainer">
-        <p class="total">Total energía inyectada</p>
+        <p class="total">{{'Total energía inyectada' | translate}}</p>
         <p class="resultado">{{totalEnergiaInyectada}} Mw</p>
     </div>
 

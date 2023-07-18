@@ -1,6 +1,6 @@
 <div class="container">
     <div class="titulo">
-        <h2 class="title-xg">Plantas de generación</h2>
+        <h2 class="title-xg">{{'Plantas de generación' | translate}}</h2>
     </div>
 
     <app-filter *ngIf="filterFormProperties.length >0" [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
@@ -9,16 +9,16 @@
         <div class="d-flex flex-row-reverse">
             <button class="button-mvm w-160" mat-ripple (click)="onCrearPlanta()">
                 <img src="../../../../assets/images/carbon_energy-renewable.svg" alt="" class="crear-planta-logo">
-                Crear Planta
+                {{'Crear Planta' | translate}}
             </button>
             <button class="button-mvm w-180 mr-10" mat-ripple (click)="onComprarEnergia()">
                 <img src="../../../../assets/images/carbon_energy-renewable.svg" alt="" class="crear-planta-logo">
-                Comprar energía
+                {{'Comprar energía' | translate}}
             </button>
 
             <button class="button-mvm w-220 mr-10" mat-button (click)="onFijarPrecios()">
                 <img src="../../../../assets/images/carbon_energy-renewable.svg" alt="" class="crear-planta-logo">
-                Fijar precios de energía
+                {{'Fijar precios de energía' | translate}}
             </button>
         </div>
     </div>
@@ -26,43 +26,43 @@
     <div class="table-container mt-30 fadeIn">
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
             <ng-container matColumnDef="nombre">
-                <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Nombre' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" [matTooltip]="element.nombre">{{element.nombre|limitText:10|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="ubicacion">
-                <mat-header-cell *matHeaderCellDef>Ubicación</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Ubicación' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element, let index=index" [matTooltip]="ubicaciones[index]">{{ubicaciones[index]|limitText:10|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="coordenadas">
-                <mat-header-cell *matHeaderCellDef>Coordenadas</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Coordenadas' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" [matTooltip]="element.coordenadas">{{element.coordenadas|limitText:9|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="fechaOperacion">
-                <mat-header-cell *matHeaderCellDef>Fecha inicio Operaciones</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Fecha inicio Operaciones' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.fechaInicio}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="tasaEmision">
-                <mat-header-cell *matHeaderCellDef>Tasa de emisión</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Tasa de emisión' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.tasaEmision}} MWh</mat-cell>
             </ng-container>
             <ng-container matColumnDef="capacidad">
-                <mat-header-cell *matHeaderCellDef>Capacidad nominal</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Capacidad nominal' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.capacidadNominal}} MWh</mat-cell>
             </ng-container>
             <ng-container matColumnDef="tecnologia">
-                <mat-header-cell *matHeaderCellDef>Tecnologia</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Tecnologia' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.tecnologia}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="cantidad">
-                <mat-header-cell *matHeaderCellDef>Cantidad de energia</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Cantidad de energia' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.cantidadEnergia}} MWh</mat-cell>
             </ng-container>
             <ng-container matColumnDef="estado">
-                <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Estado' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.estado|estadoPlanta}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="acciones">
-                <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Acciones' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <button matRipple class="mvm-action-button approve" (click)="onInyectarEnergia(element)" matTooltip="Inyectar energia" [disabled]="precioEnergia == 0">
                         <img src="../../../../assets/images/Energía.svg" alt="energia">
@@ -78,13 +78,13 @@
         </mat-table>
     </div>
     <div class="totalesContainer">
-        <p class="total">Total despachado</p>
+        <p class="total">{{'Total despachado' | translate}}</p>
         <p class="resultado">{{cantidadEnergiaDepachada}} Mw</p>
-        <p class="total">Precio de venta energía</p>
-        <p class="resultado">{{precioEnergia}} Tokens</p>
+        <p class="total">{{'Precio de venta energía' | translate}}</p>
+        <p class="resultado">{{precioEnergia}} {{'Tokens' | translate}}</p>
     </div>
     <div class="totalesContainer" *ngFor="let energia of energiaBolsaGenerador">
-        <p class="total">Total energía {{energia.nombre}} para contratos</p>
+        <p class="total">Total energía {{energia.nombre}} {{'para contratos' | translate}}</p>
         <p class="resultado">{{energia.cantidadEnergia}} Mw</p>
     </div>
     <div class="table-container mt-10 fadeIn">

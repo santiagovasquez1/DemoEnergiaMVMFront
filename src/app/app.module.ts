@@ -16,10 +16,17 @@ import { FlexModule } from '@angular/flex-layout';
 import { ToastrModule } from 'ngx-toastr';
 import { MatDialogModule } from '@angular/material/dialog';
 import { WinRefService } from './services/win-ref.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NgChartsModule } from 'ng2-charts';
 
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -40,7 +47,14 @@ import { NgChartsModule } from 'ng2-charts';
     MatDialogModule,
     HttpClientModule,
     SweetAlert2Module.forRoot(),
-    NgChartsModule 
+    NgChartsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [WinRefService, Web3ConnectService],
   bootstrap: [AppComponent]

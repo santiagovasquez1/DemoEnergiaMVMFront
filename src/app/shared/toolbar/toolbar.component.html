@@ -1,34 +1,34 @@
 <div class="container-toolbar">
     <mat-toolbar class="toolbar">
         <button mat-icon-button *ngIf="showOptions" (click)="onOpenClick()">
-            <mat-icon>menu</mat-icon>
+            <mat-icon>{{'menu' | translate}}</mat-icon>
       </button>
         <span class="title fw-600">Blockchain MVM</span>
         <div class="spacer"></div>
 
         <a class="a-gris fs-16 flex-alg-center" *ngIf="tipoContrato==3">
             <mat-icon class="cursor-unset">person_pin</mat-icon>
-            <span class="tipo-Agente">Administrador</span>
+            <span class="tipo-Agente">{{'Administrador' | translate}}</span>
         </a>
 
         <a class="a-gris fs-16 flex-alg-center" *ngIf="tipoContrato==2">
             <mat-icon class="cursor-unset">person_pin</mat-icon>
             <span class="tipo-Agente">
-                Generador
+                {{'Generador' | translate}}
             </span>
         </a>
 
         <a class="a-gris fs-16 flex-alg-center" *ngIf="tipoContrato==1">
             <mat-icon class="cursor-unset">person_pin</mat-icon>
             <span class="tipo-Agente">
-                Comercializador
+                {{'Comercializador' | translate}}
             </span>
         </a>
 
         <a class="a-gris fs-16 flex-alg-center" *ngIf="tipoContrato==0">
             <mat-icon class="cursor-unset">person_pin</mat-icon>
             <span class="tipo-Agente">
-                Cliente
+                {{'Cliente' | translate}}
             </span>
         </a>
         <!--
@@ -47,7 +47,7 @@
         </button>
         <mat-menu #menu="matMenu">
             <div class="container-mat-menu">
-                <span class="fw-700">Perfil</span>
+                <span class="fw-700">{{'Perfil' | translate}}</span>
                 <span *ngIf="tipoContrato==0">Cliente</span>
                 <span *ngIf="tipoContrato==1">Comercializador</span>
                 <span *ngIf="tipoContrato==2">Generador</span>
@@ -55,9 +55,9 @@
                 <hr>
                 <div class="buttons">
                     <mat-icon class="a-green">edit</mat-icon>
-                    <span class="a-green">Editar perfil</span>
+                    <span class="a-green">{{'Editar perfil' | translate}}</span>
                     <mat-icon class="a-green">logout</mat-icon>
-                    <span class="a-green">Salir</span>
+                    <span class="a-green">{{'Salir' | translate}}</span>
                 </div>
             </div>
         </mat-menu>

@@ -1,7 +1,7 @@
 <div class="container">
 
     <div class="titulo">
-        <h2 class="title-xg">Información Compras</h2>
+        <h2 class="title-xg">{{'Información Compras' | translate}}</h2>
     </div>
 
     <app-filter *ngIf="filterFormProperties.length>0" [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
@@ -9,39 +9,39 @@
     <div class="table-container mt-30 fadeIn">
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
             <ng-container matColumnDef="empresaCliente">
-                <mat-header-cell *matHeaderCellDef class="celda-170">Cliente</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-170">{{'Cliente' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-170" [matTooltip]="element.dataCliente.nombreAgente">{{element.dataCliente.nombreAgente|limitText:16|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="empresaGenerador">
-                <mat-header-cell *matHeaderCellDef class="celda-170">Generador</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-170">{{'Generador' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-170" [matTooltip]="element.dataGenerador.nombreAgente">{{element.dataGenerador.nombreAgente|limitText:16|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="estado">
-                <mat-header-cell *matHeaderCellDef class="celda-90M">Estado</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-90M">{{'Estado' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-90M">{{element.estadoAcuerdo|estadoCompra}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="fechaInicio">
-                <mat-header-cell *matHeaderCellDef >Fecha Inicio</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef >{{'Fecha Inicio' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.fechaSolicitud}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="fechaFin">
-                <mat-header-cell *matHeaderCellDef>Fecha Fin</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Fecha Fin' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.fechaFin}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="tipoEnergia">
-                <mat-header-cell *matHeaderCellDef class="celda-70M">Tipo de energia</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-70M">{{'Tipo de energia' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-70M">{{element.tipoEnergia}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="energiaTotal">
-                <mat-header-cell *matHeaderCellDef>Energía total</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Energía total' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.cantidadEnergiaTotal}} MWh</mat-cell>
             </ng-container>
             <ng-container matColumnDef="energiaEntregada">
-                <mat-header-cell *matHeaderCellDef>Energía entregada</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Energía entregada' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.cantidadEnergiaInyectada}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="acciones">
-                <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Acciones' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <button matRipple class="mvm-action-button approve" [disabled]="element.estadoAcuerdo !== 0" (click)="onRealizarCompra(element)">
                         <mat-icon>done</mat-icon>

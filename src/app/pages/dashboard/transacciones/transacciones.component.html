@@ -1,14 +1,14 @@
 <div class="container">
     <div class="titulo">
-        <h2 class="title-xg">Transacciones del mercado</h2>
+        <h2 class="title-xg">{{'Transacciones del mercado' | translate}}</h2>
     </div>
 
     <form [formGroup]="filterForm" class="filter-form fadeIn">
-        <h3>Filtros</h3>
+        <h3>{{'Filtros' | translate}}</h3>
         <div class="row mt-20">
             <div class="col">
                 <div class="form-field">
-                    <label>Tipo de transacción</label>
+                    <label>{{'Tipo de transacción' | translate}}</label>
                     <select class="custom-select" formControlName="tipoTx">
                         <option [value]=""></option>
                         <option *ngFor="let tipoTx of tiposTransaccion" [value]="tipoTx">{{tipoTx|tipoTransaccion}}</option>
@@ -17,7 +17,7 @@
             </div>
             <div class="col">
                 <div class="form-field">
-                    <label>Fecha de transacción</label>
+                    <label>{{'Fecha de transacción' | translate}}</label>
                     <!-- <input type="text" formControlName="fechaTx" [matDatepicker]="picker" (click)="picker.open()">
                     <mat-datepicker #picker></mat-datepicker> -->
                     <input type="date" formControlName="fechaTx">
@@ -25,7 +25,7 @@
             </div>
             <div class="col">
                 <div class="form-field">
-                    <label>Tipo de Energía</label>
+                    <label>{{'Tipo de Energía' | translate}}</label>
                     <select class="custom-select" formControlName="tipoEnergia">
                         <option [value]=""></option>
                         <option *ngFor="let tipoEnergia of tiposEnergia" [value]="tipoEnergia.nombre">{{tipoEnergia.nombre}}</option>
@@ -37,7 +37,7 @@
         <div class="row mt-20">
             <div class="col">
                 <div class="form-field ">
-                    <label>Agente de origen</label>
+                    <label>{{'Agente de origen' | translate}}</label>
                     <select class="custom-select" formControlName="agenteOrigen">
                         <option [value]=""></option>
                         <option *ngFor="let agenteOrigen of agentesRegistrados" [value]="agenteOrigen.empresa">{{agenteOrigen.empresa}}</option>
@@ -47,7 +47,7 @@
 
             <div class="col">
                 <div class="form-field ">
-                    <label>Agente de destino</label>
+                    <label>{{'Agente de destino' | translate}}</label>
                     <select class="custom-select" formControlName="agenteDestino">
                         <option [value]=""></option>
                         <option *ngFor="let agenteOrigen of agentesRegistrados" [value]="agenteOrigen.empresa">{{agenteOrigen.empresa}}</option>
@@ -62,32 +62,32 @@
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
 
             <ng-container matColumnDef="Transaccion">
-                <mat-header-cell *matHeaderCellDef>Tipo de transacción</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Tipo de transacción' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.tipoTx | tipoTransaccion}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="Fecha">
-                <mat-header-cell *matHeaderCellDef>Fecha</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Fecha' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.fechaTx}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="TipoEnergia">
-                <mat-header-cell *matHeaderCellDef>Tipo de Energía</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Tipo de Energía' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.tipoEnergia}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="CantidadEnergia">
-                <mat-header-cell *matHeaderCellDef>Cantidad</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Cantidad' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.cantidadEnergia}} MWh</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="AgenteOrigen">
-                <mat-header-cell *matHeaderCellDef>Agente de origen</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Agente de origen' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" [matTooltip]="element.nombreAgenteOrigen">{{element.nombreAgenteOrigen|limitText:18|titlecase}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="AgenteDestino">
-                <mat-header-cell *matHeaderCellDef>Agente de destino</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Agente de destino' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" [matTooltip]="element.nombreAgenteDestino">{{element.nombreAgenteDestino|limitText:18|titlecase}}</mat-cell>
             </ng-container>
 

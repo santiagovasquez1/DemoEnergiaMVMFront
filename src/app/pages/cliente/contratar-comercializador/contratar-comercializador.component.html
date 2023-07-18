@@ -4,13 +4,13 @@
     </div>
     <div class="modal-header-mvm">
         <img src="../../../../assets/images/contratar-green.svg" alt="contratar">
-        <h2 class="modal-title-mvm mt-20">Contratar comercializador</h2>
+        <h2 class="modal-title-mvm mt-20">{{'Contratar comercializador' | translate}}</h2>
     </div>
     <form [formGroup]="contratarForm">
         <div class="row">
             <div class="col">
                 <div class="form-field">
-                    <label>Comercializadores disponibles</label>
+                    <label>{{'Comercializadores disponibles' | translate}}</label>
                     <select class="custom-select" formControlName="comercializador">
                         <option [value]=""></option>
                         <option *ngFor="let comercializador of comercializadores, let index=index" [ngValue]="comercializador">
@@ -23,35 +23,35 @@
     </form>
 
     <mat-card class="custom mt-20 mb-20 fadeIn" *ngIf="comercializadorSeleccionado">
-        <mat-card-title>Empresa: {{comercializadorSeleccionado.empresa}}</mat-card-title>
-        <mat-card-subtitle>Nit: {{comercializadorSeleccionado.nit}}</mat-card-subtitle>
+        <mat-card-title>{{'Empresa' | translate}}: {{comercializadorSeleccionado.empresa}}</mat-card-title>
+        <mat-card-subtitle>{{'Nit' | translate}}: {{comercializadorSeleccionado.nit}}</mat-card-subtitle>
         <mat-card-content>
             <p>
-                Dueño del contrato: {{comercializadorSeleccionado.owner}}
+                {{'Dueño del contrato' | translate}}: {{comercializadorSeleccionado.owner}}
             </p>
             <p>
-                Contacto: {{comercializadorSeleccionado.contacto}}
+                {{'Contacto' | translate}}: {{comercializadorSeleccionado.contacto}}
             </p>
             <p>
-                Teléfono: {{comercializadorSeleccionado.telefono}}
+                {{'Teléfono' | translate}}: {{comercializadorSeleccionado.telefono}}
             </p>
             <p>
-                Correo: {{comercializadorSeleccionado.correo}}
+                {{'Correo' | translate}}: {{comercializadorSeleccionado.correo}}
             </p>
             <p>
-                Departamento: {{comercializadorSeleccionado.departamento}}
+                {{'Departamento' | translate}}: {{comercializadorSeleccionado.departamento}}
             </p>
             <p>
-                Ciudad: {{comercializadorSeleccionado.ciudad}}
+                {{'Ciudad' | translate}}: {{comercializadorSeleccionado.ciudad}}
             </p>
             <p>
-                Dirección: {{comercializadorSeleccionado.direccion}}
+                {{'Dirección' | translate}}: {{comercializadorSeleccionado.direccion}}
             </p>
         </mat-card-content>
     </mat-card>
 
     <div class="d-flex justify-content-center flex-row-reverse mt-20">
-        <button class="button-mvm w-160" mat-ripple [disabled]="!validForm" (click)="onContratar()">Contratar</button>
-        <button class="cancel-button-mvm w-160 mr-30" mat-ripple (click)="dialogRef.close()">Cancelar</button>
+        <button class="button-mvm w-160" mat-ripple [disabled]="!validForm" (click)="onContratar()">{{'Contratar' | translate}}</button>
+        <button class="cancel-button-mvm w-160 mr-30" mat-ripple (click)="dialogRef.close()">{{'Cancelar' | translate}}</button>
     </div>
 </div>

@@ -1,6 +1,6 @@
 <div class="container">
     <div class="titulo">
-        <h2 class="title-xg">Acuerdos de energia</h2>
+        <h2 class="title-xg">{{'Acuerdos de energia' | translate}}</h2>
     </div>
 
     <app-filter *ngIf="filterFormProperties.length>0" [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
@@ -12,39 +12,39 @@
                 <mat-cell *matCellDef="let element" [matTooltip]="element.dataCliente.nombreAgente">{{element.dataCliente.nombreAgente|limitText:9|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="empresaComercializador">
-                <mat-header-cell *matHeaderCellDef class="celda-150">Comercializador</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-150">{{'Comercializador' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-150" [matTooltip]="element.dataComercializador.nombreAgente">{{element.dataComercializador.nombreAgente|limitText:15|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="empresaGenerador">
-                <mat-header-cell *matHeaderCellDef class="celda-150">Generador</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-150">{{'Generador' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-150" [matTooltip]="element.dataGenerador.nombreAgente">{{element.dataGenerador.nombreAgente|limitText:15|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="estado">
-                <mat-header-cell *matHeaderCellDef class="celda-90M">Estado</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-90M">{{'Estado' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-90M">{{element.estadoAcuerdo|estadoCompra}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="fechaInicio">
-                <mat-header-cell *matHeaderCellDef>Fecha Inicio</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Fecha Inicio' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.fechaSolicitud}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="fechaFin">
-                <mat-header-cell *matHeaderCellDef>Fecha Fin</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Fecha Fin' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.fechaFin}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="tipoEnergia">
-                <mat-header-cell *matHeaderCellDef class="celda-70M">Tipo de energia</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-70M">{{'Tipo de energia' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-70M">{{element.tipoEnergia}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="energiaTotal">
-                <mat-header-cell *matHeaderCellDef class="celda-75M">Energía total</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="celda-75M">{{'Energía total' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="celda-75M">{{element.cantidadEnergiaTotal}} MW</mat-cell>
             </ng-container>
             <ng-container matColumnDef="energiaEntregada">
-                <mat-header-cell *matHeaderCellDef>Energía entregada</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Energía entregada' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.cantidadEnergiaInyectada}} Mw</mat-cell>
             </ng-container>
             <ng-container matColumnDef="acciones">
-                <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Acciones' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <button matRipple class="mvm-action-button approve" (click)="onLiquidarContrato(element)" [disabled]="element.estadoAcuerdo !== 1">
                         <mat-icon>done</mat-icon>

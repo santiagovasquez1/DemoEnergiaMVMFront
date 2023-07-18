@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-field">
-                    <label>Nombre energía</label>
+                    <label>{{'Nombre energía' | translate}}</label>
                     <input type="text" formControlName="nombreEnergia">
                 </div>
             </div>
@@ -20,7 +20,7 @@
         <div class="row mt-20">
             <div class="col">
                 <div class="form-field">
-                    <label>Cantidad de energía despachada (MWh)</label>
+                    <label>{{'Cantidad de energía despachada (MWh)' | translate}}</label>
                     <input formControlName="energiaDespachada" type="number" autocomplete="off">
                 </div>
             </div>
@@ -29,7 +29,7 @@
         <div class="row mt-20">
             <div class="col">
                 <div class="form-field">
-                    <label>Cantidad de energía inyectada (MWh)</label>
+                    <label>{{'Cantidad de energía inyectada (MWh)' | translate}}</label>
                     <input formControlName="energiaInyectada" type="number" autocomplete="off">
                 </div>
             </div>
@@ -38,7 +38,7 @@
         <div class="row mt-20">
             <div class="col">
                 <div class="form-field">
-                    <label>Cantidad de energía (MWh)</label>
+                    <label>{{'Cantidad de energía (MWh)' | translate}}</label>
                     <input formControlName="cantidadEnergia" type="number" autocomplete="off">
                 </div>
             </div>
@@ -47,16 +47,16 @@
         <div class="row mt-20">
             <div class="col">
                 <div class="form-field">
-                    <label>Cantidad de energía (MWh) Bolsa</label>
+                    <label>{{'Cantidad de energía (MWh) Bolsa' | translate}}</label>
                     <input formControlName="cantidadEnergiaBolsa" type="number" autocomplete="off">
                 </div>
             </div>
         </div>
 
         <div class="d-flex justify-content-center flex-row-reverse mt-20">
-            <button class="button-mvm w-100-px" mat-ripple (click)="onCrearNuevaEnergia()" [disabled]="!isValid" *ngIf="estado == 0">Inyectar</button>
-            <button class="button-mvm w-100-px" mat-ripple (click)="onInyectarEnergia()" [disabled]="!isValid" *ngIf="estado == 1">Inyectar</button>
-            <button class="cancel-button-mvm w-100-px mr-30" mat-ripple (click)="onCancelar()">Cancelar</button>
+            <button class="button-mvm w-100-px" mat-ripple (click)="onCrearNuevaEnergia()" [disabled]="!isValid" *ngIf="estado == 0">{{'Inyectar' | translate}}</button>
+            <button class="button-mvm w-100-px" mat-ripple (click)="onInyectarEnergia()" [disabled]="!isValid" *ngIf="estado == 1">{{'Inyectar' | translate}}</button>
+            <button class="cancel-button-mvm w-100-px mr-30" mat-ripple (click)="onCancelar()">{{'Cancelar' | translate}}</button>
         </div>
     </form>
 </div>

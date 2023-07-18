@@ -1,33 +1,33 @@
 <div class="container">
     <h2 class="mt-20">{{title}}</h2>
     <mat-card class="custom mb-20" *ngFor="let compra of comprasRealizadas">
-        <mat-card-title>Empresa: {{compra.empresaCliente}}</mat-card-title>
-        <mat-card-subtitle>Fecha Compra: {{compra.fechaAprobacion}}</mat-card-subtitle>
+        <mat-card-title>{{'Empresa' | translate}}: {{compra.empresaCliente}}</mat-card-title>
+        <mat-card-subtitle>{{'Fecha Compra' | translate}}: {{compra.fechaAprobacion}}</mat-card-subtitle>
         <mat-card-content>
             <p>
-                Generador de enegia: {{compra.empresaGerador}}
+                {{'Generador de enegia' | translate}}: {{compra.empresaGerador}}
             </p>
             <p>
-                Direccion del Generador: {{compra.dirContratoGerador}}
+                {{'Direccion del Generador' | translate}}: {{compra.dirContratoGerador}}
             </p>
             <p>
-                Planta de energia : {{compra.nombrePlanta}}
+                {{'Planta de energia' | translate}} : {{compra.nombrePlanta}}
             </p>
             <p>
-                Direccion de la Planta: {{compra.dirPlanta}}
+                {{'Direccion de la Planta' | translate}}: {{compra.dirPlanta}}
             </p>
             <p>
-                Comercializador: {{compra.empresaComercializador}}
+                {{'Comercializador' | translate}}: {{compra.empresaComercializador}}
             </p>
             <p>
-                Tipo de energia: {{compra.tipoEnergia}}
+                {{'Tipo de energia' | translate}}: {{compra.tipoEnergia}}
             </p>
             <p>
-                Cantidad de energia: {{compra.cantidadEnergia}}
+                {{'Cantidad de energia' | translate}}: {{compra.cantidadEnergia}}
             </p>
         </mat-card-content>
         <mat-card-actions>
-            <button class="button-mvm" mat-stroked-button (click)="verCertificado(compra)">Ver Certificado</button>
+            <button class="button-mvm" mat-stroked-button (click)="verCertificado(compra)">{{'Ver Certificado' | translate}}</button>
         </mat-card-actions>
     </mat-card>
 </div>
