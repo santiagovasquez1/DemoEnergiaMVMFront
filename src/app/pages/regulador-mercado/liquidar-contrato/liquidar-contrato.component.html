@@ -4,40 +4,40 @@
     </div>
     <div class="modal-header-mvm">
         <img src="../../../../assets/images/Energia-green.svg" alt="energia">
-        <h2 class="modal-title-mvm mt-20">Liquidación de contrato</h2>
+        <h2 class="modal-title-mvm mt-20">{{'Liquidación de contrato' | translate}}</h2>
     </div>
     <div class="info-acuerdo-container">
         <div class="info-acuerdo">
             <p class="title">{{data.dataCliente.nombreAgente}}</p>
         </div>
         <div class="info-acuerdo">
-            <p>Tokens cliente</p>
+            <p>{{'Tokens cliente' | translate}}</p>
             <p>{{tokensCliente}} Tokens</p>
         </div>
         <div class="info-acuerdo">
-            <p>Fecha de inicio</p>
+            <p>{{'Fecha de inicio' | translate}}</p>
             <p>{{data.fechaInicio}}</p>
         </div>
         <div class="info-acuerdo">
-            <p>Fecha final</p>
+            <p>{{'Fecha final' | translate}}</p>
             <p>{{data.fechaFin}}</p>
         </div>
         <div class="info-acuerdo">
-            <p>Energia total del contrato</p>
+            <p>{{'Energia total del contrato' | translate}}</p>
             <p>{{data.cantidadEnergiaTotal}} Mw</p>
         </div>
         <div class="info-acuerdo">
-            <p>Energia inyectada a la fecha </p>
+            <p>{{'Energia inyectada a la fecha' | translate}} </p>
             <p>{{data.cantidadEnergiaInyectada}} Mw</p>
         </div>
         <div class="info-acuerdo">
-            <p>Valor del contrato</p>
+            <p>{{'Valor del contrato' | translate}}</p>
             <p>{{data.valorContrato}} Tokens</p>
         </div>
     </div>
 
     <div class="d-flex justify-content-center flex-row-reverse mt-20">
-        <button class="button-mvm w-160" mat-ripple (click)="onLiquidarContrato()" [disabled]="!liquidacionValid">Liquidar</button>
-        <button class="cancel-button-mvm w-160 mr-30" mat-ripple (click)="dialogRef.close()">Cancelar</button>
+        <button class="button-mvm w-160" mat-ripple (click)="onLiquidarContrato()" [disabled]="!liquidacionValid">{{'Liquidar' | translate}}</button>
+        <button class="cancel-button-mvm w-160 mr-30" mat-ripple (click)="dialogRef.close()">{{'Cancelar' | translate}}</button>
     </div>
 </div>

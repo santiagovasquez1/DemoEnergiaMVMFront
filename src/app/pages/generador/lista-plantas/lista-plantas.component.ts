@@ -21,6 +21,8 @@ import { FijarPreciosComponent } from '../fijar-precios/fijar-precios.component'
 import { DespachosEnergiaService } from 'src/app/services/despachos-energia.service';
 import { PlantaEnergiaService } from 'src/app/services/planta-energia.service';
 
+import { LanguageService } from 'src/app/services/language.service';
+import { Subscription, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-lista-plantas',
@@ -64,7 +66,9 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private bancoEnergia: BancoEnergiaService,
     private tableService: TableService,
-    private ngZone: NgZone) {
+    private ngZone: NgZone,
+    private plantaEnergia: PlantaEnergiaService,
+    private languageService: LanguageService) {
     this.dataSource = new MatTableDataSource();
   }
 
@@ -76,6 +80,8 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
       this.inyeccionEnergiaEvent.removeAllListeners('data');
     }
   }
+
+
 
   private setFilterForm() {
     this.filterFormProperties = [{
@@ -112,8 +118,55 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
     }];
   }
 
+  // TRADUCTOR
+  private languageSubs: Subscription;
+  // variables
+  //   'Error al cargar las plantas de energía', 'Error'
+  // 'Reinicio producción', `¿Deseas reiniciar la producción de la planta de energia ${plantaEnergia.nombre}?`
+  // `Se ha reiniciado la producción de la planta ${plantaEnergia.nombre}`, 'Exito'
+  titleToastError: string;
+  labelToastError: string;
+  titleModalReset: string;
+  labelModalReset: string;
+  titleToastSuccess: string;
+  labelToastSuccess: string;
+
+  initializeTranslations(): void {
+    forkJoin([
+      this.languageService.get('Error al cargar las plantas de energía'),
+      this.languageService.get('Error'),
+      this.languageService.get('Reinicio producción'),
+      this.languageService.get('¿Deseas reiniciar la producción de la planta de energia'),
+      this.languageService.get('Se ha reiniciado la producción de la planta'),
+      this.languageService.get('Exito')
+    ]).subscribe({
+      next: translatedTexts => {
+        console.log('translatedTexts: ', translatedTexts);
+        this.titleToastError = translatedTexts[0];
+        this.labelToastError = translatedTexts[1];
+        this.titleModalReset = translatedTexts[2];
+        this.labelModalReset = translatedTexts[3];
+        this.titleToastSuccess = translatedTexts[4];
+        this.labelToastSuccess = translatedTexts[5];
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+  }
+
   async ngOnInit(): Promise<void> {
     try {
+        this.languageSubs = this.languageService.language.subscribe({
+        next: language => {
+          this.initializeTranslations();
+          console.log('language: ', language);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+
       this.spinner.show();
       this.dirContract = localStorage.getItem('dirContract');
 
@@ -135,7 +188,7 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
       }, (err, event) => {
         if (err) {
           console.log(err);
-          this.toastr.error(err.message, 'Error');
+          this.toastr.error(err.message, this.labelToastError);
         }
       }).on('data', (event) => {
         this.ngZone.run(() => {
@@ -148,7 +201,7 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
       }, (err, event) => {
         if (err) {
           console.log(err);
-          this.toastr.error(err.message, 'Error');
+          this.toastr.error(err.message, this.labelToastError);
         }
       }).on('data', (event) => {
         this.ngZone.run(() => {
@@ -157,7 +210,7 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
       });
     } catch (error) {
       console.log(error);
-      this.toastr.error('Error al cargar las plantas de energía', 'Error');
+      this.toastr.error(this.titleToastError, this.labelToastError);
     }
   }
 
@@ -174,7 +227,7 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
         this.table.renderRows();
       },
       error: (error) => {
-        this.toastr.error(error.message, 'Error');
+        this.toastr.error(error.message, this.labelToastError);
         console.log(error);
       }
     })
@@ -192,7 +245,7 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
         this.spinner.hide();
       },
       error: (error) => {
-        this.toastr.error(error.message, 'Error');
+        this.toastr.error(error.message, this.labelToastError);
         console.log(error);
         this.spinner.hide();
       }
@@ -206,7 +259,7 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
         this.cantidadEnergiaDepachada = data.cantidadEnergia
       },
       error: error => {
-        this.toastr.error(error.message, 'Error');
+        this.toastr.error(error.message, this.labelToastError);
         console.log(error);
       }
     })
@@ -218,7 +271,7 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
         this.precioEnergia = data
       },
       error: error => {
-        this.toastr.error(error.message, 'Error');
+        this.toastr.error(error.message, this.labelToastError);
         console.log(error);
       }
     })
@@ -330,18 +383,18 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
   }
 
   onReiniciarProduccion(plantaEnergia: InfoPlantaEnergia) {
-    this.alertDialog.confirmAlert('Reinicio producción', `¿Deseas reiniciar la producción de la planta de energia ${plantaEnergia.nombre}?`).then(result => {
+    this.alertDialog.confirmAlert(this.titleModalReset, this.labelModalReset + plantaEnergia.nombre + '?').then(result => {
       if (result.isConfirmed) {
         this.spinner.show();
         this.generadorService.resetProduccionPlanta(plantaEnergia.dirPlanta).subscribe({
           next: () => {
             this.loadPlantasEnergia();
             this.spinner.hide();
-            this.toastr.success(`Se ha reiniciado la producción de la planta ${plantaEnergia.nombre}`, 'Exito');
+            this.toastr.success(this.titleToastSuccess +' ' + plantaEnergia.nombre, this.labelToastSuccess);
           },
           error: error => {
             this.spinner.hide();
-            this.toastr.error(error.message, 'Error');
+            this.toastr.error(error.message, this.labelToastError);
             console.log(error);
           }
         });
@@ -359,7 +412,7 @@ export class ListaPlantasComponent implements OnInit, OnDestroy {
         this.spinner.hide();
       },
       error: error => {
-        this.toastr.error(error.message, 'Error');
+        this.toastr.error(error.message, this.labelToastError);
         console.log(error);
         this.spinner.hide();
       }

@@ -1,9 +1,9 @@
-<h2 class="mt-20">Devolución de tokens</h2>
+<h2 class="mt-20">{{'Devolución de tokens' | translate}}</h2>
 <form [formGroup]="devolucionTokensForm">
     <div class="row">
         <div class="col">
             <div class="form-field">
-                <label>Tokens Disponibles :</label>
+                <label>{{'Tokens Disponibles' | translate}} :</label>
                 <input formControlName="tokensDisponibles" type="number" placeholder="Tokens Disponibles en el mercado">
             </div>
         </div>
@@ -11,11 +11,11 @@
     <div class="row mt-20">
         <div class="col">
             <div class="form-field">
-                <label>Tokens a devolver:</label>
+                <label>{{'Tokens a devolver' | translate}}:</label>
                 <input formControlName="cantidadTokensDevolver" type="number" placeholder="Tokens a comprar">
             </div>
         </div>
     </div>
 
-    <button class="button-mvm mt-20" mat-raised-button (click)="onDevolverTokens()" [disabled]="!isValid">Devolver</button>
+    <button class="button-mvm mt-20" mat-raised-button (click)="onDevolverTokens()" [disabled]="!isValid">{{'Devolver' | translate}}</button>
 </form>

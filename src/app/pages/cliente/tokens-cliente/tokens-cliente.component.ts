@@ -4,12 +4,13 @@ import { Component, NgZone, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, forkJoin, from, of } from 'rxjs';
+import { Observable, forkJoin, from, of, Subscription } from 'rxjs';
 import { InfoContrato } from 'src/app/models/infoContrato';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { ClienteContractService } from 'src/app/services/cliente-contract.service';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 
+import { LanguageService } from 'src/app/services/language.service';
 @Component({
   selector: 'app-tokens-cliente',
   templateUrl: './tokens-cliente.component.html',
@@ -33,10 +34,58 @@ export class TokensClienteComponent implements OnInit, OnDestroy {
     private bancoEnergia: BancoEnergiaService,
     private acuerdosLedger: AcuerdoContractService,
     private ngZone: NgZone,
-    private alertDialog: SweetAlertService) { }
+    private alertDialog: SweetAlertService,
+    private languageService: LanguageService
+    ) { }
+
+
+  // TRADUCTOR
+  private languageSubs: Subscription;
+  // variables
+  titleModalBuy: string;
+  labelModalBuy1: string;
+  labelModalBuy2: string;
+
+  // 'Confirmar compra', `¿Deseas continuar con la compra de  ${this.tokensComprar} tokens?
+
+  initializeTranslations(): void {
+    forkJoin([
+      // this.languageService.get('Diligenciar solicitud'),
+      // this.languageService.get('Error al cargar las plantas de energía'),
+      // this.languageService.get('Error'),
+      // this.languageService.get('Plantas de energía')
+      this.languageService.get('Confirmar compra'),
+      this.languageService.get('¿Deseas continuar con la compra de'),
+      this.languageService.get('tokens?'),
+    ]).subscribe({
+      next: translatedTexts => {
+        console.log('translatedTexts: ', translatedTexts);
+        this.titleModalBuy = translatedTexts[0];
+        this.labelModalBuy1 = translatedTexts[1];
+        this.labelModalBuy2 = translatedTexts[2];
+        // this.titleToastErrorData = translatedTexts[0];
+        // this.labelToastErrorData = translatedTexts[1];
+        // this.tipoMapa = translatedTexts[2];
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+  }
 
   async ngOnInit(): Promise<void> {
     try {
+      this.languageSubs = this.languageService.language.subscribe({
+        next: language => {
+          this.initializeTranslations();
+          console.log('language: ', language);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+
+
       let dirContract = localStorage.getItem('dirContract');
       this.spinner.show();
       let promises: Promise<void>[] = []
@@ -118,7 +167,7 @@ export class TokensClienteComponent implements OnInit, OnDestroy {
   }
 
   onComprar() {
-    this.alertDialog.confirmAlert('Confirmar compra', `¿Deseas continuar con la compra de  ${this.tokensComprar} tokens?`).then((result) => {
+    this.alertDialog.confirmAlert(this.titleModalBuy, this.labelModalBuy1 + ' ' +  this.tokensComprar + ' ' + this.labelModalBuy2).then((result) => {
       if (result.isConfirmed) {
         this.spinner.show();
         const tokensComprar = typeof this.tokensComprar == 'string' ? parseInt(this.tokensComprar) : this.tokensComprar

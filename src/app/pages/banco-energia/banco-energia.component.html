@@ -2,7 +2,7 @@
 
     <div class="box-chart agentes-registrados">
         <div class="header mt-20">
-            <span class="title-gris">Agentes registrados</span>
+            <span class="title-gris">{{'Agentes registrados' | translate}}</span>
         </div>
 
         <div class="chart-dona mt-20" *ngIf="showChart">
@@ -12,7 +12,7 @@
 
     <div class="box-chart-no-labels variacion-precio">
         <div class="header mt-20">
-            <span class="title-gris">Variación de precio</span>
+            <span class="title-gris">{{'Variación de precio' | translate}}</span>
         </div>
         <div class="chart-line">
             <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [type]="lineChartType">
@@ -21,7 +21,7 @@
     </div>
     <div class="box-chart-no-labels transacciones">
         <div class="header mt-20">
-            <span class="title-gris">Información de Transacciones</span>
+            <span class="title-gris">{{'Información de Transacciones' | translate}}</span>
         </div>
         <div class="chart-bar mb-20">
             <canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="barChartType">               
@@ -30,7 +30,7 @@
     </div>
     <div class="box-chart total-energia">
         <div class="header mt-20">
-            <span class="title-gris">Total Energía (MWh)</span>
+            <span class="title-gris">{{'Total Energía (MWh)' | translate}} </span>
         </div>
 
         <div class="chart-pie mt-20">

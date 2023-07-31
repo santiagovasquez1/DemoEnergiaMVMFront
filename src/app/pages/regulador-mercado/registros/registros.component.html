@@ -1,6 +1,6 @@
 <div class="container">
     <div class="titulo">
-        <h2 class="title-xg">Agentes del mercado</h2>
+        <h2 class="title-xg">{{'Agentes del mercado'  | translate}}</h2>
     </div>
 
     <app-filter [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
@@ -9,35 +9,35 @@
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
 
             <ng-container matColumnDef="empresa">
-                <mat-header-cell *matHeaderCellDef>Empresa</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Empresa'| translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" [matTooltip]="element.infoContrato.empresa">{{element.infoContrato.empresa|limitText:14|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="contacto">
-                <mat-header-cell *matHeaderCellDef>Contacto</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Contacto'   | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.infoContrato.contacto}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="ubicacion">
-                <mat-header-cell *matHeaderCellDef>ubicación</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'ubicación'  | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" [matTooltip]="element.infoContrato.ciudad">{{element.infoContrato.ciudad}} {{element.infoContrato.departamento}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="correo">
-                <mat-header-cell *matHeaderCellDef>Correo</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Correo' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" [matTooltip]="element.infoContrato.correo">{{element.infoContrato.correo | limitText:13}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="tipoAgente">
-                <mat-header-cell *matHeaderCellDef>Tipo de agente</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.tipoContrato | tipoContrato}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Tipo de agente' | translate}}</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.tipoContrato | tipoContrato | translate}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="estado">
-                <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Estado' | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <span [ngClass]="{'approve-text': element.estadoSolicitud==0, 'reject-text:': element.estadoSolicitud==1}">
-                        {{element.estadoSolicitud | estadoRegistro}}
+                        {{element.estadoSolicitud | estadoRegistro | translate}}
                     </span>
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="acciones">
-                <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Acciones'   | translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element; let index = index">
                     <button matRipple class="mvm-action-button approve" (click)="onApprove(index,element)" [disabled]="element.estadoSolicitud == 0 || element.estadoSolicitud == 1" matTooltip="Aceptar solicitud">
                         <mat-icon>done</mat-icon>

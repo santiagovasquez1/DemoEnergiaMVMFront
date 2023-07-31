@@ -16,6 +16,9 @@ import { extendMoment } from 'moment-range';
 const moment = require('moment');
 const momentExtended = extendMoment(moment);
 
+import { forkJoin } from 'rxjs';
+import { LanguageService } from 'src/app/services/language.service';
+
 @Component({
   selector: 'app-banco-energia',
   templateUrl: './banco-energia.component.html',
@@ -23,6 +26,8 @@ const momentExtended = extendMoment(moment);
   ]
 })
 export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
+  private languageSubs: Subscription;
+
   energiasDisponibles: InfoEnergia[] = [];
   isFromInit: boolean = false;
   contadorAnterior: number = 0;
@@ -150,6 +155,7 @@ export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
   public pieChartData: ChartData<'pie'>
   public pieChartType: ChartType = 'pie';
 
+  graphTitleY?: string;
   // FIN PIE CHART
 
   // INICIO BAR-CHART
@@ -162,7 +168,7 @@ export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
       y: {
         title: {
           display: true,
-          text: 'Cantidad de Mwh por transacciones'
+          text: this.graphTitleY
         },
       }
     },
@@ -195,7 +201,8 @@ export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
     private bancoEnergia: BancoEnergiaService,
     private reguladorMercado: ReguladorMercadoService,
     private spinner: NgxSpinnerService,
-    private ngZone: NgZone) {
+    private ngZone: NgZone,
+    private languageService: LanguageService) {
     Chart.register(Annotation)
   }
 
@@ -209,8 +216,49 @@ export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
     this.CambioDeEnergiaEvent.removeAllListeners('data');
   }
 
+  setTranslations(){
+    
+  }
+
+  initializeTranslations(){
+    forkJoin([
+      // this.languageService.get('Analisis de consumo'),
+      // this.languageService.get('Factor de planta'),
+      // this.languageService.get('Consumo energía y potencia'),
+      // this.languageService.get(['Potencia activa', 'Potencia reactiva', 'Energía activa', 'Energía reactiva']),
+      // this.languageService.get(['Año', 'Mes', 'Dia'])
+      this.languageService.get('Cantidad de Mwh por transacciones'),
+    ]).subscribe({
+      next: translatedTexts => {
+        console.log('translatedTexts: ', translatedTexts);
+        this.graphTitleY = translatedTexts[0];
+        // console.log('translatedTexts: ', translatedTexts);
+        // this.title = translatedTexts[0];
+        // this.subtitle1 = translatedTexts[1];
+        // this.subtitle2 = translatedTexts[2];
+        // this.arrayVariablesMed = Object.values(translatedTexts[3]);
+        // this.arrayPeriodosMed = Object.values(translatedTexts[4]);
+        // this.setSelectVariablesMed('---', this.arrayVariablesMed, this.selectedVariablesMed, false);
+        // this.setSelectPeriodosMed('---', this.arrayPeriodosMed, this.selectedPeriodosMed, false);
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+  }
+
   async ngOnInit(): Promise<void> {
     try {
+      this.languageSubs = this.languageService.language.subscribe({
+        next: language => {
+          this.initializeTranslations();
+          console.log('language: ', language);
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
+
       this.isFromInit = true;
       this.spinner.show();
       let promises: Promise<void>[] = [];

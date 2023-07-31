@@ -27,6 +27,14 @@ import { EstadoCompraPipe } from './pipes/estado-compra.pipe';
 import { InfoCertificadoCompraComponent } from './info-certificado-compra/info-certificado-compra.component';
 import { EstadoInyeccionPipe } from './pipes/estado-inyeccion.pipe';
 
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
 @NgModule({
     declarations: [
         ToolbarComponent,
@@ -43,7 +51,8 @@ import { EstadoInyeccionPipe } from './pipes/estado-inyeccion.pipe';
         EstadoPlantaPipe,
         EstadoCompraPipe,
         InfoCertificadoCompraComponent,
-        EstadoInyeccionPipe
+        EstadoInyeccionPipe,
+        
     ],
     imports: [
         CommonModule,
@@ -57,7 +66,15 @@ import { EstadoInyeccionPipe } from './pipes/estado-inyeccion.pipe';
         FlexModule,
         RouterModule,
         NgChartsModule ,
-        MatIconModule
+        MatIconModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+              provide: TranslateLoader,
+              useFactory: HttpLoaderFactory,
+              deps: [HttpClient]
+            }
+          })
     ],
     exports: [
         ToolbarComponent,

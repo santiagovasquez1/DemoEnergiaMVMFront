@@ -1,22 +1,22 @@
 <form [formGroup]="filterForm" class="filter-form fadeIn">
-    <h3>Filtros</h3>
+    <h3>{{'Filtros' | translate}}</h3>
     <div class="row mt-20" *ngFor="let row of rowsForm">
         <div class="col" *ngFor="let control of row.fields">
             <div class="form-field">
-                <label for="">{{control.label}}</label>
+                <label for="">{{control.label | translate}}</label>
                 <input *ngIf="control.controlType == 'text'" type="text" [formControlName]="control.formControlName" />
                 <input *ngIf="control.controlType == 'date'" type="date" [formControlName]="control.formControlName">
                 <input *ngIf="control.controlType == 'number'" type="number" [formControlName]="control.formControlName">
-                <select class="custom-select" *ngIf="control.controlType == 'select'" [formControlName]="control.formControlName">
+                <select class="custom-select" *ngIf="control.controlType == 'select'" [formControlName]="control.formControlName | translate">
                     <option [value]=""></option>
                     <option *ngFor="let optionValue of control.optionValues" [value]="optionValue">
-                        <p *ngIf="control.pipe === ''">{{optionValue}}</p>
-                        <p *ngIf="control.pipe === 'estadoRegistro'">{{optionValue|estadoRegistro}}</p>
-                        <p *ngIf="control.pipe === 'tipoContrato'">{{optionValue|tipoContrato}}</p>
-                        <p *ngIf="control.pipe === 'tipoTransaccion'">{{optionValue|tipoTransaccion}}</p>
-                        <p *ngIf="control.pipe === 'estadoPlanta'">{{optionValue|estadoPlanta}}</p>
-                        <p *ngIf="control.pipe === 'estadoCompra'">{{optionValue|estadoCompra}}</p>
-                        <p *ngIf="control.pipe === 'estadoInyeccion'">{{optionValue|estadoInyeccion}}</p>
+                        <p *ngIf="control.pipe === ''">{{optionValue | translate}}</p>
+                        <p *ngIf="control.pipe === 'estadoRegistro'">{{optionValue|estadoRegistro | translate}}</p>
+                        <p *ngIf="control.pipe === 'tipoContrato'">{{optionValue|tipoContrato | translate}}</p>
+                        <p *ngIf="control.pipe === 'tipoTransaccion'">{{optionValue|tipoTransaccion | translate}}</p>
+                        <p *ngIf="control.pipe === 'estadoPlanta'">{{optionValue|estadoPlanta | translate}}</p>
+                        <p *ngIf="control.pipe === 'estadoCompra'">{{optionValue|estadoCompra | translate}}</p>
+                        <p *ngIf="control.pipe === 'estadoInyeccion'">{{optionValue|estadoInyeccion | translate}}</p>
                     </option>
                 </select>
             </div>

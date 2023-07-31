@@ -2,20 +2,22 @@ import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.serv
 import { forkJoin, switchMap } from 'rxjs';
 import { GeneradorContractService } from 'src/app/services/generador-contract.service';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
+import {LanguageService} from 'src/app/services/language.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comprar-energia-bolsa',
   templateUrl: './comprar-energia-bolsa.component.html',
   styleUrls: []
 })
-export class ComprarEnergiaBolsaComponent implements OnInit {
+export class ComprarEnergiaBolsaComponent implements OnInit, OnDestroy {
 
   comprarEnergiaForm: FormGroup
   tiposEnergia: InfoEnergia[] = [];
@@ -32,12 +34,68 @@ export class ComprarEnergiaBolsaComponent implements OnInit {
     private reguladorMercado: ReguladorMercadoService,
     private toastr: ToastrService,
     private fb: FormBuilder,
-    private bancoEnergia: BancoEnergiaService) {
+    private bancoEnergia: BancoEnergiaService,
+    public languageService: LanguageService) {
     this.initForm();
+  }
+
+  ngOnDestroy(): void {
+  }
+
+  // TRADUCTOR
+  private languageSubs: Subscription;
+  // variables
+  titleToastErrorData: string;
+  labelToastErrorData: string;
+  titleModalBuy: string;
+  labelModalBuy1: string;
+  titleToastSuccess: string;
+  labelToastSuccess: string;
+
+  initializeTranslations(): void {
+    forkJoin([
+      // this.languageService.get('Diligenciar solicitud'),
+      // this.languageService.get('Error al cargar las plantas de energía'),
+      // this.languageService.get(this.labelToastErrorData),
+      // this.languageService.get('Plantas de energía')
+      this.languageService.get('Error al cargar los datos'),
+      this.languageService.get('Error'),
+      this.languageService.get('Confirmar'),
+      this.languageService.get('¿Está seguro de que desea comprar energía?'),
+      this.languageService.get('Emision de compra de energia'),
+      this.languageService.get('Éxito')
+    ]).subscribe({
+      next: translatedTexts => {
+        console.log('translatedTexts: ', translatedTexts);
+        this.titleToastErrorData = translatedTexts[0];
+        this.labelToastErrorData = translatedTexts[1];
+        this.titleModalBuy = translatedTexts[2];
+        this.labelModalBuy1 = translatedTexts[3];
+        this.titleToastSuccess = translatedTexts[4];
+        this.labelToastSuccess = translatedTexts[5];
+        // this.titleToastErrorData = translatedTexts[0];
+        // this.labelToastErrorData = translatedTexts[1];
+        // this.tipoMapa = translatedTexts[2];
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
   }
 
   async ngOnInit(): Promise<void> {
     try {
+      this.languageSubs = this.languageService.language.subscribe({
+        next: language => {
+          this.initializeTranslations();
+          console.log('language: ', language);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+
+
       this.spinner.show()
       let promises: Promise<void>[] = [];
       promises.push(this.reguladorMercado.loadBlockChainContractData());
@@ -62,12 +120,12 @@ export class ComprarEnergiaBolsaComponent implements OnInit {
         error: error => {
           console.log(error);
           this.spinner.hide();
-          this.toastr.error(error.message, 'Error');
+          this.toastr.error(error.message, this.labelToastErrorData);
         }
       });
     } catch (error) {
       console.log(error);
-      this.toastr.error('Error al cargar los datos', error.message);
+      this.toastr.error(this.titleToastErrorData, error.message);
     }
   }
 
@@ -85,7 +143,7 @@ export class ComprarEnergiaBolsaComponent implements OnInit {
         },
         error: error => {
           console.log(error);
-          this.toastr.error('Error al cargar los datos', error.message);
+          this.toastr.error(this.titleToastErrorData, error.message);
         }
       })
     }
@@ -113,7 +171,7 @@ export class ComprarEnergiaBolsaComponent implements OnInit {
   }
 
   onComprarEnergia() {
-    this.alertDialog.confirmAlert('Confirmar', '¿Está seguro de que desea comprar energía?')
+    this.alertDialog.confirmAlert(this.titleModalBuy, this.labelModalBuy1)
       .then((result) => {
         if (result.isConfirmed) {
           this.spinner.show();
@@ -126,7 +184,7 @@ export class ComprarEnergiaBolsaComponent implements OnInit {
             error: error => {
               console.log(error);
               this.spinner.hide();
-              this.toastr.error(error.message, 'Error');
+              this.toastr.error(error.message, this.labelToastErrorData);
               this.dialogRef.close();
             }
           })

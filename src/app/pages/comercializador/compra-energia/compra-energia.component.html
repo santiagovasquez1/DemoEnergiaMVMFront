@@ -4,7 +4,7 @@
     </div>
     <div class="modal-header-mvm">
         <img src="../../../../assets/images/Energia-green.svg" alt="energia">
-        <h2 class="modal-title-mvm mt-20">Compra energia</h2>
+        <h2 class="modal-title-mvm mt-20">{{'Compra energia' | translate}}</h2>
     </div>
     <div class="generador-info-container" *ngFor="let generador of generadoresCompra; let i = index">
         <div class="generador-title">
@@ -15,12 +15,12 @@
         <div class="info" *ngFor="let planta of generador.plantasGenerador; let j = index">
             <div class="planta-info">
                 <p class="nombrePlanta">{{planta.nombre}}</p>
-                <p class="text">Cantidad de energia {{planta.tipoEneregia}} disponible</p>
+                <p class="text">{{'Cantidad de energia' | translate}} {{planta.tipoEneregia}} {{'disponible' | translate}}</p>
                 <p class="cantidad">{{planta.cantidadEnergia}} MWh</p>
             </div>
 
             <div class="compra-info">
-                <p class="cargar">Cargar</p>
+                <p class="cargar">{{'Cargar' | translate}}</p>
                 <div class="input-container">
                     <input type="number" [(ngModel)]="energiaAComprar[i][j]" (change)="onCantidadChange(i,j,$event)">
                     <p class="mega-wats">MWh</p>
@@ -30,13 +30,13 @@
     </div>
 
     <div class="total-Energia">
-        <p class="text">Total</p>
+        <p class="text">{{'Total' | translate}}</p>
         <p class="cantidad">{{totalEnergiaAComprar}} MWh</p>
     </div>
 
 
     <div class="d-flex justify-content-center flex-row-reverse mt-20">
-        <button class="button-mvm w-160" (click)="onComprarEnergia()" [disabled]="!isComprarValid">Comprar</button>
-        <button class="cancel-button-mvm w-160 mr-30" mat-ripple (click)="dialogRef.close()">Cancelar</button>
+        <button class="button-mvm w-160" (click)="onComprarEnergia()" [disabled]="!isComprarValid">{{'Comprar' | translate}}</button>
+        <button class="cancel-button-mvm w-160 mr-30" mat-ripple (click)="dialogRef.close()">{{'Cancelar' | translate}}</button>
     </div>
 </div>

@@ -4,21 +4,21 @@
     </div>
     <div class="modal-header-mvm">
         <img src="../../../../assets/images/Energia-green.svg" alt="energia">
-        <h2 class="modal-title-mvm mt-20">Liquidación de inyecciones</h2>
+        <h2 class="modal-title-mvm mt-20">{{'Liquidación de inyecciones | translate}}</h2>
     </div>
     <form [formGroup]="liquidarEnergiaForm">
         <div class="row mt-20">
             <div class="col">
                 <div class="form-field">
-                    <label>Fecha de liquidacion</label>
+                    <label>{{'Fecha de liquidacion' | translate}}</label>
                     <input formControlName="fechaLiquidacion" type="date">
                 </div>
             </div>
         </div>
 
         <div class="d-flex justify-content-center flex-row-reverse mt-20">
-            <button class="button-mvm w-160" mat-ripple (click)="onLiquidarInyecciones()">Liquidar</button>
-            <button class="cancel-button-mvm w-160 mr-30" mat-ripple (click)="onCancelar()">Cancelar</button>
+            <button class="button-mvm w-160" mat-ripple (click)="onLiquidarInyecciones()">{{'Liquid | translate}}</button>
+            <button class="cancel-button-mvm w-160 mr-30" mat-ripple (click)="onCancelar()">{{'Cancelar | translate}}</button>
         </div>
     </form>
 </div>

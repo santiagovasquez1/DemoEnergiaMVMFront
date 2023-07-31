@@ -17,6 +17,8 @@ import { ClienteFactoryService } from 'src/app/services/cliente-factory.service'
 import { ComercializadorFactoryService } from 'src/app/services/comercializador-factory.service';
 import { GeneradorFactoryService } from 'src/app/services/generador-factory.service';
 import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParameter';
+import { forkJoin } from 'rxjs';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-registros',
@@ -25,6 +27,20 @@ import { FieldValueChange, RowFilterForm } from 'src/app/models/FilterFormParame
   ]
 })
 export class RegistrosComponent implements OnInit, OnDestroy {
+  // TRADUCCION
+  private languageSubs: Subscription;
+  // variables modales
+  titleAprove: string;
+  labelAprove: string;
+  titleReject: string;
+  labelReject: string;
+  // variables toasts
+  titleToastDiligence: string;
+  labelToastDiligence: string;
+  titleToastTypeContractError: string;
+  labelToastTypeContractError: string;
+  titleToastReject: string;
+  titleTastNewApplication: string;
 
   estadosSolicitud: EstadoSolicitud[];
   tiposDeAgentes: TiposContratos[];
@@ -64,7 +80,8 @@ export class RegistrosComponent implements OnInit, OnDestroy {
     private clienteFactory: ClienteFactoryService,
     private comercializadorFactory: ComercializadorFactoryService,
     private generadorFactory: GeneradorFactoryService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private languageService: LanguageService) {
     this.timer$ = timer(0, 5000);
     this.dataSource = new MatTableDataSource();
     this.getArraysEnums();
@@ -114,8 +131,49 @@ export class RegistrosComponent implements OnInit, OnDestroy {
     }
   }
 
+  initializeTranslations(): void {
+    forkJoin([
+      this.languageService.get('Diligenciar solicitud'),
+      this.languageService.get('¿Está seguro de diligenciar la solicitud?'),
+      this.languageService.get('Rechazar solicitud'),
+      this.languageService.get('¿Está seguro de rechazar la solicitud?'),
+      this.languageService.get('Solicitud diligenciada'),
+      this.languageService.get('Registro'),
+      this.languageService.get('Tipo de contrato no soportado'),
+      this.languageService.get('Error'),
+      this.languageService.get('Solicitud rechazada'),
+      this.languageService.get('Nueva solicitud registrada')
+    ]).subscribe({
+      next: translatedTexts => {
+        console.log('translatedTexts: ', translatedTexts);
+        this.titleAprove = translatedTexts[0];
+        this.labelAprove = translatedTexts[1];
+        this.titleReject = translatedTexts[2];
+        this.labelReject = translatedTexts[3];
+        this.titleToastDiligence = translatedTexts[4];
+        this.labelToastDiligence = translatedTexts[5];
+        this.titleToastTypeContractError = translatedTexts[6];
+        this.titleToastReject = translatedTexts[7];
+        this.titleTastNewApplication = translatedTexts[8];
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+  }
+
   async ngOnInit(): Promise<void> {
     try {
+      this.languageSubs = this.languageService.language.subscribe({
+        next: language => {
+          this.initializeTranslations();
+          console.log('language: ', language);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+
       this.isFromInit = true;
       this.spinner.show();
       await this.regulardorMercado.loadBlockChainContractData();
@@ -126,7 +184,7 @@ export class RegistrosComponent implements OnInit, OnDestroy {
       });
     } catch (error) {
       console.log(error);
-      this.toastr.error(error.message, 'Error');
+      this.toastr.error(error.message, this.titleToastTypeContractError);
     }
   }
 
@@ -141,7 +199,7 @@ export class RegistrosComponent implements OnInit, OnDestroy {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
           if (this.contadorActual > this.contadorAnterior && !this.isFromInit) {
-            this.toastr.success('Nueva solicitud registrada', 'Registro');
+            this.toastr.success(this.titleTastNewApplication, this.labelToastDiligence);
           }
           this.reloadData = false;
           this.table.renderRows();
@@ -149,14 +207,14 @@ export class RegistrosComponent implements OnInit, OnDestroy {
         }
       }, error: (err) => {
         console.log(err);
-        this.toastr.error(err.message, 'Error');
+        this.toastr.error(err.message, this.titleToastTypeContractError);
       }
     });
   }
 
   onApprove(index: number, solicitud: SolicitudContrato) {
     this.diligenciandoSolicitud = true;
-    this.sweetAlert.confirmAlert('Diligenciar solicitud', '¿Está seguro de diligenciar la solicitud?')
+    this.sweetAlert.confirmAlert(this.titleAprove, this.labelAprove)
       .then(async (result) => {
         if (result.isConfirmed) {
           this.spinner.show();
@@ -166,7 +224,7 @@ export class RegistrosComponent implements OnInit, OnDestroy {
               this.clienteFactory.setFactoryContrato(solicitud.infoContrato).subscribe({
                 next: () => {
                   this.spinner.hide();
-                  this.toastr.success('Solicitud diligenciada', 'Registro');
+                  this.toastr.success(this.titleToastDiligence, this.labelToastDiligence);
                   this.reloadData = true;
                   this.diligenciandoSolicitud = false;
                   this.getInfoAgentes();
@@ -174,7 +232,7 @@ export class RegistrosComponent implements OnInit, OnDestroy {
                   this.diligenciandoSolicitud = false;
                   console.log(err);
                   this.spinner.hide();
-                  this.toastr.error(err.message, 'Error');
+                  this.toastr.error(err.message, this.titleToastTypeContractError);
                 }
               });
               break;
@@ -183,7 +241,7 @@ export class RegistrosComponent implements OnInit, OnDestroy {
               this.comercializadorFactory.setFactoryContrato(solicitud.infoContrato).subscribe({
                 next: () => {
                   this.spinner.hide();
-                  this.toastr.success('Solicitud diligenciada', 'Registro');
+                  this.toastr.success(this.titleToastDiligence, this.labelToastDiligence);
                   this.reloadData = true;
                   this.diligenciandoSolicitud = false;
                   this.getInfoAgentes();
@@ -191,7 +249,7 @@ export class RegistrosComponent implements OnInit, OnDestroy {
                   this.diligenciandoSolicitud = false;
                   console.log(err);
                   this.spinner.hide();
-                  this.toastr.error(err.message, 'Error');
+                  this.toastr.error(err.message, this.titleToastTypeContractError);
                 }
               });
               break;
@@ -201,7 +259,7 @@ export class RegistrosComponent implements OnInit, OnDestroy {
               this.generadorFactory.setFactoryContrato(solicitud.infoContrato).subscribe({
                 next: () => {
                   this.spinner.hide();
-                  this.toastr.success('Solicitud diligenciada', 'Registro');
+                  this.toastr.success(this.titleToastDiligence, this.labelToastDiligence);
                   this.reloadData = true;
                   this.diligenciandoSolicitud = false;
                   this.getInfoAgentes();
@@ -209,13 +267,13 @@ export class RegistrosComponent implements OnInit, OnDestroy {
                   this.diligenciandoSolicitud = false;
                   console.log(err);
                   this.spinner.hide();
-                  this.toastr.error(err.message, 'Error');
+                  this.toastr.error(err.message, this.titleToastTypeContractError);
                 }
               });
               break;
             default:
               this.spinner.hide();
-              this.toastr.error('Tipo de contrato no soportado', 'Error');
+              this.toastr.error(this.labelToastDiligence, this.titleToastTypeContractError);
           }
 
         } else {
@@ -227,14 +285,14 @@ export class RegistrosComponent implements OnInit, OnDestroy {
 
   onReject(index: number, infoContrato: InfoContrato) {
     this.diligenciandoSolicitud = true;
-    this.sweetAlert.confirmAlert('Rechazar solicitud', '¿Está seguro de rechazar la solicitud?')
+    this.sweetAlert.confirmAlert(this.titleReject, this.labelReject)
       .then(result => {
         if (result.isConfirmed) {
           this.spinner.show();
           this.regulardorMercado.diligenciarSolicitud(index, infoContrato, EstadoSolicitud.rechazada).subscribe({
             next: () => {
               this.spinner.hide();
-              this.toastr.info('Solicitud rechazada', 'Registro');
+              this.toastr.info(this.titleToastReject, this.labelToastDiligence);
               this.reloadData = true;
               this.diligenciandoSolicitud = false;
               this.getInfoAgentes();
@@ -243,7 +301,7 @@ export class RegistrosComponent implements OnInit, OnDestroy {
               this.diligenciandoSolicitud = false;
               console.log(err);
               this.spinner.hide();
-              this.toastr.error(err.message, 'Error');
+              this.toastr.error(err.message, this.titleToastTypeContractError);
             }
           })
         } else {

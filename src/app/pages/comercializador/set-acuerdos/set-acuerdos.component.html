@@ -4,13 +4,13 @@
     </div>
     <div class="modal-header-mvm">
         <img src="../../../../assets/images/Energia-green.svg" alt="energia">
-        <h2 class="modal-title-mvm mt-20">Comprar energia</h2>
+        <h2 class="modal-title-mvm mt-20">{{'Comprar energia' | translate}}</h2>
     </div>
     <form [formGroup]="comprarEnergiaForm">
         <div class="row">
             <div class="col">
                 <div class="form-field">
-                    <label>Generadores disponibles</label>
+                    <label>{{'Generadores disponibles' | translate}}</label>
                     <select class="custom-select" formControlName="generador">
                         <option [value]=""></option>
                         <option *ngFor="let generador of generadores" [ngValue]="generador">
@@ -22,8 +22,8 @@
         </div>
 
         <div class="d-flex justify-content-center flex-row-reverse mt-20">
-            <button class="button-mvm w-160" mat-ripple (click)="onComprarEnergia()" [disabled]="!this.generadorSeleccionado">Realizar contrato</button>
-            <button class="cancel-button-mvm w-160 mr-30" mat-ripple (click)="onCancelar()">Cancelar</button>
+            <button class="button-mvm w-160" mat-ripple (click)="onComprarEnergia()" [disabled]="!this.generadorSeleccionado">{{'Realizar contrato' | translate}}</button>
+            <button class="cancel-button-mvm w-160 mr-30" mat-ripple (click)="onCancelar()">{{'Cancelar' | translate}}</button>
         </div>
     </form>
 
@@ -32,31 +32,31 @@
         <mat-card-subtitle>Nit: {{this.generadorSeleccionado.infoContrato.nit}} </mat-card-subtitle>
         <mat-card-content>
             <p>
-                Dueño del contrato: {{this.generadorSeleccionado.infoContrato.owner}}
+                {{'Dueño del contrato' | translate}}: {{this.generadorSeleccionado.infoContrato.owner}}
             </p>
             <p>
-                Contacto: {{this.generadorSeleccionado.infoContrato.contacto}}
+                {{'Contacto' | translate}}: {{this.generadorSeleccionado.infoContrato.contacto}}
             </p>
             <p>
-                Teléfono: {{this.generadorSeleccionado.infoContrato.telefono}}
+                {{'Teléfono' | translate}}: {{this.generadorSeleccionado.infoContrato.telefono}}
             </p>
             <p>
-                Correo: {{this.generadorSeleccionado.infoContrato.correo}}
+                {{'Correo' | translate}}: {{this.generadorSeleccionado.infoContrato.correo}}
             </p>
             <p>
-                Departamento: {{this.generadorSeleccionado.infoContrato.departamento}}
+                {{'Departamento' | translate}}: {{this.generadorSeleccionado.infoContrato.departamento}}
             </p>
             <p>
-                Ciudad: {{this.generadorSeleccionado.infoContrato.ciudad}}
+                {{'Ciudad' | translate}}: {{this.generadorSeleccionado.infoContrato.ciudad}}
             </p>
             <p>
-                Dirección: {{this.generadorSeleccionado.infoContrato.direccion}}
+                {{'Dirección' | translate}}: {{this.generadorSeleccionado.infoContrato.direccion}}
             </p>
             <p>
-                Precio de energía: {{this.precioEnergia}} tokens/MwH
+                {{'Precio de energía' | translate}}: {{this.precioEnergia}} tokens/MwH
             </p>
             <p>
-                Capacidad nominal total: {{this.capacidadNominalTotal}} MwH
+                {{'Capacidad nominal total' | translate}}: {{this.capacidadNominalTotal}} MwH
             </p>
         </mat-card-content>
     </mat-card>

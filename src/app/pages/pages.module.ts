@@ -62,8 +62,14 @@ import { AcuerdosEnergiaComponent } from './regulador-mercado/acuerdos-energia/a
 import { LiquidarContratoComponent } from './regulador-mercado/liquidar-contrato/liquidar-contrato.component';
 import { AcuerdosCompraComponent } from './generador/acuerdos-compra/acuerdos-compra.component';
 import { InyeccionAcuerdoComponent } from './generador/inyeccion-acuerdo/inyeccion-acuerdo.component';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 @NgModule({
     declarations: [
         DashboardComponent,
@@ -125,9 +131,15 @@ import { InyeccionAcuerdoComponent } from './generador/inyeccion-acuerdo/inyecci
         BrowserAnimationsModule,
         NgChartsModule,
         MatIconModule,
-        MatTableModule
-
-        
+        MatTableModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+              provide: TranslateLoader,
+              useFactory: HttpLoaderFactory,
+              deps: [HttpClient]
+            }
+          })
     ],
     providers: [WinRefService, Web3ConnectService],
     exports: [

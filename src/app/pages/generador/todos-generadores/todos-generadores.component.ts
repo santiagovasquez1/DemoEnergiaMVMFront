@@ -26,6 +26,8 @@ import { InfoContrato } from 'src/app/models/infoContrato';
 import { ColsTablaGeoreferencia } from 'src/app/models/ColsTablaGeoreferencia';
 import { BREAKPOINT } from '@angular/flex-layout';
 
+import { LanguageService } from 'src/app/services/language.service';
+
 export interface PeriodicElement {
   nombre: string;
 
@@ -48,6 +50,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 export class TodosGeneradoresComponent implements OnInit {
 
+
   generadores: string[] = [];
   dirContratos: string[] = [];
   dirGeneradores: string[] = [];
@@ -59,7 +62,6 @@ export class TodosGeneradoresComponent implements OnInit {
   infoGenerador: SolicitudContrato = {} as SolicitudContrato;
   todoGeneradores: SolicitudContrato[] = [];
   todoClientes: any[] = [];
-  tipoMapa = 'Plantas de energía';
   agentes = [];
   plantasAux = [];
   flag = true;
@@ -252,6 +254,7 @@ export class TodosGeneradoresComponent implements OnInit {
     private ethereumService: EthereumService,
     private tableService: TableService,
     private clienteService: ClienteContractService,
+    private languageService: LanguageService,
     ) { 
 
       this.dataSource = new MatTableDataSource(); 
@@ -265,8 +268,52 @@ export class TodosGeneradoresComponent implements OnInit {
     }
   }
 
+  // TRADUCCION
+  private languageSubs: Subscription;
+  // variables this.titleToastNoData,this.labelToastNoData
+  titleToastErrorData: string;
+  labelToastErrorData: string;
+  tipoMapa: string = 'Plantas de energía';
+  titleToastNoData: string;
+  labelToastNoData: string;
+  titleToastNoDataClientes: string;
+
+
+  initializeTranslations(): void {
+    forkJoin([
+      this.languageService.get('Error al cargar las plantas de energía'),
+      this.languageService.get('Error'),
+      this.languageService.get('No hay Plantas registradas en este departamento.'),
+      this.languageService.get('Datos no encontrados.'),
+      this.languageService.get('No hay Clientes registrados en este departamento.'),
+    ]).subscribe({
+      next: translatedTexts => {
+        console.log('translatedTexts: ', translatedTexts);
+        this.titleToastErrorData = translatedTexts[0];
+        this.labelToastErrorData = translatedTexts[1];
+        this.titleToastNoData = translatedTexts[2];
+        this.labelToastNoData = translatedTexts[3];
+        this.titleToastNoDataClientes = translatedTexts[4];
+        // this.tipoMapa = translatedTexts[2];
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+  }
+
   async ngOnInit(): Promise<void> {
     try {
+      this.languageSubs = this.languageService.language.subscribe({
+        next: language => {
+          this.initializeTranslations();
+          console.log('language: ', language);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+
       // this.dataSource = new MatTableDataSource(ELEMENT_DATA); 
       //this.isFromInit = true;
       //this.spinner.show();
@@ -289,7 +336,7 @@ export class TodosGeneradoresComponent implements OnInit {
             
           }, error: (err) => {
             console.log(err);
-            this.toastr.error(err.message, 'Error');
+            this.toastr.error(err.message, this.labelToastErrorData);
           }
         });
       });      
@@ -301,14 +348,14 @@ export class TodosGeneradoresComponent implements OnInit {
       //       console.log("data desde todos generadores: ",data)
       //     }, error: (err) => {
       //       console.log(err);
-      //       this.toastr.error(err.message, 'Error');
+      //       this.toastr.error(err.message, this.labelToastErrorData);
       //     }
       //   });
       // });      
 
     } catch (error) {
       console.log(error);
-      this.toastr.error(error.message, 'Error');
+      this.toastr.error(error.message, this.labelToastErrorData);
     }
   }
 
@@ -401,7 +448,7 @@ export class TodosGeneradoresComponent implements OnInit {
       
     } catch (error) {
       console.log(error);
-      this.toastr.error('Error al cargar las plantas de energía', 'Error');
+      this.toastr.error(this.titleToastErrorData, this.labelToastErrorData);
     }
     
   }
@@ -444,7 +491,7 @@ export class TodosGeneradoresComponent implements OnInit {
         this.getCantidadesEnergiasDisponibles();
       }, error: (error) => {
         console.log(error);
-        this.toastr.error(error.message, 'Error');
+        this.toastr.error(error.message, this.labelToastErrorData);
         // this.spinner.hide();
       }
     });
@@ -474,7 +521,7 @@ export class TodosGeneradoresComponent implements OnInit {
     //   },
     //   error: (error) => {
     //     console.log(error);
-    //     this.toastr.error(error.message, 'Error');
+    //     this.toastr.error(error.message, this.labelToastErrorData);
     //     // this.spinner.hide();
     //   }
     // })
@@ -492,7 +539,7 @@ export class TodosGeneradoresComponent implements OnInit {
       
     } catch (error) {
       console.log(error);
-      this.toastr.error('Error al cargar las plantas de energía', 'Error');
+      this.toastr.error(this.titleToastErrorData, this.labelToastErrorData);
     }
   }
 
@@ -514,7 +561,7 @@ export class TodosGeneradoresComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.message, 'Error');
+        this.toastr.error(err.message, this.labelToastErrorData);
         //this.spinner.hide();
       },
     });
@@ -559,7 +606,7 @@ export class TodosGeneradoresComponent implements OnInit {
           
 
           if(this.dataSource.data.length == 0 || this.dataSource.data.length == undefined){
-            this.toastr.info('No hay Plantas registradas en este departamento.','Datos no encontrados.');
+            this.toastr.info(this.titleToastNoData,this.labelToastNoData);
           }
           break;
 
@@ -579,7 +626,7 @@ export class TodosGeneradoresComponent implements OnInit {
           this.setCantEnergiaClientes(vecTotalEnergiaClientes)
 
           if(this.dataSource.data.length == 0 || this.dataSource.data.length == undefined){
-            this.toastr.info('No hay Clientes registrados en este departamento.','Datos no encontrados.');
+            this.toastr.info(this.titleToastNoDataClientes,this.labelToastNoData);
           }
           break;
       }
