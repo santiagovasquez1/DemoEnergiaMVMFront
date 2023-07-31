@@ -16,12 +16,14 @@ import { InfoCertificadoCompraComponent } from 'src/app/shared/info-certificado-
 import { InfoMappingCertificado } from 'src/app/models/InfoCertificados';
 import moment from 'moment';
 import { ComprarEnergiaComponent } from '../comprar-energia/comprar-energia.component';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin, Observable, Subscription } from 'rxjs';
 import { InfoContrato } from 'src/app/models/infoContrato';
 import { InfoEnergia } from 'src/app/models/InfoEnergia';
 import { ContratarComercializadorComponent } from '../contratar-comercializador/contratar-comercializador.component';
 import { AcuerdoEnergia, EstadoAcuerdo } from 'src/app/models/AcuerdoEnergia';
 import { AcuerdoEnergiaComponent } from '../acuerdo-energia/acuerdo-energia.component';
+
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-lista-compras',
@@ -64,6 +66,7 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
     private ngZone: NgZone,
     private toastr: ToastrService,
     private tableService: TableService,
+    private languageService: LanguageService
 
   ) {
     this.dataSource = new MatTableDataSource();
@@ -74,6 +77,11 @@ export class ListaComprasComponent implements OnInit, OnDestroy {
       this.actualizacionContratoEvent.removeAllListeners('data');
     }
   }
+
+  // TRACUCTOR
+  private languageSubs: Subscription;
+  // variables
+  
 
   async ngOnInit(): Promise<void> {
     const dirContract = localStorage.getItem('dirContract');

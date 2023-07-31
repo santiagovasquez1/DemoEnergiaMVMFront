@@ -11,7 +11,7 @@
                     <label>{{'Tipo de transacción' | translate}}</label>
                     <select class="custom-select" formControlName="tipoTx">
                         <option [value]=""></option>
-                        <option *ngFor="let tipoTx of tiposTransaccion" [value]="tipoTx">{{tipoTx|tipoTransaccion}}</option>
+                        <option *ngFor="let tipoTx of tiposTransaccion" [value]="tipoTx">{{tipoTx|tipoTransaccion|translate}}</option>
                     </select>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     <label>{{'Tipo de Energía' | translate}}</label>
                     <select class="custom-select" formControlName="tipoEnergia">
                         <option [value]=""></option>
-                        <option *ngFor="let tipoEnergia of tiposEnergia" [value]="tipoEnergia.nombre">{{tipoEnergia.nombre}}</option>
+                        <option *ngFor="let tipoEnergia of tiposEnergia" [value]="tipoEnergia.nombre">{{tipoEnergia.nombre|translate}}</option>
                     </select>
                 </div>
             </div>
@@ -63,7 +63,7 @@
 
             <ng-container matColumnDef="Transaccion">
                 <mat-header-cell *matHeaderCellDef>{{'Tipo de transacción' | translate}}</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.tipoTx | tipoTransaccion}}</mat-cell>
+                <mat-cell *matCellDef="let element">{{element.tipoTx | tipoTransaccion | translate}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="Fecha">
@@ -73,7 +73,7 @@
 
             <ng-container matColumnDef="TipoEnergia">
                 <mat-header-cell *matHeaderCellDef>{{'Tipo de Energía' | translate}}</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.tipoEnergia}}</mat-cell>
+                <mat-cell *matCellDef="let element">{{element.tipoEnergia | translate}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="CantidadEnergia">

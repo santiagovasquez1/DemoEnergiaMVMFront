@@ -13,7 +13,7 @@
             </div>
             <button class="cancel-button-mvm w-120-px" (click)="onContratar()">
                 <img src="../../../../assets/images/contratar-green.svg" alt="contratar">
-                Contratar
+                {{'Contratar' | translate}}
             </button >
         </div>
             <button class="button-mvm w-160" mat-ripple (click)="onContratoEnergia()" [disabled]="!solicitarIsValid">{{'Solicitar acuerdo' | translate}}</button>
@@ -42,8 +42,8 @@
                     <mat-cell *matCellDef="let element">{{element.fechaFin}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="tipoEnergia">
-                    <mat-header-cell *matHeaderCellDef class="celda-70M">Tipo de energia</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="celda-70M">{{element.tipoEnergia}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef class="celda-70M">{{'Tipo de energia' | translate}}</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="celda-70M">{{element.tipoEnergia | translate}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="energiaTotal">
                     <mat-header-cell *matHeaderCellDef>{{'Energía total' | translate}}</mat-header-cell>

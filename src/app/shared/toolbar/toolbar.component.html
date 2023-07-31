@@ -48,10 +48,10 @@
         <mat-menu #menu="matMenu">
             <div class="container-mat-menu">
                 <span class="fw-700">{{'Perfil' | translate}}</span>
-                <span *ngIf="tipoContrato==0">Cliente</span>
-                <span *ngIf="tipoContrato==1">Comercializador</span>
-                <span *ngIf="tipoContrato==2">Generador</span>
-                <span *ngIf="tipoContrato==3">Administrador</span>
+                <span *ngIf="tipoContrato==0">{{'Cliente' | translate}}</span>
+                <span *ngIf="tipoContrato==1">{{'Comercializador' | translate}}</span>
+                <span *ngIf="tipoContrato==2">{{'Generador' | translate}}</span>
+                <span *ngIf="tipoContrato==3">{{'Administrador' | translate}}</span>
                 <hr>
                 <div class="buttons">
                     <mat-icon class="a-green">edit</mat-icon>
@@ -61,6 +61,8 @@
                 </div>
             </div>
         </mat-menu>
-
+        <div class="langugeLine"></div>
+        <button class="languageButton" *ngIf="actualLanguage == 'en'" (click)="switchLanguage('es')"><img src="../../../assets/languageIcons/bandera-espanol.png" alt=""></button>
+        <button class="languageButton" *ngIf="actualLanguage == 'es'" (click)="switchLanguage('en')"><img src="../../../assets/languageIcons/bandera-ingles.png" alt=""></button>
     </mat-toolbar>
 </div>

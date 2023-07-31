@@ -20,6 +20,21 @@ mat-toolbar button {
     border-radius: 15px;
 }
 
+.languageButton {
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    overflow: visible;
+}
+
+.langugeLine {
+    width: 2px;
+    height: 50%;
+    background-color: var(--gris-claro);
+    margin-right: 17px;
+}
 
 /* .avatar-container img {
     width: 100%;

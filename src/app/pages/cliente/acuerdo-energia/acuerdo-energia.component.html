@@ -14,7 +14,7 @@
                     <select class="custom-select" formControlName="tipoEnergia">
                         <option [value]=""></option>
                         <option *ngFor="let tipoEnergia of tiposEnergia" [ngValue]="tipoEnergia">
-                            {{tipoEnergia.nombre}}
+                            {{tipoEnergia.nombre | translate}}
                         </option>
                     </select>
                 </div>

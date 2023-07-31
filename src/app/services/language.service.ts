@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LanguageService {
   currentLanguage: string;
-  private language: BehaviorSubject<string>;
+  language: BehaviorSubject<string>;
 
   constructor(private translate: TranslateService) {
     let storedLanguage = localStorage.getItem('current-language');

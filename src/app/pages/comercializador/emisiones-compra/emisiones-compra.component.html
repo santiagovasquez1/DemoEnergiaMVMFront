@@ -30,7 +30,7 @@
             </ng-container>
             <ng-container matColumnDef="tipoEnergia">
                 <mat-header-cell *matHeaderCellDef class="celda-70M">{{'Tipo de energia' | translate}}</mat-header-cell>
-                <mat-cell *matCellDef="let element" class="celda-70M">{{element.tipoEnergia}}</mat-cell>
+                <mat-cell *matCellDef="let element" class="celda-70M">{{element.tipoEnergia | translate}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="energiaTotal">
                 <mat-header-cell *matHeaderCellDef>{{'Energía total' | translate}}</mat-header-cell>
