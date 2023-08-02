@@ -308,5 +308,11 @@
     "Siguiente": "Next",
     "Anterior": "Previous",
     "Primera": "First",
-    "Última": "Last"
+    "Última": "Last",
+    "Liquidacion de inyecciones": "Settlement of injections",
+    "Desea liquidar todas las inyecciones realizadas en la fecha": "Do you want to settle all the injections made on the date",
+    "Realizar contrato": "Make contract",
+    "Generadores disponibles": "Available generators",
+    "Precio de energía": "Energy price",
+    "¿Desea rechazar la solicitud de compra?": "Do you want to reject the purchase request?"
 }
