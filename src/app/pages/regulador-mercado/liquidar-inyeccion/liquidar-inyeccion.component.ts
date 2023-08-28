@@ -1,6 +1,6 @@
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { ToastrService } from 'ngx-toastr';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import moment from 'moment';
@@ -8,13 +8,16 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BancoEnergiaService } from 'src/app/services/banco-energia.service';
 import { ClienteContractService } from 'src/app/services/cliente-contract.service';
 
+import {LanguageService} from '../../../services/language.service';
+import {forkJoin, Subscription} from 'rxjs';
+
 @Component({
   selector: 'app-liquidar-inyeccion',
   templateUrl: './liquidar-inyeccion.component.html',
   styles: [
   ]
 })
-export class LiquidarInyeccionComponent implements OnInit {
+export class LiquidarInyeccionComponent implements OnInit, OnDestroy {
 
   liquidarEnergiaForm: FormGroup;
   fechaLiquidacion: string = '';
@@ -25,11 +28,56 @@ export class LiquidarInyeccionComponent implements OnInit {
     private bancoEnergia: BancoEnergiaService,
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private alertDialog: SweetAlertService) {
+    private alertDialog: SweetAlertService,
+    public languageService: LanguageService) {
     this.initForm();
   }
 
+  ngOnDestroy(): void {
+  }
+
+//   'Liquidacion de inyecciones'
+// `Desea liquidar todas las inyecciones realizadas en la fecha
+
+  private languageSubs: Subscription;
+  settleModalTitle: string;
+  settleModalLabel: string;
+
+  initializeTranslations(): void {
+    forkJoin([
+      // this.languageService.get('Diligenciar solicitud'),
+      // this.languageService.get('Error al cargar las plantas de energía'),
+      // this.languageService.get('Error'),
+      // this.languageService.get('Plantas de energía')
+      this.languageService.get('Liquidacion de inyecciones'),
+      this.languageService.get('Desea liquidar todas las inyecciones realizadas en la fecha')
+    ]).subscribe({
+      next: translatedTexts => {
+        console.log('translatedTexts: ', translatedTexts);
+        this.settleModalTitle = translatedTexts[0];
+        this.settleModalLabel = translatedTexts[1];
+        // this.titleToastErrorData = translatedTexts[0];
+        // this.labelToastErrorData = translatedTexts[1];
+        // this.tipoMapa = translatedTexts[2];
+
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+  }
+
   async ngOnInit(): Promise<void> {
+    this.languageSubs = this.languageService.language.subscribe({
+        next: language => {
+          this.initializeTranslations();
+          console.log('language: ', language);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+
     this.spinner.show();
     await this.bancoEnergia.loadBlockChainContractData();
     this.spinner.hide();
@@ -49,7 +97,7 @@ export class LiquidarInyeccionComponent implements OnInit {
   }
 
   onLiquidarInyecciones() {
-    this.alertDialog.confirmAlert('Liquidacion de inyecciones', `Desea liquidar todas las inyecciones realizadas en la fecha ${this.fechaLiquidacion}`).then(result => {
+    this.alertDialog.confirmAlert(this.settleModalTitle, this.settleModalLabel + ' ' + this.fechaLiquidacion).then(result => {
       if (result.isConfirmed) {
         this.spinner.show();
         const timeStamp = parseInt(this.fechaLiquidacionMiliseconds) / 1000;

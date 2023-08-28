@@ -28,7 +28,7 @@
     </form>
 
     <mat-card class="custom mt-20 mb-20 fadeIn" *ngIf="this.generadorSeleccionado">
-        <mat-card-title>Empresa: {{this.generadorSeleccionado.infoContrato.empresa}} </mat-card-title>
+        <mat-card-title>{{'Empresa' | translate}}: {{this.generadorSeleccionado.infoContrato.empresa}} </mat-card-title>
         <mat-card-subtitle>Nit: {{this.generadorSeleccionado.infoContrato.nit}} </mat-card-subtitle>
         <mat-card-content>
             <p>

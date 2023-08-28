@@ -21,6 +21,9 @@ import { AcuerdoEnergia, EstadoAcuerdo } from 'src/app/models/AcuerdoEnergia';
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 import { SolicitudContrato } from 'src/app/models/solicitudContrato';
 
+import {LanguageService} from '../../../services/language.service';
+import {forkJoin, Subscription} from 'rxjs';
+
 @Component({
   selector: 'app-emisiones-compra',
   templateUrl: './emisiones-compra.component.html',
@@ -65,7 +68,8 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
     private ngZone: NgZone,
     private bancoEnergia: BancoEnergiaService,
     private tableService: TableService,
-    private alertService: SweetAlertService) {
+    private alertService: SweetAlertService,
+    public languageService: LanguageService) {
     this.dataSource = new MatTableDataSource();
     this.dirComercializador = localStorage.getItem('dirContract');
   }
@@ -114,8 +118,47 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
     this.emisionCompraEvent.removeAllListeners('data');
   }
 
-  async ngOnInit(): Promise<void> {
+//   'Rechazar'
+// '¿Desea rechazar la solicitud de compra?'
 
+  private languageSubs: Subscription;
+  titleModalReject: string;
+  labelModalReject: string;
+
+  initializeTranslations(): void {
+    forkJoin([
+      // this.languageService.get('Diligenciar solicitud'),
+      // this.languageService.get('Error al cargar las plantas de energía'),
+      // this.languageService.get('Error'),
+      // this.languageService.get('Plantas de energía')
+      this.languageService.get('Rechazar'),
+      this.languageService.get('¿Desea rechazar la solicitud de compra?')
+    ]).subscribe({
+      next: translatedTexts => {
+        console.log('translatedTexts: ', translatedTexts);
+        this.titleModalReject = translatedTexts[0];
+        this.labelModalReject = translatedTexts[1];
+        // this.titleToastErrorData = translatedTexts[0];
+        // this.labelToastErrorData = translatedTexts[1];
+        // this.tipoMapa = translatedTexts[2];
+
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+  }
+
+  async ngOnInit(): Promise<void> {
+this.languageSubs = this.languageService.language.subscribe({
+        next: language => {
+          this.initializeTranslations();
+          console.log('language: ', language);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
     let dirContract = localStorage.getItem('dirContract');
 
     try {
@@ -194,7 +237,7 @@ export class EmisionesCompraComponent implements OnInit, OnDestroy {
 
   public onRechazarCompra(dirContrato: string, index: number) {
 
-    this.alertService.confirmAlert('Rechazar', '¿Desea rechazar la solicitud de compra?')
+    this.alertService.confirmAlert(this.titleModalReject, this.labelModalReject)
       .then(result => {
         if (result.isConfirmed) {
           this.spinner.show();

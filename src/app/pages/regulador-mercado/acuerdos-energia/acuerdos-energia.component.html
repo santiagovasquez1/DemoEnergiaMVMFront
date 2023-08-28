@@ -8,7 +8,7 @@
     <div class="table-container mt-20 fadeIn">
         <mat-table #table [dataSource]="dataSource" class="mvm-table">
             <ng-container matColumnDef="empresaCliente">
-                <mat-header-cell *matHeaderCellDef>Cliente</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'Cliente'|translate}}</mat-header-cell>
                 <mat-cell *matCellDef="let element" [matTooltip]="element.dataCliente.nombreAgente">{{element.dataCliente.nombreAgente|limitText:9|titlecase}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="empresaComercializador">

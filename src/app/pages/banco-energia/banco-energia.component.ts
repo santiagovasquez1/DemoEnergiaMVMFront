@@ -61,6 +61,9 @@ export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   };
 
+  months?: string[]
+
+
 
   //START LINE CHART
   public lineChartData: ChartConfiguration['data'] = {
@@ -90,7 +93,7 @@ export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
       }
 
     ],
-    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    labels: this.months
   };
 
   public lineChartOptions: ChartConfiguration['options'] = {
@@ -220,6 +223,7 @@ export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
     
   }
 
+
   initializeTranslations(){
     forkJoin([
       // this.languageService.get('Analisis de consumo'),
@@ -227,11 +231,14 @@ export class BancoEnergiaComponent implements OnInit, OnDestroy, AfterViewInit {
       // this.languageService.get('Consumo energía y potencia'),
       // this.languageService.get(['Potencia activa', 'Potencia reactiva', 'Energía activa', 'Energía reactiva']),
       // this.languageService.get(['Año', 'Mes', 'Dia'])
+      // ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
       this.languageService.get('Cantidad de Mwh por transacciones'),
+      this.languageService.get(['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre','Octubre', 'Noviembre', 'Diciembre'])
     ]).subscribe({
       next: translatedTexts => {
         console.log('translatedTexts: ', translatedTexts);
         this.graphTitleY = translatedTexts[0];
+        this.months = translatedTexts[1];
         // console.log('translatedTexts: ', translatedTexts);
         // this.title = translatedTexts[0];
         // this.subtitle1 = translatedTexts[1];

@@ -84,7 +84,7 @@
         <p class="resultado">{{precioEnergia}} {{'Tokens' | translate}}</p>
     </div>
     <div class="totalesContainer" *ngFor="let energia of energiaBolsaGenerador">
-        <p class="total">Total energía {{energia.nombre}} {{'para contratos' | translate}}</p>
+        <p class="total">{{'Total energía'|translate}} {{energia.nombre|translate}} {{'para contratos' | translate}}</p>
         <p class="resultado">{{energia.cantidadEnergia}} Mw</p>
     </div>
     <div class="table-container mt-10 fadeIn">
