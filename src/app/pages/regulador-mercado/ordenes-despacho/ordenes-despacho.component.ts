@@ -18,6 +18,9 @@ import { Web3ConnectService } from 'src/app/services/web3-connect.service';
 import { WinRefService } from 'src/app/services/win-ref.service';
 import moment from 'moment';
 
+import { LanguageService } from 'src/app/services/language.service';
+import { Subscription} from 'rxjs';
+
 @Component({
   selector: 'app-ordenes-despacho',
   templateUrl: './ordenes-despacho.component.html',
@@ -60,7 +63,8 @@ export class OrdenesDespachoComponent implements OnInit, OnDestroy {
     private sweetAlert: SweetAlertService,
     private ngZone: NgZone,
     private winRef: WinRefService,
-    private web3Connect: Web3ConnectService) {
+    private web3Connect: Web3ConnectService,
+    public languageService: LanguageService) {
     this.dataSource = new MatTableDataSource();
 
     this.filterFormProperties = [{
@@ -91,8 +95,64 @@ export class OrdenesDespachoComponent implements OnInit, OnDestroy {
     });
   }
 
+  // #TRADUCCIONES
+  private languageSubs: Subscription;
+//   'Despacho de energia'
+// `¿Deseas despachar ${ordenDespacho.cantidadEnergia}Mw al generador ${ordenDespacho.nombreGenerador}`
+// 'Despacho realizado con exito'
+// 'Despacho'
+// 'Modificación de despacho realizado con exito'
+// 'Despacho'
+  titleDispatchEnergy: string;
+  messageDispatchEnergy1: string;
+  messageDispatchEnergy2: string;
+  titleToastSuccessDispatch: string;
+  titleToastDispatch: string;
+  titleToastSuccessEditDispatch: string;
+  titleToastEditDispatch: string;
+
+
+  initializeTranslations(): void {
+    forkJoin([
+      // this.languageService.get('Diligenciar solicitud'),
+      this.languageService.get('Despacho de energia'),
+      this.languageService.get('¿Deseas despachar'),
+      this.languageService.get('Mw al generador'),
+      this.languageService.get('Despacho realizado con exito'),
+      this.languageService.get('Despacho'),
+      this.languageService.get('Modificación de despacho realizado con exito'),
+      this.languageService.get('Despacho')
+    ]).subscribe({
+      next: translatedTexts => {
+        console.log('translatedTexts: ', translatedTexts);
+        // this.titleToastErrorData = translatedTexts[0];
+        this.titleDispatchEnergy = translatedTexts[0];
+        this.messageDispatchEnergy1 = translatedTexts[1];
+        this.messageDispatchEnergy2 = translatedTexts[2];
+        this.titleToastSuccessDispatch = translatedTexts[3];
+        this.titleToastDispatch = translatedTexts[4];
+        this.titleToastSuccessEditDispatch = translatedTexts[5];
+        this.titleToastEditDispatch = translatedTexts[6];
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+  }
+
   async ngOnInit(): Promise<void> {
     try {
+
+      this.languageSubs = this.languageService.language.subscribe({
+        next: language => {
+          this.initializeTranslations();
+          console.log('language: ', language);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+
       this.spinner.show();
       let promises: Promise<void>[] = [];
       promises.push(this.regulardorMercado.loadBlockChainContractData());
@@ -216,7 +276,7 @@ export class OrdenesDespachoComponent implements OnInit, OnDestroy {
   }
 
   onDespacharEnergia(ordenDespacho: OrdenDespacho) {
-    this.sweetAlert.confirmAlert('Despacho de energia', `¿Deseas despachar ${ordenDespacho.cantidadEnergia}Mw al generador ${ordenDespacho.nombreGenerador}`).then(result => {
+    this.sweetAlert.confirmAlert(this.titleDispatchEnergy, ' ' +  this.messageDispatchEnergy1 + ' ' + ordenDespacho.cantidadEnergia + ' ' + this.messageDispatchEnergy2 + ' ' + ordenDespacho.nombreGenerador).then(result => {
       if (result.isConfirmed) {
         this.spinner.show();
         if (ordenDespacho.index == null) {
@@ -224,7 +284,7 @@ export class OrdenesDespachoComponent implements OnInit, OnDestroy {
             next: (() => {
               this.getGeneradores();
               this.spinner.hide();
-              this.toastr.success('Despacho realizado con exito', 'Despacho');
+              this.toastr.success(this.titleToastSuccessDispatch, this.titleToastDispatch);
             }),
             error: error => {
               console.log(error);
@@ -238,7 +298,7 @@ export class OrdenesDespachoComponent implements OnInit, OnDestroy {
               next: () => {
                 this.getGeneradores();
                 this.spinner.hide();
-                this.toastr.success('Modificación de despacho realizado con exito', 'Despacho');
+                this.toastr.success(this.titleToastSuccessEditDispatch, this.titleToastEditDispatch);
               },
               error: error => {
                 console.log(error);
