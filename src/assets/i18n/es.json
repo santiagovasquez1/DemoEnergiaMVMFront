@@ -329,5 +329,15 @@
     "Liquidado": "Liquidado",
     "Cliente": "Cliente",
     "Tecnologia de la planta": "Tecnologia de la planta",
-    "Cobrar": "Cobrar"
+    "Cobrar": "Cobrar",
+    "Confirmar delegación": "Confirmar delegación",
+    "¿Desea continuar con la delegacion de": "¿Desea continuar con la delegacion de",
+    "Delegación realizada con éxito": "Delegación realizada con éxito",
+    "Confirmar devolución": "Confirmar devolución",
+    "¿Desea continuar con el cambio de": "¿Desea continuar con el cambio de",
+    "Tokens devueltos correctamente": "Tokens devueltos correctamente",
+    "Inyección energia contrato": "Inyección energia contrato",
+    "¿Deseas inyectar": "¿Deseas inyectar",
+    "Mw al contrato?": "Mw al contrato?",
+    "Energía inyectada con exito": "Energía inyectada con exito"
 }

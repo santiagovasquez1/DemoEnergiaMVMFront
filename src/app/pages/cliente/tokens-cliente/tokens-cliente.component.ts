@@ -11,6 +11,8 @@ import { ClienteContractService } from 'src/app/services/cliente-contract.servic
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
 
 import { LanguageService } from 'src/app/services/language.service';
+
+
 @Component({
   selector: 'app-tokens-cliente',
   templateUrl: './tokens-cliente.component.html',
@@ -46,26 +48,74 @@ export class TokensClienteComponent implements OnInit, OnDestroy {
   labelModalBuy1: string;
   labelModalBuy2: string;
 
-  // 'Confirmar compra', `¿Deseas continuar con la compra de  ${this.tokensComprar} tokens?
+
+  purchaseSuccessLabel: string;
+  successLabel: string;
+  confirmDelegationLabel: string;
+  continueDelegationPromptLabel: string;
+  delegationSuccessLabel: string;
+  confirmRefundLabel: string;
+  continueTokenChangePromptLabel: string;
+  tokensReturnedSuccessfullyLabel: string;
+
+
+//   'Compra realizada con éxito'
+// 'Éxito'
+// 'Confirmar delegación'
+// `¿Desea continuar con la delegacion de
+// tokens?`
+// 'Delegación realizada con éxito'
+// 'Éxito'
+// 'Confirmar devolución'
+// `¿Desea continuar con el cambio de
+// tokens?`
+// 'Tokens devueltos correctamente'
+// 'Éxito'
+
 
   initializeTranslations(): void {
     forkJoin([
-      // this.languageService.get('Diligenciar solicitud'),
-      // this.languageService.get('Error al cargar las plantas de energía'),
-      // this.languageService.get('Error'),
-      // this.languageService.get('Plantas de energía')
       this.languageService.get('Confirmar compra'),
       this.languageService.get('¿Deseas continuar con la compra de'),
       this.languageService.get('tokens?'),
+      //   'Compra realizada con éxito'
+        // 'Éxito'
+        // 'Confirmar delegación'
+        // `¿Desea continuar con la delegacion de
+        // tokens?`
+        // 'Delegación realizada con éxito'
+        // 'Éxito'
+        // 'Confirmar devolución'
+        // `¿Desea continuar con el cambio de
+        // tokens?`
+        // 'Tokens devueltos correctamente'
+        // 'Éxito'
+      this.languageService.get('Compra realizada con éxito'),
+      this.languageService.get('Éxito'),
+      this.languageService.get('Confirmar delegación'),
+      this.languageService.get('¿Desea continuar con la delegacion de'),
+      this.languageService.get('Delegación realizada con éxito'),
+      this.languageService.get('Confirmar devolución'),
+      this.languageService.get('¿Desea continuar con el cambio de'),
+      this.languageService.get('Tokens devueltos correctamente'),
+      
     ]).subscribe({
       next: translatedTexts => {
         console.log('translatedTexts: ', translatedTexts);
         this.titleModalBuy = translatedTexts[0];
         this.labelModalBuy1 = translatedTexts[1];
         this.labelModalBuy2 = translatedTexts[2];
-        // this.titleToastErrorData = translatedTexts[0];
-        // this.labelToastErrorData = translatedTexts[1];
-        // this.tipoMapa = translatedTexts[2];
+
+        this.purchaseSuccessLabel = translatedTexts[3];
+        this.successLabel = translatedTexts[4];
+        this.confirmDelegationLabel = translatedTexts[5];
+        this.continueDelegationPromptLabel = translatedTexts[6];
+        this.delegationSuccessLabel = translatedTexts[7];
+        this.confirmRefundLabel = translatedTexts[8];
+        this.continueTokenChangePromptLabel = translatedTexts[9];
+        this.tokensReturnedSuccessfullyLabel = translatedTexts[10];
+        
+        
       },
       error: err => {
         console.log(err);
@@ -167,14 +217,14 @@ export class TokensClienteComponent implements OnInit, OnDestroy {
   }
 
   onComprar() {
-    this.alertDialog.confirmAlert(this.titleModalBuy, this.labelModalBuy1 + ' ' +  this.tokensComprar + ' ' + this.labelModalBuy2).then((result) => {
+    this.alertDialog.confirmAlert(this.titleModalBuy, this.labelModalBuy1 + ' ' +  this.tokensComprar + ' tokens?').then((result) => {
       if (result.isConfirmed) {
         this.spinner.show();
         const tokensComprar = typeof this.tokensComprar == 'string' ? parseInt(this.tokensComprar) : this.tokensComprar
         this.reguladorMercado.postComprarTokens(tokensComprar).subscribe({
           next: () => {
             this.spinner.hide();
-            this.toastr.success('Compra realizada con éxito', 'Éxito');
+            this.toastr.success(this.purchaseSuccessLabel, this.successLabel);
             this.tokensComprar = '';
             this.getInfoContrato();
           }, error: (error) => {
@@ -188,7 +238,7 @@ export class TokensClienteComponent implements OnInit, OnDestroy {
   }
 
   onDelegar() {
-    this.alertDialog.confirmAlert('Confirmar delegación', `¿Desea continuar con la delegacion de ${this.tokensDelegar} tokens?`).then((result) => {
+    this.alertDialog.confirmAlert(this.confirmDelegationLabel, this.continueDelegationPromptLabel + '' +  this.tokensDelegar + ' ' + this.delegationSuccessLabel).then((result) => {
       if (result.isConfirmed) {
         this.spinner.show();
         let tokensDelegados = typeof this.tokensDelegar == 'string' ? parseInt(this.tokensDelegar) : this.tokensDelegar;
@@ -196,7 +246,7 @@ export class TokensClienteComponent implements OnInit, OnDestroy {
         this.reguladorMercado.postDelegarTokens(delegateAddress, tokensDelegados).subscribe({
           next: () => {
             this.spinner.hide();
-            this.toastr.success('Delegación realizada con éxito', 'Éxito');
+            this.toastr.success(this.delegationSuccessLabel, this.successLabel);
             this.tokensDelegar = '';
             this.getInfoContrato()
           }
@@ -209,14 +259,14 @@ export class TokensClienteComponent implements OnInit, OnDestroy {
   }
 
   onCambiar() {
-    this.alertDialog.confirmAlert('Confirmar devolución', `¿Desea continuar con el cambio de ${this.tokensCambiar} tokens?`).then((result) => {
+    this.alertDialog.confirmAlert(this.confirmRefundLabel, this.continueTokenChangePromptLabel + ' ' + `${this.tokensCambiar} tokens?`).then((result) => {
       if (result.isConfirmed) {
         this.spinner.show();
         let tokensCambiar = typeof this.tokensCambiar == 'string' ? parseInt(this.tokensCambiar) : this.tokensCambiar;
         this.reguladorMercado.postDevolverTokens(tokensCambiar).subscribe({
           next: () => {
             this.spinner.hide();
-            this.toastr.success('Tokens devueltos correctamente', 'Éxito');
+            this.toastr.success(this.tokensReturnedSuccessfullyLabel, this.successLabel);
             this.tokensCambiar = '';
             this.getInfoContrato();
           },

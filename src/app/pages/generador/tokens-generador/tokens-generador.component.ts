@@ -8,6 +8,9 @@ import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { ComprarTokensComponent } from './comprar-tokens/comprar-tokens.component';
 import { MatDialog } from '@angular/material/dialog';
 
+import { Subscription, forkJoin } from 'rxjs';
+import { LanguageService } from 'src/app/services/language.service';
+
 @Component({
   selector: 'app-tokens-generador',
   templateUrl: './tokens-generador.component.html',
@@ -30,7 +33,8 @@ export class TokensGeneradorComponent implements OnInit, OnDestroy {
     private ngZone: NgZone,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private alertDialog: SweetAlertService) { }
+    private alertDialog: SweetAlertService,
+    private languageService: LanguageService) { }
 
 
   ngOnDestroy(): void {
@@ -45,8 +49,53 @@ export class TokensGeneradorComponent implements OnInit, OnDestroy {
     }
   }
 
+  // TRADUCTOR
+  private languageSubs: Subscription;
+  // variables
+//   'Confirmar devolución'
+// `¿Desea continuar con el cambio de
+// 'Tokens devueltos correctamente'
+// 'Éxito'
+  confirmReturn: string = '';
+  confirmReturnMessage: string = '';
+  returnSuccess: string = '';
+  success: string = '';
+
+  initializeTranslations(): void {
+    forkJoin([
+      // this.languageService.get('Diligenciar solicitud'),
+      this.languageService.get('Confirmar devolución'),
+      this.languageService.get('¿Desea continuar con el cambio de'),
+      this.languageService.get('Tokens devueltos correctamente'),
+      this.languageService.get('Éxito')
+    ]).subscribe({
+      next: translatedTexts => {
+      console.log('translatedTexts: ', translatedTexts);
+      // this.titleToastErrorData = translatedTexts[0];
+      this.confirmReturn = translatedTexts[0];
+      this.confirmReturnMessage = translatedTexts[1];
+      this.returnSuccess = translatedTexts[2];
+      this.success = translatedTexts[3];
+      
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+  }
+
+
   async ngOnInit(): Promise<void> {
     try {
+      this.languageSubs = this.languageService.language.subscribe({
+        next: language => {
+          this.initializeTranslations();
+          console.log('language: ', language);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
       let dirContract = localStorage.getItem('dirContract');
       this.spinner.show();
       let promises: Promise<void>[] = []
@@ -124,14 +173,14 @@ export class TokensGeneradorComponent implements OnInit, OnDestroy {
   }
 
   onCobrarTokens() {
-    this.alertDialog.confirmAlert('Confirmar devolución', `¿Desea continuar con el cambio de ${this.tokensGenerador} tokens?`)
+    this.alertDialog.confirmAlert(this.confirmReturn, this.confirmReturnMessage + ' ' + `${this.tokensGenerador} tokens?`)
       .then(result => {
         if (result.isConfirmed) {
           this.spinner.show();
           this.reguladorMercado.postDevolverTokens(this.tokensGenerador).subscribe({
             next: () => {
               this.spinner.hide();
-              this.toastr.success('Tokens devueltos correctamente', 'Éxito');
+              this.toastr.success(this.returnSuccess, this.success);
               this.getTokensGenerador();
             },
             error: (error) => {

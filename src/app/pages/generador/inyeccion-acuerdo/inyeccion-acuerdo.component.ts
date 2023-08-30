@@ -7,6 +7,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 
+import { LanguageService } from 'src/app/services/language.service';
+import { Subscription, forkJoin } from 'rxjs';
+
 @Component({
   selector: 'app-inyeccion-acuerdo',
   templateUrl: './inyeccion-acuerdo.component.html',
@@ -24,13 +27,62 @@ export class InyeccionAcuerdoComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: AcuerdoEnergia,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private alertDialog: SweetAlertService) {
+    private alertDialog: SweetAlertService,
+    private languageService: LanguageService) {
     this.dirGenerador = localStorage.getItem('dirContract');
   }
+
+  // TRADUCTOR
+  private languageSubs: Subscription;
+  // variables
+//   'Inyección energia contrato'
+// `¿Deseas inyectar
+// Mw al contrato?`
+// 'Energía inyectada con exito'
+// 'Exito'
+  injectEnergy: string = '';
+  injectEnergyMessage: string = '';
+  injectEnergyMessage2: string = '';
+  injectEnergySuccess: string = '';
+  injectEnergySuccessTitle: string = '';
+
+  initializeTranslations(): void {
+    forkJoin([
+      // this.languageService.get('Diligenciar solicitud'),
+      this.languageService.get('Inyección energia contrato'),
+      this.languageService.get('¿Deseas inyectar'),
+      this.languageService.get('Mw al contrato?'),
+      this.languageService.get('Energía inyectada con exito'),
+      this.languageService.get('Exito')
+    ]).subscribe({
+      next: translatedTexts => {
+      console.log('translatedTexts: ', translatedTexts);
+      // this.titleToastErrorData = translatedTexts[0];
+      this.injectEnergy = translatedTexts[0];
+      this.injectEnergyMessage = translatedTexts[1];
+      this.injectEnergyMessage2 = translatedTexts[2];
+      this.injectEnergySuccess = translatedTexts[3];
+      this.injectEnergySuccessTitle = translatedTexts[4];
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+  }
+
 
   async ngOnInit(): Promise<void> {
     this.spinner.show();
     try {
+      this.languageSubs = this.languageService.language.subscribe({
+        next: language => {
+          this.initializeTranslations();
+          console.log('language: ', language);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
       let promises: Promise<void>[] = [];
       promises.push(this.generadorService.loadBlockChainContractData(this.dirGenerador));
       await Promise.all(promises);
@@ -68,13 +120,13 @@ export class InyeccionAcuerdoComponent implements OnInit {
   }
 
   onInyectarEnergia() {
-    this.alertDialog.confirmAlert('Inyección energia contrato', `¿Deseas inyectar ${this.energiaAInyectar} Mw al contrato?`).then(result => {
+    this.alertDialog.confirmAlert(this.injectEnergy, this.injectEnergyMessage + '' + this.energiaAInyectar + ' ' + this.injectEnergyMessage2).then(result => {
       if (result.isConfirmed) {
         this.spinner.show();
         this.generadorService.inyectarEnergiaContratos(this.data.dataCliente.dirContrato, this.data.tipoEnergia, this.energiaAInyectar, this.data.indexGlobal).subscribe({
           next: () => {
             this.spinner.hide();
-            this.toastr.success('Energía inyectada con exito', 'Exito');
+            this.toastr.success(this.injectEnergySuccess, this.injectEnergySuccessTitle);
             this.dialogRef.close();
           },
           error: error => {

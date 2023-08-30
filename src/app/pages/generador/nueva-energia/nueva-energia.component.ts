@@ -8,6 +8,9 @@ import { GeneradorContractService } from 'src/app/services/generador-contract.se
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { DespachosEnergiaService } from 'src/app/services/despachos-energia.service';
 
+import { LanguageService } from 'src/app/services/language.service';
+import { forkJoin, Subscription } from 'rxjs';
+
 export enum Estado {
   nuevaEnergia,
   inyectarEnergia
@@ -39,7 +42,8 @@ export class NuevaEnergiaComponent implements OnInit {
     private alertDialog: SweetAlertService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private languageService: LanguageService) { 
 
     this.tipoEnergia = this.data.tecnologia;
     this.capacidadNominal = parseInt(this.data.capacidadNominal);
@@ -57,9 +61,61 @@ export class NuevaEnergiaComponent implements OnInit {
     this.initForm();
   }
 
+  // TRADUCTOR
+  private languageSubs: Subscription;
+//   'Crear nueva energía'
+// '¿Está seguro de crear la energía?'
+// '¡Energía agregada con éxito!'
+// 'Inyectar energía'
+// '¿Está seguro de inyectar la energía?'
+// '¡Energía inyectada con éxito!'
+   titleCreateNewEnergy: string;
+  confirmCreateNewEnergy: string;
+  successCreateNewEnergy: string;
+  titleInjectEnergy: string;
+  confirmInjectEnergy: string;
+  successInjectEnergy: string;
+
+  initializeTranslations(): void {
+    forkJoin([
+      // this.languageService.get('Diligenciar solicitud'),
+      this.languageService.get('Crear nueva energía'),
+      this.languageService.get('¿Está seguro de crear la energía?'),
+      this.languageService.get('¡Energía agregada con éxito!'),
+      this.languageService.get('Inyectar energía'),
+      this.languageService.get('¿Está seguro de inyectar la energía?'),
+      this.languageService.get('¡Energía inyectada con éxito!'),
+    ]).subscribe({
+      next: translatedTexts => {
+      console.log('translatedTexts: ', translatedTexts);
+      // this.titleToastErrorData = translatedTexts[0];
+      this.titleCreateNewEnergy = translatedTexts[0];
+      this.confirmCreateNewEnergy = translatedTexts[1];
+      this.successCreateNewEnergy = translatedTexts[2];
+      this.titleInjectEnergy = translatedTexts[3];
+      this.confirmInjectEnergy = translatedTexts[4];
+      this.successInjectEnergy = translatedTexts[5];
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+  }
+
+
+
   async ngOnInit() {
 
     try {
+      this.languageSubs = this.languageService.language.subscribe({
+        next: language => {
+          this.initializeTranslations();
+          console.log('language: ', language);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
       this.spinner.show();
       let promises: Promise<any>[] = [];
       promises.push(this.generadorContract.loadBlockChainContractData(this.data.dirContract));
@@ -91,7 +147,7 @@ export class NuevaEnergiaComponent implements OnInit {
   }
 
   onCrearNuevaEnergia() {
-    this.alertDialog.confirmAlert('Crear nueva energía', '¿Está seguro de crear la energía?').then(res => {
+    this.alertDialog.confirmAlert(this.titleCreateNewEnergy, this.confirmCreateNewEnergy).then(res => {
       if (res.isConfirmed) {
         this.spinner.show();
         let nombreEnergia = this.nuevaEnergiaForm.get('nombreEnergia').value;
@@ -116,7 +172,7 @@ export class NuevaEnergiaComponent implements OnInit {
   }
 
   onInyectarEnergia() {
-    this.alertDialog.confirmAlert('Inyectar energía', '¿Está seguro de inyectar la energía?').then(res => {
+    this.alertDialog.confirmAlert(this.titleInjectEnergy, this.confirmInjectEnergy).then(res => {
       if (res.isConfirmed) {
         this.spinner.show();
         let nombreEnergia = this.nuevaEnergiaForm.get('nombreEnergia').value;
@@ -128,7 +184,7 @@ export class NuevaEnergiaComponent implements OnInit {
           next: () => {
             this.spinner.hide();
             this.dialogRef.close();
-            this.toastr.success('¡Energía inyectada con éxito!');
+            this.toastr.success(this.successInjectEnergy);
           }, error: (err) => {
             this.spinner.hide();
             this.toastr.error(err.message);
