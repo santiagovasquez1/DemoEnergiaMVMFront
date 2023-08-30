@@ -330,7 +330,19 @@
     "Liquidado": "Settled",
     "Cliente": "Customer",
     "Tecnologia de la planta": "Plant technology",
-    "Cobrar": "Charge"
+    "Cobrar": "Charge",
+
+    "Confirmar delegación": "Confirm delegation",
+    "¿Desea continuar con la delegacion de": "Do you want to continue with the delegation of",
+    "Delegación realizada con éxito": "Delegation successfully completed",
+    "Confirmar devolución": "Confirm return",
+    "¿Desea continuar con el cambio de": "Do you want to continue with the change of",
+    "Tokens devueltos correctamente": "Tokens returned correctly",
+    "Información Compras": "Purchases Information",
+    "Inyección energia": "Energy injection",
+    "¿Deseas inyectar": "Do you want to inject",
+    "Mw al contrato?": "Mw to the contract?",
+    "Energía inyectada con exito": "Energy injected successfully"
 }
 
 
