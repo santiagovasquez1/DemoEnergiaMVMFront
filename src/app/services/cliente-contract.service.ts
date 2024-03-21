@@ -113,7 +113,7 @@ export class ClienteContractService extends AgenteContractService {
   }
 
   getAcumuladoVenta(): Observable<number> {
-    return from(this.contract.methods.getAcumuladoVenta().call({ from: this.account })).pipe(
+    return from(this.contract.methods.getEnergiaTotal().call({ from: this.account })).pipe(
       map(data => data as number),
       catchError((error) => {
         return throwError(() => new Error(error.message));
