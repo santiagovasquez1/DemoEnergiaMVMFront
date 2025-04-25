@@ -1,0 +1,137 @@
+<div class="container">
+  <div class="titulo">
+    <h2 class="title-xg">{{ "Bonos de carbono" }}</h2>
+  </div>
+
+  <div class="actions-container fadeIn mt-30">
+    <div class="d-flex flex-row">
+      <button
+        mat-button
+        class="button-mvm w-220 mr-10"
+        (click)="loadAllBonos()"
+      >
+        <img
+          src="../../../../assets/images/carbon_energy-renewable.svg"
+          alt="Bonos disponibles"
+          class="crear-planta-logo"
+        />
+        {{ "Bonos disponibles" }}
+      </button>
+
+      <button mat-button class="button-mvm w-220" (click)="loadMisBonos()">
+        <img
+          src="../../../../assets/images/carbon_energy-renewable.svg"
+          alt="Mis bonos de carbono"
+          class="crear-planta-logo"
+        />
+        {{ "Mis bonos de carbono" }}
+      </button>
+    </div>
+  </div>
+
+  <div class="table-container mt-30 fadeIn">
+    <mat-table [dataSource]="dataSource" class="mvm-table">
+      <!-- Id -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+        <mat-cell *matCellDef="let elemento">{{ elemento.id }}</mat-cell>
+      </ng-container>
+
+      <!-- Fecha Generado -->
+      <ng-container matColumnDef="timestampGenerado">
+        <mat-header-cell *matHeaderCellDef>Fecha Gen</mat-header-cell>
+        <mat-cell *matCellDef="let elemento">
+          {{ elemento.timestampGenerado | date : "short" }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Toneladas CO₂ -->
+      <ng-container matColumnDef="toneladasCO2">
+        <mat-header-cell *matHeaderCellDef>Toneladas CO₂</mat-header-cell>
+        <mat-cell *matCellDef="let elemento">
+          {{ elemento.toneladasCO2 }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Fuente Energía -->
+      <ng-container matColumnDef="fuenteEnergia">
+        <mat-header-cell *matHeaderCellDef>Fuente Energía</mat-header-cell>
+        <mat-cell *matCellDef="let elemento">
+          {{ elemento.fuenteEnergia }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Precio -->
+      <ng-container matColumnDef="Precio">
+        <mat-header-cell *matHeaderCellDef>Precio</mat-header-cell>
+        <mat-cell *matCellDef="let elemento">
+          {{ elemento.toneladasCO2 }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Vendido -->
+      <ng-container matColumnDef="vendido">
+        <mat-header-cell *matHeaderCellDef>Vendido</mat-header-cell>
+        <mat-cell *matCellDef="let elemento">
+          {{ elemento.vendido ? "Sí" : "No" }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Comprador -->
+      <ng-container matColumnDef="comprador">
+        <mat-header-cell *matHeaderCellDef>Comprador</mat-header-cell>
+        <mat-cell *matCellDef="let elemento">
+          {{
+            elemento.comprador?.length > 10
+              ? (elemento.comprador | slice : 0 : 10) + "..."
+              : elemento.comprador
+          }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Fecha Venta -->
+      <ng-container matColumnDef="timestampVenta">
+        <mat-header-cell *matHeaderCellDef>Fecha Venta</mat-header-cell>
+        <mat-cell *matCellDef="let elemento">
+          {{
+            elemento.timestampVenta
+              ? (elemento.timestampVenta | date : "short")
+              : "-"
+          }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Acciones -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+        <mat-cell *matCellDef="let bono">
+          <button
+            mat-icon-button
+            class="mvm-action-button approve"
+            [disabled]="!isAgenteValido || bono.vendido"
+            (click)="buyBono(bono)"
+          >
+            <mat-icon>eco</mat-icon>
+          </button>
+
+          <button mat-icon-button class="mvm-action-button approve" (click)="getBonoInfo(bono)">
+            <mat-icon>description</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row
+        *matHeaderRowDef="displayedColumns; sticky: true"
+      ></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </div>
+
+  <div class="table-container mt-10 fadeIn">
+    <mat-paginator
+      #paginator
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>

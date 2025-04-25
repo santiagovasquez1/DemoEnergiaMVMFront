@@ -115,6 +115,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.spinnerService.show();
     let solicitudContrato: SolicitudContrato = {
+      idSolicitud: '0x000',
       tipoContrato: this.agenteMercado as TiposContratos,
       infoContrato: {
         nit: this.registroForm.value.nit,

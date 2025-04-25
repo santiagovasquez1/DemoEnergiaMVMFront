@@ -1,146 +1,264 @@
 <div>
-    <div class="sidebar">
-
-        <div *ngIf="tipoContrato == 0" class="avatar-container" [routerLink]="['/dashboard/cliente']" (click)="onLinkClick()">
-            <img src="../../../assets/images/logoMVM.png" alt="">
-        </div>
-        <div *ngIf="tipoContrato == 1" class="avatar-container" [routerLink]="['/dashboard/comercializador']" (click)="onLinkClick()">
-            <img src="../../../assets/images/logoMVM.png" alt="">
-        </div>
-        <div *ngIf="tipoContrato == 2" class="avatar-container" [routerLink]="['/dashboard/generador']" (click)="onLinkClick()">
-            <img src="../../../assets/images/logoMVM.png" alt="">
-        </div>
-        <div *ngIf="tipoContrato == 3" class="avatar-container" [routerLink]="['/dashboard/regulador-mercado']" (click)="onLinkClick()">
-            <img src="../../../assets/images/logoMVM.png" alt="">
-        </div>
-
-        <div class="container-section" *ngIf="tipoContrato == 0">
-            <!--<span class="title-section">Cliente</span>-->
-            <a routerLinkActive="active" [routerLink]="['/dashboard/cliente']" (click)="onLinkClick()">
-                <mat-icon>info</mat-icon>
-                <span>{{'Información' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-            <a routerLinkActive="active" [routerLink]="['/dashboard/cliente/tokens']" (click)="onLinkClick()">
-                <mat-icon>currency_exchange</mat-icon>
-                <span>{{'Tokens' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-            <a routerLinkActive="active" [routerLink]="['/dashboard/cliente/lista-compras']" (click)="onLinkClick()">
-                <mat-icon>shopping_cart_checkout</mat-icon>
-                <span>{{'Compras realizadas' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-        </div>
-
-        <div class="container-section" *ngIf="tipoContrato == 1">
-            <!--<span class="title-section">Comercializador</span>-->
-            <a routerLinkActive="active" [routerLink]="['/dashboard/comercializador']" (click)="onLinkClick()">
-                <mat-icon>info</mat-icon>
-                <span>{{'Información' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-            <a routerLinkActive="active" [routerLink]="['/dashboard/comercializador/lista-clientes']" (click)="onLinkClick()">
-                <mat-icon>format_list_bulleted</mat-icon>
-                <span>{{'Lista de clientes' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-            <a routerLinkActive="active" [routerLink]="['comercializador/emisiones-de-compra','pendientes']" (click)="onLinkClick()">
-                <mat-icon>library_books</mat-icon>
-                <span>{{'Emisiones de compra' | translate}}a</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-        </div>
-
-        <div class="container-section" *ngIf="tipoContrato==2">
-            <!--<span class="title-section">Generadores</span>-->
-            <a routerLinkActive="active" [routerLink]="['/dashboard/generador']" (click)="onLinkClick()">
-                <mat-icon>info</mat-icon>
-                <span>{{'Información' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-            <a routerLinkActive="active" [routerLink]="['generador/lista-plantas-energia']" (click)="onLinkClick()">
-                <mat-icon>factory</mat-icon>
-                <span>{{'Plantas de energia' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-            <a routerLinkActive="active" [routerLink]="['generador/contratos-clientes']" (click)="onLinkClick()">
-                <img src="../../../assets/images/Registro.svg" alt="registro">
-                <span>{{'Contratos clientes' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-            <a routerLinkActive="active" [routerLink]="['generador/tokens']" (click)="onLinkClick()">
-                <mat-icon>currency_exchange</mat-icon>
-                <span>{{'Tokens' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-        </div>
-
-        <div class="container-section" *ngIf="tipoContrato==3">
-            <a routerLinkActive="active" [routerLink]="['/dashboard/regulador-mercado']" (click)="onLinkClick()">
-                <mat-icon>info</mat-icon>
-                <span>{{'Información' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-            <a routerLinkActive="active" [routerLink]="['/dashboard/regulador-mercado/registros']" (click)="onLinkClick()">
-                <mat-icon>book</mat-icon>
-                <span>{{'Agentes del mercado' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-            <a routerLinkActive="active" [routerLink]="['/dashboard/regulador-mercado/ordenes-despacho']">
-                <mat-icon>send</mat-icon>
-                <span>{{'Ordenes de despacho' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-            <a routerLinkActive="active" [routerLink]="['/dashboard/regulador-mercado/historico-ordenes-despacho']">
-                <img src="../../../assets/images/Registro.svg" alt="registro">
-                <span>{{'Historico ordenes de despacho' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-            <a routerLinkActive="active" [routerLink]="['/dashboard/regulador-mercado/liquidacion-inyecciones-bolsa']">
-                <img src="../../../assets/images/Registro.svg" alt="registro">
-                <span>{{'Liquidaciones' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-            <a routerLinkActive="active" [routerLink]="['/dashboard/regulador-mercado/liquidacion-contratos']">
-                <img src="../../../assets/images/Registro.svg" alt="registro">
-                <span>{{'Liquidaciones Contratos' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-        </div>
-
-        <div class="container-section">
-            <a routerLinkActive="active" (click)="showTableroPrincipal == false ? showTableroPrincipal = true: showTableroPrincipal=false">
-                <mat-icon>dashboard</mat-icon>
-                <span>{{'Panel de control' | translate}}</span>
-                <mat-icon *ngIf="!showTableroPrincipal">keyboard_arrow_down</mat-icon>
-                <mat-icon *ngIf="showTableroPrincipal">keyboard_arrow_up</mat-icon>
-            </a>
-
-            <a routerLinkActive="active" [routerLink]="['/dashboard/informacion']" *ngIf="showTableroPrincipal" (click)="onLinkClick()">
-                <mat-icon>electric_bolt</mat-icon>
-                <span>{{'Banco de energía' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-
-            <a routerLinkActive="active" [routerLink]="['/dashboard']" *ngIf="showTableroPrincipal" (click)="onLinkClick()">
-                <mat-icon>bar_chart</mat-icon>
-                <span>{{'Tablero principal' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-
-            <a routerLinkActive="active" [routerLink]="['/dashboard/todos-generadores']" *ngIf="showTableroPrincipal" (click)="onLinkClick()">
-                <mat-icon>pin_drop</mat-icon>
-                <span>{{'Georeferenciación' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-
-            <a routerLinkActive="active" [routerLink]="['/dashboard/transacciones']" *ngIf="showTableroPrincipal" (click)="onLinkClick()">
-                <mat-icon>payment</mat-icon>
-                <span>{{'Transacciones' | translate}}</span>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </a>
-        </div>
-
+  <div class="sidebar">
+    <div
+      *ngIf="tipoContrato == 0"
+      class="avatar-container"
+      [routerLink]="['/dashboard/cliente']"
+      (click)="onLinkClick()"
+    >
+      <img src="../../../assets/images/logoMVM.png" alt="" />
     </div>
+    <div
+      *ngIf="tipoContrato == 1"
+      class="avatar-container"
+      [routerLink]="['/dashboard/comercializador']"
+      (click)="onLinkClick()"
+    >
+      <img src="../../../assets/images/logoMVM.png" alt="" />
+    </div>
+    <div
+      *ngIf="tipoContrato == 2"
+      class="avatar-container"
+      [routerLink]="['/dashboard/generador']"
+      (click)="onLinkClick()"
+    >
+      <img src="../../../assets/images/logoMVM.png" alt="" />
+    </div>
+    <div
+      *ngIf="tipoContrato == 3"
+      class="avatar-container"
+      [routerLink]="['/dashboard/regulador-mercado']"
+      (click)="onLinkClick()"
+    >
+      <img src="../../../assets/images/logoMVM.png" alt="" />
+    </div>
+
+    <div class="container-section" *ngIf="tipoContrato == 0">
+      <!--<span class="title-section">Cliente</span>-->
+      <a
+        routerLinkActive="active"
+        [routerLink]="['/dashboard/cliente']"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>info</mat-icon>
+        <span>{{ "Información" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['/dashboard/cliente/tokens']"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>currency_exchange</mat-icon>
+        <span>{{ "Tokens" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['/dashboard/cliente/lista-compras']"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>shopping_cart_checkout</mat-icon>
+        <span>{{ "Compras realizadas" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+    </div>
+
+    <div class="container-section" *ngIf="tipoContrato == 1">
+      <!--<span class="title-section">Comercializador</span>-->
+      <a
+        routerLinkActive="active"
+        [routerLink]="['/dashboard/comercializador']"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>info</mat-icon>
+        <span>{{ "Información" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['/dashboard/comercializador/lista-clientes']"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>format_list_bulleted</mat-icon>
+        <span>{{ "Lista de clientes" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['comercializador/emisiones-de-compra', 'pendientes']"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>library_books</mat-icon>
+        <span>{{ "Emisiones de compra" | translate }}a</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+    </div>
+
+    <div class="container-section" *ngIf="tipoContrato == 2">
+      <!--<span class="title-section">Generadores</span>-->
+      <a
+        routerLinkActive="active"
+        [routerLink]="['/dashboard/generador']"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>info</mat-icon>
+        <span>{{ "Información" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['generador/lista-plantas-energia']"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>factory</mat-icon>
+        <span>{{ "Plantas de energia" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['generador/contratos-clientes']"
+        (click)="onLinkClick()"
+      >
+        <img src="../../../assets/images/Registro.svg" alt="registro" />
+        <span>{{ "Contratos clientes" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['generador/tokens']"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>currency_exchange</mat-icon>
+        <span>{{ "Tokens" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+    </div>
+
+    <div class="container-section" *ngIf="tipoContrato == 3">
+      <a
+        routerLinkActive="active"
+        [routerLink]="['/dashboard/regulador-mercado']"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>info</mat-icon>
+        <span>{{ "Información" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['/dashboard/regulador-mercado/registros']"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>book</mat-icon>
+        <span>{{ "Agentes del mercado" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['/dashboard/regulador-mercado/ordenes-despacho']"
+      >
+        <mat-icon>send</mat-icon>
+        <span>{{ "Ordenes de despacho" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="[
+          '/dashboard/regulador-mercado/historico-ordenes-despacho'
+        ]"
+      >
+        <img src="../../../assets/images/Registro.svg" alt="registro" />
+        <span>{{ "Historico ordenes de despacho" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="[
+          '/dashboard/regulador-mercado/liquidacion-inyecciones-bolsa'
+        ]"
+      >
+        <img src="../../../assets/images/Registro.svg" alt="registro" />
+        <span>{{ "Liquidaciones" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['/dashboard/regulador-mercado/liquidacion-contratos']"
+      >
+        <img src="../../../assets/images/Registro.svg" alt="registro" />
+        <span>{{ "Liquidaciones Contratos" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+    </div>
+
+    <div class="container-section">
+      <a
+        routerLink="active"
+        [routerLink]="['bonos-carbono']"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>eco</mat-icon>
+        <span>{{ "Bonos de carbono" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+      <a
+        routerLinkActive="active"
+        (click)="
+          showTableroPrincipal == false
+            ? (showTableroPrincipal = true)
+            : (showTableroPrincipal = false)
+        "
+      >
+        <mat-icon>dashboard</mat-icon>
+        <span>{{ "Panel de control" | translate }}</span>
+        <mat-icon *ngIf="!showTableroPrincipal">keyboard_arrow_down</mat-icon>
+        <mat-icon *ngIf="showTableroPrincipal">keyboard_arrow_up</mat-icon>
+      </a>
+
+      <a
+        routerLinkActive="active"
+        [routerLink]="['/dashboard/informacion']"
+        *ngIf="showTableroPrincipal"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>electric_bolt</mat-icon>
+        <span>{{ "Banco de energía" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+
+      <a
+        routerLinkActive="active"
+        [routerLink]="['/dashboard']"
+        *ngIf="showTableroPrincipal"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>bar_chart</mat-icon>
+        <span>{{ "Tablero principal" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+
+      <a
+        routerLinkActive="active"
+        [routerLink]="['/dashboard/todos-generadores']"
+        *ngIf="showTableroPrincipal"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>pin_drop</mat-icon>
+        <span>{{ "Georeferenciación" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+
+      <a
+        routerLinkActive="active"
+        [routerLink]="['/dashboard/transacciones']"
+        *ngIf="showTableroPrincipal"
+        (click)="onLinkClick()"
+      >
+        <mat-icon>payment</mat-icon>
+        <span>{{ "Transacciones" | translate }}</span>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </a>
+    </div>
+  </div>
 </div>

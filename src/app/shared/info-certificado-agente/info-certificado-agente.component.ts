@@ -14,8 +14,7 @@ import { ClienteContractService } from 'src/app/services/cliente-contract.servic
 @Component({
   selector: 'app-info-certificado-agente',
   templateUrl: './info-certificado-agente.component.html',
-  styles: [
-  ]
+  styleUrls: ['./info-certificado-agente.component.css']
 })
 export class InfoCertificadoAgenteComponent implements OnInit {
 

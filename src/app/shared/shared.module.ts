@@ -30,6 +30,8 @@ import { EstadoInyeccionPipe } from './pipes/estado-inyeccion.pipe';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { BonosCarbonoComponent } from '../pages/bonos-carbono/bonos-carbono.component';
+import { InfoBonoComponent } from './info-bono/info-bono.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -52,6 +54,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         EstadoCompraPipe,
         InfoCertificadoCompraComponent,
         EstadoInyeccionPipe,
+        BonosCarbonoComponent,
+        InfoBonoComponent,
         
     ],
     imports: [

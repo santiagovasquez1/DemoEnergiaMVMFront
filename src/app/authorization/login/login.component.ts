@@ -6,21 +6,20 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Web3ConnectService } from 'src/app/services/web3-connect.service';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-
-  constructor(private web3Service: Web3ConnectService,
+  constructor(
+    private web3Service: Web3ConnectService,
     private regulardorMercado: ReguladorMercadoService,
-    private certificador:CertificadorContractService,
+    private certificador: CertificadorContractService,
     private spinnerService: NgxSpinnerService,
     private toastr: ToastrService,
     private router: Router
-  ) { }
+  ) {}
 
   async onLogin() {
     try {
@@ -30,28 +29,26 @@ export class LoginComponent {
       await this.certificador.loadBlockChainContractData('');
       this.regulardorMercado.validarUsuario().subscribe({
         next: (data) => {
-           if (data[0]) {
+          if (data[0]) {
             this.spinnerService.hide();
             localStorage.setItem('dirContract', data[1]);
-            localStorage.setItem('tipoAgente', data[2]);
+            localStorage.setItem('nombreAgente', data[2]);
+            localStorage.setItem('tipoAgente', data[3]);
             this.router.navigate(['/dashboard']);
           } else {
             this.spinnerService.hide();
             this.router.navigate(['/register']);
           }
-        }, error: (err) => {
+        },
+        error: (err) => {
           console.log(err);
           this.spinnerService.hide();
           this.toastr.error('Error al validar usuario', 'Error');
-        }
+        },
       });
     } catch (error) {
-
       this.spinnerService.hide();
       this.toastr.error(error.message, 'Error');
     }
-
   }
-
 }
-

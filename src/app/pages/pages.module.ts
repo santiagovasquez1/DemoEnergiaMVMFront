@@ -14,15 +14,12 @@ import { FlexModule } from '@angular/flex-layout';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VerGeneradoresComponent } from './dashboard/ver-generadores/ver-generadores.component';
-import { GenerarEnergiaComponent } from '../shared/generar-energia/generar-energia.component';
 import { WinRefService } from '../services/win-ref.service';
-import { ReguladorMercadoService } from '../services/regulador-mercado.service';
 import { ReguladorMercadoComponent } from './regulador-mercado/regulador-mercado.component';
 import { ContratarComercializadorComponent } from './cliente/contratar-comercializador/contratar-comercializador.component';
 import { ComprarEnergiaComponent } from './cliente/comprar-energia/comprar-energia.component';
 import { ComercializadorComponent } from './comercializador/comercializador.component';
 import { RegistrosComponent } from './regulador-mercado/registros/registros.component';
-import { SolicitudesComponent } from './regulador-mercado/solicitudes/solicitudes.component';
 import { InyectarTokensComponent } from './regulador-mercado/inyectar-tokens/inyectar-tokens.component';
 import { ListaClientesComponent } from './comercializador/lista-clientes/lista-clientes.component';
 import { BancoEnergiaComponent } from './banco-energia/banco-energia.component';
@@ -81,7 +78,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         ComprarEnergiaComponent,
         ComercializadorComponent,
         RegistrosComponent,
-        SolicitudesComponent,
         InyectarTokensComponent,
         ListaClientesComponent,
         DevolverTokensComponent,
@@ -152,7 +148,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         ComprarEnergiaComponent,
         ComercializadorComponent,
         RegistrosComponent,
-        SolicitudesComponent,
         InyectarTokensComponent,
         ListaClientesComponent,
         DevolverTokensComponent,

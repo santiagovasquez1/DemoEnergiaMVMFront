@@ -7,6 +7,7 @@ export enum EstadoSolicitud {
     pendiente
 }
 export interface SolicitudContrato {
+    idSolicitud:string;
     infoContrato: InfoContrato;
     tipoContrato: TiposContratos;
     estadoSolicitud: EstadoSolicitud;

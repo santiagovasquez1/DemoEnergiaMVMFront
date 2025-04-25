@@ -5,69 +5,116 @@ import { Injectable } from '@angular/core';
 import Web3 from 'web3';
 import { AgenteContractService } from './agente-contract.service';
 import Generador from '../../../buildTruffle/contracts/Generador.json';
-import { catchError, from, map, Observable, of, throwError, switchMap, forkJoin } from 'rxjs';
+import {
+  catchError,
+  from,
+  map,
+  Observable,
+  of,
+  throwError,
+  switchMap,
+  forkJoin,
+} from 'rxjs';
 import moment from 'moment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GeneradorContractService extends AgenteContractService {
-
   async loadBlockChainContractData(dirContrato: string): Promise<void> {
     this.dirContrato = dirContrato;
     await this.web3Connect.loadWeb3();
     const web3 = this.winRef.window.web3 as Web3;
     this.setContractData(Generador, web3);
-
   }
 
-  postCrearNuevaEnergia(tipoEnergia: string, cantidad: number): Observable<any> {
-    return from(this.contract?.methods.GenerarNuevaEnergia(tipoEnergia, cantidad).send({ from: this.account })).pipe(
+  postCrearNuevaEnergia(
+    tipoEnergia: string,
+    cantidad: number
+  ): Observable<any> {
+    return from(
+      this.contract?.methods
+        .GenerarNuevaEnergia(tipoEnergia, cantidad)
+        .send({ from: this.account })
+    ).pipe(
       catchError((error) => {
-        console.log("error en el service")
+        console.log('error en el service');
         return throwError(() => new Error(error.message));
       })
     );
   }
 
   postGenerarPlantaEnergia(infoPlanta: InfoPlantaEnergia) {
-    return from(this.contract?.methods.crearPlantaEnergia(infoPlanta).send({ from: this.account })).pipe(
+    return from(
+      this.contract?.methods
+        .crearPlantaEnergia(infoPlanta)
+        .send({ from: this.account })
+    ).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
     );
   }
 
-  postInyectarEnergiaPlanta(dirPlanta: string, tipoEnergia: string, cantidad: number, cantidadBolsa: number): Observable<any> {
-    return from(this.contract?.methods.inyectarEnergiaPlanta(dirPlanta, tipoEnergia, cantidad, cantidadBolsa).send({ from: this.account })).pipe(
-      // catchError((error) => {
-      //   return throwError(() => new Error(error.message));
-      // })
+  postInyectarEnergiaPlanta(
+    dirPlanta: string,
+    tipoEnergia: string,
+    cantidad: number,
+    cantidadBolsa: number
+  ): Observable<any> {
+    debugger;
+    return from(
+      this.contract?.methods
+        .inyectarEnergiaPlanta(dirPlanta, tipoEnergia, cantidad, cantidadBolsa)
+        .send({ from: this.account })
+    ).pipe(
+      catchError((error) => {
+        const data = error.data && error.data[Object.keys(error.data)[0]];
+        console.error('Reason del revert:', data?.reason || data);
+        return throwError(() => new Error(error.message));
+      })
     );
   }
 
   getPlantasEnergia(): Observable<InfoPlantaEnergia[]> {
-    return from(this.contract?.methods.getPlantasEnergia().call({ from: this.account })).pipe(
+    return from(
+      this.contract?.methods.getPlantasEnergia().call({ from: this.account })
+    ).pipe(
       map((data: any) => {
         const plantasEnergias = data.map((planta: any) => {
-          const [dirPlanta, nombre, departamento, ciudad, coordenadas, fechaInicio, tasaEmision, isRec, capacidadNominal, tecnologia, cantidadEnergia, estado] = planta;
+          const [
+            dirPlanta,
+            nombre,
+            departamento,
+            ciudad,
+            coordenadas,
+            fechaInicio,
+            tasaEmision,
+            isRec,
+            capacidadNominal,
+            tecnologia,
+            cantidadEnergia,
+            estado,
+          ] = planta;
           const infoPlanta: InfoPlantaEnergia = {
             dirPlanta: dirPlanta,
             nombre: nombre,
             departamento: departamento,
             ciudad: ciudad,
             coordenadas: coordenadas,
-            fechaInicio: moment(parseInt(fechaInicio) * 1000).format('DD/MM/YYYY'),
+            fechaInicio: moment(parseInt(fechaInicio) * 1000).format(
+              'DD/MM/YYYY'
+            ),
             tasaEmision: parseInt(tasaEmision),
             isRec: isRec,
             capacidadNominal: parseInt(capacidadNominal),
             tecnologia: tecnologia,
             cantidadEnergia: parseInt(cantidadEnergia),
-            estado: parseInt(estado) as EstadoPlanta
-          }
+            estado: parseInt(estado) as EstadoPlanta,
+          };
           return infoPlanta as InfoPlantaEnergia;
-        })
-        return plantasEnergias as InfoPlantaEnergia[];;
+        });
+        return plantasEnergias as InfoPlantaEnergia[];
       }),
       catchError((error) => {
         return throwError(() => new Error(error.message));
@@ -76,7 +123,11 @@ export class GeneradorContractService extends AgenteContractService {
   }
 
   postContratarComercializador(addresComercializador: string): Observable<any> {
-    return from(this.contract?.methods.contratarComercializador(addresComercializador).send({ from: this.account })).pipe(
+    return from(
+      this.contract?.methods
+        .contratarComercializador(addresComercializador)
+        .send({ from: this.account })
+    ).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
@@ -84,7 +135,11 @@ export class GeneradorContractService extends AgenteContractService {
   }
 
   getCantidadEnergia(tipoEnergia: string): Observable<number> {
-    return from(this.contract?.methods.getCantidadEnergiaPlantas(tipoEnergia).call({ from: this.account })).pipe(
+    return from(
+      this.contract?.methods
+        .getCantidadEnergiaPlantas(tipoEnergia)
+        .call({ from: this.account })
+    ).pipe(
       map((data: any) => {
         return parseInt(data);
       }),
@@ -96,7 +151,11 @@ export class GeneradorContractService extends AgenteContractService {
   }
 
   getCapacidadNominal(): Observable<number> {
-    return from(this.contract?.methods.getCapacidadNominalTotal().call({ from: this.account })).pipe(
+    return from(
+      this.contract?.methods
+        .getCapacidadNominalTotal()
+        .call({ from: this.account })
+    ).pipe(
       map((data: any) => {
         return parseInt(data);
       }),
@@ -108,14 +167,18 @@ export class GeneradorContractService extends AgenteContractService {
   }
 
   getInfoEnergiaPlanta(dirPlanta: string): Observable<InfoEnergia> {
-    return from(this.contract?.methods.getInfoEnergiaPlanta(dirPlanta).call({ from: this.account })).pipe(
+    return from(
+      this.contract?.methods
+        .getInfoEnergiaPlanta(dirPlanta)
+        .call({ from: this.account })
+    ).pipe(
       map((data: any) => {
         const [nombre, cantidadEnergia, precio] = data;
         const infoEnergia: InfoEnergia = {
           nombre: nombre,
           cantidadEnergia: parseInt(cantidadEnergia),
-          precio: parseInt(precio)
-        }
+          precio: parseInt(precio),
+        };
         return infoEnergia as InfoEnergia;
       }),
       catchError((error) => {
@@ -126,8 +189,10 @@ export class GeneradorContractService extends AgenteContractService {
   }
 
   getAcumuladoVenta(): Observable<number> {
-    return from(this.contract.methods.getAcumuladoVenta().call({ from: this.account })).pipe(
-      map(data => data as number),
+    return from(
+      this.contract.methods.getAcumuladoVenta().call({ from: this.account })
+    ).pipe(
+      map((data) => data as number),
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
@@ -135,7 +200,11 @@ export class GeneradorContractService extends AgenteContractService {
   }
 
   setPrecioEnergia(precioEnergia: number): Observable<any> {
-    return from(this.contract?.methods.setPrecioEnergia(precioEnergia).send({ from: this.account })).pipe(
+    return from(
+      this.contract?.methods
+        .setPrecioEnergia(precioEnergia)
+        .send({ from: this.account })
+    ).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
@@ -143,9 +212,11 @@ export class GeneradorContractService extends AgenteContractService {
   }
 
   getPrecioEnergia(): Observable<number> {
-    console.log("THIS ACCOUNT: ",this.account)
-    return from(this.contract.methods.getPrecioEnergia().call({ from: this.account })).pipe(
-      map(data => data as number),
+    console.log('THIS ACCOUNT: ', this.account);
+    return from(
+      this.contract.methods.getPrecioEnergia().call({ from: this.account })
+    ).pipe(
+      map((data) => data as number),
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
@@ -154,9 +225,11 @@ export class GeneradorContractService extends AgenteContractService {
 
   getPrecioEnergiaByGenerador(account: string): Observable<number> {
     // this.account = '0xf56a2fa25E3200B16Ec81B8aCCB6FAc71124592d';
-    console.log("ACCOUNT EN SERVICIO: ",account);
-    return from(this.contract.methods.getPrecioEnergia().call({ from: account })).pipe(
-      map(data => data as number),
+    console.log('ACCOUNT EN SERVICIO: ', account);
+    return from(
+      this.contract.methods.getPrecioEnergia().call({ from: account })
+    ).pipe(
+      map((data) => data as number),
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
@@ -164,24 +237,34 @@ export class GeneradorContractService extends AgenteContractService {
   }
 
   getEnergiaBolsaGenerador(): Observable<InfoEnergia[]> {
-    const bancoEnergia: BancoEnergiaService = new BancoEnergiaService(this.winRef, this.web3Connect, this.toastr);
+    const bancoEnergia: BancoEnergiaService = new BancoEnergiaService(
+      this.winRef,
+      this.web3Connect,
+      this.toastr
+    );
     return from(bancoEnergia.loadBlockChainContractData()).pipe(
       switchMap(() => {
         return bancoEnergia.getTiposEnergiasDisponibles().pipe(
-          switchMap(infosEnergias => {
+          switchMap((infosEnergias) => {
             let cantidadesObservable: Observable<any>[] = [];
-            infosEnergias.forEach(energia => {
-              cantidadesObservable.push(from(this.contract?.methods.getCantidadEnergiaBolsaByName(energia.nombre).call({ from: this.account })))
+            infosEnergias.forEach((energia) => {
+              cantidadesObservable.push(
+                from(
+                  this.contract?.methods
+                    .getCantidadEnergiaBolsaByName(energia.nombre)
+                    .call({ from: this.account })
+                )
+              );
             });
 
             return forkJoin(cantidadesObservable).pipe(
-              map(data => {
+              map((data) => {
                 return data.map((item, index) => {
                   const infoEnergia: InfoEnergia = {
                     nombre: infosEnergias[index].nombre,
                     cantidadEnergia: parseInt(item),
-                    precio: 0
-                  }
+                    precio: 0,
+                  };
                   return infoEnergia;
                 });
               })
@@ -195,8 +278,15 @@ export class GeneradorContractService extends AgenteContractService {
     );
   }
 
-  postCompraEnergiaBolsa(cantidadEnergia: number, tipoEnergia: string): Observable<any> {
-    return from(this.contract?.methods.compraEnergiaBolsa(cantidadEnergia, tipoEnergia).send({ from: this.account })).pipe(
+  postCompraEnergiaBolsa(
+    cantidadEnergia: number,
+    tipoEnergia: string
+  ): Observable<any> {
+    return from(
+      this.contract?.methods
+        .compraEnergiaBolsa(cantidadEnergia, tipoEnergia)
+        .send({ from: this.account })
+    ).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
@@ -204,15 +294,33 @@ export class GeneradorContractService extends AgenteContractService {
   }
 
   resetProduccionPlanta(dirPlanta: string): Observable<any> {
-    return from(this.contract?.methods.resetProduccionPlanta(dirPlanta).send({ from: this.account })).pipe(
+    return from(
+      this.contract?.methods
+        .resetProduccionPlanta(dirPlanta)
+        .send({ from: this.account })
+    ).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })
     );
   }
 
-  inyectarEnergiaContratos(dirCliente: string, tipoEnergia: string, cantidadEnergia: number, index: number): Observable<any> {
-    return from(this.contract?.methods.inyectarEnergiaContratos(dirCliente, tipoEnergia, cantidadEnergia, index).send({ from: this.account })).pipe(
+  inyectarEnergiaContratos(
+    dirCliente: string,
+    tipoEnergia: string,
+    cantidadEnergia: number,
+    index: number
+  ): Observable<any> {
+    return from(
+      this.contract?.methods
+        .inyectarEnergiaContratos(
+          dirCliente,
+          tipoEnergia,
+          cantidadEnergia,
+          index
+        )
+        .send({ from: this.account })
+    ).pipe(
       catchError((error) => {
         return throwError(() => new Error(error.message));
       })

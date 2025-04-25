@@ -87,9 +87,11 @@ export abstract class AgenteContractService {
   public getMisTokens(): Observable<number> {
     return from(this.contract?.methods.MisTokens().call({ from: this.account })).pipe(
       map((data: any) => {
+        debugger
         return data as number;
       }),
       catchError((error) => {
+        debugger
         return throwError(() => new Error(error.message));
       }));
   }

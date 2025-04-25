@@ -1,5 +1,4 @@
 import { AcuerdosEnergiaComponent } from './regulador-mercado/acuerdos-energia/acuerdos-energia.component';
-import { AcuerdoEnergiaComponent } from './cliente/acuerdo-energia/acuerdo-energia.component';
 import { LiquidacionInyeccionesComponent } from './regulador-mercado/liquidacion-inyecciones/liquidacion-inyecciones.component';
 import { HistoricoDespachosComponent } from './regulador-mercado/historico-despachos/historico-despachos.component';
 import { TokensGeneradorComponent } from './generador/tokens-generador/tokens-generador.component';
@@ -7,7 +6,6 @@ import { ListaComprasComponent } from './cliente/lista-compras/lista-compras.com
 import { ListaPlantasComponent } from './generador/lista-plantas/lista-plantas.component';
 import { EmisionesCompraComponent } from './comercializador/emisiones-compra/emisiones-compra.component';
 import { BancoEnergiaComponent } from './banco-energia/banco-energia.component';
-import { SolicitudesComponent } from './regulador-mercado/solicitudes/solicitudes.component';
 import { RegistrosComponent } from './regulador-mercado/registros/registros.component';
 import { ComercializadorComponent } from './comercializador/comercializador.component';
 import { ClienteDashboardComponent } from './cliente/cliente-dashboard.component';
@@ -28,6 +26,7 @@ import { BancoEnergiaInformacionComponent } from './banco-energia/banco-energia-
 import { TokensClienteComponent } from './cliente/tokens-cliente/tokens-cliente.component';
 import { OrdenesDespachoComponent } from './regulador-mercado/ordenes-despacho/ordenes-despacho.component';
 import { AcuerdosCompraComponent } from './generador/acuerdos-compra/acuerdos-compra.component';
+import { BonosCarbonoComponent } from './bonos-carbono/bonos-carbono.component';
 
 
 const routes: Routes = [
@@ -47,11 +46,6 @@ const routes: Routes = [
             {
                 path: "regulador-mercado",
                 component: ReguladorMercadoComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: "regulador-mercado/solicitudes",
-                component: SolicitudesComponent,
                 canActivate: [AuthGuard],
             },
             {
@@ -153,6 +147,11 @@ const routes: Routes = [
             {
                 path: "transacciones",
                 component: TransaccionesComponent,
+            },
+            {
+                path: "bonos-carbono",
+                component: BonosCarbonoComponent,
+                canActivate: [AuthGuard]
             }
         ]
     }

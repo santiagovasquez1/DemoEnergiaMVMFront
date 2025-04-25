@@ -1,59 +1,143 @@
 <div class="container">
-    <div class="titulo">
-        <h2 class="title-xg">{{'Agentes del mercado'  | translate}}</h2>
-    </div>
+  <div class="titulo">
+    <h2 class="title-xg">{{ "Agentes del mercado" | translate }}</h2>
+  </div>
 
-    <app-filter [rowsForm]="filterFormProperties" (onfieldValueChange)="onfieldValueChange($event)"></app-filter>
+  <app-filter
+    [rowsForm]="filterFormProperties"
+    (onfieldValueChange)="onfieldValueChange($event)"
+  ></app-filter>
 
-    <div class="table-container mt-30 fadeIn">
-        <mat-table #table [dataSource]="dataSource" class="mvm-table">
+  <div class="table-container mt-30 fadeIn">
+    <mat-table #table [dataSource]="dataSource" class="mvm-table">
+      <!-- Empresa -->
+      <ng-container matColumnDef="empresa">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "Empresa" | translate }}
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element"
+          [matTooltip]="element.infoContrato.empresa"
+        >
+          {{ element.infoContrato.empresa | limitText : 14 | titlecase }}
+        </mat-cell>
+      </ng-container>
 
-            <ng-container matColumnDef="empresa">
-                <mat-header-cell *matHeaderCellDef>{{'Empresa'| translate}}</mat-header-cell>
-                <mat-cell *matCellDef="let element" [matTooltip]="element.infoContrato.empresa">{{element.infoContrato.empresa|limitText:14|titlecase}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="contacto">
-                <mat-header-cell *matHeaderCellDef>{{'Contacto'   | translate}}</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.infoContrato.contacto}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="ubicacion">
-                <mat-header-cell *matHeaderCellDef>{{'ubicación'  | translate}}</mat-header-cell>
-                <mat-cell *matCellDef="let element" [matTooltip]="element.infoContrato.ciudad">{{element.infoContrato.ciudad}} {{element.infoContrato.departamento}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="correo">
-                <mat-header-cell *matHeaderCellDef>{{'Correo' | translate}}</mat-header-cell>
-                <mat-cell *matCellDef="let element" [matTooltip]="element.infoContrato.correo">{{element.infoContrato.correo | limitText:13}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="tipoAgente">
-                <mat-header-cell *matHeaderCellDef>{{'Tipo de agente' | translate}}</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.tipoContrato | tipoContrato | translate}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="estado">
-                <mat-header-cell *matHeaderCellDef>{{'Estado' | translate}}</mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                    <span [ngClass]="{'approve-text': element.estadoSolicitud==0, 'reject-text:': element.estadoSolicitud==1}">
-                        {{element.estadoSolicitud | estadoRegistro | translate}}
-                    </span>
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="acciones">
-                <mat-header-cell *matHeaderCellDef>{{'Acciones'   | translate}}</mat-header-cell>
-                <mat-cell *matCellDef="let element; let index = index">
-                    <button matRipple class="mvm-action-button approve" (click)="onApprove(index,element)" [disabled]="element.estadoSolicitud == 0 || element.estadoSolicitud == 1" matTooltip="Aceptar solicitud">
-                        <mat-icon>done</mat-icon>
-                    </button>
-                    <button matRipple class="mvm-action-button reject" (click)="onReject(index,element.infoContrato)" [disabled]="element.estadoSolicitud == 0 || element.estadoSolicitud == 1" matTooltip="Rechazar solicitud">
-                        <mat-icon>close</mat-icon>
-                    </button>
-                </mat-cell>
-            </ng-container>
+      <!-- Contacto -->
+      <ng-container matColumnDef="contacto">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "Contacto" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.infoContrato.contacto }}
+        </mat-cell>
+      </ng-container>
 
-            <mat-header-row class="fadeIn" *matHeaderRowDef="displayedColumns; sticky: true "></mat-header-row>
-            <mat-row *matRowDef="let row; columns:displayedColumns "></mat-row>
-        </mat-table>
-    </div>
+      <!-- Ubicación -->
+      <ng-container matColumnDef="ubicacion">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "Ubicación" | translate }}
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element"
+          [matTooltip]="element.infoContrato.ciudad"
+        >
+          {{ element.infoContrato.ciudad }}
+          {{ element.infoContrato.departamento }}
+        </mat-cell>
+      </ng-container>
 
-    <div class="table-container mt-10 fadeIn ">
-        <mat-paginator class="mvm-paginator " #paginator [pageSizeOptions]="[5,10, 25, 100 ] " showFirstLastButtons></mat-paginator>
-    </div>
+      <!-- Correo -->
+      <ng-container matColumnDef="correo">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "Correo" | translate }}
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element"
+          [matTooltip]="element.infoContrato.correo"
+        >
+          {{ element.infoContrato.correo | limitText : 13 }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Tipo de agente -->
+      <ng-container matColumnDef="tipoAgente">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "Tipo de agente" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.tipoContrato | tipoContrato | translate }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Estado -->
+      <ng-container matColumnDef="estado">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "Estado" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span
+            [ngClass]="{
+              'approve-text': element.estadoSolicitud === 0,
+              'reject-text': element.estadoSolicitud === 1
+            }"
+          >
+            {{ element.estadoSolicitud | estadoRegistro | translate }}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Acciones -->
+      <ng-container matColumnDef="acciones">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "Acciones" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button
+            matRipple
+            class="mvm-action-button approve"
+            (click)="onApprove(element)"
+            [disabled]="
+              diligenciandoSolicitud ||
+              element.estadoSolicitud === 0 ||
+              element.estadoSolicitud === 1
+            "
+            matTooltip="{{ 'Aceptar solicitud' | translate }}"
+          >
+            <mat-icon>done</mat-icon>
+          </button>
+
+          <button
+            matRipple
+            class="mvm-action-button reject"
+            (click)="onReject(element)"
+            [disabled]="
+              diligenciandoSolicitud ||
+              element.estadoSolicitud === 0 ||
+              element.estadoSolicitud === 1
+            "
+            matTooltip="{{ 'Rechazar solicitud' | translate }}"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row
+        class="fadeIn"
+        *matHeaderRowDef="displayedColumns; sticky: true"
+      ></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </div>
+
+  <div class="table-container mt-10 fadeIn">
+    <mat-paginator
+      class="mvm-paginator"
+      #paginator
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
 </div>

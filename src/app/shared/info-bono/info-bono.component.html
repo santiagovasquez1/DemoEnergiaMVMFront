@@ -1,0 +1,67 @@
+<div class="dialgo-close-brand">
+  <img
+    src="../../../assets/images/cerrar.svg"
+    alt="cerrar"
+    (click)="dialogRef.close()"
+  />
+</div>
+<div class="certificado-container">
+  <div class="header-certificado">
+    <div class="logo-mvm">
+      <img src="../../../assets/images/logoMVM.png" alt="logo-mvm" />
+    </div>
+    <div class="logo-energy">
+      <img src="../../../assets/images/logo-energy.png" alt="logo-energy" />
+    </div>
+  </div>
+  <div class="info">
+    <div class="intro">
+      <p>
+        <span>{{ infoCertificador.empresa }}</span>
+        {{
+          "y su plataforma de intercambio comercial de energía verde"
+            | translate
+        }}
+        <span>EnergyChain</span> {{ "certifican que" | translate }}
+      </p>
+    </div>
+    <div class="agente-name">
+      <p>{{ bonoInfo.nombreComprador ? bonoInfo.nombreComprador : bonoInfo.nombreGenerador }}</p>
+    </div>
+    <div class="info-text">
+      <p>
+        Posee un bono de carbono que certifica la reducción de emisiones de CO₂
+        lograda mediante generación de energía renovable, equivalente a la
+        siguiente cantidad:
+      </p>
+    </div>
+    <div class="cantidad-energia">
+      <p>{{ bonoInfo.toneladasCO2 }} {{ "Toneladas de CO₂" | translate }}</p>
+    </div>
+    <div class="info-text">
+      <p>
+        dicho bono proviene del agente <b>{{ bonoInfo.nombreGenerador }}</b>
+      </p>
+      <p>y fue generado el {{ bonoInfo.timestampGenerado | date : "short" }}</p>
+    </div>
+    <div class="firma">
+      <img src="../../../assets/images/firma.svg" alt="firma" />
+    </div>
+    <div class="info-text mb-20">
+      <p>Ricardo Gallego</p>
+      <p>{{ "Director técnico y comercial" | translate }}</p>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-center flex-row mt-20">
+  <button
+    class="cancel-button-mvm w-100-px mr-30"
+    mat-ripple
+    (click)="dialogRef.close()"
+  >
+    {{ "Cancelar" | translate }}
+  </button>
+  <button class="button-mvm w-100-px" mat-ripple>
+    {{ "Descargar" | translate }}
+  </button>
+</div>
