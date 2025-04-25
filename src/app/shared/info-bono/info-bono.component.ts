@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -38,7 +38,7 @@ function withLoading<T>(
   templateUrl: './info-bono.component.html',
   styleUrls: ['./info-bono.component.css'],
 })
-export class InfoBonoComponent implements OnInit, OnDestroy {
+export class InfoBonoComponent implements OnInit, OnDestroy,AfterViewInit {
   dirContratoAgente: string;
   infoCertificador: InfoContrato;
   bonoInfo:BonoCarbonoInfo
@@ -49,11 +49,11 @@ export class InfoBonoComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private readonly certificador: CertificadorContractService,
     private readonly spinner: NgxSpinnerService,
-    private readonly toastr: ToastrService
+    private readonly toastr: ToastrService,
+    private readonly cdr: ChangeDetectorRef
   ) {
     this.dirContratoAgente = data.dirContratoAgente;
     this.bonoInfo= data.bonoInfo;
-    debugger;
   }
 
   ngOnInit(): void {
@@ -65,12 +65,18 @@ export class InfoBonoComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  ngAfterViewInit(): void {
+    // fuerza render una vez que la vista está lista
+    setTimeout(() => this.cdr.detectChanges(), 0);
+  }
+
   private initStreams(): void {
     from(this.certificador.loadBlockChainContractData(this.dirContratoAgente))
       .pipe(
         switchMap(() => this.certificador.getInfoContrato()),
         tap((data) => {
           this.infoCertificador = data;
+          this.cdr.detectChanges();
         }),
         withLoading(this.spinner, this.toastr),
         takeUntil(this.destroy$)

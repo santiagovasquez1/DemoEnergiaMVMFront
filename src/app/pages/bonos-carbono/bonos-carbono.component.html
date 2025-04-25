@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div class="table-container mt-30 fadeIn">
+  <div class="table-container mt-30 fadeIn" #tableWrapper>
     <mat-table [dataSource]="dataSource" class="mvm-table">
       <!-- Id -->
       <ng-container matColumnDef="id">
@@ -82,9 +82,9 @@
         <mat-header-cell *matHeaderCellDef>Comprador</mat-header-cell>
         <mat-cell *matCellDef="let elemento">
           {{
-            elemento.comprador?.length > 10
-              ? (elemento.comprador | slice : 0 : 10) + "..."
-              : elemento.comprador
+            elemento.nombreComprador?.length > 10
+              ? (elemento.nombreComprador | slice : 0 : 10) + "..."
+              : elemento.nombreComprador
           }}
         </mat-cell>
       </ng-container>
@@ -114,7 +114,11 @@
             <mat-icon>eco</mat-icon>
           </button>
 
-          <button mat-icon-button class="mvm-action-button approve" (click)="getBonoInfo(bono)">
+          <button
+            mat-icon-button
+            class="mvm-action-button approve"
+            (click)="getBonoInfo(bono)"
+          >
             <mat-icon>description</mat-icon>
           </button>
         </mat-cell>

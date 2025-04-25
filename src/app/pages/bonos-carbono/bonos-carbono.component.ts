@@ -5,10 +5,12 @@ import {
   AfterViewInit,
   ViewChild,
   ChangeDetectionStrategy,
+  ElementRef,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
@@ -28,7 +30,7 @@ import {
   catchError,
   finalize,
   takeUntil,
-  shareReplay
+  shareReplay,
 } from 'rxjs/operators';
 
 import { ReguladorMercadoService } from 'src/app/services/regulador-mercado.service';
@@ -69,7 +71,7 @@ export class BonosCarbonoComponent implements OnInit, AfterViewInit, OnDestroy {
   contractAddress = '';
   bonoContractAddress = '';
   tokenContractAddress = '';
-  agenteName ='';
+  agenteName = '';
   /** Saldo de tokens */
   misTokens = 0;
   senderAddress = '';
@@ -87,6 +89,8 @@ export class BonosCarbonoComponent implements OnInit, AfterViewInit, OnDestroy {
     'actions',
   ];
 
+  @ViewChild('tableWrapper', { static: true }) tableWrapper!: ElementRef;
+  @ViewChild(MatTable, { static: true }) matTable!: MatTable<BonoCarbonoInfo>;
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
@@ -104,13 +108,15 @@ export class BonosCarbonoComponent implements OnInit, AfterViewInit, OnDestroy {
     private readonly dialog: MatDialog,
     private readonly spinner: NgxSpinnerService,
     private readonly toastr: ToastrService,
-    private readonly alertDialog: SweetAlertService
+    private readonly alertDialog: SweetAlertService,
+    private readonly cdr: ChangeDetectorRef
   ) {
     this.agenteName = localStorage.getItem('nombreAgente') || '';
   }
 
   ngOnInit(): void {
     this.initStreams();
+    this.subscribeToContractEvents();
   }
 
   ngAfterViewInit(): void {
@@ -145,19 +151,22 @@ export class BonosCarbonoComponent implements OnInit, AfterViewInit, OnDestroy {
             ),
             tokenInit: from(
               this.tokenService.loadBlockChainContractData(tokenAddr)
-            )
+            ),
           }).pipe(
             tap(() => {
               this.bonoContractAddress = bonoAddr;
               this.tokenContractAddress = tokenAddr;
+              debugger;
+              this.subscribeToContractEvents();
             })
           )
         ),
         // una vez inicializados, ya podemos pedir bonos y tokens
         switchMap(() =>
           forkJoin({
-            tokens: this.regulador.getTokensAgente(this.senderAddress)
-                  .pipe(withLoading(this.spinner, this.toastr)),
+            tokens: this.regulador
+              .getTokensAgente(this.senderAddress)
+              .pipe(withLoading(this.spinner, this.toastr)),
             misBonos: this.bonosCarbono
               .getBonosByOwner(this.senderAddress)
               .pipe(withLoading(this.spinner, this.toastr)),
@@ -245,7 +254,9 @@ export class BonosCarbonoComponent implements OnInit, AfterViewInit, OnDestroy {
                 bono.toneladasCO2
               )
             ),
-            switchMap(() => this.bonosCarbono.comprarBono(bono.id,this.agenteName)),
+            switchMap(() =>
+              this.bonosCarbono.comprarBono(bono.id, this.agenteName)
+            ),
             switchMap(() =>
               forkJoin({
                 bonos: this.bonosCarbono.getAllBonos(),
@@ -258,8 +269,12 @@ export class BonosCarbonoComponent implements OnInit, AfterViewInit, OnDestroy {
           .subscribe(({ bonos, tokens }) => {
             this.misTokens = tokens;
             if (this.isMyBonosMode) {
-              this.bonosCarbono.getBonosByOwner(this.senderAddress)
-                .pipe(withLoading(this.spinner, this.toastr), takeUntil(this.destroy$))
+              this.bonosCarbono
+                .getBonosByOwner(this.senderAddress)
+                .pipe(
+                  withLoading(this.spinner, this.toastr),
+                  takeUntil(this.destroy$)
+                )
                 .subscribe((misBonos) => this.bonos$.next(misBonos));
             } else {
               this.bonos$.next(bonos);
@@ -270,16 +285,64 @@ export class BonosCarbonoComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getBonoInfo(bono: BonoCarbonoInfo): void {
-    this.dialog.open(InfoBonoComponent,{
+    this.dialog.open(InfoBonoComponent, {
       width: '791px',
       height: '671px',
-      data:{
+      data: {
         bonoInfo: bono,
         dirContratoAgente: this.contractAddress,
-      }
-    })
+      },
+    });
   }
 
+  private subscribeToContractEvents(): void {
+    // BonoGenerado: recargo lista de bonos cuando alguien genere uno nuevo
+    this.bonosCarbono
+      .onBonoGenerado()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (event) => {
+          console.log('Evento BonoGenerado:', event.returnValues);
+          this.refreshBonos();
+        },
+        error: (err) => console.error('Error en BonoGenerado:', err),
+      });
+
+    // BonoVendido: idem cuando se venda uno
+    this.bonosCarbono
+      .onBonoVendido()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (event) => {
+          console.log('Evento BonoVendido:', event.returnValues);
+          this.refreshBonos();
+        },
+        error: (err) => console.error('Error en BonoVendido:', err),
+      });
+  }
+
+  private refreshBonos(): void {
+    forkJoin({
+      misBonos: this.bonosCarbono.getBonosByOwner(this.senderAddress),
+      allBonos: this.bonosCarbono.getAllBonos(),
+    })
+      .pipe(withLoading(this.spinner, this.toastr), takeUntil(this.destroy$))
+      .subscribe(({ misBonos, allBonos }) => {
+        const nuevos = this.isMyBonosMode ? misBonos : allBonos;
+
+        // actualiza el dataSource
+        this.dataSource.data = nuevos;
+
+        // reset paginador
+        this.paginator.firstPage();
+
+        // re-render de filas y sticky headers
+        this.matTable.renderRows();
+
+        // forzar cambio en OnPush
+        this.cdr.detectChanges();
+      });
+  }
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

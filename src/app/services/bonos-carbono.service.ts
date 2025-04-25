@@ -53,13 +53,13 @@ export class BonosCarbonoService {
         owner: bono[1] === NULL_ADDRESS ? '' : bono[1],
         generador: bono[2] === NULL_ADDRESS ? '' : bono[2],
         nombreGenerador: bono[3],
-        timestampGenerado: parseInt(bono[4]),
+        timestampGenerado: parseInt(bono[4])*1000,
         toneladasCO2: parseInt(bono[5]),
         fuenteEnergia: bono[6],
         vendido: bono[7],
         comprador: bono[8] === NULL_ADDRESS ? '' : bono[8],
         nombreComprador: bono[9],
-        timestampVenta: parseInt(bono[10]),
+        timestampVenta: parseInt(bono[10])*1000,
       })
     );
   }
@@ -128,5 +128,30 @@ export class BonosCarbonoService {
         return throwError(() => new Error(error.message));
       })
     );
+  }
+
+  public getContractInstance(): Contract {
+    if (!this.contract) {
+      throw new Error('Contrato no inicializado');
+    }
+    console.log('getContractInstance', this.contract);
+    return this.contract;
+  }
+
+  public onBonoGenerado(): Observable<any> {
+    return new Observable((observer) => {
+      this.getContractInstance()
+        .events.BonoGenerado({ fromBlock: 'latest' })
+        .on('data', (event: any) => observer.next(event))
+        .on('error', (err: any) => observer.error(err));
+    });
+  }
+
+  public onBonoVendido(): Observable<any> {
+    return new Observable(observer => {
+      this.getContractInstance().events.BonoVendido({ fromBlock: 'latest' })
+        .on('data', (event: any) => observer.next(event))
+        .on('error', (err: any) => observer.error(err));
+    });
   }
 }
